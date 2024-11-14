@@ -1,25 +1,24 @@
-/* src/components/Header.scss */
-
 .header {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1); /* Fond transparent */
-    color: #5a5a5f; /* Texte gris doux */
-    z-index: 1000;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
-    opacity: 1;
-    border-bottom-left-radius: 10px; /* Coins arrondis en bas à gauche */
-    border-bottom-right-radius: 10px; /* Coins arrondis en bas à droite */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre discrète en bas */
-    box-sizing: border-box; /* Évite les débordements */
-  }
-  
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2); /* Couleur de fond semi-transparente pour renforcer le flou */
+  color: #5a5a5f; /* Texte gris doux */
+  z-index: 1000;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  backdrop-filter: blur(50px); /* Applique un flou de 8px sur l'arrière-plan */
+  -webkit-backdrop-filter: blur(8px); /* Compatibilité pour les anciens navigateurs */
+}
   .header-title {
     font-size: 2rem; /* Taille assez grande pour le nom */
     color: #5a5a5f;
