@@ -1,0 +1,95 @@
+.portrait {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  padding-left: 0;
+  margin-top: 120px;
+  position: relative;
+  color: #5b5963;
+
+  /* Ligne arrondie avec ombre épaisse en bas */
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #8BC7B1;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px; /* Ajoute un effet arrondi aux bords de la ligne */
+  }
+}
+
+.portrait-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 20px 30px rgba(0, 0, 0, 0.15);
+  border: 4px solid #8BC7B1;
+  margin-left: 60px;
+}
+
+.portrait-content {
+  max-width: 600px;
+}
+
+.portrait-gif {
+  width: 550px;
+  height: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 150px;
+  margin-top: 25px;
+  border-radius: 35px;
+}
+
+.portrait h2 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.portrait h3 {
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+.portrait h4 {
+  margin-top: 0;
+}
+
+.about-me {
+  max-width: 600px;
+}
+
+.about-me p {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.contact-open-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.contact-open-button:hover {
+  background-color: #8BC7B1;
+}
