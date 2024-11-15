@@ -8,7 +8,7 @@ const Loading = () => {
     // Déclenche le fondu progressif 1 seconde avant la fin des 5 secondes
     const timer = setTimeout(() => {
       setFadeOut(true);
-    }, 4000); // Commence l'animation de fondu à 4 secondes
+    }, 3000); // Commence l'animation de fondu à 4 secondes
 
     return () => clearTimeout(timer);
   }, []);

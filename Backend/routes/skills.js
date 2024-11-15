@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Skill = require('../models/Skill');
+const skillsController = require('../controllers/skillsController');
 
-router.get('/skills', async (req, res) => {
-  try {
-    const skills = await Skill.find();
-    res.json(skills);
-  } catch (error) {
-    res.status(500).json({ message: 'Erreur lors de la récupération des compétences' });
-  }
-});
+// Récupérer toutes les compétences
+router.get('/', skillsController.getSkills);
+
+// Ajouter une compétence
+router.post('/', skillsController.addSkill);
 
 module.exports = router;

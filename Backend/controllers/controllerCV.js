@@ -1,21 +1,35 @@
-const path = require('path');
-const fs = require('fs');
+const Cv = require('../models/CV'); // Vérifie que le modèle est correctement lié
 
-// Fonction pour uploader le CV
-const uploadCV = (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'Aucun fichier téléchargé' });
+// Ajouter un nouveau CV
+exports.addCV = async (req, res) => {
+  try {
+    const { username, url } = req.body;
+
+    if (!username || !url) {
+      return res.status(400).json({ message: 'Le champ username et url sont requis.' });
+    }
+
+    const newCV = new Cv({ username, url });
+    await newCV.save();
+
+    res.status(201).json({ message: 'CV ajouté avec succès', cv: newCV });
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout du CV :', error);
+    res.status(500).json({ message: 'Erreur serveur lors de l\'ajout du CV', error });
   }
-  res.status(200).json({ message: 'Fichier uploadé avec succès' });
 };
 
-// Fonction pour télécharger le CV
-const getCV = (req, res) => {
-  const filePath = path.join(__dirname, '..', 'images', 'cv.pdf');
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ message: 'Fichier introuvable' });
-  }
-  res.sendFile(filePath);
-};
+// Récupérer le dernier CV ajouté
+exports.getCV = async (req, res) => {
+  try {
+    const cv = await Cv.findOne().sort({ date: -1 }); // Récupère le plus récent
+    if (!cv) {
+      return res.status(404).json({ message: 'Aucun CV trouvé.' });
+    }
 
-module.exports = { uploadCV, getCV };
+    res.status(200).json(cv);
+  } catch (error) {
+    console.error('Erreur lors de la récupération du CV :', error);
+    res.status(500).json({ message: 'Erreur serveur lors de la récupération du CV', error });
+  }
+};

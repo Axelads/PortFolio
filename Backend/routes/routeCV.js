@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../middleware/multer-config');
-const { uploadCV, getCV } = require('../controllers/controllerCV');
+const { addCV, getCV } = require('../controllers/controllerCV'); // Assure-toi que le chemin est correct
 
-// Route pour uploader le CV
-router.post('/cv', upload.single('file'), uploadCV);
+// Route pour ajouter un CV
+router.post('/', addCV);
 
-// Route pour télécharger le CV
-router.get('/cv', getCV);
+// Route pour récupérer le dernier CV
+router.get('/', getCV);
 
 module.exports = router;
