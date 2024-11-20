@@ -1,5 +1,4 @@
 import React from 'react';
-import './Portrait.scss';
 import portraitImage from '../../images/portrait.webp';
 import Age from '../age/Age';
 import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
@@ -9,9 +8,14 @@ const Portrait = ({ openContactModal }) => {
     <div className="portrait">
       <img src={portraitImage} alt="Portrait" className="portrait-image" />
       <div className="portrait-content">
-        <h2>À propos</h2>
-        <h3>Axel Grégoire</h3>
-        <h4><Age birthDate="1990-04-24" /></h4>
+        <div className="title-portrait">
+        <p>À propos</p>
+        </div>
+        <div className="info-portrait">
+          <h1>Axel Grégoire</h1>
+          <h2>Développeur WEB</h2>
+          <h3><Age birthDate="1990-04-24" /></h3>
+        </div>
         <section className="about-me">
           <p>
             <strong>Ancien gérant d'une SARL, maintenant Développeur web passionné</strong>, je suis animé par une forte curiosité pour les nouvelles technologies. Formé via OpenClassrooms et en autodidacte, j'ai acquis des compétences en conception de sites web, aussi bien en frontend qu'en backend, pour répondre aux besoins spécifiques des clients et garantir des solutions fonctionnelles et efficaces.

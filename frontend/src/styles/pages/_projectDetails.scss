@@ -1,0 +1,98 @@
+.project-details {
+    text-align: center;
+    color: #2F2F2F; /* Texte avec meilleur contraste */
+    padding: 20px;
+    background-color: #8BC7B1;
+  
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color:#5b5963;
+    }
+  
+    .project-date,
+    .project-status,
+    .project-skills {
+      font-size: 1rem;
+      margin: 5px 0;
+      color: #2F2F2F;
+    }
+  
+  .Project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+  
+      .project-resume {
+        display: flex;
+        align-items: center;
+    }
+  }
+  
+    .project-images {
+      display: flex;
+      flex-direction: column; /* Images en colonne */
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0;
+  
+      img {
+        height: 800px;
+        width: 800px;
+        max-width: 80%; /* Ajuste les images à la largeur de la page */
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+    }
+  
+  
+  .project-visuel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .github-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #004466; /* Contraste bleu sombre */
+      text-decoration: none;
+      margin: 10px 0;
+      border: 2px solid #004466;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 200px;
+      padding: 6px 10px;
+      
+  
+      svg {
+        margin-right: 8px;
+      }
+  
+      &:hover {
+        color: #00334D; /* Couleur encore plus sombre au survol */
+        transform: scale(1.1); /* Grossissment de 10%*/
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère au survol */
+      }
+    }
+  
+    .live-link {
+      display: block;
+      font-size: 1.2rem;
+      color: #004466; /* Contraste vert sombre */
+      text-decoration: none;
+      margin: 10px 0;
+  
+      &:hover {
+    color: rgba(236, 221, 11, 0.842); /* Couleur or au survol */
+    text-decoration: underline; /* Souligné au survol */
+      }
+    }
+  }
+  }

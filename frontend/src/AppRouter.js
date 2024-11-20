@@ -1,16 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import About from './pages/About';
 import ProjectDetails from './pages/ProjectDetails';
 
-
 const AppRouter = () => (
-  <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/Projet/:id" element={<ProjectDetails />} />
-    </Routes>
-  </Router>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/projet/:id" element={<ProjectDetails />} />
+  </Routes>
 );
 
 export default AppRouter;

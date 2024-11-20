@@ -1,0 +1,38 @@
+.informations {
+    background-color: #8BC7B1;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  
+    .cv-button {
+      background-color: #ffffff;
+      color: #8BC7B1;
+      padding: 15px 50px;
+      border: 3px solid #8BC7B1; /* Bordure épaisse */
+      border-radius: 8px; /* Coins légèrement plus arrondis */
+      font-size: 1.2rem; /* Augmente la taille de la police */
+      font-weight: bold; /* Texte en gras pour plus de visibilité */
+      cursor: pointer;
+      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3); /* Ombre plus forte */
+      transition: all 0.3s ease; /* Ajout d'une transition pour l'épaisseur */
+      text-decoration: none;
+      margin-top: 25px;
+    }
+  
+    .cv-button:hover {
+      background-color: #4a90e2;
+      color: white;
+    }
+    
+    .CardSkill {
+      margin-top: 30px;
+      margin-bottom: 50px;
+      padding: 20px;
+      border: 1px solid #ffffff; /* Bordure blanche */
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Ombre pour effet 3D */
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }

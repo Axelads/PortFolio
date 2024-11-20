@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Skills.scss';
 
 const Skills = () => {
   const [skills, setSkills] = useState([]);

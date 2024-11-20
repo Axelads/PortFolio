@@ -1,0 +1,175 @@
+/* Conteneur principal */
+.header-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  /* Section Desktop */
+  .header-desktop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 99%;
+    height: 80px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  
+    &.hidden {
+      display: none; /* Cache la section Desktop en mode mobile */
+    }
+  
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #5b5963;
+      margin-right: auto;
+    }
+  
+    .nav {
+      margin-right: 25px;
+      list-style: none;
+      display: flex;
+      gap: 20px;
+  
+      li {
+        font-size: 1rem;
+        color: #00334d;
+        cursor: pointer;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        display: flex; /* Pour aligner les liens */
+        align-items: center;
+  
+        a {
+          text-decoration: none; /* Supprime le soulignement */
+          color: inherit; /* Hérite de la couleur définie dans li */
+        }
+  
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+          a {
+            color: #5b5963; /* Changer légèrement la couleur au survol */
+          }
+        }
+      }
+    }
+  }
+  
+  /* Section Responsive */
+  .header-responsive {
+    display: none; /* Masque la section Responsive en mode Desktop */
+  
+    @media (max-width: 750px) {
+      display: flex;
+      position: fixed;
+      top: 0;
+      right: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100px; /* Largeur par défaut */
+      height: auto;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(15px);
+      box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
+      z-index: 20;
+  
+      .menu-button {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #00334d;
+        padding: 15px;
+        margin: 0px;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+  
+      .nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+  
+        li {
+          font-size: 1rem;
+          color: #00334d;
+          padding: 10px 15px;
+          border-radius: 5px;
+          cursor: pointer;
+          text-align: center;
+          transition: background-color 0.3s ease;
+  
+          a {
+            text-decoration: none; /* Supprime le soulignement */
+            color: inherit; /* Hérite de la couleur définie dans li */
+          }
+  
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            a {
+              color: #5b5963; /* Changer légèrement la couleur au survol */
+            }
+          }
+        }
+      }
+    }
+  
+    &.hidden {
+      display: none;
+    }
+  }
+  
+  /* Responsive rules */
+  
+  /* Responsive : Réduction pour 650px */
+  @media (max-width: 650px) {
+    .header-responsive {
+      width: 80px; /* Réduction de la largeur */
+      padding: 8px; /* Espacement réduit */
+  
+      .menu-button {
+        font-size: 1.3rem; /* Taille de l'icône réduite */
+        padding: 10px;
+      }
+  
+      .nav li {
+        font-size: 0.9rem; /* Taille du texte réduite */
+        padding: 8px 10px;
+      }
+    }
+  }
+  
+  /* Responsive : Réduction pour 535px */
+  @media (max-width: 535px) {
+    .header-responsive {
+      width: 70px; /* Largeur encore réduite */
+      padding: 5px;
+  
+      .menu-button {
+        font-size: 1.2rem; /* Taille de l'icône encore réduite */
+        padding: 8px;
+      }
+  
+      .nav li {
+        font-size: 0.8rem; /* Taille du texte encore réduite */
+        padding: 6px 8px;
+      }
+    }
+  }
+  

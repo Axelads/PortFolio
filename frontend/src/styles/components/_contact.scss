@@ -1,4 +1,4 @@
-  .modal {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
   }
   
   .modal-content {
-    background-color: #8BC7B1;
+    background-color: #8bc7b1;
     padding: 20px;
     border-radius: 10px;
     width: 400px;
@@ -19,6 +19,7 @@
     max-width: 90%;
     text-align: left;
     position: relative;
+    transition: all 0.3s ease; /* Transition douce lors du redimensionnement */
   }
   
   .close {
@@ -40,7 +41,8 @@
     color: #333;
   }
   
-  input, textarea {
+  input,
+  textarea {
     margin-top: 5px;
     padding: 10px;
     border-radius: 10px;
@@ -66,11 +68,9 @@
   .submit-button:hover {
     background-color: #4a90e2;
   }
-
+  
   /* Styles pour la modale de confirmation */
-.modal-confirmation .modal-content {
-    
-    
+  .modal-confirmation .modal-content {
     text-align: center;
     padding: 30px;
     display: flex;
@@ -85,7 +85,7 @@
   
   .confirmation-icon {
     font-size: 3rem;
-    color: #8BC7B1;
+    color: #8bc7b1;
     background-color: white;
     width: 60px;
     height: 60px;
@@ -95,10 +95,10 @@
     border-radius: 50%;
     margin: 0 auto 15px;
   }
-
+  
   .home-button {
     background-color: white;
-    color: #8BC7B1;
+    color: #8bc7b1;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -111,3 +111,48 @@
   .home-button:hover {
     background-color: #ffffffaa;
   }
+  
+  /* Responsive : Modale plus petite à 650px */
+  @media (max-width: 650px) {
+    .modal-content {
+      width: 300px;
+      height: 500px;
+    }
+  
+    .confirmation-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 2.5rem;
+    }
+  
+  }
+  
+  /* Responsive : Modale encore plus petite à 450px */
+  @media (max-width: 455px) {
+    .modal-content {
+      width: 250px;
+      height: 400px;
+      padding: 15px;
+    }
+  
+    .confirmation-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 2rem;
+    }
+  
+    .submit-button {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
+  
+    .home-button {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  
+    textarea {
+      height: 60px;
+    }
+  }
+  

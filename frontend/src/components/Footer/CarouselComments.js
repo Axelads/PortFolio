@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './CarouselComments.scss';
+
 
 const CarouselComments = () => {
   const [comments, setComments] = useState([]);
@@ -81,8 +81,8 @@ const CarouselComments = () => {
           </div>
         </div>
       ))}
-      <button id="prev" onClick={prevSlide}>{'<'}</button>
-      <button id="next" onClick={nextSlide}>{'>'}</button>
+      {/* <button id="prev" onClick={prevSlide}>{'<'}</button>
+<button id="next" onClick={nextSlide}>{'>'}</button> */}
     </div>
   );
 };

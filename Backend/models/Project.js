@@ -9,6 +9,7 @@ const projectSchema = new mongoose.Schema({
   githubUrl: { type: String, required: false }, // URL du dépôt GitHub
   liveUrl: { type: String, required: false }, // URL du site en production
   skillsUsed: { type: [String], required: true }, // Tableau de compétences utilisées
+  Resume: { type: String, required: true }, // Resumé du projet
 });
 
 // Ajoute l'incrémentation automatique pour le champ projectId

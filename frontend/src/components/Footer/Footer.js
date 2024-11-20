@@ -1,5 +1,4 @@
 import React from 'react';
-import './Footer.scss';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import CarouselComments from './CarouselComments';
 

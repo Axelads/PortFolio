@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Contact.scss';
+import ReactDOM from 'react-dom';
+
 
 const Contact = ({ isOpen, onClose }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -34,6 +35,7 @@ const Contact = ({ isOpen, onClose }) => {
   };
 
   const handleClickOutside = (e) => {
+    if (!isOpen) return; // Évite de fermer si la modale est déjà fermée
     if (e.target.classList.contains('modal')) {
       onClose();
     }
@@ -41,7 +43,7 @@ const Contact = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className="modal" onClick={handleClickOutside}>
       <div className={`modal-content ${isConfirmed ? 'modal-confirmation' : ''}`}>
         {isConfirmed ? (
@@ -71,6 +73,8 @@ const Contact = ({ isOpen, onClose }) => {
       </div>
     </div>
   );
+
+  return ReactDOM.createPortal(modalContent, document.body);
 };
 
 export default Contact;

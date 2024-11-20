@@ -1,9 +1,12 @@
 .projects-container {
     text-align: center; /* Centre le titre et le conteneur */
     padding: 20px;
+    margin-bottom: 60px;
   
     h2 {
       font-size: 2rem;
+      font-weight: bold;
+      line-height: 1.2;
       color: #5b5963; /* Code couleur utilisé précédemment */
       margin-bottom: 20px; /* Espace entre le titre et les cards */
       text-align: center; /* Assure que le texte est centré */
@@ -51,7 +54,7 @@
         color: #333;
         text-transform: uppercase;
         font-weight: bold;
+        background-color: white;
       }
     }
   }
-  

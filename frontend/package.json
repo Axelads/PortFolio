@@ -4,11 +4,11 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "scripts": {
-  "start": "cross-env HOST=localhost PORT=3000 react-app-rewired start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
+    "start": "cross-env HOST=localhost PORT=3000 react-app-rewired start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -1,0 +1,168 @@
+.portrait {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 0;
+    margin-top: 150px;
+    position: relative;
+    color: #5b5963;
+  
+    /* Ligne arrondie avec ombre épaisse en bas */
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background-color: #8BC7B1;
+      box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      margin-top: 50px;
+    }
+  
+    @media (max-width: 850px) {
+      flex-direction: column; // Changer l'orientation pour le responsive
+      align-items: center; // Centrer les éléments horizontalement
+    }
+  
+    @media (max-width: 745px) {
+      margin-top: 25px;
+    }
+  
+    .portrait-image {
+      margin-left: 35px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 20px 30px rgba(0, 0, 0, 0.15);
+      border: 4px solid #8BC7B1;
+  
+      @media (max-width: 850px) {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 20px auto; // Centrer l'image et ajouter un espacement
+      }
+    }
+  
+    .portrait-content {
+     padding-right: 25px;
+    }
+  
+    .about-me {
+      max-width: 600px; // Largeur max en vue normale
+      flex: 1; // Permet à la section de s'étendre en responsive
+      width: 100%; // Prend toute la largeur en responsive
+      text-align: justify; // Optionnel : meilleur alignement du texte
+  
+      @media (max-width: 850px) {
+        max-width: 100%; // S'assurer qu'elle prend 100% de la largeur
+        padding: 0 15px; // Ajouter des marges internes pour éviter que le texte touche les bords
+      }
+    }
+  
+    .button-container {
+      display: flex;
+      justify-content: center; // Centrer le bouton horizontalement
+      margin-top: 15px;
+    }
+  
+    .title-portrait {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 25px;
+  
+      p {
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1.2;
+        margin: 0;
+      }
+    }
+  
+    .info-portrait {
+  
+    h1, h2, h3 {
+      margin: 0;
+    }
+  
+    h2 {
+      display: none;
+  
+      @media (max-width: 850px) {
+        display: block;
+        font-size: 18px;
+      }
+    }
+    @media (max-width: 850px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+    .portrait-gif {
+      width: 550px;
+      height: auto;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-right: 250px;
+      margin-top: 25px;
+      border-radius: 35px;
+  
+      @media (max-width: 1690px) {
+        margin-right: 150px;
+      }
+  
+      @media (max-width: 1600px) {
+        width: 400px;
+      }
+  
+      @media (max-width: 1400px) {
+        width: 300px;
+        margin-right: 50px;
+      }
+  
+      @media (max-width: 1230px) {
+        display: none;
+      }
+    }
+  
+    .contact-open-button {
+      background-color: #007BFF; // Couleur bleue du bouton
+      color: white; // Texte en blanc
+      border: 2px solid #007BFF; // Bordure bleue
+      border-radius: 12px; // Radius pour arrondir les coins
+      padding: 15px 25px; // Agrandir le bouton
+      font-size: 18px; // Augmenter la taille du texte
+      font-weight: bold; // Texte en gras
+      cursor: pointer; // Curseur pointeur au survol
+      position: relative; // Nécessaire pour le gap
+      transition: transform 0.3s ease, box-shadow 0.3s ease; // Transition pour l'effet
+      margin-bottom: 50px;
+      margin-top: 15px;
+  
+      &::after {
+        content: ''; // Élément pseudo pour le gap
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px solid #007BFF; // Bordure externe bleue
+        border-radius: 16px; // Radius pour correspondre au bouton
+        pointer-events: none; // Pour éviter les interactions
+      }
+  
+      &:hover {
+        transform: scale(1.1); // Grossissement à 110% au hover
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4); // Ombre pour un effet stylé
+      }
+    }
+  }
+  

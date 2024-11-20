@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import Portrait from '../components/portrait/Portrait';
-import Header from '../components/Header';
 import Contact from '../components/contact/Contact';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
-import Footer from '../components/Footer/Footer';
-import './Home.scss';
+
 
 const Home = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -31,7 +29,6 @@ const Home = () => {
 
   return (
     <div>
-      <Header onContactClick={openContactModal} />
       <Portrait openContactModal={openContactModal} />
       <div className="informations">
         <button onClick={openCV} className="cv-button">
@@ -40,10 +37,11 @@ const Home = () => {
         <div className="CardSkill">
           <Skills />
         </div>
-        <Projects />
+        <div id="projects">
+          <Projects />
+        </div>
       </div>
       <Contact isOpen={isContactOpen} onClose={closeContactModal} />
-      <Footer />
     </div>
   );
 };
