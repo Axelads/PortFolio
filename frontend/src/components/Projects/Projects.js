@@ -35,6 +35,7 @@ const Projects = () => {
           </div>
         ))}
       </div>
+      <div className="divider"></div>
     </section>
   );
 };

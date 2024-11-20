@@ -1,0 +1,136 @@
+.about-container {
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 60px;
+  background-color:#8BC7B1;
+
+  h1,
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .about-intro {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .about-chapter1 {
+    
+    margin-left: 380px;
+    margin-bottom: 90px;
+  }
+
+  .about-chapter2 {
+    position: absolute; /* Permet de positionner l'élément par rapport à .about-container */
+    right: -60%; /* Colle l'élément à l'extrémité droite */
+    top: 30px; /* Ajuste la hauteur de départ */
+  }
+
+  .about-chapter3 {
+    position: absolute;
+    left: 19%;
+    top: 100px;
+
+    ul {
+
+      li{
+        list-style: circle;
+      }
+    }
+
+  }
+
+  .about-chapter4 {
+    position: absolute;
+    left: 39%;
+    top: 200px;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .about-intro,
+  .about-chapter1,
+  .about-chapter2,
+  .about-chapter3,
+  .about-chapter4 {
+    
+    position: relative;
+    max-width: 800px;
+
+    p {
+      margin: 10px 0;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+
+      li {
+        margin-bottom: 5px;
+        color: #666;
+        
+      }
+    }
+
+    .chapter-image1 {
+      position: absolute;
+      top: 0px;
+      left: -45%; /* Ajuste la valeur selon tes besoins */
+      width: 300px;
+      transform: rotate(15deg);
+    }
+
+    .chapter-image2 {
+      position: absolute;
+      top: 2%;
+      right: 120%;
+      width: 300px;
+      transform: rotate(-15deg);
+      
+    }
+
+    .chapter-image3 {
+      position: absolute;
+      top: -30%;
+      left: -45%;
+      width: 300px;
+      transform: rotate(15deg);
+      
+
+    }
+  }
+
+  .about-contact {
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 100px;
+
+    .chapter-image4 {
+      max-width: 300px;
+    }
+
+    .contact-button {
+      background-color: #4a90e2;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #357abd;
+      }
+    }
+  }
+}

@@ -55,6 +55,20 @@
         text-transform: uppercase;
         font-weight: bold;
         background-color: white;
+        padding: 0;
+      }
+    }
+
+    .divider {
+      width: 500px; /* Largeur de la ligne */
+      height: 2px; /* Épaisseur de la ligne */
+      margin: 50px auto; /* Centrer horizontalement et espacement vertical */
+      background-color: #5b5963; /* Couleur de la ligne */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Ajoute un ombrage */
+      border-radius: 2px; /* Légèrement arrondi pour un effet propre */
+
+      @media (max-width: 550px) {
+        display: none;
       }
     }
   }

@@ -6,11 +6,11 @@ import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
 const Portrait = ({ openContactModal }) => {
   return (
     <div className="portrait">
-      <img src={portraitImage} alt="Portrait" className="portrait-image" />
+      <img src={portraitImage} alt="Portrait_Axel_Gregoire" title="Portrait Axel Grégoire" className="portrait-image" />
       <div className="portrait-content">
-        <div className="title-portrait">
-        <p>À propos</p>
-        </div>
+        <section className="title-portrait">
+          <h2>À propos</h2>
+        </section>
         <div className="info-portrait">
           <h1>Axel Grégoire</h1>
           <h2>Développeur WEB</h2>
@@ -33,7 +33,7 @@ const Portrait = ({ openContactModal }) => {
           </div>
         </section>
       </div>
-      <img src={gifPortfolio} alt="Keep Smiling" className="portrait-gif" />
+      <img src={gifPortfolio} alt="Keep Smiling_gif" title="Keep Smiling gif" className="portrait-gif" />
     </div>
   );
 };

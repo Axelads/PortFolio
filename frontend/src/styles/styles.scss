@@ -13,3 +13,16 @@
 @use './components/skills';
 @use './pages/home';
 @use './pages/projectDetails';
+@use './pages/about';
+@use './components/SkillProjects';
+
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}

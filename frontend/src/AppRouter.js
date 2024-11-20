@@ -7,7 +7,7 @@ import ProjectDetails from './pages/ProjectDetails';
 const AppRouter = () => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/about" element={<About />} />
+    <Route path="/About" element={<About />} />
     <Route path="/projet/:id" element={<ProjectDetails />} />
   </Routes>
 );

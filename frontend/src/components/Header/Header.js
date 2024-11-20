@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Importer useNavigate
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importer useLocation
 import MenuToggle from './ButtonOpen/menuToggle';
 import Contact from '../contact/Contact';
-
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 750);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const navigate = useNavigate(); // Utiliser useNavigate pour la navigation
+  const location = useLocation(); // Utiliser useLocation pour vérifier la page actuelle
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,11 +23,9 @@ const Header = () => {
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
   const openContactModal = () => setIsContactOpen(true);
-
   const closeContactModal = () => setIsContactOpen(false);
-
+  
   const handleProjectsClick = () => {
     navigate('/'); // Naviguer vers la page d'accueil
     setTimeout(() => {
@@ -38,14 +36,47 @@ const Header = () => {
     }, 100); // Attendre que la navigation ait lieu avant de scroller
   };
 
+  const handleHomeClick = () => {
+    if (location.pathname === '/') {
+      // Si déjà sur la page d'accueil, scroller tout en haut
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Sinon, naviguer vers la page d'accueil
+      navigate('/');
+    }
+  };
+
   return (
     <header className="header-container">
       {/* Section Desktop */}
       <section className={`header-desktop ${isMobile ? 'hidden' : ''}`}>
-        <p className="header-title">Développeur WEB</p>
+        <div className="title_img">
+          <img 
+            src="https://i.ibb.co/KGSyZn4/logo-Axel-Gregoire.webp" 
+            alt="Logo Axel Grégoire" 
+            className="header-logo"
+          />
+         <h2 className="header-title">
+            <span>D</span>
+            <span>é</span>
+            <span>v</span>
+            <span>e</span>
+            <span>l</span>
+            <span>o</span>
+            <span>p</span>
+            <span>p</span>
+            <span>e</span>
+            <span>u</span>
+            <span>r</span>
+            <span>&nbsp;</span>
+            <span>W</span>
+            <span>E</span>
+            <span>B</span>
+          </h2>
+        </div>
         <ul className="nav">
-          <li>
-            <Link to="/">Accueil</Link>
+          <li onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
+            Accueil
           </li>
           <li>
             <Link to="/About">À propos</Link>

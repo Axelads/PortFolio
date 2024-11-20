@@ -1,0 +1,26 @@
+.skill-projects {
+  display: flex;
+  flex-wrap: wrap; /* Permet de passer à la ligne si nécessaire */
+  gap: 15px; /* Espacement entre les bulles */
+  justify-content: center; /* Centre horizontalement les compétences */
+  align-items: center; /* Centre verticalement les compétences */
+  min-height: 150px; /* Facultatif, pour garantir un bon alignement vertical */
+
+  .skill {
+    background-color: #5b5963; /* Couleur de la bulle */
+    color: #8BC7B1; /* Couleur du texte */
+    padding: 10px 5px; /* Ajuste l'intérieur de la bulle */
+    border-radius: 15px; /* Bord arrondi pour un effet bulle */
+    font-size: 0.8rem; /* Texte plus petit */
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap; /* Empêche le texte de couper */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optionnel : une ombre subtile */
+    transition: transform 0.2s ease-in-out;
+    width: 150px;
+
+    &:hover {
+      transform: scale(1.1); /* Agrandissement au survol */
+    }
+  }
+}
