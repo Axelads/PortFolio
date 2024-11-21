@@ -1099,7 +1099,9 @@ textarea {
 .about-container .about-chapter4 p {
   margin: 10px 0;
   line-height: 1.6;
-  color: #555;
+  color: #353535;
+  font-size: 1.2rem;
+  line-height: 1.2;
 }
 .about-container .about-intro ul,
 .about-container .about-chapter1 ul,
@@ -1115,7 +1117,8 @@ textarea {
 .about-container .about-chapter3 ul li,
 .about-container .about-chapter4 ul li {
   margin-bottom: 5px;
-  color: #666;
+  color: #353535;
+  font-size: 1.2rem;
 }
 .about-container .about-intro .chapter-image1,
 .about-container .about-chapter1 .chapter-image1,

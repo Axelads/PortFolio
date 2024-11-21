@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 // Middleware pour JSON
 app.use(express.json());
 
+console.log(process.env.MONGO_URI);
 // Connexion à MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
