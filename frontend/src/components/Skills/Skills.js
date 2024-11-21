@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+
 const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch(process.env.FETCH_URL + '/skills')
+    console.log("Environment Variables:", process.env);
+    fetch(process.env.REACT_APP_FETCH_URL + 'skills')
       .then((response) => response.json())
       .then((data) => setSkills(data))
       .catch((error) => console.error('Erreur lors de la récupération des compétences:', error));

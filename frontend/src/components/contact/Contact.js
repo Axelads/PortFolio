@@ -15,7 +15,7 @@ const Contact = ({ isOpen, onClose }) => {
     };
 
     try {
-      const response = await fetch(process.env.FETCH_URL + 'contact', {
+      const response = await fetch(process.env.REACT_APP_FETCH_URL + 'contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

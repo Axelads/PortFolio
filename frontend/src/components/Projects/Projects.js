@@ -7,7 +7,7 @@ const Projects = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(process.env.FETCH_URL + 'projects')
+    fetch(process.env.REACT_APP_FETCH_URL + 'projects')
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => console.error('Erreur lors de la récupération des projets:', error));

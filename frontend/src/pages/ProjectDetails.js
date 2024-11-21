@@ -7,7 +7,7 @@ const ProjectDetails = () => {
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    fetch(process.env.FETCH_URL + `projects/${id}`)
+    fetch(process.env.REACT_APP_FETCH_URL + `projects/${id}`)
       .then((response) => response.json())
       .then((data) => setProject(data))
       .catch((error) => console.error('Erreur lors de la récupération du projet:', error));

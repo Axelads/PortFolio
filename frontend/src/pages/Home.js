@@ -14,7 +14,7 @@ const Home = () => {
   // Fonction pour ouvrir le PDF
   const openCV = async () => {
     try {
-      const response = await fetch(process.env.FETCH_URL + 'cv');
+      const response = await fetch(process.env.REACT_APP_FETCH_URL + 'cv');
       const data = await response.json();
       if (data.url) {
         window.open(data.url, '_blank');
