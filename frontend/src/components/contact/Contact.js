@@ -15,7 +15,7 @@ const Contact = ({ isOpen, onClose }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5001/api/contact', {
+      const response = await fetch(process.env.FETCH_URL + 'contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

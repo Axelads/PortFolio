@@ -4,7 +4,7 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/skills')
+    fetch(process.env.FETCH_URL + '/skills')
       .then((response) => response.json())
       .then((data) => setSkills(data))
       .catch((error) => console.error('Erreur lors de la récupération des compétences:', error));

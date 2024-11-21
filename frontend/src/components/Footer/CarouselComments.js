@@ -7,7 +7,7 @@ const CarouselComments = () => {
 
   useEffect(() => {
     // Récupère les commentaires depuis l'API
-    fetch('http://localhost:5001/api/comments')
+    fetch(process.env.FETCH_URL + 'comments')
       .then((response) => response.json())
       .then((data) => setComments(data))
       .catch((error) => console.error('Erreur lors de la récupération des commentaires:', error));
