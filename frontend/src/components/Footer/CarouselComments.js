@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import dataComments from '../../assets/Data/DataComments.json'; // Chemin vers le fichier JSON
 
 const CarouselComments = () => {
-  const [comments, setComments] = useState([]);
   const [active, setActive] = useState(0);
 
+  // Effet visuel appliqué aux cartes
   useEffect(() => {
-    // Récupère les commentaires depuis l'API
-    fetch(process.env.REACT_APP_FETCH_URL + 'comments')
-      .then((response) => response.json())
-      .then((data) => setComments(data))
-      .catch((error) => console.error('Erreur lors de la récupération des commentaires:', error));
-  }, []);
-
-  useEffect(() => {
-    // Applique l'effet visuel aux cartes
     const loadShow = () => {
       const items = document.querySelectorAll('.carousel .item');
       if (items.length === 0 || !items[active]) return;
 
       let stt = 0;
-      
+
       items[active].style.transform = 'none';
       items[active].style.zIndex = 1;
       items[active].style.filter = 'none';
@@ -45,33 +36,39 @@ const CarouselComments = () => {
     };
 
     loadShow();
-  }, [active, comments]);
+  }, [active]);
 
+  // Défilement automatique
   useEffect(() => {
-    // Défilement automatique
     const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % comments.length);
-    }, 4000); // Définit l'intervalle de défilement à 4 secondes
+      setActive((prev) => (prev + 1) % dataComments.length);
+    }, 6000); // Définit l'intervalle de défilement à 6 secondes
 
-    // Nettoie l'intervalle quand le composant est démonté
     return () => clearInterval(interval);
-  }, [comments.length]);
+  }, []);
 
   const nextSlide = () => {
-    setActive((prev) => (prev + 1) % comments.length);
+    setActive((prev) => (prev + 1) % dataComments.length);
   };
 
   const prevSlide = () => {
-    setActive((prev) => (prev - 1 + comments.length) % comments.length);
+    setActive((prev) => (prev - 1 + dataComments.length) % dataComments.length);
   };
 
   return (
     <div className="carousel">
-      {comments.map((comment, index) => (
+      {dataComments.map((comment, index) => (
         <div
-          key={index}
+          key={comment._id.$oid}
           className={`item ${index === active ? 'active' : ''}`}
-          style={{ display: index === active || index === active - 1 || index === active + 1 ? 'block' : 'none' }}
+          style={{
+            display:
+              index === active ||
+              index === (active - 1 + dataComments.length) % dataComments.length ||
+              index === (active + 1) % dataComments.length
+                ? 'block'
+                : 'none',
+          }}
         >
           <img src={comment.urlImage} alt={comment.username} className="carousel-image" />
           <div className="carousel-content">
@@ -81,8 +78,6 @@ const CarouselComments = () => {
           </div>
         </div>
       ))}
-      {/* <button id="prev" onClick={prevSlide}>{'<'}</button>
-<button id="next" onClick={nextSlide}>{'>'}</button> */}
     </div>
   );
 };

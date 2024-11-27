@@ -36,10 +36,14 @@
 
     .header-title {
       display: inline-block;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: #5b5963;
       overflow: hidden;
+
+      @media (max-width: 769px) {
+        font-size: 1.1rem;
+      }
     
       span {
         display: inline-block; /* Chaque lettre est animée séparément */
@@ -70,41 +74,52 @@
         transform: translateY(0); /* Position initiale */
       }
       50% {
-        transform: translateY(-10px); /* Monte */
+        transform: translateY(-7px); /* Monte */
       }
     }    
   }
   
-    .nav {
-      margin-right: 25px;
-      list-style: none;
-      display: flex;
-      gap: 20px;
+  .nav {
+    margin-right: 25px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
   
-      li {
-        font-size: 1rem;
-        color: #00334d;
-        cursor: pointer;
-        padding: 10px 15px;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        display: flex; /* Pour aligner les liens */
-        align-items: center;
+    li {
+      font-size: 1rem;
+      color: #5b5963;
+      cursor: pointer;
+      padding: 10px 15px;
+      position: relative; /* Nécessaire pour positionner le trait */
+      transition: all 0.3s ease;
   
-        a {
-          text-decoration: none; /* Supprime le soulignement */
-          color: inherit; /* Hérite de la couleur définie dans li */
-        }
+      a {
+        text-decoration: none; /* Supprime le soulignement */
+        color: inherit; /* Hérite de la couleur définie dans li */
+      }
   
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.1);
-          a {
-            color: #5b5963; /* Changer légèrement la couleur au survol */
-          }
-        }
+      /* Pseudo-élément pour le trait */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0; /* Place le trait en bas de l'élément */
+        left: 50%; /* Départ centré */
+        width: 0; /* Commence avec une largeur de 0 */
+        height: 2px; /* Épaisseur du trait */
+        background-color: #8BC7B1; /* Couleur du trait */
+        transition: width 0.4s ease, left 0.4s ease; /* Animation fluide */
+      }
+  
+      /* Animation sur hover */
+      &:hover::after {
+        width: 100%; /* Le trait prend toute la largeur */
+        left: 0; /* Commence à gauche */
       }
     }
   }
+  
+    }
+  
   
   /* Section Responsive */
   .header-responsive {

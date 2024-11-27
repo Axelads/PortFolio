@@ -3,7 +3,7 @@ import Portrait from '../components/portrait/Portrait';
 import Contact from '../components/contact/Contact';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
-
+import dataCv from '../assets/Data/DataCv.json'; // Chemin vers ton fichier JSON
 
 const Home = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -11,19 +11,13 @@ const Home = () => {
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
 
-  // Fonction pour ouvrir le PDF
-  const openCV = async () => {
-    try {
-      const response = await fetch(process.env.REACT_APP_FETCH_URL + 'cv');
-      const data = await response.json();
-      if (data.url) {
-        window.open(data.url, '_blank');
-      } else {
-        alert('Aucun CV disponible pour le moment.');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la récupération du CV :', error);
-      alert('Une erreur est survenue lors de l\'ouverture du CV.');
+  // Fonction pour ouvrir le PDF à partir du JSON
+  const openCV = () => {
+    const cvData = dataCv[0]; // Récupérer le premier élément du tableau
+    if (cvData?.url) {
+      window.open(cvData.url, '_blank');
+    } else {
+      alert('Aucun CV disponible pour le moment.');
     }
   };
 

@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "6737499f59e9e6758e9b311b"
+  },
+  "username": "Axel Gregoire",
+  "url": "https://fr.slideshare.net/slideshow/axel_gregoire_15112024_openclassrooms-pdf/273335266",
+  "date": {
+    "$date": "2024-11-15T13:16:15.461Z"
+  },
+  "__v": 0
+}]

@@ -1,139 +1,181 @@
 .about-container {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  background-color: #8BC7B1;
   padding: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-top: 60px;
-  background-color:#8BC7B1;
 
-  h1,
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
+  @media (max-width: 750px) {
+    margin-top: 0;
+    align-items: center;
   }
 
-  .about-intro {
-    margin-top: 50px;
-    margin-bottom: 50px;
+  /* Centrer uniquement .about-intro */
+  .about-intro, .about-chapter4, .about-contact {
+    display: flex;
+    flex-direction: column; /* Place le h1 au-dessus du p */
+    align-items: center; /* Centre horizontalement */
+    text-align: center; /* Centre le texte */
+    max-width: 800px; /* Limite la largeur */
+    margin: 0 auto; /* Centre dans la page */
+    margin-bottom: 40px;
+    @media (max-width: 750px){
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+    }
   }
 
-  .about-chapter1 {
+  /* Positionner .about-chapter1 à gauche */
+  .about-chapter1, .about-chapter3 {
+    display: flex;
+    flex-direction: row; /* Image à gauche et contenu à droite */
+    max-width: 1200px; /* Limite la largeur */
+    text-align: left;
+
+    @media (max-width: 750px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    img {
+      margin-top: 45px;
+      margin-right: 55px; /* Espacement entre l'image et le texte */
+      margin-left: 55px;
+      width: 250px; /* Taille fixe de l'image */
+      height: 250px; /* Conserve les proportions */
+      flex-shrink: 0; /* Empêche l'image de se réduire */
+      transform: rotate(15deg); /* Tourne l'image de 15 degrés vers la droite */
+    transition: transform 0.3s ease; /* Transition fluide */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre */
+
+    @media (max-width: 750px) {
+      margin: 0 auto 15px auto;
+      transform: none;
+    }
     
-    margin-left: 380px;
-    margin-bottom: 90px;
+  }
+
+    /* Contenu textuel */
+    div {
+      display: flex;
+      flex-direction: column; /* Place le h2 au-dessus des <p> */
+
+      @media (max-width: 750px) {
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    h2 {
+      font-size: 1.5rem; /* Taille du titre */
+      margin-bottom: 10px; /* Espace avec les <p> */
+      @media (max-width: 750px) {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+    }
+
+    p {
+      margin-bottom: 10px; /* Espace entre les paragraphes */
+    }
+
+    ul {
+      margin-left: 20px;
+      list-style: disc;
+
+      @media (max-width: 750px) {
+        text-align: left;
+        margin: 0 auto;
+      }
+    }
   }
 
   .about-chapter2 {
-    position: absolute; /* Permet de positionner l'élément par rapport à .about-container */
-    right: -60%; /* Colle l'élément à l'extrémité droite */
-    top: 30px; /* Ajuste la hauteur de départ */
-  }
+    display: flex;
+    justify-content: flex-start; /* Aligne les éléments au début */
+    max-width: 1200px; /* Limite la largeur */
+    margin-left: auto; /* Pousse la section à droite */
+    margin-top: 25px;
+    text-align: left;
 
-  .about-chapter3 {
-    position: absolute;
-    left: 19%;
-    top: 100px;
-
-    ul {
-
-      li{
-        list-style: circle;
+    @media (max-width: 750px) {
+      flex-direction: column; /* Empile les éléments verticalement */
+      align-items: center; /* Centre les éléments */
+    }
+  
+    img {
+      margin: 45px 55px 0;
+      width: 250px;
+      height: 250px;
+      flex-shrink: 0;
+      transform: rotate(15deg); /* Conserve l'effet de rotation */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      
+      @media (max-width: 750px) {
+        margin: 0 auto 15px auto;
+        transform: none;
       }
     }
-
-  }
-
-  .about-chapter4 {
-    position: absolute;
-    left: 39%;
-    top: 200px;
-
-    ul {
+  
+    .style-chapter2 {
       display: flex;
-      flex-direction: row;
-      gap: 20px;
-
-      li {
-        list-style: none;
+      flex-direction: column; /* Empile le contenu verticalement */
+      justify-content: center; /* Centre verticalement dans la section */
+      padding-right: 20px; /* Ajoute un espacement à droite pour l'alignement */
+  
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        margin-bottom: 10px;
+      }
+  
+      .style-liste-chapter1 {
+        ul {
+          margin-left: 20px;
+          list-style: disc;
+        }
+  
+        li {
+          margin-bottom: 5px; /* Espacement entre les éléments de la liste */
+        }
       }
     }
   }
+        .chapter-image4 {
+          width: 400px;
+          height: 300px;
 
-  .about-intro,
-  .about-chapter1,
-  .about-chapter2,
-  .about-chapter3,
-  .about-chapter4 {
-    
-    position: relative;
-    max-width: 800px;
+        }
+  
 
-    p {
-      margin: 10px 0;
-      line-height: 1.6;
-      color: #353535;
-      font-size: 1.2rem;
-      line-height: 1.2;
-    }
-
-    ul {
-      margin: 10px 0;
-      padding-left: 20px;
-
-      li {
-        margin-bottom: 5px;
-        color: #353535;
-        font-size: 1.2rem;
-        
-      }
-    }
-
-    .chapter-image1 {
-      position: absolute;
-      top: 0px;
-      left: -45%; /* Ajuste la valeur selon tes besoins */
-      width: 300px;
-      transform: rotate(15deg);
-    }
-
-    .chapter-image2 {
-      position: absolute;
-      top: 2%;
-      right: 120%;
-      width: 300px;
-      transform: rotate(-15deg);
-      
-    }
-
-    .chapter-image3 {
-      position: absolute;
-      top: -30%;
-      left: -45%;
-      width: 300px;
-      transform: rotate(15deg);
-      
-
-    }
+  /* Styles généraux pour les titres et paragraphes */
+  h1,
+  h2 {
+    color: #333;
   }
 
-  .about-contact {
-    text-align: center;
-    margin-top: 200px;
-    margin-bottom: 100px;
-
-    .chapter-image4 {
-      max-width: 300px;
-    }
-
-    .contact-button {
-      background-color: #4a90e2;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #357abd;
-      }
-    }
+  p {
+    color: #353535;
+    line-height: 1.6;
   }
-}
+
+  img {
+    max-width: 100%; /* Responsiveness */
+    height: auto;
+  }  
+
+  }

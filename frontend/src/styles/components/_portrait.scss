@@ -21,6 +21,33 @@
       margin-top: 50px;
     }
   
+    @media (max-width: 1228px) {
+      .portrait {
+        justify-content: center; // Centrer les éléments horizontalement
+        text-align: center; // Centrer le texte
+        padding-left: 0; // Supprimer tout éventuel décalage
+        margin: 0 auto; // Centrer le conteneur principal
+    
+        .portrait-content {
+          max-width: 90%; // Limiter la largeur pour éviter que le contenu ne touche les bords
+          padding: 0; // Retirer tout padding additionnel
+        }
+    
+        .title-portrait, .info-portrait, .about-me {
+          align-items: center; // Centrer tous les éléments internes
+          text-align: center; // Centrer le texte à l'intérieur
+        }
+    
+        .portrait-image {
+          margin: 0 auto; // Centrer l'image en dessous de 1228px
+        }
+    
+        .portrait-gif {
+          display: none; // Cacher le GIF si nécessaire pour éviter un décalage
+        }
+      }
+    }
+    
     @media (max-width: 850px) {
       flex-direction: column; // Changer l'orientation pour le responsive
       align-items: center; // Centrer les éléments horizontalement
@@ -37,12 +64,12 @@
     }
 
     .portrait-image {
-      margin-left: 35px;
+      margin-left: 5%;
       width: 200px;
       height: 200px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 20px;
+      margin-right: 5%;
       box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 20px 30px rgba(0, 0, 0, 0.15);
       border: 4px solid #8BC7B1;
   
@@ -54,7 +81,16 @@
     }
   
     .portrait-content {
-     padding-right: 25px;
+
+     @media (max-width: 1228px) {
+      margin-right: 5%;
+     }
+
+     @media (max-width: 850px) {
+      margin-left: 5%;
+      margin-right: 5%;
+      padding: 0;
+     } 
     }
   
     .about-me {
@@ -65,7 +101,6 @@
   
       @media (max-width: 850px) {
         max-width: 100%; // S'assurer qu'elle prend 100% de la largeur
-        padding: 0 15px; // Ajouter des marges internes pour éviter que le texte touche les bords
       }
     }
   
@@ -121,8 +156,9 @@
       margin-top: 25px;
       border-radius: 35px;
   
-      @media (max-width: 1690px) {
-        margin-right: 150px;
+      @media (max-width: 1780px) {
+        margin-right: 5%;
+        width: 450px;
       }
   
       @media (max-width: 1600px) {
@@ -130,7 +166,7 @@
       }
   
       @media (max-width: 1400px) {
-        width: 300px;
+        width: 290px;
         margin-right: 50px;
       }
   
@@ -140,9 +176,9 @@
     }
   
     .contact-open-button {
-      background-color: #007BFF; // Couleur bleue du bouton
+      background-color: #0056b3; // Couleur bleue du bouton
       color: white; // Texte en blanc
-      border: 2px solid #007BFF; // Bordure bleue
+      border: 2px solid #0056b3; // Bordure bleue
       border-radius: 12px; // Radius pour arrondir les coins
       padding: 15px 25px; // Agrandir le bouton
       font-size: 18px; // Augmenter la taille du texte
@@ -160,7 +196,7 @@
         left: -10px;
         right: -10px;
         bottom: -10px;
-        border: 2px solid #007BFF; // Bordure externe bleue
+        border: 2px solid #0056b3; // Bordure externe bleue
         border-radius: 16px; // Radius pour correspondre au bouton
         pointer-events: none; // Pour éviter les interactions
       }

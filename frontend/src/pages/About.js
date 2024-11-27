@@ -27,9 +27,10 @@ const About = () => {
           alt="Illustration de Crédit du Nord"
           className="chapter-image1"
         />
+        <div className="style-chapter1">
         <h2>Mes débuts</h2>
         <p>
-          En <strong>2018</strong>, j’ai obtenu mon <strong>Bac Économie et Social</strong> avec une option
+          En <strong>2008</strong>, j’ai obtenu mon <strong>Bac Économie et Social</strong> avec une option
           Mathématiques. Ne sachant pas encore vers quel métier m’orienter, ma professeure d’économie m’a conseillé de
           me tourner vers le secteur bancaire, qui correspondait à mes centres d’intérêt : le marché financier, les
           mathématiques et le relationnel client.
@@ -38,11 +39,14 @@ const About = () => {
           J’ai alors suivi un <strong>BTS Banque en alternance</strong> avec l’école <strong>CFPB de Marseille</strong>{' '}
           et la banque <strong>Crédit du Nord</strong> à Manosque. Ces deux années m’ont permis de :
         </p>
-        <ul>
-          <li>Comprendre les taux d’intérêt et les produits financiers.</li>
-          <li>Améliorer mes compétences relationnelles avec les clients.</li>
-          <li>Développer mon professionnalisme et apprendre à travailler en équipe.</li>
-        </ul>
+          <div className="style-liste-chapter1">
+            <ul>
+              <li>Comprendre les taux d’intérêt et les produits financiers.</li>
+              <li>Améliorer mes compétences relationnelles avec les clients.</li>
+              <li>Développer mon professionnalisme et apprendre à travailler en équipe.</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className="about-chapter2">
@@ -51,9 +55,10 @@ const About = () => {
           alt="Illustration vendeur d'olive sur les marchés"
           className="chapter-image2"
         />
+        <div className="style-chapter2">
         <h2>Découverte de la vente et du management</h2>
         <p>
-          En <strong>2020</strong>, je décide de changer de domaine pour explorer la <strong>vente directe</strong> avec
+          En <strong>2010</strong>, je décide de changer de domaine pour explorer la <strong>vente directe</strong> avec
           l’entreprise <strong>SunWater</strong>. Cette expérience m’a appris l’autonomie, la gestion de mes rendez-vous
           et la maîtrise des produits proposés.
         </p>
@@ -62,11 +67,14 @@ const About = () => {
           ma propre entreprise. Pendant <strong>10 ans</strong>, j’ai vendu des produits à base d’olives sur les marchés
           de ma région. Cette expérience entrepreneuriale m’a permis de :
         </p>
-        <ul>
-          <li>Gérer un stock et des employés.</li>
-          <li>Développer des compétences en comptabilité et en gestion.</li>
-          <li>Innover pour répondre aux besoins de mes clients.</li>
-        </ul>
+          <div className="style-liste-chapter2">
+            <ul>
+              <li>Gérer un stock et des employés.</li>
+              <li>Développer des compétences en comptabilité et en gestion.</li>
+              <li>Innover pour répondre aux besoins de mes clients.</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className="about-chapter3">
@@ -75,17 +83,21 @@ const About = () => {
           alt="Illustration Transition vers l'informatique"
           className="chapter-image3"
         />
+        <div className="style-chapter3">
         <h2>Reconnexion avec l’informatique</h2>
         <p>
           Passionné par l’informatique depuis toujours, je décide en <strong>2023</strong> de me reconvertir dans le{' '}
           <strong>développement web</strong>. Je me suis formé chez <strong>OpenClassrooms</strong>, où j’ai appris à
           maîtriser des outils et technologies modernes comme :
         </p>
-        <ul>
-          <li>HTML, CSS et JavaScript.</li>
-          <li>React pour le frontend.</li>
-          <li>Node.js et Express pour le backend.</li>
-        </ul>
+        <div className="style-liste-chapter3">
+            <ul>
+              <li>HTML, CSS et JavaScript.</li>
+              <li>React pour le frontend.</li>
+              <li>Node.js et Express pour le backend.</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className="about-chapter4">

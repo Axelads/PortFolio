@@ -5,23 +5,35 @@
     margin-top: 20px;
   
     .cv-button {
-      background-color: #ffffff;
-      color: #8BC7B1;
-      padding: 15px 50px;
-      border: 3px solid #8BC7B1; /* Bordure épaisse */
-      border-radius: 8px; /* Coins légèrement plus arrondis */
-      font-size: 1.2rem; /* Augmente la taille de la police */
-      font-weight: bold; /* Texte en gras pour plus de visibilité */
-      cursor: pointer;
-      box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3); /* Ombre plus forte */
-      transition: all 0.3s ease; /* Ajout d'une transition pour l'épaisseur */
-      text-decoration: none;
-      margin-top: 25px;
-    }
+      background-color: #0056b3; // Couleur bleue du bouton
+      color: white; // Texte en blanc
+      border: 2px solid #0056b3; // Bordure bleue
+      border-radius: 12px; // Radius pour arrondir les coins
+      padding: 15px 25px; // Agrandir le bouton
+      font-size: 18px; // Augmenter la taille du texte
+      font-weight: bold; // Texte en gras
+      cursor: pointer; // Curseur pointeur au survol
+      position: relative; // Nécessaire pour le gap
+      transition: transform 0.3s ease, box-shadow 0.3s ease; // Transition pour l'effet
+      margin-bottom: 50px;
+      margin-top: 15px;
   
-    .cv-button:hover {
-      background-color: #4a90e2;
-      color: white;
+      &::after {
+        content: ''; // Élément pseudo pour le gap
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px solid #0056b3; // Bordure externe bleue
+        border-radius: 16px; // Radius pour correspondre au bouton
+        pointer-events: none; // Pour éviter les interactions
+      }
+  
+      &:hover {
+        transform: scale(1.1); // Grossissement à 110% au hover
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4); // Ombre pour un effet stylé
+      }
     }
     
     .CardSkill {
@@ -34,5 +46,6 @@
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
+      background-color: #ffffff;
     }
   }

@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import dataProjects from '../../assets/Data/DataProject.json'; // Chemin vers le fichier JSON
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(process.env.REACT_APP_FETCH_URL + 'projects')
-      .then((response) => response.json())
-      .then((data) => setProjects(data))
-      .catch((error) => console.error('Erreur lors de la récupération des projets:', error));
-  }, []);
 
   const handleCardClick = (id) => {
     navigate(`/Projet/${id}`);
@@ -21,11 +13,11 @@ const Projects = () => {
     <section className="projects-container">
       <h2>Mes Projets</h2>
       <div className="projects-list">
-        {projects.map((project) => (
+        {dataProjects.map((project) => (
           <div
-            key={project._id} // Utilisation de project._id comme clé unique
+            key={project._id.$oid} // Utilisation de project._id comme clé unique
             className="project-card"
-            onClick={() => handleCardClick(project._id)}
+            onClick={() => handleCardClick(project._id.$oid)}
           >
             <div
               className="project-image"

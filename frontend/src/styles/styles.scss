@@ -4,7 +4,6 @@
 @use './base/typography';
 @use './layout/header';
 @use './layout/footer';
-@use './components/buttons';
 @use './components/carousel';
 @use './components/contact';
 @use './components/loading';
@@ -14,6 +13,7 @@
 @use './pages/home';
 @use './pages/projectDetails';
 @use './pages/about';
+@use './pages//NotFound.scss';
 @use './components/SkillProjects';
 
 

@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import SkillProjects from '../components/Skills/skillProjects';
+import dataProjects from '../assets/Data/DataProject.json'; // Chemin vers le fichier JSON
 
 const ProjectDetails = () => {
   const { id } = useParams();
-  const [project, setProject] = useState(null);
 
-  useEffect(() => {
-    fetch(process.env.REACT_APP_FETCH_URL + `projects/${id}`)
-      .then((response) => response.json())
-      .then((data) => setProject(data))
-      .catch((error) => console.error('Erreur lors de la récupération du projet:', error));
-  }, [id]);
+  // Rechercher le projet correspondant dans les données JSON
+  const project = dataProjects.find((proj) => proj._id.$oid === id);
 
   if (!project) {
-    return <p>Chargement du projet...</p>;
+    return <p>Projet introuvable.</p>;
   }
 
   return (
     <div className="project-details">
       <h1>{project.name}</h1>
       <div className="Project">
-        <p className="project-date">Date: {new Date(project.date).toLocaleDateString()}</p>
-        <p className="project-status">Status: {project.completed ? 'Terminé' : 'En cours'}</p>
+        <p className="project-date">Date: {new Date(project.date.$date).toLocaleDateString()}</p>
+        <p className="project-status">Statut: {project.completed ? 'Terminé' : 'En cours'}</p>
         <p className="project-resume">{project.Resume}</p>
       </div>
       {project.skillsUsed && project.skillsUsed.length > 0 && (

@@ -40,6 +40,7 @@
     background-color: #f0f0f0;
     border-radius: 5px;
     margin-top: 5px;
+    
   }
   
   .progress-bar.completed .progress {
@@ -47,7 +48,7 @@
   }
   
   .progress-bar.in-progress .progress {
-    background-color: orange;
+    background-color: #d97706;
   }
   
   .progress {
