@@ -1,128 +1,81 @@
-[{
-  "_id": {
-    "$oid": "6737676a3522e30e6d82c0f2"
-  },
-  "name": "Kasa",
-  "date": {
-    "$date": "2024-10-15T00:00:00.000Z"
-  },
-  "completed": true,
-  "imageUrls": [
-    "https://i.ibb.co/dWVH50v/Page-1-Kasa.webp",
+[
+  {
+    "_id": "1",
+    "slug": "kasa",
+    "name": "Kasa",
+    "date": "2024-10-15",
+    "completed": true,
+    "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet m'a permis de découvrir React, notamment son système de composants, ses hooks et son router. Le site développé est une Single Page Application (SPA), où la navigation entre les différentes pages est gérée via un système de routes.",
+    "imageUrls": [
+      "https://i.ibb.co/dWVH50v/Page-1-Kasa.webp",
     "https://i.ibb.co/MRC5bhM/Page-2-Kasa.webp",
     "https://i.ibb.co/ZJTQww6/Page-3-Kasa.webp"
-  ],
-  "githubUrl": "https://github.com/Axelads/P6_Kasa",
-  "liveUrl": "https://axelads.github.io/P6_Kasa/",
-  "skillsUsed": [
-    "HTML",
-    "CSS",
-    "React",
-    "Javascript",
-    "Sass"
-  ],
-  "__v": 0,
-  "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet m'a permis de découvrir React, notamment son système de composants, ses hooks et son router. Le site développé est une Single Page Application (SPA), où la navigation entre les différentes pages est gérée via un système de routes."
-},
-{
-  "_id": {
-    "$oid": "6737694a3522e30e6d82c0f4"
+    ],
+    "githubUrl": "https://github.com/axel/kasa",
+    "liveUrl": "https://kasa.example.com",
+    "skillsUsed": ["React", "CSS", "Node.js"]
   },
-  "name": "Booki",
-  "date": {
-    "$date": "2023-11-20T00:00:00.000Z"
-  },
-  "completed": true,
-  "imageUrls": [
+  {
+    "_id": "2",
+    "slug": "booki",
+    "name": "Booki",
+    "date": "2023-11-20",
+    "completed": true,
+    "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Cet exercice avait pour objectif de découvrir, comprendre et maîtriser les langages fondamentaux de création de sites internet : HTML et CSS. Il s'agissait de concevoir la partie frontend d'un site de réservation d'hébergements en ligne : Booki.",
+    "imageUrls": [
     "https://i.ibb.co/gg97fps/Page-1-Booki.webp",
     "https://i.ibb.co/LPt9w4z/Page-2-Booki.webp",
     "https://i.ibb.co/p4vsGMK/Responsive-Booki.webp"
-  ],
-  "githubUrl": "https://github.com/Axelads/P2-booki",
-  "liveUrl": "https://axelads.github.io/P2-booki//",
-  "skillsUsed": [
-    "HTML",
-    "CSS",
-    "Responsive"
-  ],
-  "__v": 0,
-  "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Cet exercice avait pour objectif de découvrir, comprendre et maîtriser les langages fondamentaux de création de sites internet : HTML et CSS. Il s'agissait de concevoir la partie frontend d'un site de réservation d'hébergements en ligne : Booki."
-},
-{
-  "_id": {
-    "$oid": "2024-02-15T00:00:00.000Z"
+    ],
+    "githubUrl": "https://github.com/axel/booki",
+    "liveUrl": "https://booki.example.com",
+    "skillsUsed": ["HTML", "CSS", "JavaScript"]
   },
-  "name": "Sophie Bruel",
-  "date": {
-    "$date": {
-      "$numberLong": "-55791072561000"
-    }
-  },
-  "completed": true,
-  "imageUrls": [
-    "https://i.ibb.co/QnzSczP/Page-1-Sophie-Bruel.webp",
+  {
+    "_id": "3",
+    "slug": "sophie-bruel",
+    "name": "Sophie Bruel",
+    "date": "2024-02-15",
+    "completed": false,
+      "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet marque mes premiers pas avec JavaScript pour la création de pages web dynamiques. Toutes les informations relatives aux projets de cette architecte d'intérieur sont stockées dans une base de données. La page web est générée dynamiquement en fonction de ces données, offrant ainsi une grande facilité de maintenance grâce à un accès administrateur.",
+    "imageUrls": [
+      "https://i.ibb.co/QnzSczP/Page-1-Sophie-Bruel.webp",
     "https://i.ibb.co/gSpsfCD/Page-2-Sophie-Bruel.webp",
     "https://i.ibb.co/mh93zC5/Page-3-Sophie-Bruel.webp",
     "https://i.ibb.co/gmJ5Yk1/Page-4-Sophie-Bruel.webp"
-  ],
-  "githubUrl": "https://github.com/Axelads/P3sophie",
-  "liveUrl": "https://axelads.github.io/P3sophie/",
-  "skillsUsed": [
-    "HTML",
-    "CSS",
-    "Javascript"
-  ],
-  "__v": 0,
-  "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet marque mes premiers pas avec JavaScript pour la création de pages web dynamiques. Toutes les informations relatives aux projets de cette architecte d'intérieur sont stockées dans une base de données. La page web est générée dynamiquement en fonction de ces données, offrant ainsi une grande facilité de maintenance grâce à un accès administrateur."
-},
-{
-  "_id": {
-    "$oid": "67376cfab80540d105f09f7b"
+    ],
+    "githubUrl": null,
+    "liveUrl": null,
+    "skillsUsed": ["React", "Sass", "Responsive Design"]
   },
-  "name": "Mon Vieux Grimoire",
-  "date": {
-    "$date": "2024-11-01T00:00:00.000Z"
-  },
-  "completed": true,
-  "imageUrls": [
-    "https://i.ibb.co/jV1zDys/Page-1-Grimoire.webp",
+  {
+    "_id": "4",
+    "slug": "mon-vieux-grimoire",
+    "name": "Mon Vieux Grimoire",
+    "date": "2024-11-01",
+    "completed": true,
+    "Resume": "Ce projet a été réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. L'objectif principal était de concevoir et de développer l'intégralité de la partie backend d'un site de partage et de notation de livres. La base de données utilisée pour ce projet est MongoDB.",
+    "imageUrls": [
+      "https://i.ibb.co/jV1zDys/Page-1-Grimoire.webp",
     "https://i.ibb.co/tMHBhqP/Page-2-Grimoire.webp",
     "https://i.ibb.co/c1yKbs3/Page-3-Grimoire.webp"
-  ],
-  "githubUrl": "https://github.com/Axelads/P7_Grimoire",
-  "liveUrl": "",
-  "skillsUsed": [
-    "Javascript",
-    "React",
-    "Express",
-    "Node.js",
-    "MongoDB"
-  ],
-  "__v": 0,
-  "Resume": "Ce projet a été réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. L'objectif principal était de concevoir et de développer l'intégralité de la partie backend d'un site de partage et de notation de livres. La base de données utilisée pour ce projet est MongoDB."
-},
-{
-  "_id": {
-    "$oid": "67376e446c0a1ce4fc9337dc"
+    ],
+    "githubUrl": "https://github.com/axel/mon-vieux-grimoire",
+    "liveUrl": "https://monvieuxgrimoire.example.com",
+    "skillsUsed": ["Vue.js", "Firebase"]
   },
-  "name": "Site e-commerce epices",
-  "date": {
-    "$date": "2024-12-01T00:00:00.000Z"
-  },
-  "completed": false,
-  "imageUrls": [
+  {
+    "_id": "5",
+    "slug": "site-ecommerce-epices",
+    "name": "Site e-commerce épices",
+    "date": "2024-12-01",
+    "completed": false,
+      "Resume": "Ce projet est actuellement en cours de réalisation. Mon objectif est de créer un site e-commerce pour mes parents, qui travaillent sur les marchés, afin de permettre à leurs clients de passer commande, où qu'ils se trouvent. Je vais mobiliser l'ensemble des compétences acquises lors de ma formation chez OpenClassrooms et intégrer de nouvelles fonctionnalités, telles que la gestion des paiements sécurisés. Je prends en charge le développement complet, incluant le backend, le frontend et le design du site. Ce sera un site clé en main, conçu sur mesure pour répondre à leurs besoins.",
+    "imageUrls": [
     "https://i.ibb.co/xf0TWFS/DALL-E-2024-11-15-16-48-20-A-visual-preview-of-a-spice-selling-website-built-with-HTML-and-CSS-The-p.webp"
-  ],
-  "githubUrl": "",
-  "liveUrl": "",
-  "skillsUsed": [
-    "Javascript",
-    "React",
-    "Express",
-    "Node.js",
-    "MongoDB",
-    "TypeScript"
-  ],
-  "__v": 0,
-  "Resume": "Ce projet est actuellement en cours de réalisation. Mon objectif est de créer un site e-commerce pour mes parents, qui travaillent sur les marchés, afin de permettre à leurs clients de passer commande, où qu'ils se trouvent. Je vais mobiliser l'ensemble des compétences acquises lors de ma formation chez OpenClassrooms et intégrer de nouvelles fonctionnalités, telles que la gestion des paiements sécurisés. Je prends en charge le développement complet, incluant le backend, le frontend et le design du site. Ce sera un site clé en main, conçu sur mesure pour répondre à leurs besoins."
-}]
+    ],
+    "githubUrl": null,
+    "liveUrl": null,
+    "skillsUsed": ["React", "Node.js", "TypeORM"]
+  }
+]

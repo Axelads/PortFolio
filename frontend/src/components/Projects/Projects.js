@@ -1,12 +1,9 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import dataProjects from '../../assets/Data/DataProject.json'; // Chemin vers le fichier JSON
+import React from "react";
+import dataProjects from "../../assets/Data/DataProject.json";
 
 const Projects = () => {
-  const navigate = useNavigate();
-
-  const handleCardClick = (id) => {
-    navigate(`/Projet/${id}`);
+  const handleCardClick = (slug) => {
+    window.open(`/Projet/${slug}`, "_blank"); // Utilise le slug pour l'URL
   };
 
   return (
@@ -15,13 +12,13 @@ const Projects = () => {
       <div className="projects-list">
         {dataProjects.map((project) => (
           <div
-            key={project._id.$oid} // Utilisation de project._id comme clé unique
+            key={project._id} // Utilisation de l'_id comme clé unique
             className="project-card"
-            onClick={() => handleCardClick(project._id.$oid)}
+            onClick={() => handleCardClick(project.slug)} // Utilisation du slug
           >
             <div
               className="project-image"
-              style={{ backgroundImage: `url(${project.imageUrls[0]})` }}
+              style={{ backgroundImage: `url(${project.imageUrls[0]})` }} // Première image
             ></div>
             <div className="project-details">{project.name}</div>
           </div>

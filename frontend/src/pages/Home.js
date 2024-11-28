@@ -3,6 +3,7 @@ import Portrait from '../components/portrait/Portrait';
 import Contact from '../components/contact/Contact';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
+
 import dataCv from '../assets/Data/DataCv.json'; // Chemin vers ton fichier JSON
 
 const Home = () => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Contact from '../components/contact/Contact';
+import Video from '../components/video/ReconversionVideo';
 
 const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,9 @@ const About = () => {
           parcours, riche et varié, m’a conduit jusqu’ici, et je suis ravi de partager mon histoire avec vous.
         </p>
       </section>
-
+      <div className="Video">
+          <Video />
+      </div>
       <section className="about-chapter1">
         <img
           src="https://i.ibb.co/x5N7Nm5/About-credit-du-nord.webp"
