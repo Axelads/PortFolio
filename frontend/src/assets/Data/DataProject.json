@@ -74,7 +74,7 @@
     "imageUrls": [
     "https://i.ibb.co/xf0TWFS/DALL-E-2024-11-15-16-48-20-A-visual-preview-of-a-spice-selling-website-built-with-HTML-and-CSS-The-p.webp"
     ],
-    "githubUrl": null,
+    "githubUrl": "https://github.com/Axelads/Epices",
     "liveUrl": null,
     "skillsUsed": ["React", "Node.js", "TypeORM"]
   }
