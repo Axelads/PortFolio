@@ -1,22 +1,6 @@
 [
-  {
+   {
     "_id": "1",
-    "slug": "kasa",
-    "name": "Kasa",
-    "date": "2024-10-15",
-    "completed": true,
-    "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet m'a permis de découvrir React, notamment son système de composants, ses hooks et son router. Le site développé est une Single Page Application (SPA), où la navigation entre les différentes pages est gérée via un système de routes.",
-    "imageUrls": [
-      "https://i.ibb.co/dWVH50v/Page-1-Kasa.webp",
-    "https://i.ibb.co/MRC5bhM/Page-2-Kasa.webp",
-    "https://i.ibb.co/ZJTQww6/Page-3-Kasa.webp"
-    ],
-    "githubUrl": "https://github.com/Axelads/P6_Kasa",
-    "liveUrl": null,
-    "skillsUsed": ["React", "CSS", "Node.js", "Vite"]
-  },
-  {
-    "_id": "2",
     "slug": "booki",
     "name": "Booki",
     "date": "2023-11-20",
@@ -32,7 +16,7 @@
     "skillsUsed": ["HTML", "CSS", "Responsive Design"]
   },
   {
-    "_id": "3",
+    "_id": "2",
     "slug": "sophie-bruel",
     "name": "Sophie Bruel",
     "date": "2024-02-15",
@@ -49,7 +33,7 @@
     "skillsUsed": ["Node.js", "Javascript", "Api"]
   },
   {
-    "_id": "4",
+    "_id": "3",
     "slug": "mon-vieux-grimoire",
     "name": "Mon Vieux Grimoire",
     "date": "2024-11-01",
@@ -65,7 +49,7 @@
     "skillsUsed": ["React", "Express", "Sass", "MongoDB", "CRUD" ]
   },
   {
-    "_id": "5",
+    "_id": "4",
     "slug": "site-ecommerce-epices",
     "name": "Site e-commerce épices",
     "date": "2024-12-01",
@@ -79,7 +63,7 @@
     "skillsUsed": ["React", "Node.js", "TypeORM"]
   },
   {
-    "_id": "6",
+    "_id": "5",
     "slug": "site-data-football",
     "name": "BallData",
     "date": "2024-12-07",
@@ -91,5 +75,22 @@
     "githubUrl": "https://github.com/Axelads/BallData",
     "liveUrl": null,
     "skillsUsed": ["React", "Node.js", "JavaScript", "Express", "Fetch-api", "Scrapping"]
+  },
+
+  {
+    "_id": "6",
+    "slug": "kasa",
+    "name": "Kasa",
+    "date": "2024-10-15",
+    "completed": true,
+    "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet m'a permis de découvrir React, notamment son système de composants, ses hooks et son router. Le site développé est une Single Page Application (SPA), où la navigation entre les différentes pages est gérée via un système de routes.",
+    "imageUrls": [
+      "https://i.ibb.co/dWVH50v/Page-1-Kasa.webp",
+    "https://i.ibb.co/MRC5bhM/Page-2-Kasa.webp",
+    "https://i.ibb.co/ZJTQww6/Page-3-Kasa.webp"
+    ],
+    "githubUrl": "https://github.com/Axelads/P6_Kasa",
+    "liveUrl": null,
+    "skillsUsed": ["React", "CSS", "Node.js", "Vite"]
   }
 ]
