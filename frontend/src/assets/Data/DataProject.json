@@ -11,9 +11,9 @@
     "https://i.ibb.co/MRC5bhM/Page-2-Kasa.webp",
     "https://i.ibb.co/ZJTQww6/Page-3-Kasa.webp"
     ],
-    "githubUrl": "https://github.com/axel/kasa",
-    "liveUrl": "https://kasa.example.com",
-    "skillsUsed": ["React", "CSS", "Node.js"]
+    "githubUrl": "https://github.com/Axelads/P6_Kasa",
+    "liveUrl": null,
+    "skillsUsed": ["React", "CSS", "Node.js", "Vite"]
   },
   {
     "_id": "2",
@@ -27,9 +27,9 @@
     "https://i.ibb.co/LPt9w4z/Page-2-Booki.webp",
     "https://i.ibb.co/p4vsGMK/Responsive-Booki.webp"
     ],
-    "githubUrl": "https://github.com/axel/booki",
-    "liveUrl": "https://booki.example.com",
-    "skillsUsed": ["HTML", "CSS", "JavaScript"]
+    "githubUrl": "https://github.com/Axelads/P2-booki",
+    "liveUrl": null,
+    "skillsUsed": ["HTML", "CSS", "Responsive Design"]
   },
   {
     "_id": "3",
@@ -44,9 +44,9 @@
     "https://i.ibb.co/mh93zC5/Page-3-Sophie-Bruel.webp",
     "https://i.ibb.co/gmJ5Yk1/Page-4-Sophie-Bruel.webp"
     ],
-    "githubUrl": null,
+    "githubUrl": "https://github.com/Axelads/P3sophie",
     "liveUrl": null,
-    "skillsUsed": ["React", "Sass", "Responsive Design"]
+    "skillsUsed": ["Node.js", "Javascript", "Api"]
   },
   {
     "_id": "4",
@@ -60,9 +60,9 @@
     "https://i.ibb.co/tMHBhqP/Page-2-Grimoire.webp",
     "https://i.ibb.co/c1yKbs3/Page-3-Grimoire.webp"
     ],
-    "githubUrl": "https://github.com/axel/mon-vieux-grimoire",
-    "liveUrl": "https://monvieuxgrimoire.example.com",
-    "skillsUsed": ["Vue.js", "Firebase"]
+    "githubUrl": "https://github.com/Axelads/P7_Grimoire",
+    "liveUrl": null,
+    "skillsUsed": ["React", "Express", "Sass", "MongoDB", "CRUD" ]
   },
   {
     "_id": "5",
