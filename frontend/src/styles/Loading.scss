@@ -82,7 +82,7 @@
   
   /* Animation pour le fondu progressif */
   .fade-out {
-    animation: fadeOut 1s forwards;
+    animation: fadeOut 0.5s forwards;
   }
   
   @keyframes fadeOut {

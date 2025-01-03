@@ -77,5 +77,19 @@
     "githubUrl": "https://github.com/Axelads/Epices",
     "liveUrl": null,
     "skillsUsed": ["React", "Node.js", "TypeORM"]
+  },
+  {
+    "_id": "6",
+    "slug": "site-data-football",
+    "name": "BallData",
+    "date": "2024-12-07",
+    "completed": false,
+      "Resume": "Ce projet est actuellement en cours de développement. Mon objectif est de concevoir une application permettant d'accéder à toutes les données liées au football européen. Pour cela, je m'appuie sur une API et réalise du scraping de données sur plusieurs sites. Ce projet me permet de démontrer ma capacité à collecter, manipuler et exploiter les données afin de les utiliser de manière pertinente et adaptée à mes besoins.",
+    "imageUrls": [
+    "https://i.ibb.co/1L2Cngf/Background-Ball-Data.webp"
+    ],
+    "githubUrl": "https://github.com/Axelads/BallData",
+    "liveUrl": null,
+    "skillsUsed": ["React", "Node.js", "JavaScript", "Express", "Fetch-api", "Scrapping"]
   }
 ]

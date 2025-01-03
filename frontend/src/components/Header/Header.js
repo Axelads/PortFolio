@@ -52,7 +52,7 @@ const Header = () => {
       <section className={`header-desktop ${isMobile ? 'hidden' : ''}`}>
         <div className="title_img">
           <img 
-            src="https://i.ibb.co/KGSyZn4/logo-Axel-Gregoire.webp" 
+            src="http://www.image-heberg.fr/files/17358992922156864569.webp" 
             alt="Logo Axel Grégoire" 
             className="header-logo"
           />

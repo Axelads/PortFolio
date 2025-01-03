@@ -8,13 +8,13 @@ const Loading = () => {
 
   useEffect(() => {
     if (isFirstLoad) {
-      // Déclenche le fondu progressif 1 seconde avant la fin des 5 secondes
+      // Déclenche le fondu progressif 0.5 seconde avant la fin des 2.5 secondes
       const timer = setTimeout(() => {
         setFadeOut(true);
         setTimeout(() => {
           setIsFirstLoad(false); // Désactive le chargement globalement après la première utilisation
-        }, 1000); // Attendre que l'animation de fondu se termine
-      }, 3000); // Commence l'animation de fondu à 4 secondes
+        }, 500); // Attendre que l'animation de fondu se termine
+      }, 1500); // Commence l'animation de fondu à 2 secondes
 
       return () => clearTimeout(timer);
     }
