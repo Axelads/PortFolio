@@ -1,5 +1,5 @@
 import React from 'react';
-import portraitImage from '../../images/portrait.webp';
+import portraitImage from '../../images/portrait.jpg';
 import Age from '../age/Age';
 import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
 
