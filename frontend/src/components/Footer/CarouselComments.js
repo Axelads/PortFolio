@@ -70,7 +70,13 @@ const CarouselComments = () => {
                 : 'none',
           }}
         >
-          <img src={comment.urlImage} alt={comment.username} className="carousel-image" />
+          <img
+            src={comment.urlImage}
+            alt={comment.username}
+            className="carousel-image"
+            onClick={() => window.open(comment.linkedin, '_blank')} // Redirection LinkedIn
+            style={{ cursor: 'pointer' }} // Ajoute un curseur pointeur pour indiquer un clic
+          />
           <div className="carousel-content">
             <h4>{comment.username}</h4>
             <h5>{comment.poste}</h5>

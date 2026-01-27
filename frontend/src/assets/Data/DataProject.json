@@ -1,15 +1,16 @@
 [
-   {
+  {
     "_id": "1",
     "slug": "booki",
     "name": "Booki",
     "date": "2023-11-20",
     "completed": true,
+    "category": "site-web",
     "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Cet exercice avait pour objectif de découvrir, comprendre et maîtriser les langages fondamentaux de création de sites internet : HTML et CSS. Il s'agissait de concevoir la partie frontend d'un site de réservation d'hébergements en ligne : Booki.",
     "imageUrls": [
-    "https://i.ibb.co/gg97fps/Page-1-Booki.webp",
-    "https://i.ibb.co/LPt9w4z/Page-2-Booki.webp",
-    "https://i.ibb.co/p4vsGMK/Responsive-Booki.webp"
+      "https://i.ibb.co/gg97fps/Page-1-Booki.webp",
+      "https://i.ibb.co/LPt9w4z/Page-2-Booki.webp",
+      "https://i.ibb.co/p4vsGMK/Responsive-Booki.webp"
     ],
     "githubUrl": "https://github.com/Axelads/P2-booki",
     "liveUrl": null,
@@ -20,13 +21,14 @@
     "slug": "sophie-bruel",
     "name": "Sophie Bruel",
     "date": "2024-02-15",
-    "completed": false,
-      "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet marque mes premiers pas avec JavaScript pour la création de pages web dynamiques. Toutes les informations relatives aux projets de cette architecte d'intérieur sont stockées dans une base de données. La page web est générée dynamiquement en fonction de ces données, offrant ainsi une grande facilité de maintenance grâce à un accès administrateur.",
+    "completed": true,
+    "category": "site-web",
+    "Resume": "Projet réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. Ce projet marque mes premiers pas avec JavaScript pour la création de pages web dynamiques. Toutes les informations relatives aux projets de cette architecte d'intérieur sont stockées dans une base de données. La page web est générée dynamiquement en fonction de ces données, offrant ainsi une grande facilité de maintenance grâce à un accès administrateur.",
     "imageUrls": [
       "https://i.ibb.co/QnzSczP/Page-1-Sophie-Bruel.webp",
-    "https://i.ibb.co/gSpsfCD/Page-2-Sophie-Bruel.webp",
-    "https://i.ibb.co/mh93zC5/Page-3-Sophie-Bruel.webp",
-    "https://i.ibb.co/gmJ5Yk1/Page-4-Sophie-Bruel.webp"
+      "https://i.ibb.co/gSpsfCD/Page-2-Sophie-Bruel.webp",
+      "https://i.ibb.co/mh93zC5/Page-3-Sophie-Bruel.webp",
+      "https://i.ibb.co/gmJ5Yk1/Page-4-Sophie-Bruel.webp"
     ],
     "githubUrl": "https://github.com/Axelads/P3sophie",
     "liveUrl": null,
@@ -38,29 +40,31 @@
     "name": "Mon Vieux Grimoire",
     "date": "2024-11-01",
     "completed": true,
+    "category": "site-web",
     "Resume": "Ce projet a été réalisé dans le cadre de ma formation en développement web chez OpenClassrooms. L'objectif principal était de concevoir et de développer l'intégralité de la partie backend d'un site de partage et de notation de livres. La base de données utilisée pour ce projet est MongoDB.",
     "imageUrls": [
       "https://i.ibb.co/jV1zDys/Page-1-Grimoire.webp",
-    "https://i.ibb.co/tMHBhqP/Page-2-Grimoire.webp",
-    "https://i.ibb.co/c1yKbs3/Page-3-Grimoire.webp"
+      "https://i.ibb.co/tMHBhqP/Page-2-Grimoire.webp",
+      "https://i.ibb.co/c1yKbs3/Page-3-Grimoire.webp"
     ],
     "githubUrl": "https://github.com/Axelads/P7_Grimoire",
     "liveUrl": null,
-    "skillsUsed": ["React", "Express", "Sass", "MongoDB", "CRUD" ]
+    "skillsUsed": ["React", "Express", "Sass", "MongoDB", "CRUD"]
   },
   {
     "_id": "4",
     "slug": "site-ecommerce-epices",
     "name": "Site e-commerce épices",
-    "date": "2024-12-01",
+    "date": "2025-02-26",
     "completed": false,
-      "Resume": "Ce projet est actuellement en cours de réalisation. Mon objectif est de créer un site e-commerce pour mes parents, qui travaillent sur les marchés, afin de permettre à leurs clients de passer commande, où qu'ils se trouvent. Je vais mobiliser l'ensemble des compétences acquises lors de ma formation chez OpenClassrooms et intégrer de nouvelles fonctionnalités, telles que la gestion des paiements sécurisés. Je prends en charge le développement complet, incluant le backend, le frontend et le design du site. Ce sera un site clé en main, conçu sur mesure pour répondre à leurs besoins.",
+    "category": "site-web",
+    "Resume": "Ce projet est actuellement en cours de réalisation. Mon objectif est de créer un site e-commerce pour mes parents, qui travaillent sur les marchés, afin de permettre à leurs clients de passer commande, où qu'ils se trouvent. Je vais mobiliser l'ensemble des compétences acquises lors de ma formation chez OpenClassrooms et intégrer de nouvelles fonctionnalités, telles que la gestion des paiements sécurisés. Je prends en charge le développement complet, incluant le backend, le frontend et le design du site. Ce sera un site clé en main, conçu sur mesure pour répondre à leurs besoins.",
     "imageUrls": [
-    "https://i.ibb.co/xf0TWFS/DALL-E-2024-11-15-16-48-20-A-visual-preview-of-a-spice-selling-website-built-with-HTML-and-CSS-The-p.webp"
+      "https://i.ibb.co/xf0TWFS/DALL-E-2024-11-15-16-48-20-A-visual-preview-of-a-spice-selling-website-built-with-HTML-and-CSS-The-p.webp"
     ],
     "githubUrl": "https://github.com/Axelads/Epices",
     "liveUrl": null,
-    "skillsUsed": ["React", "Node.js", "TypeORM"]
+    "skillsUsed": ["TypeScript", "Node.js", "Express", "Dotenv", "PostgreSQL/pgAdmin", "google-oauth20", "JWT", "Bcrypt", "Stripe & Paypal", "Swagger", "Multer&Sharp", "ESLint / Jest / Prettier"]
   },
   {
     "_id": "5",
@@ -68,12 +72,75 @@
     "name": "BallData",
     "date": "2024-12-07",
     "completed": false,
-      "Resume": "Ce projet est actuellement en cours de développement. Mon objectif est de concevoir une application permettant d'accéder à toutes les données liées au football européen. Pour cela, je m'appuie sur une API et réalise du scraping de données sur plusieurs sites. Ce projet me permet de démontrer ma capacité à collecter, manipuler et exploiter les données afin de les utiliser de manière pertinente et adaptée à mes besoins.",
+    "category": "outils-scripts",
+    "Resume": "Ce projet est actuellement en cours de développement. Mon objectif est de concevoir une application permettant d'accéder à toutes les données liées au football européen. Pour cela, je m'appuie sur une API et réalise du scraping de données sur plusieurs sites. Ce projet me permet de démontrer ma capacité à collecter, manipuler et exploiter les données afin de les utiliser de manière pertinente et adaptée à mes besoins.",
     "imageUrls": [
-    "https://i.ibb.co/1L2Cngf/Background-Ball-Data.webp"
+      "https://i.ibb.co/1L2Cngf/Background-Ball-Data.webp"
     ],
     "githubUrl": "https://github.com/Axelads/BallData",
     "liveUrl": null,
     "skillsUsed": ["React", "Node.js", "JavaScript", "Express", "Fetch-api", "Scrapping"]
+  },
+  {
+    "_id": "6",
+    "slug": "RolistesUnis.fr",
+    "name": "RolistesUnis",
+    "date": "2025-01-25",
+    "completed": true,
+    "category": "site-web",
+    "Resume": "Ce projet est un site web moderne et interactif développé pour l'association RUNE, dédiée aux jeux de rôle. Il met en avant les actualités, événements et activités de l'association, tout en offrant une navigation fluide et optimisée. Projet conçu avec une attention particulière à l'expérience utilisateur et à la performance !",
+    "imageUrls": [
+      "http://www.image-heberg.fr/files/17388540692511340315.webp"
+    ],
+    "githubUrl": "https://github.com/Axelads/Runes",
+    "liveUrl": "www.rolistesunis.fr",
+    "skillsUsed": ["JavaScript", "React.js", "React Router", "Gsap", "Sass", "Axios", "Responsive", "Référencement SEO", "gestion DNS&SSL"]
+  },
+  {
+    "_id": "7",
+    "slug": "CharcuterieNouvelle-fr",
+    "name": "La Charcuterie Nouvelle",
+    "date": "2025-02-24",
+    "completed": false,
+    "category": "site-web",
+    "resume": "Je développe actuellement un site vitrine en Next.js pour un artisan boucher-charcutier exerçant sur les marchés de Provence. Ce projet vise à offrir une présence en ligne moderne et optimisée pour améliorer sa visibilité et son référencement naturel (SEO).",
+    "objectives": [
+      "Améliorer mes compétences en Next.js afin de maîtriser l'optimisation SEO, le chargement rapide et la gestion efficace des routes et des images.",
+      "Proposer un design professionnel et moderne, adapté aux artisans commerçants, tout en gardant une identité visuelle forte.",
+      "Assurer une navigation fluide et intuitive, avec des animations GSAP, un carousel interactif, et une expérience immersive.",
+      "Mettre en avant les produits et services du boucher grâce à des sections dynamiques, notamment une mise en avant des produits de saison et une présentation de l'entreprise."
+    ],
+    "imageUrls": [
+      "https://i.ibb.co/XgGhZj3/site-vitrine-Charcuterie-Nouvelle.webp"
+    ],
+    "githubUrl": "https://github.com/Axelads/CharcuterieNouvelle",
+    "liveUrl": null,
+    "skillsUsed": ["JavaScript", "React.js", "Next.js", "Gsap", "Sass", "TypeScript", "Responsive", "Référencement SEO", "gestion DNS&SSL"],
+    "videoUrl": "/video/Presentation_Site_Cedric.mp4"
+  },
+  {
+    "_id": "8",
+    "slug": "Mon-paysagiste",
+    "name": "Mon paysagiste",
+    "date": "2025-02-15",
+    "completed": false,
+    "category": "site-web",
+    "resume": "Site vitrine moderne et responsive pour un paysagiste, développé avec React, SCSS et Bootstrap. Intégration d'un formulaire de contact dynamique avec EmailJS, animations GSAP, et un carousel d'images interactif. Gestion des services via un blog WordPress avec Axios.",
+    "objectives": [
+      "Créer un site vitrine moderne et responsive pour un paysagiste.",
+      "Utiliser React, SCSS et Bootstrap pour un design fluide et esthétique.",
+      "Intégrer un formulaire de contact interactif avec EmailJS et validation.",
+      "Ajouter des animations GSAP pour améliorer l'expérience utilisateur.",
+      "Mettre en place un carousel d'images avec navigation fluide.",
+      "Optimiser le SEO avec une bonne structure et un blog WordPress via Axios.",
+      "Gérer proprement les fichiers avec Git et un .gitignore optimisé."
+    ],
+    "imageUrls": [
+      "https://www.image-heberg.fr/files/17404096914208774749.webp"
+    ],
+    "githubUrl": "https://github.com/Axelads/Paysagiste/tree/master",
+    "liveUrl": null,
+    "skillsUsed": ["JavaScript", "React.js", "Next.js", "Gsap", "Sass", "TypeScript", "Responsive", "Référencement SEO", "gestion DNS&SSL"],
+    "videoUrl": "/video/Presentation_Paysagiste.mp4"
   }
 ]

@@ -13,9 +13,13 @@
 @use './pages/home';
 @use './pages/projectDetails';
 @use './pages/about';
-@use './pages//NotFound.scss';
+@use './pages/avis';
+@use './pages/NotFound.scss';
+@use './pages/carte';
+@use './pages/admin';
 @use './components/SkillProjects';
 @use './components/ReconversionVideo';
+
 
 
 body {

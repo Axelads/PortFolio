@@ -84,6 +84,9 @@ const Header = () => {
           <li onClick={handleProjectsClick} style={{ cursor: 'pointer' }}>
             Projets
           </li>
+          <li>
+            <Link to="/Avis">Avis</Link>
+          </li>
           <li onClick={openContactModal} style={{ cursor: 'pointer' }}>
             Contact
           </li>

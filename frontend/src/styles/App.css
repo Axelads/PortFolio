@@ -1,0 +1,14 @@
+body {
+  max-width: 2200px;
+}
+
+main {
+  padding-top: 80px; /* Ajuste en fonction de la hauteur du Header */
+}
+@media (max-width: 750px) {
+  main {
+    padding-top: 0;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */

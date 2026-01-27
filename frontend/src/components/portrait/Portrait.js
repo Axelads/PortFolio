@@ -1,12 +1,43 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import portraitImage from '../../images/portrait.jpg';
 import Age from '../age/Age';
 import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
 
 const Portrait = ({ openContactModal }) => {
+  const portraitRef = useRef(null);
+  const aboutMeRef = useRef(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+
+    // Animation du portrait (glisse de gauche à droite)
+    tl.fromTo(
+      portraitRef.current,
+      { x: -300, opacity: 0 }, // Départ : hors écran à gauche et invisible
+      { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }
+    )
+    // Animation de la section "about-me" (descend de haut en bas)
+    .fromTo(
+      aboutMeRef.current,
+      { y: -50, opacity: 0 }, // Départ : hors écran en haut et invisible
+      { y: 0, opacity: 1, duration: 1.3, ease: "power2.out" },
+      "-=0.5" // Commence légèrement avant la fin de l'animation précédente
+    );
+
+  }, []);
+
   return (
     <div className="portrait">
-      <img src={portraitImage} alt="Portrait_Axel_Gregoire" title="Portrait Axel Grégoire" className="portrait-image" />
+      {/* Image du portrait avec animation */}
+      <img
+        ref={portraitRef}
+        src={portraitImage}
+        alt="Portrait_Axel_Gregoire"
+        title="Portrait Axel Grégoire"
+        className="portrait-image"
+      />
+
       <div className="portrait-content">
         <section className="title-portrait">
           <h2>À propos</h2>
@@ -16,7 +47,9 @@ const Portrait = ({ openContactModal }) => {
           <h2>Développeur WEB</h2>
           <h3><Age birthDate="1990-04-24" /></h3>
         </div>
-        <section className="about-me">
+        
+        {/* Section about-me avec animation */}
+        <section className="about-me" ref={aboutMeRef}>
           <p>
             <strong>Ancien gérant d'une SARL, maintenant Développeur web passionné</strong>, je suis animé par une forte curiosité pour les nouvelles technologies. Formé via OpenClassrooms et en autodidacte, j'ai acquis des compétences en conception de sites web, aussi bien en frontend qu'en backend, pour répondre aux besoins spécifiques des clients et garantir des solutions fonctionnelles et efficaces.
           </p>

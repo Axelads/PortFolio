@@ -15,9 +15,10 @@
   "username": "Loic Galland",
   "poste": "Developpeur Web",
   "commentary": "J'ai pu, avec des échanges toujours très constructifs et agréable avec Axel aucours desquels nous avons pu, à tour de rôle, nous aider dans l'apprentissage et le perfectionnement de notre passion commune : le dev",
-  "urlImage": "https://media.licdn.com/dms/image/v2/D4E03AQFXtTBJFTR--w/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1692863081407?e=1737590400&v=beta&t=p0v5LKXwpjz-APqZ3ZOBcjNAPxsbuGCJQHeqQplk0YM",
+  "urlImage": "https://media.licdn.com/dms/image/v2/D4E03AQFXtTBJFTR--w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1692863081407?e=1743638400&v=beta&t=QvVvUk1r1DDHWEKN0lS0-lpuTuXag5lTQgzH5jobM0M",
+  "linkedin": "https://www.linkedin.com/in/lo%C3%AFc-galland-4a2262104/",
   "__v": 0
-},
+  },
 {
   "_id": {
     "$oid": "673758dcf361f0376b19c4ec"
@@ -26,5 +27,15 @@
   "poste": "Project management | IT technical Support | Web development",
   "commentary": "Bravo Axel pour ce changement de carrière, c'était un projet ambitieux et te voilà en fin de formation. Je n'ai aucun doute pour la suite au vue de l'investissement que tu mets.",
   "urlImage": "https://i.ibb.co/FWd8864/462545637-895810809415703-6337134570546846559-n.jpg",
+  "linkedin": "https://www.linkedin.com/in/jeremy-hennebique/",
+  "__v": 0
+},
+{
+"_id": 5,
+  "username": "Leslie Taylor",
+  "poste": "Coach pro certifiée|experte en bilan de compétences",
+  "commentary": "Il s'est montré proactif, toujours un état d'esprit constructif avec une bonne analyse, faisant preuve d'écoute active et de prise de recul. Il est débrouillard, pragmatique et ne perd pas son objectif de vue avec de belles valeurs humaines.",
+  "urlImage": "https://media.licdn.com/dms/image/v2/C4E03AQGXEZVsWVW7oQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1648846797808?e=1743638400&v=beta&t=LjGKM9dqjrKn7amKOfGCNXu2d24caS9VSM3u6tiiZC8",
+  "linkedin": "https://www.linkedin.com/in/leslieemilietaylor/", 
   "__v": 0
 }]

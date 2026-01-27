@@ -1,0 +1,150 @@
+.carte-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .carte-bg {
+    position: relative;
+    width: 1024px;
+    height: 800px;
+    background: url('http://www.image-heberg.fr/files/17471149082313430239.png') center center / cover no-repeat;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-top: 50px;
+  }
+  
+  .code-container {
+    position: absolute;
+    top: 230px; // ajuste selon ton image
+    left: 120px;
+    right: 70px;
+    font-family: monospace;
+    color: #d4d4d4;
+    font-size: 18px;
+    white-space: pre;
+    line-height: 1.8;
+  }
+  
+  .ligne {
+    a {
+      color: #4ec9b0;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s ease;
+  
+      &:hover {
+        color: #0c1cfa;
+        text-shadow: 0 0 6px rgba(5, 60, 241, 0.5);
+      }
+    }
+  }
+  
+  .socials {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+    margin-left: 50px;
+  
+    img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
+  
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  // Simule la coloration syntaxique façon VS Code
+  .keyword {
+    color: #569cd6;
+  }
+  .key {
+    color: #9cdcfe;
+  }
+  .string {
+    color: #ce9178;
+  }
+  .brace, .operator {
+    color: #f5e508;
+  }
+  
+  .keyConst {
+    color: rgb(13, 201, 76);
+  }
+
+  @media (max-width: 1058px) {
+    .carte-bg {
+      width: 90vw;
+      height: auto;
+      background-size: contain;
+    }
+  
+    .code-container {
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+  
+    .ligne {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  
+    .socials {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .carte-wrapper {
+      padding: 20px 10px;
+    }
+  
+    .ligne {
+      font-size: 15px;
+    }
+  
+    .code-container {
+      padding: 16px;
+    }
+  
+    .socials img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+
+  @media (max-width: 480px) {
+    .code-container {
+      padding: 14px;
+      font-size: 14px;
+      backdrop-filter: none;
+    }
+  
+    .ligne {
+      line-height: 1.4;
+      word-break: break-word;
+    }
+  
+    .carte-bg {
+      background-position: center top;
+      background-size: cover;
+      height: auto;
+    }
+  
+    .socials {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  

@@ -113,10 +113,12 @@ textarea {
   margin-top: 15px;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: not-allowed; /* Désactivé tant que le message n'est pas valide */
   transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: #4a90e2;
+.submit-button.valid {
+  background-color: green; /* ✅ Passe en vert si le message a 50+ caractères */
+  color: white;
+  cursor: pointer;
 }
