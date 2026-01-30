@@ -1,97 +1,103 @@
 .footer {
-    position: relative;
-    background-color: #ffffff;
-    padding: 40px 0;
-    text-align: center;
-    color: #333;
-    height: 350px; /* Augmentez si nécessaire */
-    overflow: visible;
+  position: relative;
+  background-color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+  color: #333;
+  height: 350px;
+  overflow: visible;
+
+  @media (max-width: 750px) {
+    padding: 40px 0 0;
+    height: auto;
+  }
+
+  .footer-wave {
+    position: absolute;
+    top: -99px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+
+    .footer-wave-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @media (max-width: 850px) {
+      top: -99px;
+    }
+  }
+
+  .carousel-container {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 70%;
+    max-width: 800px;
 
     @media (max-width: 750px) {
-      padding: 40px 0 0;
-      height: auto;
+      top: -60px;
+      width: 60%;
     }
-  
-    .footer-wave {
+
+    @media (max-width: 469px) {
+      display: none;
+    }
+  }
+
+  .footer-content {
+    margin-top: 300px;
+    position: relative;
+
+    .sr-only {
       position: absolute;
-      top: -10px;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      background: url('../images/footer_img.png') no-repeat center;
-      background-size: 100% 100%;
-
-      @media (max-width: 850px) {
-        top: -1px;
-      }
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
-  
-    .carousel-container {
-      position: absolute;
-      top: -40px; /* Ajustez pour que le carrousel chevauche la vague */
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2; /* Assurez-vous que le carrousel est au-dessus de la vague */
-      width: 80%; /* Ajustez selon vos besoins */
 
-      @media (max-width: 750px) {
-        left: 50%;
-        width: 50%;
-      }
-      
-      @media (max-width: 469px) {
-        display: none;
-      }
+    @media (max-width: 750px) {
+      padding-top: 10px;
+      margin-top: 220px;
     }
-  
-    .footer-content {
-      margin-top: 300px; /* Ajustez pour laisser de l'espace au carrousel */
-      position: relative;
+  }
 
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
+  p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+  }
 
-      @media (max-width: 750px) {
-        padding-top: 10px;
-        margin-top: 220px;
-      }
+  .footer-icons {
+    margin-top: 10px;
+
+    @media (max-width: 585px) {
+      margin-top: 25px;
+      margin-bottom: 15px;
     }
-  
-    p {
-      font-size: 1rem;
+
+    .footer-icon {
+      font-size: 1.5rem;
       color: #333;
-      margin: 0;
-    }
-  
-    .footer-icons {
-      margin-top: 10px;
+      margin: 0 10px;
+      transition: color 0.3s;
 
-      @media (max-width: 585px) {
-        margin-top: 25px;
-        margin-bottom: 15px;
+      &:hover {
+        color: #0077b5;
       }
-  
-      .footer-icon {
-        font-size: 1.5rem;
+
+      &:first-child:hover {
         color: #333;
-        margin: 0 10px;
-        transition: color 0.3s;
-  
-        &:hover {
-          color: #0077b5; /* Couleur pour LinkedIn */
-        }
-  
-        &:first-child:hover {
-          color: #333; /* Couleur pour GitHub */
-        }
       }
     }
   }
+}

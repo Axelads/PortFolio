@@ -1,16 +1,32 @@
 import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom'; // Importer useLocation
+import { useLocation } from 'react-router-dom';
 import CarouselComments from './CarouselComments';
 
+const WaveSVG = () => (
+  <svg
+    className="footer-wave-svg"
+    viewBox="0 0 1440 120"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z"
+      fill="#ffffff"
+    />
+  </svg>
+);
+
 const Footer = () => {
-  const location = useLocation(); // Utiliser useLocation pour vérifier la route actuelle
+  const location = useLocation();
 
   return (
     <footer className="footer">
-      {/* Affichage conditionnel de la vague */}
+      {/* Vague SVG */}
       {location.pathname !== '/Avis' && (
-        <div className="footer-wave"></div>
+        <div className="footer-wave">
+          <WaveSVG />
+        </div>
       )}
 
       <div className="carousel-container">
