@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importer useLocation
+import { FaSun, FaMoon } from 'react-icons/fa';
 import MenuToggle from './ButtonOpen/menuToggle';
 import Contact from '../contact/Contact';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 750);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate(); // Utiliser useNavigate pour la navigation
   const location = useLocation(); // Utiliser useLocation pour vérifier la page actuelle
 
@@ -52,7 +55,7 @@ const Header = () => {
       <section className={`header-desktop ${isMobile ? 'hidden' : ''}`}>
         <div className="title_img">
           <img 
-            src="http://www.image-heberg.fr/files/17358992922156864569.webp" 
+            src="https://www.image-heberg.fr/files/17358992922156864569.webp" 
             alt="Logo Axel Grégoire" 
             className="header-logo"
           />
@@ -91,10 +94,24 @@ const Header = () => {
             Contact
           </li>
         </ul>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={isDark ? 'Passer en mode clair' : 'Passer en mode sombre'}
+        >
+          {isDark ? <FaSun className="theme-icon sun" /> : <FaMoon className="theme-icon moon" />}
+        </button>
       </section>
 
       {/* Section Responsive */}
       <section className={`header-responsive ${isMobile ? '' : 'hidden'}`}>
+        <button
+          className="theme-toggle mobile"
+          onClick={toggleTheme}
+          aria-label={isDark ? 'Passer en mode clair' : 'Passer en mode sombre'}
+        >
+          {isDark ? <FaSun className="theme-icon sun" /> : <FaMoon className="theme-icon moon" />}
+        </button>
         <button className="menu-button" onClick={toggleMenu}>
           {menuOpen ? '✕' : '☰'}
         </button>

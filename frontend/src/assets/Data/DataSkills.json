@@ -1,99 +1,242 @@
-[{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a369"
-  },
-  "name": "HTML",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "https://i.ibb.co/2PVNZTc/HTML5-logo.png"
-},
 {
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36a"
-  },
-  "name": "CSS",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "http://www.image-heberg.fr/files/17358994082006611028.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36b"
-  },
-  "name": "JavaScript",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "http://www.image-heberg.fr/files/17358994393456948425.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36c"
-  },
-  "name": "React",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "http://www.image-heberg.fr/files/17358994651671185887.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36d"
-  },
-  "name": "MongoDB",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "https://i.ibb.co/DbGSmQX/Mongo-DB-logo.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36e"
-  },
-  "name": "Node.js",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "http://www.image-heberg.fr/files/17358995071592891854.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a36f"
-  },
-  "name": "Git",
-  "status": "Completed",
-  "level": 100,
-  "urlImage": "https://i.ibb.co/r6NMbJ8/github-logo.png"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a370"
-  },
-  "name": "Make.com",
-  "status": "In Progress",
-  "level": 60,
-  "urlImage": "https://i.ibb.co/6gybmbY/logo-make.png"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a371"
-  },
-  "name": "TypeScript",
-  "status": "In Progress",
-  "level": 35,
-  "urlImage": "http://www.image-heberg.fr/files/17358995392036845621.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a372"
-  },
-  "name": "PHP",
-  "status": "In Progress",
-  "level": 35,
-  "urlImage": "http://www.image-heberg.fr/files/17358995691864844263.webp"
-},
-{
-  "_id": {
-    "$oid": "6735fa14847bd0f28b47a373"
-  },
-  "name": "Next.js",
-  "status": "In Progress",
-  "level": 70,
-  "urlImage": "https://i.ibb.co/tshL4Tn/nextjs-logo.png"
-}]
+  "categories": [
+    {
+      "id": "languages",
+      "name": "Langages",
+      "icon": "FaCode",
+      "skills": [
+        {
+          "id": "html",
+          "name": "HTML5",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/2PVNZTc/HTML5-logo.png"
+        },
+        {
+          "id": "css",
+          "name": "CSS3",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://www.image-heberg.fr/files/17358994082006611028.webp"
+        },
+        {
+          "id": "javascript",
+          "name": "JavaScript",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://www.image-heberg.fr/files/17358994393456948425.webp"
+        },
+        {
+          "id": "typescript",
+          "name": "TypeScript",
+          "level": 35,
+          "status": "In Progress",
+          "urlImage": "https://www.image-heberg.fr/files/17358995392036845621.webp"
+        },
+        {
+          "id": "php",
+          "name": "PHP",
+          "level": 35,
+          "status": "In Progress",
+          "urlImage": "https://www.image-heberg.fr/files/17358995691864844263.webp"
+        }
+      ]
+    },
+    {
+      "id": "frameworks",
+      "name": "Frameworks & Librairies",
+      "icon": "FaReact",
+      "skills": [
+        {
+          "id": "react",
+          "name": "React",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
+        },
+        {
+          "id": "nodejs",
+          "name": "Node.js",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://www.image-heberg.fr/files/17358995071592891854.webp"
+        },
+        {
+          "id": "express",
+          "name": "Express.js",
+          "level": 95,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/Zz73ppDq/logo-express-Modifi.png"
+        },
+        {
+          "id": "nextjs",
+          "name": "Next.js",
+          "level": 70,
+          "status": "In Progress",
+          "urlImage": "https://i.ibb.co/tshL4Tn/nextjs-logo.png"
+        }
+      ]
+    },
+    {
+      "id": "styles",
+      "name": "Styles & UI",
+      "icon": "FaPalette",
+      "skills": [
+        {
+          "id": "sass",
+          "name": "SASS/SCSS",
+          "level": 95,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/RG0B4SHc/sass-Modifi.png"
+        },
+        {
+          "id": "react-icons",
+          "name": "React Icons",
+          "level": 90,
+          "status": "Completed",
+          "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
+        },
+        {
+          "id": "slick",
+          "name": "Slick Carousel",
+          "level": 85,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/BHxCX4DV/slick-logo-2.png"
+        }
+      ]
+    },
+    {
+      "id": "animation",
+      "name": "Animation",
+      "icon": "FaPlay",
+      "skills": [
+        {
+          "id": "gsap",
+          "name": "GSAP",
+          "level": 90,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/8LfbFzdP/png-transparent-gsap-greensock-hd-logo-thumbnail.png"
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "name": "Base de données",
+      "icon": "FaDatabase",
+      "skills": [
+        {
+          "id": "mongodb",
+          "name": "MongoDB",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/DbGSmQX/Mongo-DB-logo.webp"
+        },
+        {
+          "id": "mongoose",
+          "name": "Mongoose",
+          "level": 95,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/Q77g4fwT/mongoose-Modifi.png"
+        },
+        {
+          "id": "pocketbase",
+          "name": "PocketBase",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/zhYfrVgn/pocketbase-backend1721224921-logowik-com.webp"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Outils & DevOps",
+      "icon": "FaTools",
+      "skills": [
+        {
+          "id": "git",
+          "name": "Git/GitHub",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/r6NMbJ8/github-logo.png"
+        },
+        {
+          "id": "npm",
+          "name": "NPM",
+          "level": 95,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/TMvZX1KJ/npm.png"
+        },
+        {
+          "id": "dotenv",
+          "name": "dotenv",
+          "level": 90,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/F4VH7sb2/env.png"
+        },
+        {
+          "id": "nodemon",
+          "name": "Nodemon",
+          "level": 85,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/4H55Pww/nodemon.jpg"
+        },
+        {
+          "id": "make",
+          "name": "Make.com",
+          "level": 60,
+          "status": "In Progress",
+          "urlImage": "https://i.ibb.co/6gybmbY/logo-make.png"
+        },
+        {
+          "id": "vscode",
+          "name": "VS Code",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/67KGXS17/vscode.jpg"
+        },
+        {
+          "id": "android-studio",
+          "name": "Android Studio",
+          "level": 100,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/hxT7SQgy/android-studio-icon.webp"
+        },
+        {
+          "id": "claude-agent",
+          "name": "Claude Agent",
+          "level": 85,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/6cp3v5g3/claude-color.png"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "name": "API & Services",
+      "icon": "FaCloud",
+      "skills": [
+        {
+          "id": "rest-api",
+          "name": "REST API",
+          "level": 95,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/6RW0nWxW/rest-Api.jpg"
+        },
+        {
+          "id": "emailjs",
+          "name": "EmailJS",
+          "level": 85,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/CsnnfmfH/emailjs.png"
+        },
+        {
+          "id": "sendgrid",
+          "name": "SendGrid",
+          "level": 80,
+          "status": "Completed",
+          "urlImage": "https://i.ibb.co/YBpVL0yy/sendgrid-logo-icon-169764.png"
+        }
+      ]
+    }
+  ]
+}

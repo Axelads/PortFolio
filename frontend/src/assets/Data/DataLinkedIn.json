@@ -1,0 +1,55 @@
+{
+  "profileUrl": "https://www.linkedin.com/in/axel-gregoire/",
+  "posts": [
+    {
+      "id": "post-1",
+      "date": "2025-12-15",
+      "content": "Oye Oye ! Journal de bord d'un dev en fin de projet : quand tout va bien... jusqu'a l'APK Android. Je vous avais tease AnimDay. 3 jours a enqueter comme dans Detective Conan version React Native. Le coupable ? FlatList. Solution : ScrollView + .map() manuel. AnimDay arrive sur iOS ET Android !",
+      "image": "https://media.licdn.com/dms/image/v2/D5622AQFEgjwiSYOo6w/feedshare-shrink_800/B56ZszMumzJsAk-/0/1766090536752?e=1771459200&v=beta&t=n3S-5L-zHosPEr--pqxKcDsV0Q-iIMG-npfCF7P4zTM",
+      "postUrl": "https://www.linkedin.com/in/axel-gregoire/recent-activity/all/",
+      "views": 82,
+      "likes": 0,
+      "comments": 0
+    },
+    {
+      "id": "post-2",
+      "date": "2025-12-01",
+      "content": "Ca arrive bientot... mais je ne peux pas encore tout vous dire... Depuis presque deux mois, je travaille sur quelque chose d'enorme, quelque chose de ludique et tourne vers les geeks comme nous ! Un indice : ca concerne l'univers des animes. Restez connectes, vous n'etes pas prets pour ce qui arrive.",
+      "image": "https://media.licdn.com/dms/image/v2/D5622AQGmWMg7aZ7JDQ/feedshare-shrink_800/B56ZsT1xJDHAAg-/0/1765564423133?e=1771459200&v=beta&t=FrFl0A-_Ga-ci2QSW2JN1ymEC80J3pF25xsHzqldkDc",
+      "postUrl": "https://www.linkedin.com/in/axel-gregoire/recent-activity/all/",
+      "views": 117,
+      "likes": 0,
+      "comments": 0
+    },
+    {
+      "id": "post-3",
+      "date": "2025-08-18",
+      "content": "Grande etape franchie : mon premier deploiement d'application mobile sur l'Apple Store ! Mon application ColiPerforma est desormais prete a accompagner les collaborateurs du service FFL ITM Brignoles. Une appli gratuite, pensee pour simplifier et valoriser le travail de terrain.",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQEAfwmLPEPnIQ/feedshare-shrink_2048_1536/B4DZlX9oF9GkAw-/0/1758117397691?e=1771459200&v=beta&t=PZJUbPgx-MP2M9U1fz7-7Wp3zVLlX8SfCLXX1hogmCM",
+      "postUrl": "https://www.linkedin.com/in/axel-gregoire/recent-activity/all/",
+      "views": 501,
+      "likes": 0,
+      "comments": 0
+    },
+    {
+      "id": "post-4",
+      "date": "2025-08-02",
+      "content": "Ca bouge chez ColiPerforma ! Je viens de deposer le domaine coliperforma.com et l'app sort bientot de sa phase beta. J'ai utilise du React Native avec JS, associe a PocketBase pour le back. Je suis ultra fier du chemin parcouru !",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQH1lwVh2TBsYQ/feedshare-shrink_800/B4DZlHOM17JcAg-/0/1757836529422?e=1771459200&v=beta&t=SyYR1QCUuqJlbgNNWZ3CeCU_oBqIEKG2GL1oIhsMfNw",
+      "postUrl": "https://www.linkedin.com/in/axel-gregoire/recent-activity/all/",
+      "views": 105,
+      "likes": 0,
+      "comments": 0
+    },
+    {
+      "id": "post-5",
+      "date": "2025-07-27",
+      "content": "Jour J : la presentation de ColiPerforma ! Aujourd'hui, je me tiens devant des decideurs pour presenter ColiPerforma, le SaaS que j'ai imagine et developpe pour simplifier le quotidien des preparateurs logistiques. Quelle que soit l'issue, transformer une idee en solution concrete est une victoire !",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQE45BvWuYwBRw/feedshare-shrink_800/B4DZkZOGJDGkA0-/0/1757064760495?e=1771459200&v=beta&t=vbUP4FCg7_6eFghOdkHugo5DzY9UxF3snbrpvM51cU4",
+      "postUrl": "https://www.linkedin.com/in/axel-gregoire/recent-activity/all/",
+      "views": 132,
+      "likes": 0,
+      "comments": 0
+    }
+  ]
+}

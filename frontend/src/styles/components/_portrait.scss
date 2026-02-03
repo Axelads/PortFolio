@@ -5,7 +5,7 @@
     padding-left: 0;
     margin-top: 150px;
     position: relative;
-    color: #5b5963;
+    color: var(--text-secondary);
   
     /* Ligne arrondie avec ombre épaisse en bas */
     &::after {
@@ -125,14 +125,25 @@
     }
   
     .info-portrait {
-  
+
+    &__row {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      @media (max-width: 850px) {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
     h1, h2, h3 {
       margin: 0;
     }
-  
+
     h2 {
       display: none;
-  
+
       @media (max-width: 850px) {
         display: block;
         font-size: 18px;
@@ -142,6 +153,43 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+  }
+
+  .priority-skills {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: rgba(139, 199, 177, 0.08);
+    border: 1px solid rgba(139, 199, 177, 0.2);
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    [data-theme="dark"] & {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 50%;
+      padding: 4px;
+      background: var(--bg-card, #fff);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: scale(1.15) translateY(-2px);
+        box-shadow: 0 4px 12px rgba(139, 199, 177, 0.3);
+      }
+    }
+
+    @media (max-width: 850px) {
+      justify-content: center;
     }
   }
   

@@ -15,7 +15,7 @@
     width: 99%;
     height: 80px;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-header);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
@@ -32,13 +32,17 @@
       width: 70px;
       height: auto;
       margin-right: 10px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      padding: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .header-title {
       display: inline-block;
       font-size: 1.3rem;
       font-weight: bold;
-      color: #5b5963;
+      color: var(--text-secondary);
       overflow: hidden;
 
       @media (max-width: 769px) {
@@ -87,7 +91,7 @@
   
     li {
       font-size: 1rem;
-      color: #5b5963;
+      color: var(--text-secondary);
       cursor: pointer;
       padding: 10px 15px;
       position: relative; /* Nécessaire pour positionner le trait */
@@ -136,27 +140,27 @@
       width: 100px; /* Largeur par défaut */
       height: auto;
       padding: 10px;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: var(--bg-header-mobile);
       backdrop-filter: blur(15px);
       box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
       z-index: 1;
-  
+
       .menu-button {
         font-size: 1.5rem;
         background: none;
         border: none;
         cursor: pointer;
-        color: #00334d;
+        color: var(--text-heading);
         padding: 15px;
         margin: 0px;
         border-radius: 5px;
         transition: transform 0.3s ease;
-  
+
         &:hover {
           transform: scale(1.1);
         }
       }
-  
+
       .nav {
         list-style: none;
         margin: 0;
@@ -165,25 +169,25 @@
         flex-direction: column;
         gap: 10px;
         width: 100%;
-  
+
         li {
           font-size: 1rem;
-          color: #00334d;
+          color: var(--text-heading);
           padding: 10px 15px;
           border-radius: 5px;
           cursor: pointer;
           text-align: center;
           transition: background-color 0.3s ease;
-  
+
           a {
             text-decoration: none; /* Supprime le soulignement */
             color: inherit; /* Hérite de la couleur définie dans li */
           }
-  
+
           &:hover {
             background-color: rgba(0, 0, 0, 0.1);
             a {
-              color: #5b5963; /* Changer légèrement la couleur au survol */
+              color: var(--text-secondary); /* Changer légèrement la couleur au survol */
             }
           }
         }

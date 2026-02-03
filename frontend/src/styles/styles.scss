@@ -19,15 +19,144 @@
 @use './pages/admin';
 @use './components/SkillProjects';
 @use './components/ReconversionVideo';
+@use './components/linkedinPosts';
 
+// CSS Variables for theming
+:root {
+  // Light mode (default)
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --bg-tertiary: #f0f0f0;
+  --bg-card: #ffffff;
+  --bg-header: rgba(255, 255, 255, 0.1);
+  --bg-header-mobile: rgba(255, 255, 255, 0.5);
 
+  --text-primary: #333333;
+  --text-secondary: #5b5963;
+  --text-muted: #666666;
+  --text-heading: #00334d;
+
+  --accent-primary: #8BC7B1;
+  --accent-secondary: #4a90e2;
+  --accent-gradient: linear-gradient(135deg, #00334d 0%, #8BC7B1 100%);
+
+  --border-color: rgba(139, 199, 177, 0.1);
+  --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+
+  --footer-bg: #ffffff;
+  --footer-wave-fill: #ffffff;
+  --progress-bg: #f0f0f0;
+}
+
+// Dark mode
+[data-theme="dark"] {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f3460;
+  --bg-card: #2a2a3e;
+  --bg-header: rgba(26, 26, 46, 0.85);
+  --bg-header-mobile: rgba(26, 26, 46, 0.9);
+
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #888888;
+  --text-heading: #8BC7B1;
+
+  --accent-primary: #8BC7B1;
+  --accent-secondary: #4a90e2;
+  --accent-gradient: linear-gradient(135deg, #8BC7B1 0%, #4a90e2 100%);
+
+  --border-color: rgba(139, 199, 177, 0.2);
+  --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+  --footer-bg: #1a1a2e;
+  --footer-wave-fill: #1a1a2e;
+  --progress-bg: #404050;
+}
 
 body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 p {
   font-size: 16px;
   line-height: 1.6;
+}
+
+// Theme toggle button
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 25px;
+  box-shadow: 0 2px 10px rgba(139, 199, 177, 0.3);
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(139, 199, 177, 0.5);
+  }
+
+  .theme-icon {
+    font-size: 1.2rem;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+
+    &.sun {
+      color: #ffd700;
+    }
+
+    &.moon {
+      color: #1a1a2e;
+    }
+  }
+
+  &.mobile {
+    width: 40px;
+    height: 40px;
+    margin: 0 0 10px 0;
+
+    .theme-icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Force dark text on green backgrounds (both light and dark mode)
+// Only apply to direct text content, not to nested cards
+.informations > h1,
+.informations > h2,
+.informations > h3,
+.informations > p,
+.informations > .cv-button,
+.about-container > .about-intro h1,
+.about-container > .about-intro p,
+.about-container .about-chapter1 h2,
+.about-container .about-chapter1 p,
+.about-container .about-chapter1 li,
+.about-container .about-chapter2 h2,
+.about-container .about-chapter2 p,
+.about-container .about-chapter2 li,
+.about-container .about-chapter3 h2,
+.about-container .about-chapter3 p,
+.about-container .about-chapter3 li,
+.about-container .about-chapter4 h1,
+.about-container .about-chapter4 p,
+.about-container .about-contact h1,
+.about-container .about-contact p {
+  color: #333 !important;
 }

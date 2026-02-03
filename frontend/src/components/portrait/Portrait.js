@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import portraitImage from '../../images/portrait.jpg';
 import Age from '../age/Age';
+import PrioritySkills from './PrioritySkills';
 import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
 
 const Portrait = ({ openContactModal }) => {
@@ -43,9 +44,14 @@ const Portrait = ({ openContactModal }) => {
           <h2>À propos</h2>
         </section>
         <div className="info-portrait">
-          <h1>Axel Grégoire</h1>
-          <h2>Développeur WEB</h2>
-          <h3><Age birthDate="1990-04-24" /></h3>
+          <div className="info-portrait__row">
+            <div>
+              <h1>Axel Grégoire</h1>
+              <h2>Développeur WEB</h2>
+              <h3><Age birthDate="1990-04-24" /></h3>
+            </div>
+            <PrioritySkills />
+          </div>
         </div>
         
         {/* Section about-me avec animation */}
@@ -61,7 +67,7 @@ const Portrait = ({ openContactModal }) => {
           </p>
           <div className="button-container">
               <button onClick={openContactModal} className="contact-open-button">
-              Me contacter
+              ! Parlons de votre projet !
               </button>
           </div>
         </section>

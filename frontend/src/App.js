@@ -5,6 +5,7 @@ import AppRouter from './AppRouter';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { LoadingProvider, LoadingContext } from './contexts/LoadingContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -23,9 +24,11 @@ const App = () => {
 
 const AppWrapper = () => {
   return (
-    <LoadingProvider>
-      <AppWithLoading />
-    </LoadingProvider>
+    <ThemeProvider>
+      <LoadingProvider>
+        <AppWithLoading />
+      </LoadingProvider>
+    </ThemeProvider>
   );
 };
 

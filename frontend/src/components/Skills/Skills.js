@@ -1,9 +1,21 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaCode, FaReact, FaPalette, FaPlay, FaDatabase, FaTools, FaCloud } from 'react-icons/fa';
 import dataSkills from '../../assets/Data/DataSkills.json';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Map des icônes
+const iconMap = {
+  FaCode: FaCode,
+  FaReact: FaReact,
+  FaPalette: FaPalette,
+  FaPlay: FaPlay,
+  FaDatabase: FaDatabase,
+  FaTools: FaTools,
+  FaCloud: FaCloud,
+};
 
 const SkillCard = ({ skill, index }) => {
   const cardRef = useRef(null);
@@ -24,7 +36,7 @@ const SkillCard = ({ skill, index }) => {
         opacity: 1,
         scale: 1,
         duration: 0.6,
-        delay: index * 0.1,
+        delay: index * 0.05,
         ease: "back.out(1.7)",
         scrollTrigger: {
           trigger: card,
@@ -44,7 +56,7 @@ const SkillCard = ({ skill, index }) => {
       {
         strokeDashoffset: offset,
         duration: 1.5,
-        delay: index * 0.1 + 0.3,
+        delay: index * 0.05 + 0.3,
         ease: "power2.out",
         scrollTrigger: {
           trigger: card,
@@ -61,7 +73,7 @@ const SkillCard = ({ skill, index }) => {
       {
         innerText: skill.level,
         duration: 1.5,
-        delay: index * 0.1 + 0.3,
+        delay: index * 0.05 + 0.3,
         ease: "power2.out",
         snap: { innerText: 1 },
         scrollTrigger: {
@@ -121,6 +133,29 @@ const SkillCard = ({ skill, index }) => {
   );
 };
 
+const CategorySection = ({ category, startIndex }) => {
+  const IconComponent = iconMap[category.icon] || FaCode;
+
+  return (
+    <div className="skills-category">
+      <div className="category-header">
+        <IconComponent className="category-icon" />
+        <h3 className="category-title">{category.name}</h3>
+        <span className="category-count">{category.skills.length}</span>
+      </div>
+      <div className="skills-grid">
+        {category.skills.map((skill, index) => (
+          <SkillCard
+            key={skill.id}
+            skill={skill}
+            index={startIndex + index}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Skills = () => {
   const skillsRef = useRef(null);
   const headerRef = useRef(null);
@@ -143,41 +178,39 @@ const Skills = () => {
     );
   }, []);
 
-  const completedSkills = dataSkills.filter(s => s.status === 'Completed');
-  const inProgressSkills = dataSkills.filter(s => s.status !== 'Completed');
+  // Calculer le nombre total de skills
+  const totalSkills = dataSkills.categories.reduce(
+    (acc, cat) => acc + cat.skills.length,
+    0
+  );
+
+  // Calculer l'index de départ pour chaque catégorie
+  let currentIndex = 0;
 
   return (
     <section className="skills-section" ref={skillsRef}>
       <div className="skills-header" ref={headerRef}>
         <h2>Mes Compétences</h2>
         <p className="skills-subtitle">Technologies et outils que je maîtrise</p>
-      </div>
-
-      <div className="skills-group">
-        <div className="group-header">
-          <h3>Maîtrisées</h3>
-          <span className="group-count">{completedSkills.length}</span>
-        </div>
-        <div className="skills-grid">
-          {completedSkills.map((skill, index) => (
-            <SkillCard key={skill._id.$oid} skill={skill} index={index} />
-          ))}
+        <div className="skills-stats">
+          <span className="stats-number">{totalSkills}</span>
+          <span className="stats-label">compétences</span>
         </div>
       </div>
 
-      {inProgressSkills.length > 0 && (
-        <div className="skills-group">
-          <div className="group-header">
-            <h3>En apprentissage</h3>
-            <span className="group-count">{inProgressSkills.length}</span>
-          </div>
-          <div className="skills-grid">
-            {inProgressSkills.map((skill, index) => (
-              <SkillCard key={skill._id.$oid} skill={skill} index={index + completedSkills.length} />
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="skills-categories">
+        {dataSkills.categories.map((category) => {
+          const section = (
+            <CategorySection
+              key={category.id}
+              category={category}
+              startIndex={currentIndex}
+            />
+          );
+          currentIndex += category.skills.length;
+          return section;
+        })}
+      </div>
     </section>
   );
 };

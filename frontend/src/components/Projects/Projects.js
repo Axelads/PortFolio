@@ -7,6 +7,14 @@ import dataProjectsFallback from "../../assets/Data/DataProject.json";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Force HTTPS sur les URLs d'images
+const sanitizeUrl = (url) => {
+  if (typeof url === 'string' && url.startsWith('http://')) {
+    return url.replace('http://', 'https://');
+  }
+  return url;
+};
+
 const Projects = () => {
   const projectsRef = useRef(null);
   const cardsRef = useRef([]);
@@ -26,7 +34,7 @@ const Projects = () => {
           const mappedProjects = data.map((project) => ({
             ...project,
             _id: project.id,
-            imageUrls: project.imageUrls || [],
+            imageUrls: (project.imageUrls || []).map(sanitizeUrl),
             skillsUsed: project.skillsUsed || [],
           }));
           setProjects(mappedProjects);

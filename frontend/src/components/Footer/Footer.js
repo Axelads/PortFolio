@@ -2,8 +2,9 @@ import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import CarouselComments from './CarouselComments';
+import { useTheme } from '../../contexts/ThemeContext';
 
-const WaveSVG = () => (
+const WaveSVG = ({ isDark }) => (
   <svg
     className="footer-wave-svg"
     viewBox="0 0 1440 120"
@@ -12,20 +13,21 @@ const WaveSVG = () => (
   >
     <path
       d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z"
-      fill="#ffffff"
+      fill={isDark ? '#1a1a2e' : '#ffffff'}
     />
   </svg>
 );
 
 const Footer = () => {
   const location = useLocation();
+  const { isDark } = useTheme();
 
   return (
     <footer className="footer">
       {/* Vague SVG */}
       {location.pathname !== '/Avis' && (
         <div className="footer-wave">
-          <WaveSVG />
+          <WaveSVG isDark={isDark} />
         </div>
       )}
 

@@ -1,11 +1,12 @@
 .footer {
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--footer-bg);
   padding: 40px 0;
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   height: 350px;
   overflow: visible;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 750px) {
     padding: 40px 0 0;
@@ -73,7 +74,7 @@
 
   p {
     font-size: 1rem;
-    color: #333;
+    color: var(--text-primary);
     margin: 0;
   }
 
@@ -87,7 +88,7 @@
 
     .footer-icon {
       font-size: 1.5rem;
-      color: #333;
+      color: var(--text-primary);
       margin: 0 10px;
       transition: color 0.3s;
 
@@ -96,7 +97,7 @@
       }
 
       &:first-child:hover {
-        color: #333;
+        color: var(--text-primary);
       }
     }
   }
