@@ -327,8 +327,8 @@ const AdminDashboard = () => {
 
       {/* Modal Formulaire */}
       {showModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay">
+          <div className="modal-content">
             <div className="modal-header">
               <h2>{editingProject ? "Modifier le projet" : "Nouveau projet"}</h2>
               <button onClick={closeModal} className="modal-close">
