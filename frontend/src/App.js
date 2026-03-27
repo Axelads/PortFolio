@@ -4,6 +4,7 @@ import ScrollToTop from './pages/Scroll/ScrollToTop';
 import AppRouter from './AppRouter';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import Chatbot from './components/Chatbot/Chatbot';
 import { LoadingProvider, LoadingContext } from './contexts/LoadingContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import "slick-carousel/slick/slick.css";
@@ -18,6 +19,7 @@ const App = () => {
         <AppRouter />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 };
