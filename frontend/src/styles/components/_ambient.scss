@@ -1,0 +1,166 @@
+// ===========================================================================
+//  Ambiance "design 2026" — Aurora mesh + Grain filmique
+//  Theming via [data-theme] (ThemeContext). Optimisé GPU (transform/opacity).
+//
+//  PERF : animations réactivées le 2026-07-08 — le lag desktop venait du
+//  CursorLens (supprimé), pas de ces drifts. Mobile reste figé (media query
+//  en bas de fichier). Si un lag desktop réapparaît, premier réflexe :
+//  vérifier ce qui est posé AU-DESSUS du fond animé (backdrop-filter du
+//  header, mix-blend-mode du grain) avant d'accuser les drifts eux-mêmes.
+//
+//  Réglage rapide de l'intensité :
+//   - Aurora : opacity des .ambient__blob + filter blur
+//   - Grain  : opacity de .ambient-grain
+// ===========================================================================
+
+// ---- Couche de fond : aurora mesh (derrière le contenu) -------------------
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;            // au-dessus du fond opaque du body, derrière le contenu
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient__aurora {
+  position: absolute;
+  inset: -10%;           // déborde pour masquer les bords lors du drift
+}
+
+.ambient__blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(64px); // 80->64 : grosses surfaces (48-52vw) -> gain de fill-rate
+  will-change: transform;
+}
+
+// Light theme — halos colorés assez présents (mint / bleu / teal)
+.ambient__blob--1 {
+  top: -8%;
+  left: -6%;
+  width: 48vw;
+  height: 48vw;
+  background: radial-gradient(circle at 50% 50%, rgba(139, 199, 177, 0.85), transparent 66%);
+  opacity: 0.85;
+  animation: ambient-drift-1 26s ease-in-out infinite;
+}
+
+.ambient__blob--2 {
+  top: 8%;
+  right: -10%;
+  width: 44vw;
+  height: 44vw;
+  background: radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.70), transparent 66%);
+  opacity: 0.75;
+  animation: ambient-drift-2 32s ease-in-out infinite;
+}
+
+.ambient__blob--3 {
+  bottom: -16%;
+  left: 26%;
+  width: 52vw;
+  height: 52vw;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 51, 77, 0.45), transparent 68%);
+  opacity: 0.55;
+  animation: ambient-drift-3 38s ease-in-out infinite;
+}
+
+// ---- Grain filmique (overlay au-dessus du contenu) ------------------------
+.ambient-grain {
+  position: fixed;
+  inset: -50%;                 // marge pour le déplacement sans bord visible
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.10;
+  mix-blend-mode: soft-light;
+  will-change: transform;
+  animation: ambient-grain 6s steps(6) infinite;
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+// ===========================================================================
+//  Thème sombre — aurora plus riche
+// ===========================================================================
+[data-theme="dark"] {
+  .ambient__blob--1 {
+    background: radial-gradient(circle at 50% 50%, rgba(139, 199, 177, 0.55), transparent 66%);
+    opacity: 0.55;
+  }
+
+  .ambient__blob--2 {
+    background: radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.60), transparent 66%);
+    opacity: 0.62;
+  }
+
+  .ambient__blob--3 {
+    background: radial-gradient(circle at 50% 50%, rgba(15, 52, 96, 0.80), transparent 70%);
+    opacity: 0.70;
+  }
+
+  .ambient-grain {
+    opacity: 0.14;
+    mix-blend-mode: overlay;
+  }
+}
+
+// ===========================================================================
+//  Keyframes — drifts lents et désynchronisés
+// ===========================================================================
+@keyframes ambient-drift-1 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(6vw, 4vh, 0) scale(1.12); }
+}
+
+@keyframes ambient-drift-2 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50%      { transform: translate3d(-5vw, 6vh, 0) scale(0.92); }
+}
+
+@keyframes ambient-drift-3 {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(4vw, -5vh, 0) scale(1.15); }
+}
+
+@keyframes ambient-grain {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(-4%, 3%, 0); }
+  50%  { transform: translate3d(3%, -3%, 0); }
+  75%  { transform: translate3d(-2%, -4%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+// ===========================================================================
+//  Accessibilité — on fige tout en mode réduction de mouvement
+// ===========================================================================
+@media (prefers-reduced-motion: reduce) {
+  .ambient__blob,
+  .ambient-grain {
+    animation: none;
+  }
+}
+
+// ===========================================================================
+//  Mobile Performance — disable heavy animations on touch/small devices
+// ===========================================================================
+@media (max-width: 768px), (pointer: coarse) {
+  .ambient {
+    opacity: 0.15;
+  }
+
+  .ambient__blob {
+    animation: none;
+    filter: blur(40px);
+  }
+
+  .ambient-grain {
+    animation: none;
+    opacity: 0.05;
+  }
+
+  [data-theme="dark"] .ambient-grain {
+    opacity: 0.08;
+  }
+}

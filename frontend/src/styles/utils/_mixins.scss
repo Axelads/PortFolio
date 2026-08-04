@@ -1,16 +1,50 @@
+@use 'variables' as *;
+
+// Utility Mixins
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition($property, $duration: 0.3s, $ease: ease) {
+  transition: $property $duration $ease;
+}
+
+// Responsive Breakpoint Mixins
+@mixin on-mobile {
+  @media (max-width: $break-sm) {
+    @content;
   }
-  
-  @mixin transition($property, $duration: 0.3s, $ease: ease) {
-    transition: $property $duration $ease;
+}
+
+@mixin on-tablet {
+  @media (max-width: $break-md) {
+    @content;
   }
-  
-  @mixin responsive($breakpoint) {
-    @media (max-width: $breakpoint) {
-      @content;
-    }
+}
+
+@mixin on-desktop {
+  @media (min-width: $break-lg) {
+    @content;
   }
+}
+
+// Touch Target Mixin for Accessibility
+@mixin touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+// Responsive Font Scaling
+@mixin font-responsive($mobile, $desktop) {
+  font-size: clamp($mobile, 4vw, $desktop);
+}
+
+// Legacy responsive mixin (kept for compatibility)
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
   

@@ -2,6 +2,7 @@ import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import CarouselComments from './CarouselComments';
+import AxelLogo from '../Header/AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const WaveSVG = ({ isDark }) => (
@@ -35,6 +36,15 @@ const Footer = () => {
         <CarouselComments />
       </div>
       <div className="footer-content">
+        <div className="footer-logo">
+          <AxelLogo
+            size={120}
+            smallDotSize={4}
+            bigDotSize={7}
+            invertLogo={isDark}
+            spin
+          />
+        </div>
         <p>Réalisé par Axel Grégoire</p>
         <div className="footer-icons">
           <a href="https://github.com/Axelads" target="_blank" rel="noopener noreferrer">

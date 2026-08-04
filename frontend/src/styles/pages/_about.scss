@@ -49,21 +49,27 @@
 
     img {
       margin-top: 45px;
-      margin-right: 55px; /* Espacement entre l'image et le texte */
+      margin-right: 55px;
       margin-left: 55px;
-      width: 250px; /* Taille fixe de l'image */
-      height: 250px; /* Conserve les proportions */
-      flex-shrink: 0; /* Empêche l'image de se réduire */
-      transform: rotate(15deg); /* Tourne l'image de 15 degrés vers la droite */
-    transition: transform 0.3s ease; /* Transition fluide */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une légère ombre */
+      width: 250px;
+      height: 250px;
+      flex-shrink: 0;
+      transform: rotate(15deg);
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    @media (max-width: 750px) {
-      margin: 0 auto 15px auto;
-      transform: none;
+      @media (max-width: 750px) {
+        margin: 0 auto 15px auto;
+        transform: none;
+      }
+
+      @media (max-width: 480px) {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 15px auto;
+        transform: none;
+      }
     }
-    
-  }
 
     /* Contenu textuel */
     div {
@@ -118,11 +124,18 @@
       width: 250px;
       height: 250px;
       flex-shrink: 0;
-      transform: rotate(15deg); /* Conserve l'effet de rotation */
+      transform: rotate(15deg);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      
+
       @media (max-width: 750px) {
+        margin: 0 auto 15px auto;
+        transform: none;
+      }
+
+      @media (max-width: 480px) {
+        width: 180px;
+        height: 180px;
         margin: 0 auto 15px auto;
         transform: none;
       }
@@ -157,8 +170,12 @@
   }
         .chapter-image4 {
           width: 400px;
-          height: 300px;
+          max-width: 100%;
+          height: auto;
 
+          @media (max-width: 480px) {
+            width: 100%;
+          }
         }
   
 

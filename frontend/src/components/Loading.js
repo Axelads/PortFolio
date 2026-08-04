@@ -1,38 +1,52 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { LoadingContext } from '../contexts/LoadingContext';
+import AxelLogo from './Header/AxelLogo';
 import '../styles/Loading.scss';
 
 const Loading = () => {
   const [fadeOut, setFadeOut] = useState(false);
   const { isFirstLoad, setIsFirstLoad } = useContext(LoadingContext);
+  const videoSrc = useRef('/loading.mp4'); // URL stable -> mise en cache navigateur
 
   useEffect(() => {
-    if (isFirstLoad) {
-      // Déclenche le fondu progressif 0.5 seconde avant la fin des 2.5 secondes
-      const timer = setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setIsFirstLoad(false); // Désactive le chargement globalement après la première utilisation
-        }, 500); // Attendre que l'animation de fondu se termine
-      }, 1500); // Commence l'animation de fondu à 2 secondes
+    if (!isFirstLoad) return;
+    const safetyTimer = setTimeout(triggerFadeOut, 8500);
+    return () => clearTimeout(safetyTimer);
+  }, [isFirstLoad]);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isFirstLoad, setIsFirstLoad]);
+  const triggerFadeOut = () => {
+    setFadeOut(true);
+    setTimeout(() => setIsFirstLoad(false), 600);
+  };
 
-  if (!isFirstLoad) {
-    // Si ce n'est plus le premier chargement, ne pas afficher le composant
-    return null;
-  }
+  if (!isFirstLoad) return null;
 
   return (
     <div className={`loading-container ${fadeOut ? 'fade-out' : ''}`}>
-      <div className="loader">
-        <p className="loading-text">Developper Web is coming</p>
+      <div className="loading-video-div">
+        <video
+          className="loading-video"
+          src={videoSrc.current}
+          autoPlay
+          muted
+          playsInline
+          onEnded={triggerFadeOut}
+        />
       </div>
-      <div className="orbit orbit-1"></div>
-      <div className="orbit orbit-2"></div>
-      <div className="orbit orbit-3"></div>
+      <div className="loading-text-div">
+        <p className="loading-name">
+          Axel Grégoire <span>is coming</span>
+        </p>
+        <div className="loading-logo-mobile" aria-hidden="true">
+          <AxelLogo
+            size={84}
+            smallDotSize={3}
+            bigDotSize={5}
+            invertLogo
+            spin
+          />
+        </div>
+      </div>
     </div>
   );
 };

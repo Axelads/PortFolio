@@ -8,6 +8,40 @@ const getAuthHeader = () => {
   return token ? { Authorization: token } : {};
 };
 
+/**
+ * Transforme une réponse d'erreur PocketBase en Error lisible.
+ * - 401/403/404 sur une écriture = presque toujours une session expirée :
+ *   PocketBase répond 404 (corps vide) aux non-autorisés pour masquer les
+ *   records -> sans ce mapping, l'admin voit "resource not found" sans
+ *   comprendre qu'il doit juste se reconnecter.
+ * - 400 : on déplie error.data pour afficher le détail champ par champ.
+ */
+const parsePbError = async (response, fallback) => {
+  let body = null;
+  try {
+    body = await response.json();
+  } catch {
+    // corps vide (cas du 404 PocketBase) -> on garde body = null
+  }
+
+  let message;
+  if (response.status === 401 || response.status === 403 || response.status === 404) {
+    message =
+      "Session expirée ou droits insuffisants : déconnectez-vous puis reconnectez-vous.";
+  } else if (body?.data && Object.keys(body.data).length > 0) {
+    console.error("PocketBase détail:", JSON.stringify(body, null, 2));
+    message = Object.entries(body.data)
+      .map(([k, v]) => `${k}: ${v?.message || v}`)
+      .join(" | ");
+  } else {
+    message = body?.message || fallback;
+  }
+
+  const err = new Error(message);
+  err.status = response.status;
+  return err;
+};
+
 // Récupérer tous les projets
 export const getProjects = async () => {
   try {
@@ -98,8 +132,7 @@ export const createProject = async (projectData) => {
     );
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Erreur lors de la création du projet");
+      throw await parsePbError(response, "Erreur lors de la création du projet");
     }
 
     return await response.json();
@@ -125,8 +158,7 @@ export const updateProject = async (id, projectData) => {
     );
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Erreur lors de la mise à jour du projet");
+      throw await parsePbError(response, "Erreur lors de la mise à jour du projet");
     }
 
     return await response.json();
@@ -150,8 +182,7 @@ export const deleteProject = async (id) => {
     );
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Erreur lors de la suppression du projet");
+      throw await parsePbError(response, "Erreur lors de la suppression du projet");
     }
 
     return true;
@@ -187,4 +218,4 @@ export const getProjectsByCategory = async (category) => {
   }
 };
 
-export { POCKETBASE_URL };
+export { POCKETBASE_URL, getAuthHeader, parsePbError };

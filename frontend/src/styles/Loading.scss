@@ -1,91 +1,106 @@
+$dark-bg: #0f1524;
+
 .loading-container {
+  position: fixed;
+  inset: 0;
+  z-index: 100000; // au-dessus de tout (grain ~9990, chatbot 9999)
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+
+  &.fade-out {
+    animation: fadeOut 0.6s ease-out forwards;
+  }
+}
+
+.loading-video-div {
+  width: 70%;
+  line-height: 0;
+}
+
+.loading-video {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.loading-text-div {
+  width: 100%;
+  flex: 1;
+  background: $dark-bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 22px;
+  margin: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, $dark-bg);
+    pointer-events: none;
+  }
+}
+
+.loading-name {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.4);
+    font-style: italic;
+    letter-spacing: 0.15em;
+    text-transform: none;
+  }
+}
+
+/* Logo à bulles animées : visible uniquement en version mobile, sous le texte */
+.loading-logo-mobile {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  .loading-logo-mobile {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Dégradé linéaire du bleu clair au bleu foncé */
-    background: linear-gradient(135deg, #8BC7B1 45%, #4a90e2);
-    position: relative;
+    margin-top: 18px;
   }
-  
-  .loader {
-    width: 100px; /* Taille de la boule centrale */
-    height: 100px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: pulse 1.5s infinite ease-in-out;
-    position: relative;
-    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-logo-mobile [style*="axel-logo-spin"] {
+    animation: none !important;
   }
-  
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
-  
-  /* Styles pour les petites boules en orbite */
-  .orbit {
-    position: absolute;
-    border-radius: 50%;
-    background-color: #fff;
-  }
-  
-  .orbit-1, .orbit-2, .orbit-3 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform-origin: -40px 0; /* Ajustement du point d'origine */
-  }
-  
-  .orbit-1 {
-    width: 17px;
-    height: 17px;
-    transform: translate(-80px, -50%) rotate(0deg); /* Repositionnement */
-    animation: orbit 2.5s linear infinite;
-  }
-  
-  .orbit-2 {
-    width: 12px;
-    height: 12px;
-    transform: translate(-100px, -50%) rotate(0deg);
-    animation: orbit 3s linear infinite;
-  }
-  
-  .orbit-3 {
-    width: 8px;
-    height: 8px;
-    transform: translate(-120px, -50%) rotate(0deg);
-    animation: orbit 3.5s linear infinite;
-  }
-  
-  @keyframes orbit {
-    0% { transform: rotate(0deg) translateX(80px) rotate(0deg); }
-    100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
-  }
-  
-  /* Animation pour le texte clignotant */
-  .loading-text {
-    font-size: 0.8rem; /* Taille réduite du texte */
-    color: #5a5a5f;
-    animation: blink 2s infinite;
-    text-align: center;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  /* Animation pour le fondu progressif */
-  .fade-out {
-    animation: fadeOut 0.5s forwards;
-  }
-  
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

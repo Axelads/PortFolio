@@ -1,0 +1,173 @@
+// Variables héritées du dashboard admin
+$admin-primary: #8BC7B1;
+$admin-secondary: #00334d;
+$admin-border: #e2e8f0;
+$admin-text: #1e293b;
+$admin-text-muted: #64748b;
+$admin-bg: #f8fafc;
+
+// ==========================================
+// ÉDITEUR RICH TEXT (zone admin)
+// ==========================================
+.rich-text-editor {
+  border: 2px solid $admin-border;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+
+  &:focus-within {
+    border-color: $admin-primary;
+    box-shadow: 0 0 0 4px rgba($admin-primary, 0.1);
+  }
+
+  // ---- Toolbar ----
+  .rte-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: $admin-bg;
+    border-bottom: 1px solid $admin-border;
+  }
+
+  .rte-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .rte-separator {
+    width: 1px;
+    height: 22px;
+    background: $admin-border;
+    margin: 0 4px;
+  }
+
+  .rte-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: $admin-text;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba($admin-primary, 0.12);
+      border-color: rgba($admin-primary, 0.3);
+      color: $admin-secondary;
+    }
+
+    &.active {
+      background: rgba($admin-primary, 0.2);
+      border-color: $admin-primary;
+      color: $admin-secondary;
+      font-weight: 600;
+    }
+  }
+
+  // Couleur du texte — label cliquable
+  .rte-color-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: rgba($admin-primary, 0.12);
+      border-color: rgba($admin-primary, 0.3);
+    }
+
+    input[type="color"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    .rte-color-preview {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: $admin-text;
+      border-bottom: 3px solid currentColor;
+      line-height: 1;
+      pointer-events: none;
+    }
+  }
+
+  // ---- Zone de contenu ----
+  .rte-content {
+    min-height: 180px;
+    padding: 16px;
+    background: #ffffff;
+
+    // Le div ProseMirror lui-même
+    .ProseMirror {
+      min-height: 150px;
+      outline: none;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: $admin-text;
+
+      p {
+        margin: 0 0 0.75em;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      h1 { font-size: 1.6rem; font-weight: 700; margin: 0.5em 0; color: $admin-secondary; }
+      h2 { font-size: 1.3rem; font-weight: 700; margin: 0.5em 0; color: $admin-secondary; }
+      h3 { font-size: 1.1rem; font-weight: 700; margin: 0.5em 0; color: $admin-secondary; }
+
+      ul, ol {
+        padding-left: 1.5em;
+        margin: 0.5em 0;
+      }
+
+      ul { list-style: disc; }
+      ol { list-style: decimal; }
+
+      li { margin-bottom: 0.25em; }
+
+      a {
+        color: #4a90e2;
+        text-decoration: underline;
+      }
+
+      strong { font-weight: 700; }
+      em { font-style: italic; }
+      u { text-decoration: underline; }
+      s { text-decoration: line-through; }
+
+      // Placeholder quand vide
+      &.is-editor-empty:first-child::before {
+        content: "Décrivez votre projet...";
+        color: #94a3b8;
+        pointer-events: none;
+        float: left;
+        height: 0;
+      }
+    }
+  }
+}

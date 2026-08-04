@@ -6,6 +6,7 @@
   "scripts": {
     "build-css": "sass src/styles/styles.scss src/styles/styles.css",
     "watch-css": "sass --watch src/styles/:src/styles/",
+    "generate-share-image": "node scripts/generate-share-image.js",
     "start": "cross-env HOST=localhost PORT=3000 react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -15,7 +16,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tiptap/extension-color": "^3.22.3",
+    "@tiptap/extension-highlight": "^3.22.3",
+    "@tiptap/extension-link": "^3.22.3",
+    "@tiptap/extension-text-align": "^3.22.3",
+    "@tiptap/extension-text-style": "^3.22.3",
+    "@tiptap/extension-underline": "^3.22.3",
+    "@tiptap/pm": "^3.22.3",
+    "@tiptap/react": "^3.22.3",
+    "@tiptap/starter-kit": "^3.22.3",
     "aos": "^2.3.4",
+    "dompurify": "^3.3.3",
     "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
     "gsap": "^3.12.7",
@@ -47,10 +58,12 @@
     "customize-cra": "^1.0.0",
     "path-browserify": "^1.0.1",
     "postcss-loader": "^8.1.1",
+    "puppeteer": "^25.1.0",
     "react-app-rewired": "^2.2.1",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.81.0",
-    "sass-loader": "^16.0.3"
+    "sass-loader": "^16.0.3",
+    "sharp": "^0.34.5"
   },
   "proxy": "http://localhost:5001",
   "homepage": "https://axelgregoire.fr/"

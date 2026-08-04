@@ -924,6 +924,47 @@ $admin-text-muted: #64748b;
 }
 
 // ==========================================
+// ONGLETS (Projets / Articles)
+// ==========================================
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+
+  .admin-tab {
+    padding: 10px 24px;
+    border: 1px solid $admin-border;
+    border-radius: 999px;
+    background: transparent;
+    color: $admin-text-muted;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+
+    &:hover {
+      color: $admin-text;
+    }
+
+    &.is-active {
+      background: $admin-primary;
+      border-color: transparent;
+      color: #ffffff;
+    }
+  }
+}
+
+// Le badge de statut des articles est cliquable (publier/dépublier)
+.status-toggle {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+// ==========================================
 // ANIMATIONS
 // ==========================================
 @keyframes spin {

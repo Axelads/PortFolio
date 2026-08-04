@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "functions": {
+    "api/chat.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/blog/publish.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/blog/sitemap.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/blog/rss.js": {
+      "memory": 256,
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://axelgregoire.fr" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+      ]
+    }
+  ]
+}

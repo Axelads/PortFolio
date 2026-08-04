@@ -14,10 +14,27 @@
       font-size: 2.5rem;
       margin-bottom: 10px;
       color:#5b5963;
+
+      @media (max-width: 768px) {
+        font-size: 1.8rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 1.5rem;
+        margin-top: 25px;
+      }
     }
 
     p {
       font-size: 1.5rem;
+
+      @media (max-width: 768px) {
+        font-size: 1rem;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 0.95rem;
+      }
     }
   
     .project-date,
@@ -39,6 +56,11 @@
       .project-resume {
         display: flex;
         align-items: center;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+          gap: 15px;
+        }
     }
   }
   
@@ -69,7 +91,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
-      color: #004466; /* Contraste bleu sombre */
+      color: #004466;
       text-decoration: none;
       margin: 10px 0;
       border: 2px solid #004466;
@@ -78,16 +100,26 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       width: 200px;
       padding: 6px 10px;
-      
-  
+
       svg {
         margin-right: 8px;
       }
-  
+
       &:hover {
-        color: #00334D; /* Couleur encore plus sombre au survol */
-        transform: scale(1.1); /* Grossissment de 10%*/
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre légère au survol */
+        color: #00334D;
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+        max-width: 300px;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 480px) {
+        padding: 10px 15px;
+        font-size: 0.9rem;
       }
     }
   

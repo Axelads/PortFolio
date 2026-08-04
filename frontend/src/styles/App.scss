@@ -1,10 +1,12 @@
 body {
   max-width: 2200px;
+  overflow-x: hidden;
 }
 
 main {
-    padding-top: 80px; /* Ajuste en fonction de la hauteur du Header */
+    padding-top: 80px;
     @media (max-width: 750px){
-      padding-top: 0;
+      // Compense la barre supérieure mobile fixe (.mobile-bar = 64px)
+      padding-top: 64px;
   }
 }

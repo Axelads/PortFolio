@@ -7,6 +7,8 @@ import {
   updateProject,
   deleteProject,
 } from "../../services/pocketbase";
+import RichTextEditor from "../../components/Admin/RichTextEditor";
+import ArticlesPanel from "../../components/Admin/ArticlesPanel";
 
 const CATEGORIES = [
   { id: "site-web", name: "Site Web" },
@@ -16,7 +18,7 @@ const CATEGORIES = [
 
 const emptyProject = {
   slug: "",
-  nom: "",
+  name: "",
   date: "",
   completed: false,
   category: "site-web",
@@ -28,13 +30,14 @@ const emptyProject = {
 };
 
 const AdminDashboard = () => {
-  const { admin, logout, isAuthenticated } = useAuth();
+  const { admin, logout, isAuthenticated, refreshAuth } = useAuth();
   const navigate = useNavigate();
 
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [activeTab, setActiveTab] = useState("projets");
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
@@ -57,8 +60,19 @@ const AdminDashboard = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  // Valide ET renouvelle la session PocketBase à l'entrée (token valable 7 jours).
+  // Sans ça : token expiré -> la liste s'affiche quand même (lecture publique)
+  // mais chaque enregistrement échoue avec un 404 incompréhensible.
   useEffect(() => {
-    fetchProjects();
+    const init = async () => {
+      const sessionOk = await refreshAuth();
+      if (!sessionOk) {
+        navigate("/admin");
+        return;
+      }
+      fetchProjects();
+    };
+    init();
   }, []);
 
   const fetchProjects = async () => {
@@ -90,8 +104,10 @@ const AdminDashboard = () => {
     setEditingProject(project);
     setFormData({
       slug: project.slug || "",
-      nom: project.nom || "",
-      date: project.date ? project.date.split("T")[0] : "",
+      name: project.name || "",
+      // PocketBase renvoie "YYYY-MM-DD HH:mm:ss.sssZ" (espace, pas "T") :
+      // slice(0,10) extrait la date quel que soit le séparateur.
+      date: project.date ? project.date.slice(0, 10) : "",
       completed: project.completed || false,
       category: project.category || "site-web",
       resume: project.resume || "",
@@ -160,10 +176,14 @@ const AdminDashboard = () => {
     setSuccess("");
 
     try {
-      const projectData = {
-        ...formData,
-        date: formData.date ? new Date(formData.date).toISOString() : null,
-      };
+      const projectData = { ...formData };
+      if (projectData.date) {
+        projectData.date = new Date(projectData.date).toISOString();
+      } else {
+        delete projectData.date;
+      }
+      if (!projectData.githubUrl) delete projectData.githubUrl;
+      if (!projectData.liveUrl) delete projectData.liveUrl;
 
       if (editingProject) {
         await updateProject(editingProject.id, projectData);
@@ -230,7 +250,33 @@ const AdminDashboard = () => {
         </div>
       )}
 
+      {/* Onglets */}
+      <div className="admin-tabs">
+        <button
+          type="button"
+          className={`admin-tab ${activeTab === "projets" ? "is-active" : ""}`}
+          onClick={() => setActiveTab("projets")}
+        >
+          Projets
+        </button>
+        <button
+          type="button"
+          className={`admin-tab ${activeTab === "articles" ? "is-active" : ""}`}
+          onClick={() => setActiveTab("articles")}
+        >
+          Articles
+        </button>
+      </div>
+
+      {/* Onglet Articles */}
+      {activeTab === "articles" && (
+        <main className="admin-content">
+          <ArticlesPanel setError={setError} setSuccess={setSuccess} />
+        </main>
+      )}
+
       {/* Content */}
+      {activeTab === "projets" && (
       <main className="admin-content">
         <div className="content-header">
           <h2>Gestion des Projets</h2>
@@ -274,7 +320,7 @@ const AdminDashboard = () => {
                 {projects.map((project) => (
                   <tr key={project.id}>
                     <td className="project-name">
-                      <strong>{project.nom}</strong>
+                      <strong>{project.name}</strong>
                       <span className="project-slug">/{project.slug}</span>
                     </td>
                     <td>
@@ -324,6 +370,7 @@ const AdminDashboard = () => {
           </div>
         )}
       </main>
+      )}
 
       {/* Modal Formulaire */}
       {showModal && (
@@ -339,12 +386,12 @@ const AdminDashboard = () => {
             <form onSubmit={handleSubmit} className="project-form">
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="nom">Nom du projet *</label>
+                  <label htmlFor="name">Nom du projet *</label>
                   <input
                     type="text"
-                    id="nom"
-                    name="nom"
-                    value={formData.nom}
+                    id="name"
+                    name="name"
+                    value={formData.name}
                     onChange={handleInputChange}
                     required
                     placeholder="Mon Super Projet"
@@ -405,14 +452,13 @@ const AdminDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="resume">Description</label>
-                <textarea
-                  id="resume"
-                  name="resume"
+                <label>Description</label>
+                <RichTextEditor
+                  key={editingProject?.id || "new"}
                   value={formData.resume}
-                  onChange={handleInputChange}
-                  rows="4"
-                  placeholder="Décrivez votre projet..."
+                  onChange={(html) =>
+                    setFormData((prev) => ({ ...prev, resume: html }))
+                  }
                 />
               </div>
 

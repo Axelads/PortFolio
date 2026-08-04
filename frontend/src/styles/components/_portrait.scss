@@ -22,30 +22,10 @@
     }
   
     @media (max-width: 1228px) {
-      .portrait {
-        justify-content: center; // Centrer les éléments horizontalement
-        text-align: center; // Centrer le texte
-        padding-left: 0; // Supprimer tout éventuel décalage
-        margin: 0 auto; // Centrer le conteneur principal
-    
-        .portrait-content {
-          max-width: 90%; // Limiter la largeur pour éviter que le contenu ne touche les bords
-          padding: 0; // Retirer tout padding additionnel
-        }
-    
-        .title-portrait, .info-portrait, .about-me {
-          align-items: center; // Centrer tous les éléments internes
-          text-align: center; // Centrer le texte à l'intérieur
-        }
-    
-        .portrait-image {
-          margin: 0 auto; // Centrer l'image en dessous de 1228px
-        }
-    
-        .portrait-gif {
-          display: none; // Cacher le GIF si nécessaire pour éviter un décalage
-        }
-      }
+      justify-content: center;
+      text-align: center;
+      padding-left: 0;
+      margin: 0 auto;
     }
     
     @media (max-width: 850px) {
@@ -224,34 +204,41 @@
     }
   
     .contact-open-button {
-      background-color: #0056b3; // Couleur bleue du bouton
-      color: white; // Texte en blanc
-      border: 2px solid #0056b3; // Bordure bleue
-      border-radius: 12px; // Radius pour arrondir les coins
-      padding: 15px 25px; // Agrandir le bouton
-      font-size: 18px; // Augmenter la taille du texte
-      font-weight: bold; // Texte en gras
-      cursor: pointer; // Curseur pointeur au survol
-      position: relative; // Nécessaire pour le gap
-      transition: transform 0.3s ease, box-shadow 0.3s ease; // Transition pour l'effet
+      background-color: #0056b3;
+      color: white;
+      border: 2px solid #0056b3;
+      border-radius: 12px;
+      padding: 15px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       margin-bottom: 50px;
       margin-top: 15px;
-  
+
       &::after {
-        content: ''; // Élément pseudo pour le gap
+        content: '';
         position: absolute;
         top: -10px;
         left: -10px;
         right: -10px;
         bottom: -10px;
-        border: 2px solid #0056b3; // Bordure externe bleue
-        border-radius: 16px; // Radius pour correspondre au bouton
-        pointer-events: none; // Pour éviter les interactions
+        border: 2px solid #0056b3;
+        border-radius: 16px;
+        pointer-events: none;
       }
-  
+
       &:hover {
-        transform: scale(1.1); // Grossissement à 110% au hover
-        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4); // Ombre pour un effet stylé
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+      }
+
+      @media (max-width: 480px) {
+        margin-bottom: 20px;
+        margin-top: 10px;
+        padding: 12px 20px;
+        font-size: 16px;
       }
     }
   }

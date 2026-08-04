@@ -13,6 +13,11 @@
     height: auto;
   }
 
+  // Carousel masqué sous 469px : on resserre le haut du footer
+  @media (max-width: 469px) {
+    padding-top: 20px;
+  }
+
   .footer-wave {
     position: absolute;
     top: -99px;
@@ -70,6 +75,23 @@
       padding-top: 10px;
       margin-top: 220px;
     }
+
+    // Le carousel d'avis est masqué sous 469px : on supprime l'espace réservé
+    @media (max-width: 469px) {
+      margin-top: 0;
+      padding-top: 10px;
+    }
+  }
+
+  /* Logo animé à bulles tournantes — affiché uniquement sur mobile */
+  .footer-logo {
+    display: none;
+
+    @media (max-width: 750px) {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
   }
 
   p {
@@ -100,5 +122,17 @@
         color: var(--text-primary);
       }
     }
+  }
+}
+
+/* Rotation des bulles autour du logo (le logo central reste fixe) */
+@keyframes axel-logo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-logo [style*="axel-logo-spin"] {
+    animation: none !important;
   }
 }

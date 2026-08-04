@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FiMessageCircle, FiX, FiSend } from 'react-icons/fi';
 import '../../styles/components/_chatbot.scss';
 
-const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'https://chatbot-api-axel.vercel.app/api/chat';
+const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'https://chatbot-api-tan.vercel.app/api/chat';
 
 const WELCOME_MESSAGE = {
   role: 'assistant',
   content: "Bonjour ! Je suis l'assistant d'Axel. Vous avez des questions sur son parcours, ses compétences ou ses projets ? Je suis là pour vous aider ! 😊",
 };
+
+const isMobile = () => window.innerWidth <= 480;
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,22 +18,58 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const windowRef = useRef(null);
 
+  // Scroll vers le dernier message
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isLoading]);
 
+  // Gestion ouverture/fermeture
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (!isOpen) {
+      document.body.style.overflow = '';
+      return;
     }
+
+    // Bloquer le scroll body sur mobile
+    if (isMobile()) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Focus uniquement sur desktop
+      inputRef.current?.focus();
+    }
+
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  // Ajustement iOS : rétrécit la fenêtre par le haut quand le clavier s'ouvre
+  useEffect(() => {
+    if (!isOpen || !isMobile() || !window.visualViewport) return;
+
+    const adjustHeight = () => {
+      if (windowRef.current) {
+        windowRef.current.style.height = `${window.visualViewport.height}px`;
+      }
+    };
+
+    adjustHeight();
+    window.visualViewport.addEventListener('resize', adjustHeight);
+
+    return () => {
+      window.visualViewport.removeEventListener('resize', adjustHeight);
+      if (windowRef.current) windowRef.current.style.height = '';
+    };
   }, [isOpen]);
 
   const sendMessage = async () => {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
+
+    // Sur mobile, fermer le clavier après envoi
+    if (isMobile()) inputRef.current?.blur();
 
     const userMessage = { role: 'user', content: trimmed };
     const updatedMessages = [...messages, userMessage];
@@ -45,10 +83,9 @@ const Chatbot = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: updatedMessages.filter((m) => m.role !== 'assistant' || m !== WELCOME_MESSAGE).map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
+          messages: updatedMessages
+            .filter((m) => m.role !== 'assistant' || m !== WELCOME_MESSAGE)
+            .map((m) => ({ role: m.role, content: m.content })),
         }),
       });
 
@@ -80,7 +117,7 @@ const Chatbot = () => {
     <div className="chatbot">
       {/* Fenêtre de chat */}
       {isOpen && (
-        <div className="chatbot__window">
+        <div className="chatbot__window" ref={windowRef}>
           {/* Header */}
           <div className="chatbot__header">
             <div className="chatbot__header-info">

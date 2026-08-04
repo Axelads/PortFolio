@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, useNavigate } from "react-router-dom";
+import DOMPurify from "dompurify";
 import SkillProjects from "../components/Skills/skillProjects";
 import { getProjectBySlug } from "../services/pocketbase";
+
+// Supprime les balises HTML pour la meta description SEO
+const stripHtml = (html) => {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+};
 
 // Force HTTPS sur les URLs d'images
 const sanitizeUrl = (url) => {
@@ -81,9 +88,9 @@ const ProjectDetails = () => {
     <div className="project-details">
       <Helmet>
         <title>{project.name} - Projet | Axel Grégoire</title>
-        <meta name="description" content={project.resume ? project.resume.substring(0, 160) : `Découvrez le projet ${project.name} réalisé par Axel Grégoire.`} />
+        <meta name="description" content={project.resume ? stripHtml(project.resume).substring(0, 160) : `Découvrez le projet ${project.name} réalisé par Axel Grégoire.`} />
         <meta property="og:title" content={`${project.name} - Projet | Axel Grégoire`} />
-        <meta property="og:description" content={project.resume ? project.resume.substring(0, 160) : `Projet ${project.name} par Axel Grégoire.`} />
+        <meta property="og:description" content={project.resume ? stripHtml(project.resume).substring(0, 160) : `Projet ${project.name} par Axel Grégoire.`} />
         {project.imageUrls?.[0] && <meta property="og:image" content={project.imageUrls[0]} />}
         <link rel="canonical" href={`https://axelgregoire.fr/Projet/${project.slug}`} />
       </Helmet>
@@ -103,7 +110,12 @@ const ProjectDetails = () => {
         {/* Résumé du projet */}
         {project.resume && (
           <div className="project-resume">
-            <p>{project.resume}</p>
+            <div
+              className="project-resume-html"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(project.resume),
+              }}
+            />
 
             {/* Objectifs sous forme de liste */}
             {project.objectives && project.objectives.length > 0 && (

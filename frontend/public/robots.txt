@@ -4,3 +4,4 @@ Disallow: /admin
 Disallow: /admin/dashboard
 
 Sitemap: https://axelgregoire.fr/sitemap.xml
+Sitemap: https://chatbot-api-tan.vercel.app/api/blog/sitemap
