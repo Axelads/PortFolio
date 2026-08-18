@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "edition": "Édition août 2026",
+    "footerNote": "CV en ligne — toujours à jour sur axelgregoire.fr/cv"
+  },
+  "identity": {
+    "name": "Axel Grégoire",
+    "title": "Développeur Full Stack JavaScript",
+    "subtitle": "Web · Mobile · Automatisation IA",
+    "location": "Rougiers (Var) — à distance",
+    "phone": "06 73 49 11 67",
+    "email": "professionnel.agregoire@gmail.com",
+    "website": "axelgregoire.fr",
+    "github": "github.com/Axelads",
+    "linkedin": "linkedin.com/in/axelgregoire"
+  },
+  "pitch": "Développeur freelance issu de dix ans d'entrepreneuriat : j'ai dirigé une entreprise avant d'apprendre à coder. Aujourd'hui je conçois des produits complets — sites React et Next.js, applications mobiles React Native publiées de bout en bout, back-ends Node.js et PocketBase, automatisations avec des agents IA. Comprendre un métier, parler au client, livrer : c'était déjà mon travail avant de devenir développeur.",
+  "experienceDev": [
+    {
+      "role": "Développeur web & mobile",
+      "company": "Freelance",
+      "period": "2024 — aujourd'hui",
+      "place": "Rougiers (Var)",
+      "bullets": [
+        "Sites vitrines et boutiques pour artisans et associations : RolistesUnis.fr, La Charcuterie Nouvelle, Mon Paysagiste — maquette, développement, SEO, DNS et SSL.",
+        "Applications mobiles React Native / Expo menées de la conception aux builds EAS et à la préparation des stores.",
+        "Back-ends Node.js / Express et PocketBase : authentification, e-mails transactionnels, API REST.",
+        "Automatisations avec le SDK Anthropic : blog auto-alimenté par un agent planifié (coût API : 0 €), bots de veille et de notification."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "ColiPerforma",
+      "logo": "/images/cv/coliperforma.png",
+      "description": "Application mobile métier pour préparateurs de commandes : reconnaissance de texte (ML Kit), codes-barres, suivi des heures et de la productivité.",
+      "stack": ["React Native", "Expo", "ML Kit", "PocketBase"]
+    },
+    {
+      "name": "BreakCrew",
+      "logo": "/images/cv/breakcrew.png",
+      "description": "Application mobile ciné entre collègues : groupes, bibliothèque personnelle, filtre anti-frustration et Ciné-Roulette pour choisir le film du soir.",
+      "stack": ["React Native", "Expo", "PocketBase", "TMDB"]
+    },
+    {
+      "name": "HydraTrack",
+      "logo": "/images/cv/hydratrack.png",
+      "description": "Suivi d'hydratation : rendu graphique Skia, base SQLite locale, notifications, capteurs du téléphone.",
+      "stack": ["React Native", "Expo", "Skia", "SQLite"]
+    },
+    {
+      "name": "saveurs-du-marche.fr",
+      "logo": "/images/cv/saveurs.png",
+      "description": "Boutique en ligne d'épices, d'herbes et de poivres — la vitrine du stand de marché familial : paiement Stancer, livraison Mondial Relay, administration PocketBase.",
+      "stack": ["Next.js", "SCSS", "PocketBase", "Stancer"]
+    },
+    {
+      "name": "Vigie",
+      "logo": "/images/cv/vigie.svg",
+      "description": "Plateforme d'audit de sécurité : scanne un dépôt GitHub ou un binaire mobile (.apk / .ipa) — secrets, dépendances, code — dans des conteneurs jetables, avec analyse IA.",
+      "stack": ["FastAPI", "Next.js", "Redis", "Docker", "Claude"]
+    },
+    {
+      "name": "Boutique de jeux",
+      "logo": "/images/cv/boutiquejeux.svg",
+      "description": "Site boutique avec scènes 3D temps réel, éditeur d'administration riche (TipTap) et e-mails transactionnels.",
+      "stack": ["Next.js", "React Three Fiber", "GSAP", "Nodemailer"]
+    }
+  ],
+  "projectsSuite": [
+    {
+      "name": "RolistesUnis.fr",
+      "logo": "/images/cv/rolistesunis.png",
+      "description": "Site vitrine de l'association de jeu de rôle RUNE, conçu comme un point & click : on explore la page comme une scène de jeu. Développé et disponible en ligne.",
+      "stack": ["React", "GSAP", "Sass", "SEO"]
+    },
+    {
+      "name": "axelgregoire.fr",
+      "logo": "/images/cv/portfolio.png",
+      "description": "Ce portfolio : blog auto-alimenté par un agent Claude planifié, chatbot, administration PocketBase, SEO technique.",
+      "stack": ["React", "SCSS", "PocketBase", "SDK Anthropic"]
+    },
+    {
+      "name": "Bots & agents",
+      "logo": "/images/cv/bots.png",
+      "description": "Écosystème d'automatisations : bot Discord communautaire, bots Telegram de veille avec scraping temps réel, agents Claude planifiés pour la publication et les notifications.",
+      "stack": ["Node.js", "discord.js", "Telegram", "SDK Anthropic"]
+    }
+  ],
+  "skills": [
+    {
+      "group": "Front-end",
+      "items": ["JavaScript", "React", "Next.js", "HTML / CSS", "SCSS", "GSAP"]
+    },
+    {
+      "group": "Mobile",
+      "items": ["React Native", "Expo · EAS", "Android Studio"]
+    },
+    {
+      "group": "Back-end & données",
+      "items": ["Node.js", "Express", "MongoDB", "PocketBase", "SQLite", "API REST"]
+    },
+    {
+      "group": "Outils & IA",
+      "items": ["Git / GitHub", "SDK Anthropic", "Puppeteer", "EmailJS · SendGrid", "SEO technique"]
+    }
+  ],
+  "strengths": [
+    {
+      "title": "Relation client",
+      "detail": "Quinze ans face au client, des marchés de Provence aux projets web."
+    },
+    {
+      "title": "Autonomie produit",
+      "detail": "De la maquette à la mise en ligne, sans chef de projet intermédiaire."
+    },
+    {
+      "title": "Culture d'entreprise",
+      "detail": "Dix ans de gérance : budgets, délais et décisions assumées."
+    }
+  ],
+  "languages": [
+    { "name": "Français", "level": "langue maternelle" }
+  ],
+  "reconversionIntro": "Développeur depuis 2023 après quinze ans de commerce et d'entrepreneuriat. Cette seconde carrière n'est pas une rupture : c'est la même exigence — comprendre un besoin, construire une réponse, la livrer — avec de nouveaux outils.",
+  "careerBefore": [
+    {
+      "role": "Gérant de SARL",
+      "company": "Olive et Compagnie",
+      "period": "2013 — 2023",
+      "place": "Var, Bouches-du-Rhône, Vaucluse, Gard",
+      "bullets": [
+        "Direction d'une entreprise de vente sur les marchés pendant dix ans.",
+        "Gestion des stocks, du personnel et de la comptabilité.",
+        "Vente directe auprès des particuliers, fidélisation d'une clientèle locale.",
+        "Relations avec les services privés et publics, gestion du risque et des problématiques quotidiennes.",
+        "Recherche constante de nouveautés produits."
+      ]
+    },
+    {
+      "role": "Commercial",
+      "company": "ACEH",
+      "period": "2012 — 2013",
+      "place": "Occitanie",
+      "bullets": [
+        "Vente de traitements de charpente et d'isolation auprès des particuliers.",
+        "Analyse des problématiques et des besoins clients."
+      ]
+    },
+    {
+      "role": "Commercial & formateur",
+      "company": "SunWater",
+      "period": "2010 — 2012",
+      "place": "Var, Occitanie",
+      "bullets": [
+        "Vente de solutions de traitement de l'eau, prospection terrain.",
+        "Vente directe auprès des particuliers.",
+        "Formation et encadrement d'une équipe commerciale."
+      ]
+    },
+    {
+      "role": "Chargé d'accueil — alternance BTS Banque",
+      "company": "Crédit du Nord",
+      "period": "2008 — 2010",
+      "place": "Manosque",
+      "bullets": [
+        "Mise en place d'une agence, réception de la clientèle.",
+        "Gestion de caisse et d'actions commerciales.",
+        "Découverte et accompagnement des projets clients.",
+        "Prospection, développement du portefeuille, rigueur et droit bancaire."
+      ]
+    }
+  ],
+  "closing": "Dix ans à diriger une entreprise m'ont appris à livrer ce que le client attend. Le code m'a donné les moyens de le construire.",
+  "education": [
+    {
+      "school": "OpenClassrooms",
+      "diploma": "Développeur web — Bac +2",
+      "period": "2023 — 2024"
+    },
+    {
+      "school": "CFPB",
+      "diploma": "BTS Banque (niveau)",
+      "period": "2008 — 2010"
+    },
+    {
+      "school": "Lycée",
+      "diploma": "Baccalauréat Économique et Social",
+      "period": "2008"
+    }
+  ],
+  "interests": [
+    "Intelligence artificielle",
+    "Data & football",
+    "Jeux de rôle et de plateau",
+    "Jeux vidéo",
+    "Musique",
+    "Cinéma"
+  ]
+}

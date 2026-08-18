@@ -1,5 +1,20 @@
 # Lessons Learned
 
+## Session : CV en ligne /cv (2026-08-18)
+
+### ❌ ERREUR — Media query mobile qui casse l'impression
+À l'impression, la largeur CSS = largeur du papier (A4 ≈ 794px) : un
+`@media (max-width: 920px)` s'applique donc AUSSI au PDF et avait basculé le CV
+en layout mobile une colonne. Règle : sur toute page imprimable, préfixer le
+responsive par `@media screen and (max-width: …)` ET réaffirmer le layout
+critique dans le bloc `@media print`. Vérifier avec un vrai `page.pdf()`
+Puppeteer (le devDependency du frontend), pas seulement à l'écran.
+
+### ✅ PATTERN — Captures pleine page Playwright et header fixed
+Sur les screenshots `fullPage`, le header fixed est recollé au mauvais offset
+(artefact d'assemblage). Ne jamais « corriger » un chevauchement vu uniquement
+sur une capture pleine page : re-vérifier avec une capture viewport simple.
+
 ## Session : Blog auto-alimenté /blog (2026-08-03)
 
 ### ✅ PATTERN — Détecter la version PocketBase SANS identifiants

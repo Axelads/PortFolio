@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
+import CV from './pages/CV';
 import ProjectDetails from './pages/ProjectDetails';
 import NotFound from './pages/NotFound';
 import Avis from './pages/Avis';
@@ -17,6 +18,7 @@ const AppRouter = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/About" element={<About />} />
+      <Route path="/cv" element={<CV />} />
       <Route path="/Avis" element={<Avis />} />
       <Route path="/Projet/:id" element={<ProjectDetails />} />
       <Route path="/carte" element={<Carte />} />

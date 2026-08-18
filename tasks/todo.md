@@ -1,83 +1,55 @@
-# Blog auto-alimenté /blog (coût API : 0 €) — plan approuvé le 2026-08-03
+# CV en ligne /cv — remplace le PDF statique
 
-Génération par routine Claude planifiée (abonnement, pas l'API facturée) → POST vers
-`/api/blog/publish` (Vercel) → PocketBase `articles` → frontend `/blog` + onglet admin.
-Décisions : catégories Pack dev (ia/javascript/react/css/outils), admin oui, 2×/sem (mar+ven ~9h Paris).
+Objectif : page /cv magnifique (niveau senior), alimentée par les vraies données
+(projets Documents + portfolio), imprimable en PDF via le navigateur (Ctrl+P /
+bouton "Télécharger en PDF" → window.print()). Fini le PDF à re-uploader.
 
-## Tâches
+## Plan
 
-### Phase 0 — Hygiène
-- [x] `chatbot-api/.gitignore` (node_modules, .vercel, .env*)
-- [x] Supprimer `chatbot-api/package-lock.json` (désynchronisé)
-- [x] Fix URL fallback morte dans `Chatbot.js` (chatbot-api-tan)
+- [x] 1. Données CV : `frontend/src/assets/Data/DataCvContent.json`
+      (identité, pitch, expériences, projets phares réels — ColiPerforma,
+      HydraTrack, Boutique de jeux, axelgregoire.fr, BallData, Bots & agents —,
+      skills réels, formation, passions, reconversion assumée comme force)
+- [x] 2. Page `frontend/src/pages/CV.js` + route `/cv` dans AppRouter
+- [x] 3. Styles `frontend/src/styles/pages/_cv.scss` :
+      - thème dark ET light via var(--*) (papier volontairement fixe = WYSIWYG print)
+      - `@media print` : A4 exact, chrome du site masqué, layout réaffirmé
+- [x] 4. Bouton "Télécharger en PDF" → window.print()
+- [x] 5. Home.js : bouton "Voir mon CV" → navigate('/cv') (DataCv.json supprimé)
+- [x] 6. `npm run build-css`
+- [x] 7. Vérification visuelle : captures light + dark + mobile + PDF Puppeteer
+      réel — validé par Axel le 18/08/2026 (« c'est parfait »), commit + push
 
-### Phase 1 — PocketBase
-- [x] Sonder la version PB → **moderne (≥ 0.23, format "fields")** confirmé sans identifiants
-- [x] `chatbot-api/scripts/setup-blog-collection.js` (double format, idempotent, --smoke)
-- [x] Collection créée (script exécuté avec les creds superuser du .env — format moderne, smoke OK)
-- [x] Utilisateur `blog-bot` opérationnel (mot de passe réinitialisé + auth vérifiée)
+## Itération 2 (retours d'Axel, 18/08)
 
-### Phase 2 — Endpoint publication
-- [x] `chatbot-api/api/blog/publish.js` (Bearer, validation stricte, slug dedup testé accents FR, PB auth)
-- [x] `chatbot-api/vercel.json` (functions blog, pas de cron Vercel)
-
-### Phase 4 — SEO
-- [x] `chatbot-api/api/blog/sitemap.js`
-- [x] `chatbot-api/api/blog/rss.js`
-- [x] `frontend/public/robots.txt` (ligne Sitemap cross-domaine)
-- [x] `frontend/public/sitemap.xml` (+ /blog)
-- [x] `frontend/public/index.html` (link rel=alternate RSS)
-
-### Phase 5 — Frontend /blog
-- [x] `services/pocketbase.js` : export getAuthHeader + parsePbError
-- [x] `services/blog.js` (pagination réelle + CRUD admin)
-- [x] `utils/seo.js` (stripHtml)
-- [x] `components/Blog/ArticleCover.js` + `ArticleCard.js`
-- [x] `pages/Blog.js` (Helmet, filtres, grille, Charger plus, GSAP + garde reduced-motion JS)
-- [x] `pages/BlogArticle.js` (Helmet + JSON-LD BlogPosting, DOMPurify whitelist, sources, À lire aussi)
-- [x] `AppRouter.js` (/blog, /blog/:slug)
-- [x] `Header.js` (Blog desktop + drawer mobile is-active, --i réindexés)
-- [x] `styles/pages/_blog.scss` + import styles.scss + `npm run build-css`
-
-### Phase 6 — Admin
-- [x] `components/Admin/ArticlesPanel.js` (table, toggle Publié/Brouillon, modal TipTap key-remount, suppression)
-- [x] `AdminDashboard.js` (onglets Projets/Articles)
-- [x] `_admin.scss` (.admin-tabs, .status-toggle) + build-css
-
-### Phase 7 — Skill
-- [x] `.claude/skills/gsap-scrolltrigger/SKILL.md`
-
-### Vérifications & déploiement
-- [x] `npm run build-css` sans erreur nouvelle (seuls warnings darken() préexistants)
-- [x] `npm run build` → **Compiled successfully** (+4,1 kB JS / +1,3 kB CSS gzip)
-- [x] Captures /blog light + dark desktop + mobile + drawer (Blog actif, stagger OK)
-- [x] Routine créée **désactivée** : `trig_01DHqZrxGgganTmPx3rPsR91` (cron 0 7 * * 2,5 UTC)
-- [x] 4 variables d'env Vercel (Axel) + déploiement `npx vercel --prod` (fait après login Axel)
-- [x] Endpoints prod testés : sitemap 200, RSS 200, publish 401 sans token / 400 payload invalide
-- [x] Environnement cloud « blog » créé (egress autorisé vers Koyeb + Vercel — « Default » bloquait)
-- [x] Test bout en bout réussi : 1er article publié par la routine (« Claude Opus 5 : ce qui
-      change vraiment pour les devs sur l'API », 1288 mots, UTF-8 propre, whitelist respectée)
-- [x] Routine ACTIVÉE — prochain run vendredi 7 août ~9h Paris
-- [ ] (Axel) upload FTP de `frontend/build/` vers o2switch — dernière étape restante
-- [x] Review + lessons.md
+- [x] BallData retiré ; ajoutés : saveurs-du-marche.fr (Epices2), Vigie
+      (audit sécurité GitHub/.apk/.ipa), RolistesUnis.fr (point & click),
+      BreakCrew (app ciné) — 6 projets page 1 + 3 en « suite » page 2
+- [x] Logo de chaque projet (redimensionnés 160px → public/images/cv/,
+      script sharp dans le scratchpad) ; icône app carrée pour ColiPerforma
+- [x] Fond SVG : échos d'aurora (blobs flous + lignes de contour menthe)
+      en coins de chaque feuille, print-safe
+- [x] Sceau de cire menthe avec l'olivier du logo (SVG inline + PNG
+      transparent du motif) en bas de chaque page
+- [x] Panneau latéral teinté menthe ; « (en production) » retiré ;
+      email avec césure <wbr> après le @
+- [x] Bug corrigé : le garde z-index écrasait position:absolute du footer
 
 ## Review
 
-**Fait.** Chaîne complète codée et vérifiée localement : script de création de la collection
-(PB moderne confirmé par sonde des endpoints d'auth, replis legacy conservés), endpoint
-`/api/blog/publish` (Bearer + validation stricte + slugify accents testé + dedup slug),
-sitemap + RSS dynamiques, pages `/blog` et `/blog/:slug` (SEO Helmet + JSON-LD, DOMPurify
-whitelist, pagination réelle — une première dans le code —, GSAP avec garde reduced-motion),
-onglet admin Articles (réutilise table/modals/TipTap existants), skill GSAP adapté au vrai
-stack. Preuves : build prod « Compiled successfully », captures des 2 thèmes + mobile.
-
-**Choix structurants.** Génération à 0 € via routine Claude planifiée (abonnement) au lieu
-de l'API facturée — exigence d'Axel en cours de plan ; l'endpoint Vercel ne contient aucun
-appel Anthropic. Couvertures d'articles 100 % CSS (dégradé par catégorie) : rien à stocker.
-`.article-body` = variante rich-text aux variables CSS car `.project-resume-html` est
-hardcodé clair.
-
-**Reste (5 min, secrets uniquement — voir résumé de session)** : utilisateur `blog-bot`
-PocketBase, exécution du script setup, 4 env Vercel (PB_URL, PB_SERVICE_EMAIL,
-PB_SERVICE_PASSWORD, BLOG_PUBLISH_SECRET), déploiement Vercel, FTP du build, puis test
-« run now » de la routine et activation.
+- Direction validée par Axel : « document premium » (2 feuilles A4 posées sur le
+  fond du site, WYSIWYG écran = PDF), 2 pages.
+- Données 100 % réelles : ancien CV PDF (parcours commerce/banque), scan des
+  package.json de ~20 projets Documents (ColiPerforma ML Kit, HydraTrack Skia,
+  BoutiqueJeux R3F, bots Telegram/Discord, SDK Anthropic…).
+- Typo dédiée au document : Spectral / Archivo / Fragment Mono (Google Fonts,
+  ajoutées dans public/index.html).
+- Bug attrapé par le test PDF : la media query mobile s'appliquait à
+  l'impression (largeur papier ≈ 794px) → `@media screen and` + réaffirmation
+  du layout dans `@media print` (leçon consignée dans lessons.md).
+- Détecteur design impeccable : 0 finding. Revue de finition par sous-agent
+  volontairement remplacée par la validation visuelle d'Axel (économie du
+  forfait, demande explicite de voir avant push).
+- Validé et pushé le 18/08/2026. Encore ouvert (sans bloquer) : trancher
+  GitHub Axelads vs Ostiic dans le JSON-LD du site, et LinkedIn avec/sans
+  tiret — le CV utilise Axelads + axelgregoire (source : ancien CV).
