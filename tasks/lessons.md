@@ -1,5 +1,45 @@
 # Lessons Learned
 
+## Session : Blog auto — panne et remise en route (2026-08-29)
+
+### ✅ PATTERN — Une routine Claude partage la limite 5 h de l'abonnement
+Symptôme dans `RemoteTrigger list_runs` : run de 1 s à 90 s sans POST, log
+`rate_limit: rejected (five_hour)` / « You've hit your session limit ». Ce n'est PAS un
+bug : la routine tourne sur l'abonnement d'Axel, donc si Axel travaille avec Claude à
+l'heure du cron, la routine est rejetée. Règle : planifier les routines HORS heures de
+travail (cron `0 3,20 * * 2,5` = 05h + 22h Paris) et doubler le créneau avec un garde
+« déjà publié aujourd'hui → stop » pour que le 2e tir ne serve que de rattrapage.
+
+### ❌ ERREUR — Regex anti-XSS sans frontière de mot (`on\w+\s*=`)
+`publish.js` rejetait tout code contenant `const connection =`, `const response =`,
+`const config =`… (n'importe quel identifiant contenant « on » suivi de `=`). Un run de
+la routine a tourné en boucle dessus. Règle : un filtre d'attributs `on*` / `javascript:`
+ne s'applique QU'À L'INTÉRIEUR d'une balise (`<[^>]*[\s\/"']on[a-z]+\s*=`), jamais au
+texte ni au code (`<` y est échappé en `&lt;`). Toujours tester un filtre HTML contre du
+code JS réaliste ET contre les articles déjà publiés avant de le mettre en prod.
+
+### ❌ ERREUR — Un agent qui bissecte un 400 en POSTant sur la prod crée des articles publics
+Face au 400, le run a envoyé des payloads partiels à l'endpoint réel → 2 fragments de
+test publiés. Règle de prompt pour toute routine qui écrit en prod : « chaque POST accepté
+crée un contenu PUBLIC, aucun moyen de supprimer ; JAMAIS de payload de test/partiel ;
+2 essais max puis arrêt avec le détail de l'erreur ». Et lire le log d'un run SEULEMENT
+après `last_run.status` final — un log lu pendant le run (« events_shown < fetched »,
+pas de ligne `result`) donne un état intermédiaire trompeur.
+
+### ✅ PATTERN — Runs manuels multiples d'une routine : EN SÉQUENCE, et AVANT le garde
+Trois runs parallèles auraient tous choisi la même catégorie (même lecture de PB). Lancer
+un run, attendre l'article (poller PB en arrière-plan sur `totalItems`), relancer. Le
+garde anti-doublon doit être ajouté au prompt APRÈS les runs manuels du jour, sinon il
+les bloque.
+
+### ✅ PATTERN — Écriture PocketBase et déploiement Vercel depuis ce poste
+`frontend/.env` : `PB_ADMIN_*` = superuser valide (`_superusers`), `PB_SUPERUSER_*` =
+simple compte `users` (le nom est trompeur). CLI Vercel : installé via nvm
+(`%LOCALAPPDATA%\nvm\v24.14.0\vercel.cmd`), jeton dans `%APPDATA%\xdg.data\com.vercel.cli`
+→ exporter `XDG_DATA_HOME`/`XDG_CONFIG_HOME` = `%APPDATA%\xdg.data`. En mode auto, DELETE
+PocketBase et `vercel --prod` sont bloqués par le classifieur : préférer une action
+réversible (`published=false`) et laisser Axel lancer le déploiement.
+
 ## Session : CV en ligne /cv (2026-08-18)
 
 ### ❌ ERREUR — Media query mobile qui casse l'impression

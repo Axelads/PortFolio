@@ -5,8 +5,11 @@ const { PB_URL } = require('../../lib/pb');
 
 const CATEGORIES = ['ia', 'javascript', 'react', 'css', 'outils'];
 
-// Balises interdites côté serveur (défense en profondeur — DOMPurify re-filtre au rendu)
-const FORBIDDEN_HTML = /<\s*(script|iframe|object|embed|form|style|link|meta)\b|on\w+\s*=|javascript:/i;
+// Défense en profondeur (DOMPurify re-filtre au rendu) : balises dangereuses, attributs
+// on* et URL javascript: — uniquement À L'INTÉRIEUR d'une balise. L'ancienne version
+// (`on\w+\s*=` sans frontière de mot) rejetait tout code contenant `const connection =`,
+// `const response =`, `const config =`… et a fait dérailler un run de la routine (29/08/2026).
+const FORBIDDEN_HTML = /<\s*(script|iframe|object|embed|form|style|link|meta)\b|<[^>]*[\s\/\"']on[a-z]+\s*=|<[^>]*\bjavascript:/i;
 
 function slugify(str) {
   return String(str)
