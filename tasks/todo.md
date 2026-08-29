@@ -1,55 +1,38 @@
-# CV en ligne /cv — remplace le PDF statique
+# Bouton Google « Sources préférées » dans le footer + règle globale
 
-Objectif : page /cv magnifique (niveau senior), alimentée par les vraies données
-(projets Documents + portfolio), imprimable en PDF via le navigateur (Ctrl+P /
-bouton "Télécharger en PDF" → window.print()). Fini le PDF à re-uploader.
+Demande d'Axel (29/08/2026) : poser le bouton Preferred Sources dans le footer du
+portfolio, et en faire une règle pour tous ses projets.
+
+## Reste de la tâche précédente (blog)
+
+- [ ] Déployer `chatbot-api` sur Vercel (`vercel --prod`, bloqué en mode auto) — Axel
+- [ ] Commit `chatbot-api/api/blog/publish.js` (regex) — sur feu vert d'Axel
+- [ ] Supprimer les 2 fragments dépubliés dans l'admin (optionnel)
 
 ## Plan
 
-- [x] 1. Données CV : `frontend/src/assets/Data/DataCvContent.json`
-      (identité, pitch, expériences, projets phares réels — ColiPerforma,
-      HydraTrack, Boutique de jeux, axelgregoire.fr, BallData, Bots & agents —,
-      skills réels, formation, passions, reconversion assumée comme force)
-- [x] 2. Page `frontend/src/pages/CV.js` + route `/cv` dans AppRouter
-- [x] 3. Styles `frontend/src/styles/pages/_cv.scss` :
-      - thème dark ET light via var(--*) (papier volontairement fixe = WYSIWYG print)
-      - `@media print` : A4 exact, chrome du site masqué, layout réaffirmé
-- [x] 4. Bouton "Télécharger en PDF" → window.print()
-- [x] 5. Home.js : bouton "Voir mon CV" → navigate('/cv') (DataCv.json supprimé)
-- [x] 6. `npm run build-css`
-- [x] 7. Vérification visuelle : captures light + dark + mobile + PDF Puppeteer
-      réel — validé par Axel le 18/08/2026 (« c'est parfait »), commit + push
-
-## Itération 2 (retours d'Axel, 18/08)
-
-- [x] BallData retiré ; ajoutés : saveurs-du-marche.fr (Epices2), Vigie
-      (audit sécurité GitHub/.apk/.ipa), RolistesUnis.fr (point & click),
-      BreakCrew (app ciné) — 6 projets page 1 + 3 en « suite » page 2
-- [x] Logo de chaque projet (redimensionnés 160px → public/images/cv/,
-      script sharp dans le scratchpad) ; icône app carrée pour ColiPerforma
-- [x] Fond SVG : échos d'aurora (blobs flous + lignes de contour menthe)
-      en coins de chaque feuille, print-safe
-- [x] Sceau de cire menthe avec l'olivier du logo (SVG inline + PNG
-      transparent du motif) en bas de chaque page
-- [x] Panneau latéral teinté menthe ; « (en production) » retiré ;
-      email avec césure <wbr> après le @
-- [x] Bug corrigé : le garde z-index écrasait position:absolute du footer
+- [x] 1. `components/Footer/PreferredSourceButton.js` : bouton maison, deeplink en
+      fallback, script Google chargé quand le footer est visible (mode manual),
+      `addPreferredSource()` au clic, thème aligné dark/light
+- [x] 2. `Footer.js` : bloc sous les icônes GitHub/LinkedIn
+- [x] 3. `_footer.scss` : `.footer-preferred` (var(--*)), footer en `min-height`
+- [x] 4. `npm run build-css` + lint CRA (dev server : « Compiled successfully », 0 warning)
+- [x] 5. Vérification Playwright : light, dark (+hover), mobile 390px ; script Google
+      chargé en mode manual quand le footer est visible (PREFERRED_SOURCE → {push,
+      ready, api}, iframe de service Google, aucun bouton auto-rendu) ; href fallback
+      correct ; chevauchement bulle chat / texte d'aide corrigé (padding-bottom 88px)
+- [x] 6. Règle globale dans `~/.claude/CLAUDE.md` (sites éditoriaux uniquement)
 
 ## Review
 
-- Direction validée par Axel : « document premium » (2 feuilles A4 posées sur le
-  fond du site, WYSIWYG écran = PDF), 2 pages.
-- Données 100 % réelles : ancien CV PDF (parcours commerce/banque), scan des
-  package.json de ~20 projets Documents (ColiPerforma ML Kit, HydraTrack Skia,
-  BoutiqueJeux R3F, bots Telegram/Discord, SDK Anthropic…).
-- Typo dédiée au document : Spectral / Archivo / Fragment Mono (Google Fonts,
-  ajoutées dans public/index.html).
-- Bug attrapé par le test PDF : la media query mobile s'appliquait à
-  l'impression (largeur papier ≈ 794px) → `@media screen and` + réaffirmation
-  du layout dans `@media print` (leçon consignée dans lessons.md).
-- Détecteur design impeccable : 0 finding. Revue de finition par sous-agent
-  volontairement remplacée par la validation visuelle d'Axel (économie du
-  forfait, demande explicite de voir avant push).
-- Validé et pushé le 18/08/2026. Encore ouvert (sans bloquer) : trancher
-  GitHub Axelads vs Ostiic dans le JSON-LD du site, et LinkedIn avec/sans
-  tiret — le CV utilise Axelads + axelgregoire (source : ancien CV).
+- Bouton maison (pill menthe, `var(--*)`, dark/light), sous GitHub/LinkedIn ; texte
+  d'aide « Pour voir mes articles plus souvent dans Google Discover, Actualités et les
+  résumés IA. » ; footer en `min-height: 350px` pour absorber le bloc.
+- Progressive enhancement : lien deeplink toujours fonctionnel, script Google lazy
+  (IntersectionObserver, rootMargin 200px), clic → `addPreferredSource()`.
+- Règle globale ajoutée dans `~/.claude/CLAUDE.md` (sites éditoriaux uniquement).
+- Non fait / à noter : warning React préexistant (`key` dans CarouselComments) ;
+  pas de bandeau de consentement sur le site → le script Google (iframe de service
+  news.google.com) se charge dès que le footer est visible ; RGPD à trancher par Axel.
+- Rien n'est commité (changements : Footer.js, PreferredSourceButton.js, _footer.scss,
+  styles.css, tasks/, + publish.js de la tâche précédente).

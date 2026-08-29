@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import CarouselComments from './CarouselComments';
 import AxelLogo from '../Header/AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
+import PreferredSourceButton from './PreferredSourceButton';
 
 const WaveSVG = ({ isDark }) => (
   <svg
@@ -56,6 +57,7 @@ const Footer = () => {
             <span className="sr-only">Visiter mon profil LinkedIn</span>
           </a>
         </div>
+        <PreferredSourceButton />
       </div>
     </footer>
   );

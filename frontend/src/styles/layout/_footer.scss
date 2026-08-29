@@ -4,13 +4,13 @@
   padding: 40px 0;
   text-align: center;
   color: var(--text-primary);
-  height: 350px;
+  min-height: 350px;
   overflow: visible;
   transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 750px) {
     padding: 40px 0 0;
-    height: auto;
+    min-height: 0;
   }
 
   // Carousel masqué sous 469px : on resserre le haut du footer
@@ -121,6 +121,68 @@
       &:first-child:hover {
         color: var(--text-primary);
       }
+    }
+  }
+
+  /* Bouton Google « Sources préférées » — bouton maison, thèmes dark/light via var(--*) */
+  .footer-preferred {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding: 0 16px;
+
+    // Mobile : le bouton flottant du chat occupe le coin bas droit, on laisse
+    // la place pour que le texte d'aide ne passe pas dessous en bas de page
+    @media (max-width: 585px) {
+      margin-top: 10px;
+      padding-bottom: 88px;
+    }
+
+    .footer-preferred-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-primary);
+      background-color: transparent;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      svg {
+        flex-shrink: 0;
+        font-size: 1rem;
+        color: var(--accent-primary);
+        transition: color 0.3s ease;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background-color: var(--accent-primary);
+        color: #1a1a2e;
+
+        svg {
+          color: #1a1a2e;
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--accent-secondary);
+        outline-offset: 3px;
+      }
+    }
+
+    .footer-preferred-hint {
+      max-width: 440px;
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
     }
   }
 }
