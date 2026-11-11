@@ -3,240 +3,386 @@
     {
       "id": "languages",
       "name": "Langages",
-      "icon": "FaCode",
-      "skills": [
-        {
-          "id": "html",
-          "name": "HTML5",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/2PVNZTc/HTML5-logo.png"
-        },
-        {
-          "id": "css",
-          "name": "CSS3",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://www.image-heberg.fr/files/17358994082006611028.webp"
-        },
-        {
-          "id": "javascript",
-          "name": "JavaScript",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://www.image-heberg.fr/files/17358994393456948425.webp"
-        },
-        {
-          "id": "typescript",
-          "name": "TypeScript",
-          "level": 35,
-          "status": "In Progress",
-          "urlImage": "https://www.image-heberg.fr/files/17358995392036845621.webp"
-        },
-        {
-          "id": "php",
-          "name": "PHP",
-          "level": 35,
-          "status": "In Progress",
-          "urlImage": "https://www.image-heberg.fr/files/17358995691864844263.webp"
-        }
-      ]
+      "short": "Langages"
     },
     {
       "id": "frameworks",
-      "name": "Frameworks & Librairies",
-      "icon": "FaReact",
-      "skills": [
-        {
-          "id": "react",
-          "name": "React",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
-        },
-        {
-          "id": "nodejs",
-          "name": "Node.js",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://www.image-heberg.fr/files/17358995071592891854.webp"
-        },
-        {
-          "id": "express",
-          "name": "Express.js",
-          "level": 95,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/Zz73ppDq/logo-express-Modifi.png"
-        },
-        {
-          "id": "nextjs",
-          "name": "Next.js",
-          "level": 70,
-          "status": "In Progress",
-          "urlImage": "https://i.ibb.co/tshL4Tn/nextjs-logo.png"
-        }
-      ]
+      "name": "Frameworks",
+      "short": "Frameworks"
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile",
+      "short": "Mobile"
     },
     {
       "id": "styles",
       "name": "Styles & UI",
-      "icon": "FaPalette",
-      "skills": [
-        {
-          "id": "sass",
-          "name": "SASS/SCSS",
-          "level": 95,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/RG0B4SHc/sass-Modifi.png"
-        },
-        {
-          "id": "react-icons",
-          "name": "React Icons",
-          "level": 90,
-          "status": "Completed",
-          "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
-        },
-        {
-          "id": "slick",
-          "name": "Slick Carousel",
-          "level": 85,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/BHxCX4DV/slick-logo-2.png"
-        }
-      ]
+      "short": "Styles & UI"
     },
     {
       "id": "animation",
       "name": "Animation",
-      "icon": "FaPlay",
-      "skills": [
-        {
-          "id": "gsap",
-          "name": "GSAP",
-          "level": 90,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/8LfbFzdP/png-transparent-gsap-greensock-hd-logo-thumbnail.png"
-        }
-      ]
+      "short": "Animation"
     },
     {
       "id": "database",
       "name": "Base de données",
-      "icon": "FaDatabase",
-      "skills": [
-        {
-          "id": "mongodb",
-          "name": "MongoDB",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/DbGSmQX/Mongo-DB-logo.webp"
-        },
-        {
-          "id": "mongoose",
-          "name": "Mongoose",
-          "level": 95,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/Q77g4fwT/mongoose-Modifi.png"
-        },
-        {
-          "id": "pocketbase",
-          "name": "PocketBase",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/zhYfrVgn/pocketbase-backend1721224921-logowik-com.webp"
-        }
-      ]
+      "short": "Data"
     },
     {
       "id": "tools",
       "name": "Outils & DevOps",
-      "icon": "FaTools",
-      "skills": [
-        {
-          "id": "git",
-          "name": "Git/GitHub",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/r6NMbJ8/github-logo.png"
-        },
-        {
-          "id": "npm",
-          "name": "NPM",
-          "level": 95,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/TMvZX1KJ/npm.png"
-        },
-        {
-          "id": "dotenv",
-          "name": "dotenv",
-          "level": 90,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/F4VH7sb2/env.png"
-        },
-        {
-          "id": "nodemon",
-          "name": "Nodemon",
-          "level": 85,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/4H55Pww/nodemon.jpg"
-        },
-        {
-          "id": "make",
-          "name": "Make.com",
-          "level": 60,
-          "status": "In Progress",
-          "urlImage": "https://i.ibb.co/6gybmbY/logo-make.png"
-        },
-        {
-          "id": "vscode",
-          "name": "VS Code",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/67KGXS17/vscode.jpg"
-        },
-        {
-          "id": "android-studio",
-          "name": "Android Studio",
-          "level": 100,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/hxT7SQgy/android-studio-icon.webp"
-        },
-        {
-          "id": "claude-agent",
-          "name": "Claude Agent",
-          "level": 85,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/6cp3v5g3/claude-color.png"
-        }
-      ]
+      "short": "DevOps"
+    },
+    {
+      "id": "ia",
+      "name": "IA & Automatisation",
+      "short": "IA"
     },
     {
       "id": "api",
       "name": "API & Services",
-      "icon": "FaCloud",
-      "skills": [
-        {
-          "id": "rest-api",
-          "name": "REST API",
-          "level": 95,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/6RW0nWxW/rest-Api.jpg"
-        },
-        {
-          "id": "emailjs",
-          "name": "EmailJS",
-          "level": 85,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/CsnnfmfH/emailjs.png"
-        },
-        {
-          "id": "sendgrid",
-          "name": "SendGrid",
-          "level": 80,
-          "status": "Completed",
-          "urlImage": "https://i.ibb.co/YBpVL0yy/sendgrid-logo-icon-169764.png"
-        }
-      ]
+      "short": "API"
+    }
+  ],
+  "skills": [
+    {
+      "id": "react",
+      "name": "React",
+      "category": "frameworks",
+      "tier": 3,
+      "icon": "SiReact",
+      "hero": true,
+      "why": "Le cœur de tous mes fronts, de ce portfolio à RolistesUnis.",
+      "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
+    },
+    {
+      "id": "javascript",
+      "name": "JavaScript",
+      "category": "languages",
+      "tier": 3,
+      "icon": "SiJavascript",
+      "hero": true,
+      "why": "La langue commune du front, du back, du mobile et des bots.",
+      "urlImage": "https://www.image-heberg.fr/files/17358994393456948425.webp"
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "category": "frameworks",
+      "tier": 3,
+      "icon": "SiNodedotjs",
+      "hero": true,
+      "why": "APIs Express, scripts, bots Discord et Telegram, routines."
+    },
+    {
+      "id": "pocketbase",
+      "name": "PocketBase",
+      "category": "database",
+      "tier": 3,
+      "icon": "SiPocketbase",
+      "hero": true,
+      "why": "Backend de ce site, de BreakCrew, ColiPerforma et saveurs-du-marche."
+    },
+    {
+      "id": "reactnative",
+      "name": "React Native",
+      "category": "mobile",
+      "tier": 3,
+      "icon": "SiReact",
+      "hero": true,
+      "why": "Trois apps menées jusqu'aux builds EAS : ColiPerforma, BreakCrew, HydraTrack."
+    },
+    {
+      "id": "anthropic",
+      "name": "SDK Anthropic",
+      "category": "ia",
+      "tier": 3,
+      "icon": "SiAnthropic",
+      "hero": true,
+      "why": "Agents Claude planifiés : blog auto-alimenté, veille, notifications, audit Vigie."
+    },
+    {
+      "id": "html",
+      "name": "HTML5",
+      "category": "languages",
+      "tier": 3,
+      "icon": "SiHtml5"
+    },
+    {
+      "id": "css",
+      "name": "CSS3",
+      "category": "languages",
+      "tier": 3,
+      "icon": "SiCss3"
+    },
+    {
+      "id": "nextjs",
+      "name": "Next.js",
+      "category": "frameworks",
+      "tier": 2,
+      "icon": "SiNextdotjs",
+      "urlImage": "https://i.ibb.co/tshL4Tn/nextjs-logo.png"
+    },
+    {
+      "id": "express",
+      "name": "Express",
+      "category": "frameworks",
+      "tier": 2,
+      "icon": "SiExpress"
+    },
+    {
+      "id": "expo",
+      "name": "Expo · EAS",
+      "category": "mobile",
+      "tier": 3,
+      "icon": "SiExpo"
+    },
+    {
+      "id": "reanimated",
+      "name": "Reanimated",
+      "category": "mobile",
+      "tier": 2,
+      "icon": "motion"
+    },
+    {
+      "id": "skia",
+      "name": "Skia",
+      "category": "mobile",
+      "tier": 2,
+      "icon": "brush"
+    },
+    {
+      "id": "mlkit",
+      "name": "ML Kit",
+      "category": "mobile",
+      "tier": 2,
+      "icon": "scan"
+    },
+    {
+      "id": "android",
+      "name": "Android Studio",
+      "category": "mobile",
+      "tier": 3,
+      "icon": "SiAndroidstudio"
+    },
+    {
+      "id": "sass",
+      "name": "SASS / SCSS",
+      "category": "styles",
+      "tier": 3,
+      "icon": "SiSass"
+    },
+    {
+      "id": "tiptap",
+      "name": "TipTap",
+      "category": "styles",
+      "tier": 2,
+      "icon": "pen"
+    },
+    {
+      "id": "three",
+      "name": "Three.js · R3F",
+      "category": "styles",
+      "tier": 2,
+      "icon": "SiThreedotjs"
+    },
+    {
+      "id": "gsap",
+      "name": "GSAP",
+      "category": "animation",
+      "tier": 3,
+      "icon": "SiGreensock"
+    },
+    {
+      "id": "lottie",
+      "name": "Lottie",
+      "category": "animation",
+      "tier": 2,
+      "icon": "wave"
+    },
+    {
+      "id": "lenis",
+      "name": "Lenis",
+      "category": "animation",
+      "tier": 2,
+      "icon": "motion"
+    },
+    {
+      "id": "mongodb",
+      "name": "MongoDB",
+      "category": "database",
+      "tier": 3,
+      "icon": "SiMongodb"
+    },
+    {
+      "id": "mongoose",
+      "name": "Mongoose",
+      "category": "database",
+      "tier": 2,
+      "icon": "SiMongoose"
+    },
+    {
+      "id": "sqlite",
+      "name": "SQLite",
+      "category": "database",
+      "tier": 2,
+      "icon": "SiSqlite"
+    },
+    {
+      "id": "git",
+      "name": "Git / GitHub",
+      "category": "tools",
+      "tier": 3,
+      "icon": "SiGit"
+    },
+    {
+      "id": "vscode",
+      "name": "VS Code",
+      "category": "tools",
+      "tier": 3,
+      "icon": "SiVisualstudiocode"
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel · Koyeb",
+      "category": "tools",
+      "tier": 2,
+      "icon": "SiVercel"
+    },
+    {
+      "id": "playwright",
+      "name": "Puppeteer · Playwright",
+      "category": "tools",
+      "tier": 2,
+      "icon": "SiPuppeteer",
+      "wide": true
+    },
+    {
+      "id": "seo",
+      "name": "SEO technique",
+      "category": "tools",
+      "tier": 2,
+      "icon": "SiGooglesearchconsole"
+    },
+    {
+      "id": "dns",
+      "name": "DNS & SSL",
+      "category": "tools",
+      "tier": 2,
+      "icon": "SiLetsencrypt"
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "category": "tools",
+      "tier": 1,
+      "icon": "SiDocker"
+    },
+    {
+      "id": "bots",
+      "name": "Bots Telegram · Discord",
+      "category": "ia",
+      "tier": 2,
+      "icon": "SiDiscord",
+      "wide": true
+    },
+    {
+      "id": "scraping",
+      "name": "Scraping",
+      "category": "ia",
+      "tier": 2,
+      "icon": "scan"
+    },
+    {
+      "id": "rest",
+      "name": "REST API",
+      "category": "api",
+      "tier": 2,
+      "icon": "rest"
+    },
+    {
+      "id": "auth",
+      "name": "Auth JWT · OAuth",
+      "category": "api",
+      "tier": 2,
+      "icon": "SiJsonwebtokens",
+      "wide": true
+    },
+    {
+      "id": "payment",
+      "name": "Stripe · PayPal · Stancer",
+      "category": "api",
+      "tier": 2,
+      "icon": "SiStripe",
+      "wide": true
+    },
+    {
+      "id": "mail",
+      "name": "E-mails transactionnels",
+      "category": "api",
+      "tier": 2,
+      "icon": "mail",
+      "wide": true
+    }
+  ],
+  "tools": [
+    {
+      "name": "npm",
+      "icon": "SiNpm"
+    },
+    {
+      "name": "dotenv",
+      "icon": "SiDotenv"
+    },
+    {
+      "name": "Nodemon",
+      "icon": "SiNodemon"
+    },
+    {
+      "name": "Axios",
+      "icon": "SiAxios"
+    },
+    {
+      "name": "React Router",
+      "icon": "SiReactrouter"
+    },
+    {
+      "name": "React Icons",
+      "icon": "SiReact"
+    },
+    {
+      "name": "Slick Carousel",
+      "icon": "dot"
+    },
+    {
+      "name": "Multer · Sharp",
+      "icon": "SiSharp"
+    },
+    {
+      "name": "ESLint · Prettier · Jest",
+      "icon": "SiJest"
+    },
+    {
+      "name": "Swagger",
+      "icon": "SiSwagger"
+    },
+    {
+      "name": "Nodemailer",
+      "icon": "mail"
+    },
+    {
+      "name": "EmailJS",
+      "icon": "mail"
+    },
+    {
+      "name": "SendGrid",
+      "icon": "SiTwilio"
+    },
+    {
+      "name": "TMDB API",
+      "icon": "film"
     }
   ]
 }
