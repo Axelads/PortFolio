@@ -75,13 +75,32 @@
     gap: 12px;
   }
 
+  // Avatar dessiné d'Axel, détouré : posé sur un disque crème (fond de sa planche d'origine), lisible dans les deux thèmes.
+  &__avatar,
+  &__bubble-avatar {
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 30%;
+    background: #f4efe6;
+    flex-shrink: 0;
+  }
+
   &__avatar {
     width: 38px;
     height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
     border: 2px solid rgba(255, 255, 255, 0.5);
-    flex-shrink: 0;
+  }
+
+  &__bubble-avatar {
+    width: 36px;
+    height: 36px;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+
+    @media (max-width: 480px) {
+      width: 42px;
+      height: 42px;
+    }
   }
 
   &__name {

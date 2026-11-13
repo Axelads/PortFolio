@@ -10,6 +10,8 @@ import {
   parsePbDate,
 } from "../services/blog";
 import { stripHtml } from "../utils/seo";
+// Avatar dessiné d'Axel (expression « joie »), signature des articles.
+import avatarAxel from "../images/avatar/avatar-joie.webp";
 
 // Whitelist alignée sur le HTML autorisé par la routine de génération
 const SANITIZE_OPTIONS = {
@@ -132,6 +134,10 @@ const BlogArticle = () => {
           {article.reading_time > 0 && <span>{article.reading_time} min de lecture</span>}
         </div>
         <h1>{article.title}</h1>
+        <p className="blog-article__auteur">
+          <img src={avatarAxel} alt="" width="102" height="128" />
+          <span>Axel Grégoire</span>
+        </p>
         {tags.length > 0 && (
           <div className="blog-article__tags">
             {tags.map((tag, i) => (

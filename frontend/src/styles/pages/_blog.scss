@@ -36,6 +36,18 @@
     color: var(--text-secondary);
     line-height: 1.7;
   }
+
+  // Avatar dessiné d'Axel, la main à la barbe : la veille, c'est de la réflexion.
+  &__avatar {
+    display: block;
+    width: auto;
+    height: 120px;
+    margin: 0 auto 8px;
+
+    @media (max-width: 600px) {
+      height: 96px;
+    }
+  }
 }
 
 // ----- Filtres par catégorie -----
@@ -318,6 +330,29 @@
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 14px;
+  }
+
+  // Signature de l'article : l'avatar d'Axel sur son disque crème, puis son nom.
+  &__auteur {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+
+    img {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: 50% 30%;
+      background: #f4efe6;
+      border: 2px solid var(--border-color);
+      flex-shrink: 0;
+    }
   }
 }
 

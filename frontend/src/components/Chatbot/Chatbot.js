@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FiMessageCircle, FiX, FiSend } from 'react-icons/fi';
+import { FiX, FiSend } from 'react-icons/fi';
 import '../../styles/components/_chatbot.scss';
+// Avatar dessiné d'Axel (expression « joie »), détouré depuis la planche d'expressions v3.
+import avatarAxel from '../../images/avatar/avatar-joie.webp';
 
 const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'https://chatbot-api-tan.vercel.app/api/chat';
 
@@ -121,7 +123,7 @@ const Chatbot = () => {
           {/* Header */}
           <div className="chatbot__header">
             <div className="chatbot__header-info">
-              <img className="chatbot__avatar" src="/logo_bot.webp" alt="Assistant d'Axel" />
+              <img className="chatbot__avatar" src={avatarAxel} alt="" width="102" height="128" />
               <div>
                 <p className="chatbot__name">Assistant d'Axel</p>
                 <p className="chatbot__status">En ligne</p>
@@ -182,7 +184,7 @@ const Chatbot = () => {
         aria-label="Ouvrir le chat"
       >
         <span className="chatbot__bubble-icon">
-          {isOpen ? <FiX /> : <FiMessageCircle />}
+          {isOpen ? <FiX /> : <img className="chatbot__bubble-avatar" src={avatarAxel} alt="" width="102" height="128" />}
         </span>
         {!isOpen && (
           <span className="chatbot__bubble-label">Chat interactif d'Axel</span>

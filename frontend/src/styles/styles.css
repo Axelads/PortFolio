@@ -2986,16 +2986,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 40px 20px;
+  box-sizing: border-box;
   background-color: #8BC7B1; /* Couleur de fond cohérente avec le style général */
   text-align: center;
   font-family: "Montserrat", sans-serif;
+}
+.not-found-container .not-found-avatar {
+  display: block;
+  width: auto;
+  height: clamp(130px, 24vh, 200px);
+  margin-bottom: -8px;
+  animation: not-found-avatar-entree 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .not-found-container .not-found-title {
   font-size: 6rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 .not-found-container .not-found-text {
@@ -3033,6 +3042,17 @@
   }
 }
 
+@keyframes not-found-avatar-entree {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .not-found-container .not-found-avatar {
+    animation: none;
+  }
+}
 .carte-wrapper {
   display: flex;
   justify-content: center;
@@ -4337,13 +4357,29 @@
   align-items: center;
   gap: 12px;
 }
+.chatbot__avatar, .chatbot__bubble-avatar {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  background: #f4efe6;
+  flex-shrink: 0;
+}
 .chatbot__avatar {
   width: 38px;
   height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  flex-shrink: 0;
+}
+.chatbot__bubble-avatar {
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+}
+@media (max-width: 480px) {
+  .chatbot__bubble-avatar {
+    width: 42px;
+    height: 42px;
+  }
 }
 .chatbot__name {
   margin: 0;
@@ -5034,6 +5070,17 @@
   color: var(--text-secondary);
   line-height: 1.7;
 }
+.blog-hero__avatar {
+  display: block;
+  width: auto;
+  height: 120px;
+  margin: 0 auto 8px;
+}
+@media (max-width: 600px) {
+  .blog-hero__avatar {
+    height: 96px;
+  }
+}
 
 .blog-filters {
   display: flex;
@@ -5281,6 +5328,26 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
+}
+.blog-article__auteur {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.blog-article__auteur img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  background: #f4efe6;
+  border: 2px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .article-tag {

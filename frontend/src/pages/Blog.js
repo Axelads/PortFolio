@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { gsap } from "gsap";
 import ArticleCard from "../components/Blog/ArticleCard";
+// Avatar dessiné d'Axel, expression « réflexion » (planche d'expressions v3, détourée).
+import avatarReflexion from "../images/avatar/avatar-reflexion.webp";
 import { getArticles, BLOG_CATEGORIES } from "../services/blog";
 
 const FILTERS = [{ id: "all", label: "Tous" }, ...BLOG_CATEGORIES];
@@ -99,6 +101,7 @@ const Blog = () => {
       </Helmet>
 
       <header className="blog-hero">
+        <img className="blog-hero__avatar" src={avatarReflexion} alt="" width="183" height="256" />
         <h1>Blog</h1>
         <p className="blog-hero__intro">
           Ma veille technique, en articles clairs et concrets&nbsp;: IA, JavaScript,
