@@ -1,0 +1,286 @@
+// Bandeau « Ils nous ont fait confiance » (accueil, sous le portrait).
+// Une bande bleu nuit pleine largeur où défilent des plaques claires : logo, nom, activité.
+// Les plaques restent claires dans les deux thèmes : plusieurs logos (Intermarché, Saveurs du Marché) sont dessinés
+// pour un fond clair. Le titre reprend la grammaire des sections de l'accueil (masques mot à mot, mot fort coloré).
+.clients {
+  --cl-ink: var(--text-primary);
+  --cl-ink-2: var(--text-secondary);
+  --cl-brand: #00334d;
+  --cl-bande: #00334d;
+  --cl-bande-reflet: rgba(139, 199, 177, 0.16);
+  --cl-bande-fil: rgba(139, 199, 177, 0.38);
+  --cl-plaque: #ffffff;
+  --cl-plaque-ink: #00334d;
+  --cl-plaque-ink-2: #56666d;
+  --cl-plaque-ombre: 0 12px 26px -14px rgba(0, 10, 20, 0.55);
+  --cl-focus: #8BC7B1;
+  --cl-plaque-h: 76px;
+  --cl-logo: 52px;
+  --cl-ecart: 18px;
+
+  [data-theme="dark"] & {
+    --cl-brand: #8BC7B1;
+    --cl-bande: #0f0f24;
+    --cl-bande-reflet: rgba(139, 199, 177, 0.1);
+    --cl-bande-fil: rgba(139, 199, 177, 0.3);
+    --cl-plaque: #eef3f1;
+    --cl-plaque-ombre: 0 12px 26px -14px rgba(0, 0, 0, 0.8);
+  }
+
+  @media (max-width: 720px) {
+    --cl-plaque-h: 58px;
+    --cl-logo: 38px;
+    --cl-ecart: 10px;
+  }
+
+  position: relative;
+  padding: 64px 0 8px;
+  color: var(--cl-ink);
+  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+
+  @media (max-width: 720px) {
+    padding-top: 44px;
+  }
+
+  // ── En-tête ──
+  .clients__tete {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 14px 64px;
+    align-items: end;
+    max-width: 1200px;
+    margin: 0 auto 28px;
+    padding: 0 40px;
+    box-sizing: border-box;
+
+    @media (max-width: 720px) {
+      grid-template-columns: 1fr;
+      align-items: start;
+      padding: 0 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .clients__titre {
+    font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.02 'Archivo', 'Poppins', sans-serif;
+    letter-spacing: -0.035em;
+    margin: 0;
+    text-wrap: balance;
+    color: var(--cl-ink);
+
+    .mot {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
+
+      > span {
+        display: inline-block;
+      }
+    }
+
+    em {
+      font-style: normal;
+      color: var(--cl-brand);
+    }
+  }
+
+  .clients__chapo {
+    margin: 0;
+    max-width: 44ch;
+    justify-self: end;
+    color: var(--cl-ink-2);
+    font-size: 1.02rem;
+    line-height: 1.55;
+
+    @media (max-width: 720px) {
+      justify-self: start;
+      font-size: 0.95rem;
+    }
+  }
+
+  // ── Bande ──
+  .clients__bande {
+    position: relative;
+    background:
+      radial-gradient(120% 140% at 50% -40%, var(--cl-bande-reflet), transparent 60%),
+      var(--cl-bande);
+    border-block: 1px solid var(--cl-bande-fil);
+  }
+
+  // Le padding laisse la place à l'ombre des plaques. Fondu aux deux bords ; à droite, les plaques s'effacent avant la place du bouton pause.
+  .clients__voie {
+    --cl-fondu: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 140px), transparent calc(100% - 62px));
+    overflow: hidden;
+    padding-block: 26px;
+    -webkit-mask-image: var(--cl-fondu);
+    mask-image: var(--cl-fondu);
+
+    @media (max-width: 720px) {
+      --cl-fondu: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 80px), transparent calc(100% - 46px));
+      padding-block: 18px;
+    }
+  }
+
+  .clients__piste {
+    display: flex;
+    width: max-content;
+  }
+
+  .clients__serie {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    // Marges plutôt que `gap` : les deux moitiés de la piste ont exactement la même largeur, la boucle ne saute pas.
+    > li {
+      flex: none;
+      margin-right: var(--cl-ecart);
+    }
+  }
+
+  // ── Plaque ──
+  .client {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-sizing: border-box;
+    height: var(--cl-plaque-h);
+    padding: 0 22px 0 12px;
+    border-radius: 18px;
+    background: var(--cl-plaque);
+    color: var(--cl-plaque-ink);
+    box-shadow: var(--cl-plaque-ombre);
+    white-space: nowrap;
+
+    @media (max-width: 720px) {
+      gap: 9px;
+      padding: 0 14px 0 8px;
+      border-radius: 14px;
+    }
+  }
+
+  .client__logo {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--cl-logo);
+    height: var(--cl-logo);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .client__texte {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .client__nom {
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 720px) {
+      font-size: 0.88rem;
+    }
+  }
+
+  .client__logotype {
+    display: block;
+    width: auto;
+    height: 24px;
+    margin-block: 1px 2px;
+
+    @media (max-width: 720px) {
+      height: 18px;
+    }
+  }
+
+  .client__activite {
+    font-size: 0.8rem;
+    line-height: 1.25;
+    color: var(--cl-plaque-ink-2);
+
+    @media (max-width: 720px) {
+      font-size: 0.7rem;
+    }
+  }
+
+  // ── Bouton pause (WCAG 2.2.2 : tout mouvement de plus de 5 s peut s'arrêter) ──
+  .clients__pause {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 50%;
+    background: rgba(0, 20, 32, 0.55);
+    color: #ffffff;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+
+    &:focus-visible {
+      outline: 3px solid var(--cl-focus);
+      outline-offset: 2px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: rgba(0, 20, 32, 0.8);
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    @media (max-width: 720px) {
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      font-size: 0.72rem;
+    }
+  }
+
+  // ── Mouvement réduit : pas de défilement, les sept plaques posées en grille ──
+  @media (prefers-reduced-motion: reduce) {
+    .clients__voie {
+      -webkit-mask-image: none;
+      mask-image: none;
+      padding-inline: 20px;
+    }
+
+    .clients__piste {
+      width: auto;
+    }
+
+    .clients__serie {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--cl-ecart);
+      margin-inline: auto;
+
+      > li {
+        margin-right: 0;
+      }
+    }
+
+    .clients__serie--copie,
+    .clients__pause {
+      display: none;
+    }
+  }
+}

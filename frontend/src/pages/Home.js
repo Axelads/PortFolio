@@ -6,6 +6,7 @@ import Contact from '../components/contact/Contact';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
 import LinkedInPosts from '../components/LinkedInPosts/LinkedInPosts';
+import ClientsConfiance from '../components/Clients/ClientsConfiance';
 
 const Home = () => {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -25,6 +26,7 @@ const Home = () => {
         <link rel="canonical" href="https://axelgregoire.fr/" />
       </Helmet>
       <Portrait openContactModal={openContactModal} />
+      <ClientsConfiance />
       <div className="informations">
         <button onClick={openCV} className="cv-button">
           Voir mon CV
