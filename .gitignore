@@ -1,1 +1,22 @@
 .claude
+
+# captures et journaux de l'outil Playwright de Claude (jetables)
+.playwright-mcp/
+
+# Notes de travail et outils d’hébergement : décrivent l’infrastructure, jamais sur GitHub (dépôt public)
+tasks/todo.md
+tasks/lessons.md
+dashboard.md
+frontend/scripts/publier-o2switch.mjs
+
+# Secrets et dépendances : jamais dans un dépôt public (14/11/2026)
+.env
+.env.*
+**/.env
+**/.env.*
+node_modules/
+# Ancien backend supprimé : il n'en reste qu'un .env et un node_modules en local
+Backend/
+
+# Capture produite par erreur par un script de capture d'écran (chemin Windows collé)
+frontend/UsersprofeDocumentsPortefolioscreenshot.png
