@@ -1,0 +1,421 @@
+@use 'outils' as *;
+
+// ─────────────── Fréquentation d'un site (panneau « Trafic » de la fiche) : mesure maison + Awstats ───────────────
+// Séries de couleur validées avec le validateur du skill dataviz (bande de luminosité, chroma, daltonisme, contraste)
+// pour chaque thème : visites = vert, pages vues = bleu. Les accents de la charte (--tdb-accent, trop clair sur le fond
+// nuit) ne servent qu'au survol. Chaque barre porte une bulle au survol ou au clavier ; chaque graphique, sa légende.
+
+.tdb {
+  --tdb-freq-visites: #2aa37a;
+  --tdb-freq-pages: #4a90e2;
+}
+.tdb[data-tdb-theme='clair'],
+html[data-tdb-theme='clair'] .tdb {
+  --tdb-freq-visites: #0f9a72;
+  --tdb-freq-pages: #2563c7;
+}
+
+.tdb-freq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-5);
+  transition: opacity var(--tdb-duree-rapide) var(--tdb-courbe-sortie);
+
+  &--chargement {
+    opacity: 0.6;
+  }
+
+  &__tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-3);
+  }
+  &__direct {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    margin: 0;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+
+    strong {
+      color: var(--tdb-texte);
+      font-weight: 600;
+    }
+  }
+  &__meta,
+  &__part,
+  &__detail,
+  &__note {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__note {
+    margin: 0;
+  }
+  // Détail d'une répartition (noms des sources…) : sa propre ligne, qui peut se replier, entre le libellé et la barre.
+  &__detail {
+    grid-column: 1 / -1;
+    margin-top: -2px;
+    overflow-wrap: anywhere;
+  }
+  // Six chiffres clés : trois par rangée sur ordinateur (deux rangées pleines), deux sur téléphone.
+  &__chiffres {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  &__chiffres .tdb-chiffres__contexte {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+  }
+
+  // ── Graphique en colonnes : visites et pages vues par jour (ou par semaine)
+  &__graphique {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    margin: 0;
+  }
+  &__legende {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-4);
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__legende-note {
+    margin-left: auto;
+  }
+  &__serie {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    &::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--tdb-freq-visites);
+    }
+    &--pages::before {
+      background: var(--tdb-freq-pages);
+    }
+  }
+  &__colonnes {
+    display: grid;
+    grid-template-columns: repeat(var(--colonnes), minmax(0, 1fr));
+    align-items: end;
+    gap: 2px;
+    height: 150px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__colonne {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 2px;
+    height: 100%;
+    min-width: 0;
+    border-radius: var(--tdb-rayon-petit);
+    outline: none;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--tdb-voile-accent);
+    }
+    &:hover .tdb-freq__bulle,
+    &:focus-visible .tdb-freq__bulle {
+      display: block;
+    }
+    // Colonnes du bord : la bulle reste dans le panneau.
+    &:first-child .tdb-freq__bulle {
+      left: 0;
+      --tdb-bulle-x: 0;
+    }
+    &:last-child .tdb-freq__bulle {
+      left: auto;
+      right: 0;
+      --tdb-bulle-x: 0;
+    }
+  }
+  &__barre {
+    display: block;
+    flex: 1 1 0;
+    max-width: 14px;
+    height: calc(var(--h) * 100%);
+    min-height: 2px;
+    border-radius: 3px 3px 0 0;
+    background: var(--tdb-freq-visites);
+    transform-origin: bottom;
+    animation: tdb-freq-pousse var(--tdb-duree-standard) var(--tdb-courbe-sortie) calc(var(--i, 0) * 12ms) backwards;
+
+    &--pages {
+      background: var(--tdb-freq-pages);
+    }
+  }
+  // Bulle : absente du flux tant qu'elle n'est pas montrée (une bulle invisible mais positionnée élargirait la page
+  // sur téléphone) ; son apparition est animée depuis @starting-style.
+  &__bulle {
+    --tdb-bulle-x: -50%;
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    z-index: 2;
+    width: max-content;
+    max-width: min(260px, 80vw);
+    padding: 6px 10px;
+    border-radius: var(--tdb-rayon-petit);
+    border: 1px solid var(--tdb-bordure-verre);
+    background: var(--tdb-fond-verre-fort);
+    box-shadow: var(--tdb-ombre-carte);
+    @include texte-petit;
+    color: var(--tdb-texte);
+    pointer-events: none;
+    opacity: 1;
+    transform: translate(var(--tdb-bulle-x), 0);
+    transition: opacity var(--tdb-duree-rapide) var(--tdb-courbe-sortie), transform var(--tdb-duree-rapide) var(--tdb-courbe-sortie);
+
+    strong {
+      font-weight: 600;
+    }
+  }
+  &__axe {
+    display: flex;
+    justify-content: space-between;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+
+  // ── Grilles de répartitions et de blocs
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--tdb-espace-5) var(--tdb-espace-6);
+
+    &--large {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  }
+
+  // ── Petites colonnes d'une série (heures, jours, mois)
+  &__mini {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    min-width: 0;
+  }
+  &__mini-colonnes {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: end;
+    gap: 2px;
+    height: 72px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__mini-colonne {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    height: 100%;
+    border-radius: 3px;
+    outline: none;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--tdb-voile-accent);
+    }
+    &:hover .tdb-freq__bulle,
+    &:focus-visible .tdb-freq__bulle {
+      display: block;
+    }
+    &:first-child .tdb-freq__bulle {
+      left: 0;
+      --tdb-bulle-x: 0;
+    }
+    &:last-child .tdb-freq__bulle {
+      left: auto;
+      right: 0;
+      --tdb-bulle-x: 0;
+    }
+  }
+  &__mini-axe {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 4px;
+    transform: translateX(-50%);
+    @include texte-petit;
+    font-size: 10px;
+    line-height: 1;
+    color: var(--tdb-texte-2);
+    white-space: nowrap;
+  }
+
+  // ── Tableaux et listes
+  &__bloc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    min-width: 0;
+  }
+  &__defilement {
+    overflow-x: auto;
+  }
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    @include texte-petit;
+
+    th,
+    td {
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--tdb-bordure-discrete);
+    }
+    thead th {
+      @include texte-libelle;
+      font-size: 11px;
+      color: var(--tdb-texte-2);
+    }
+    tbody th {
+      font-weight: 400;
+    }
+    tr:last-child th,
+    tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+  &__nombre {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  &__table &__nombre {
+    text-align: right;
+  }
+  &__chemin {
+    @include code;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+  &__recentes,
+  &__robots {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include texte-petit;
+  }
+  &__recente {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 2px var(--tdb-espace-3);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+
+    time {
+      color: var(--tdb-texte-2);
+      white-space: nowrap;
+    }
+    .tdb-freq__meta {
+      grid-column: 2;
+    }
+  }
+  &__robots li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 var(--tdb-espace-3);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+
+    .tdb-freq__meta {
+      grid-column: 1 / -1;
+    }
+  }
+
+  // ── Côté serveur
+  &__serveur {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-4);
+    padding-top: var(--tdb-espace-5);
+    border-top: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__serveur-tete {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  &__sous-titre {
+    @include titre-carte;
+  }
+
+  // ── Pied : exclusion de mes visites, mentions
+  &__pied {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+  }
+  &__exclusion {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-2) var(--tdb-espace-3);
+    @include texte-petit;
+
+    .interrupteur-glissant {
+      flex: none;
+      max-width: 100%;
+    }
+  }
+  &__lien {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--tdb-accent);
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    @include focus-visible;
+  }
+}
+
+@keyframes tdb-freq-pousse {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+// Entrée de la bulle (display: none → block) : fondu et montée de 4 px.
+@starting-style {
+  .tdb-freq__bulle {
+    opacity: 0;
+    transform: translate(var(--tdb-bulle-x), 4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tdb-freq__barre {
+    animation: none;
+  }
+  .tdb-freq__bulle,
+  .tdb-freq {
+    transition: none;
+  }
+}

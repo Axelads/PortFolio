@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom'; // Importer useLocation
-import { FaSun, FaMoon, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaSun, FaMoon, FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import Contact from '../contact/Contact';
 import AxelLogo from './AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -47,7 +47,10 @@ const Header = () => {
   const openContactModal = () => setIsContactOpen(true);
   const closeContactModal = () => setIsContactOpen(false);
   
-  const handleProjectsClick = () => {
+  // « Accueil » et « Projets » sont de vrais liens (<a href>) pour que les robots les suivent ;
+  // le clic garde le défilement doux de l'application.
+  const handleProjectsClick = (evenement) => {
+    evenement?.preventDefault();
     navigate('/'); // Naviguer vers la page d'accueil
     setTimeout(() => {
       const projectsSection = document.getElementById('projects');
@@ -57,14 +60,13 @@ const Header = () => {
     }, 100); // Attendre que la navigation ait lieu avant de scroller
   };
 
-  const handleHomeClick = () => {
+  const handleHomeClick = (evenement) => {
     if (location.pathname === '/') {
       // Si déjà sur la page d'accueil, scroller tout en haut
+      evenement?.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      // Sinon, naviguer vers la page d'accueil
-      navigate('/');
     }
+    // Sinon, le lien mène à l'accueil
   };
 
   return (
@@ -79,7 +81,8 @@ const Header = () => {
             invertLogo={isDark}
             className="header-logo"
           />
-         <h2 className="header-title">
+         {/* Signature animée de l'en-tête, pas un titre : le H1 de la page est dans le contenu */}
+         <p className="header-title">
             <span>D</span>
             <span>é</span>
             <span>v</span>
@@ -95,17 +98,17 @@ const Header = () => {
             <span>W</span>
             <span>E</span>
             <span>B</span>
-          </h2>
+          </p>
         </div>
         <ul className="nav">
-          <li onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
-            Accueil
+          <li>
+            <Link to="/" onClick={handleHomeClick}>Accueil</Link>
           </li>
           <li>
             <Link to="/About">À propos</Link>
           </li>
-          <li onClick={handleProjectsClick} style={{ cursor: 'pointer' }}>
-            Projets
+          <li>
+            <Link to="/#projects" onClick={handleProjectsClick}>Projets</Link>
           </li>
           <li>
             <Link to="/Avis">Avis</Link>
@@ -130,13 +133,14 @@ const Header = () => {
       <section className={`header-responsive ${isMobile ? '' : 'hidden'}`}>
         {/* Barre supérieure épurée */}
         <div className="mobile-bar">
-          <button
+          <Link
+            to="/"
             className="mobile-bar__brand"
-            onClick={() => {
-              handleHomeClick();
+            onClick={(evenement) => {
+              handleHomeClick(evenement);
               closeMenu();
             }}
-            aria-label="Retour à l'accueil"
+            aria-label="Axel Grégoire — retour à l'accueil"
           >
             <AxelLogo
               size={44}
@@ -146,9 +150,20 @@ const Header = () => {
               className="mobile-bar__logo"
             />
             <span className="mobile-bar__name">Axel Grégoire</span>
-          </button>
+          </Link>
 
           <div className="mobile-bar__actions">
+            {/* Contact en un geste depuis la barre fixe (il fallait ouvrir le menu, puis Contact) */}
+            <button
+              className="mobile-bar__contact"
+              onClick={() => {
+                openContactModal();
+                closeMenu();
+              }}
+              aria-label="Me contacter"
+            >
+              <FaEnvelope aria-hidden="true" />
+            </button>
             <button
               className="theme-toggle mobile"
               onClick={toggleTheme}
@@ -192,15 +207,16 @@ const Header = () => {
 
           <ul className="mobile-drawer__nav">
             <li style={{ '--i': 0 }}>
-              <button
+              <Link
+                to="/"
                 className={location.pathname === '/' ? 'is-active' : ''}
-                onClick={() => {
-                  handleHomeClick();
+                onClick={(evenement) => {
+                  handleHomeClick(evenement);
                   closeMenu();
                 }}
               >
                 Accueil
-              </button>
+              </Link>
             </li>
             <li style={{ '--i': 1 }}>
               <Link
@@ -212,14 +228,15 @@ const Header = () => {
               </Link>
             </li>
             <li style={{ '--i': 2 }}>
-              <button
-                onClick={() => {
-                  handleProjectsClick();
+              <Link
+                to="/#projects"
+                onClick={(evenement) => {
+                  handleProjectsClick(evenement);
                   closeMenu();
                 }}
               >
                 Projets
-              </button>
+              </Link>
             </li>
             <li style={{ '--i': 3 }}>
               <Link

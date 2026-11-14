@@ -1,0 +1,21 @@
+// Polices de repli à métriques ajustées (size-adjust / ascent / descent) :
+// le texte rendu en Arial en attendant Poppins / Montserrat occupe la même
+// place, donc aucun décalage de mise en page (CLS) au moment du swap.
+// Valeurs = métriques officielles des fallbacks next/font pour ces familles.
+@font-face {
+  font-family: 'Poppins Fallback';
+  src: local('Arial');
+  size-adjust: 112.16%;
+  ascent-override: 93.77%;
+  descent-override: 31.26%;
+  line-gap-override: 8.93%;
+}
+
+@font-face {
+  font-family: 'Montserrat Fallback';
+  src: local('Arial');
+  size-adjust: 113.26%;
+  ascent-override: 85.79%;
+  descent-override: 22.25%;
+  line-gap-override: 0%;
+}

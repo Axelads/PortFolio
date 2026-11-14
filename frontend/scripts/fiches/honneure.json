@@ -1,0 +1,35 @@
+{
+  "slug": "site-honneure",
+  "name": "Honn'Eure",
+  "date": "2026-10-02 00:00:00.000Z",
+  "completed": true,
+  "category": "site-web",
+  "githubUrl": "https://github.com/Axelads/honneure",
+  "liveUrl": "https://honneure.fr",
+  "skillsUsed": [
+    "Next.js 16",
+    "React 19",
+    "JavaScript",
+    "Sass",
+    "PocketBase",
+    "Three.js",
+    "GSAP",
+    "TipTap",
+    "OAuth2",
+    "SEO / JSON-LD",
+    "o2switch / Node.js",
+    "Figma"
+  ],
+  "resume": "<h1>Honn'Eure — Site d'un club moto, espace membres et dashboard d'administration</h1><h2>Le contexte :</h2><p>Honn'Eure est une association de motards du pays d'Arles (Arles et Saint-Martin-de-Crau), ouverte à toutes les marques, qui organise balades, rassemblements et sorties solidaires. Le club partait de zéro : un blason, deux fondateurs et une page Facebook. Il lui fallait un site qui raconte le club, recrute des adhérents, mette en avant ses partenaires, et que le bureau puisse administrer <strong>seul, sans développeur</strong>.</p><h2>La réponse :</h2><p>Un site complet conçu puis fabriqué de bout en bout : direction artistique (noir, chrome, rouge), blason vectorisé et animé, maquettes Figma avec leurs tokens de mouvement, puis Next.js et PocketBase. <strong>En ligne depuis le 2 octobre 2026</strong> sur honneure.fr.</p><h3>Ce qui a été livré :</h3><ul><li><p><strong>Hero 3D</strong> : un moteur V-twin modélisé en géométrie procédurale avec Three.js (chrome, alu brossé, occlusion ambiante, bloom), séquence d'éclatement au chargement, rotation à la main et curseur « vue éclatée » ; image statique en dessous de 800 px et sous <code>prefers-reduced-motion</code>.</p></li><li><p><strong>Splash d'intro</strong> : le blason s'assemble pièce par pièce en CSS pur, rendu par le serveur, une fois par session.</p></li><li><p><strong>Pages par blocs</strong> : accueil, association, agenda, actualités, partenaires (fiche en modale, bande de logos), solidarité et dons, goodies, pages de référencement local.</p></li><li><p><strong>Espace membres</strong> : compte e-mail ou Google / Microsoft, questionnaire moto, demande d'adhésion en trois étapes avec formule Duo (deux cartes liées), carte adhérent avec les informations utiles aux secours, inscriptions aux sorties, forum modéré avec garde-langage à la frappe et côté serveur.</p></li><li><p><strong>Dashboard d'administration</strong> « comme un WordPress » : éditeur de pages par blocs (glisser-déposer, texte riche), articles, événements, partenaires géocodés, galerie et médiathèque, membres et rôles, adhésions (acceptation, numéro de carte, e-mails automatiques), dons, textes du site, menus, réglages, file de publication Facebook / Instagram, fréquentation et Search Console.</p></li><li><p><strong>SEO et IA</strong> : métadonnées par page, JSON-LD (association, événements, FAQ), sitemap, llms.txt, IndexNow, bouton Google « Sources préférées », mesure de fréquentation anonyme soumise au consentement.</p></li></ul><h3>Côté technique :</h3><p>Next.js 16 (App Router) et React 19 en JavaScript, modules Sass, PocketBase (près de trente collections et des hooks JS : adhésions, forum, journal, réseaux sociaux, e-mails), Three.js, GSAP, dnd-kit, TipTap. Le site tourne sur o2switch (Node.js 22 sous Passenger, paquet compilé localement et envoyé par script), PocketBase sur Koyeb. Contrats et factures du club générés en PDF, affiche A4 avec QR code.</p>",
+  "images": [
+    "honneure_00_partage.webp",
+    "honneure_01_accueil.webp",
+    "honneure_02_mobile.webp",
+    "honneure_03_a_propos.webp",
+    "honneure_04_partenaires.webp",
+    "honneure_05_rejoindre.webp",
+    "honneure_06_solidarite.webp",
+    "honneure_07_goodies.webp",
+    "honneure_08_admin.webp"
+  ]
+}

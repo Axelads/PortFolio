@@ -20,7 +20,7 @@
   },
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/blog/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "https://axelgregoire.fr" },
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },

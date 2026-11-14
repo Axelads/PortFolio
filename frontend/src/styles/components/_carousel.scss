@@ -48,6 +48,19 @@
         border: 3px solid #8BC7B1;
         z-index: 1; /* Assure que l'image est au-dessus de la carte */
       }
+
+      // Avis sans photo (ou photo expirée) : initiales sur le dégradé du site
+      .carousel-image--initiales {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--accent-gradient);
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 0.02em;
+        user-select: none;
+      }
   
       .carousel-content {
         margin-top: 10px; /* Compense l'espace pris par l'image */
@@ -56,14 +69,14 @@
           margin-top: 5px;
         }
   
-        h4 {
+        h3 {
           font-size: 1.1rem;
           color: var(--text-primary);
           margin: 0; /* Supprime les marges par défaut */
           margin-top: 10px; /* Ajuste l'espacement avec l'image */
         }
   
-        h5 {
+        .carousel-poste {
           font-size: 0.9rem;
           color: var(--text-secondary);
           font-weight: normal;

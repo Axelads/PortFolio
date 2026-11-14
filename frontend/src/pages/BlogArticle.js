@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import Seo, { SITE_URL, imagePartageBlog, titreArticle } from "../components/Seo";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import ArticleCard, { formatArticleDate } from "../components/Blog/ArticleCard";
@@ -24,27 +24,51 @@ const SANITIZE_OPTIONS = {
 
 const isSafeUrl = (url) => typeof url === "string" && /^https?:\/\//.test(url);
 
+// Article injecté par scripts/prerender-seo.mjs dans le HTML de la page
+// (<script type="application/json" id="ssr-article">) : premier rendu sans aller-retour PocketBase.
+// Lecture sans effet de bord (StrictMode peut appeler l'initialiseur deux fois) ; le nœud est retiré au montage.
+const lireArticleSsr = (slug) => {
+  const noeud = document.getElementById("ssr-article");
+  if (!noeud) return null;
+  try {
+    const article = JSON.parse(noeud.textContent);
+    return article && article.slug === slug ? article : null;
+  } catch {
+    return null;
+  }
+};
+
 const BlogArticle = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [article, setArticle] = useState(null);
+  const [articleSsr] = useState(() => lireArticleSsr(slug));
+  const [article, setArticle] = useState(articleSsr);
   const [related, setRelated] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!articleSsr);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    document.getElementById("ssr-article")?.remove();
+  }, []);
+
+  useEffect(() => {
+    let annule = false;
     const fetchArticle = async () => {
-      setLoading(true);
-      setError(null);
-      setArticle(null);
-      setRelated([]);
+      const prechargee = Boolean(articleSsr && articleSsr.slug === slug);
+      if (!prechargee) {
+        setLoading(true);
+        setError(null);
+        setArticle(null);
+        setRelated([]);
+      }
       try {
-        const data = await getArticleBySlug(slug);
+        const data = prechargee ? articleSsr : await getArticleBySlug(slug);
+        if (annule) return;
         if (data) {
           setArticle(data);
           try {
             const rel = await getArticles({ perPage: 4, category: data.category });
-            setRelated(rel.items.filter((a) => a.slug !== data.slug).slice(0, 3));
+            if (!annule) setRelated(rel.items.filter((a) => a.slug !== data.slug).slice(0, 3));
           } catch {
             // les suggestions sont optionnelles, l'article reste lisible
           }
@@ -52,15 +76,19 @@ const BlogArticle = () => {
           setError("Article non trouvé");
         }
       } catch (err) {
+        if (annule) return;
         console.error("Erreur chargement article:", err);
         setError("Erreur lors du chargement de l'article");
       } finally {
-        setLoading(false);
+        if (!annule) setLoading(false);
       }
     };
 
     fetchArticle();
-  }, [slug]);
+    return () => {
+      annule = true;
+    };
+  }, [slug, articleSsr]);
 
   // Rediriger vers 404 si erreur ou article non trouvé
   useEffect(() => {
@@ -83,8 +111,12 @@ const BlogArticle = () => {
     return null;
   }
 
-  const canonical = `https://axelgregoire.fr/blog/${article.slug}`;
+  const path = `/blog/${article.slug}`;
+  const canonical = `${SITE_URL}${path}`;
   const description = article.excerpt || stripHtml(article.content).substring(0, 160);
+  const image = imagePartageBlog(article.category);
+  const publie = parsePbDate(article.created).toISOString();
+  const modifie = parsePbDate(article.updated || article.created).toISOString();
   const safeSources = Array.isArray(article.sources)
     ? article.sources.filter((s) => s && typeof s.title === "string" && isSafeUrl(s.url))
     : [];
@@ -95,33 +127,41 @@ const BlogArticle = () => {
     "@type": "BlogPosting",
     headline: article.title,
     description,
-    datePublished: parsePbDate(article.created).toISOString(),
-    dateModified: parsePbDate(article.updated || article.created).toISOString(),
+    image: [image],
+    datePublished: publie,
+    dateModified: modifie,
     inLanguage: "fr",
-    author: {
-      "@type": "Person",
-      name: "Axel Grégoire",
-      url: "https://axelgregoire.fr",
-    },
+    author: { "@type": "Person", name: "Axel Grégoire", url: SITE_URL },
+    publisher: { "@type": "Person", name: "Axel Grégoire", url: SITE_URL },
     mainEntityOfPage: canonical,
+    articleSection: getCategoryLabel(article.category),
+    ...(tags.length > 0 ? { keywords: tags.join(", ") } : {}),
+  };
+  const filAriane = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: article.title, item: canonical },
+    ],
   };
 
   return (
     <div className="blog-article">
-      <Helmet>
-        <title>{`${article.title} | Blog Axel Grégoire`}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={canonical} />
-        <meta
-          property="article:published_time"
-          content={parsePbDate(article.created).toISOString()}
-        />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
+      <Seo
+        title={titreArticle(article.title)}
+        description={description}
+        path={path}
+        type="article"
+        image={image}
+        imageAlt={article.title}
+        jsonLd={[jsonLd, filAriane]}
+      >
+        <meta property="article:published_time" content={publie} />
+        <meta property="article:modified_time" content={modifie} />
+        <meta property="article:author" content={SITE_URL} />
+      </Seo>
 
       <Link to="/blog" className="blog-article__back">
         ← Tous les articles

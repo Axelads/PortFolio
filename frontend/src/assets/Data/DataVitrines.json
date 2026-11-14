@@ -1,0 +1,49 @@
+{
+  "site-ecommerce-epices": {
+    "libelle": "Dans la boutique",
+    "titre": "Six produits à ouvrir sur le site",
+    "intro": "Chaque carte mène à la fiche du produit sur saveurs-du-marche.fr : photo, composition, prix et ajout au panier.",
+    "lienTout": {
+      "libelle": "Voir toute la boutique",
+      "url": "https://saveurs-du-marche.fr/boutique"
+    },
+    "produits": [
+      {
+        "nom": "Safran en pistils",
+        "rayon": "Safran BIO",
+        "image": "/images/vitrines/site-ecommerce-epices/safran-bio.webp",
+        "url": "https://saveurs-du-marche.fr/produit/safran-bio"
+      },
+      {
+        "nom": "Vanille de Madagascar",
+        "rayon": "Vanille",
+        "image": "/images/vitrines/site-ecommerce-epices/vanille-de-madagascar.webp",
+        "url": "https://saveurs-du-marche.fr/produit/vanille-de-madagascar"
+      },
+      {
+        "nom": "Poivre de Kampot",
+        "rayon": "Poivres en grains",
+        "image": "/images/vitrines/site-ecommerce-epices/poivre-de-kampot.webp",
+        "url": "https://saveurs-du-marche.fr/produit/poivre-de-kampot"
+      },
+      {
+        "nom": "Fèves de tonka entières",
+        "rayon": "Épices entières",
+        "image": "/images/vitrines/site-ecommerce-epices/feves-de-tonka-entieres.webp",
+        "url": "https://saveurs-du-marche.fr/produit/feves-de-tonka-entieres"
+      },
+      {
+        "nom": "Mélange médiéval",
+        "rayon": "Poivres et baies",
+        "image": "/images/vitrines/site-ecommerce-epices/melange-medieval.webp",
+        "url": "https://saveurs-du-marche.fr/produit/melange-medieval"
+      },
+      {
+        "nom": "Assortiment « Découverte »",
+        "rayon": "Pâtes de fruits",
+        "image": "/images/vitrines/site-ecommerce-epices/assortiment-decouverte.webp",
+        "url": "https://saveurs-du-marche.fr/produit/assortiment-decouverte"
+      }
+    ]
+  }
+}

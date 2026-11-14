@@ -166,6 +166,16 @@
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    // Post sans visuel : dégradé LinkedIn et logo, mêmes dimensions que l'image
+    .card-image--repli {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0b4f6c 0%, #0077b5 100%);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 3rem;
+    }
+
     .card-overlay {
       position: absolute;
       inset: 0;

@@ -4,29 +4,19 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/logo_Axel_Gregoire.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axel Grégoire - Développeur Web Full Stack | React, Node.js</title>
+    <title>Axel Grégoire, développeur web full stack React et Node.js</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Portfolio d'Axel Grégoire, développeur web full stack spécialisé en React, Node.js, MongoDB et PocketBase. Création de sites web, applications mobiles et outils sur mesure." />
+    <!-- SEO : socle commun à toutes les pages. Les balises propres à une route (description, canonical,
+         og:title/description/url/type/image, twitter:title/description/image, JSON-LD de la page) sont posées
+         par Helmet (src/components/Seo.js) et, dans le HTML brut des pages pré-rendues, par
+         scripts/prerender-seo.mjs. Les laisser ici ferait doublon avec Helmet après hydratation
+         (le canonical statique vers l'accueil survivait sur /blog et les articles). -->
     <meta name="keywords" content="Axel Grégoire, développeur web, développeur full stack, React, Node.js, MongoDB, JavaScript, TypeScript, Next.js, PocketBase, portfolio, freelance, Var, PACA, création site web, application mobile" />
     <meta name="author" content="Axel Grégoire" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://axelgregoire.fr/" />
-
-    <!-- Open Graph (Facebook) -->
-    <meta property="og:title" content="Axel Grégoire - Développeur Web Full Stack" />
-    <meta property="og:description" content="Portfolio de développeur web full stack. Découvrez mes projets en React, Node.js et applications mobiles." />
-    <meta property="og:image" content="%PUBLIC_URL%/logo_Axel_Gregoire_bubbles.png" />
-    <meta property="og:url" content="https://axelgregoire.fr" />
-    <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content="Axel Grégoire - Portfolio" />
-
-    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Axel Grégoire - Développeur Web Full Stack" />
-    <meta name="twitter:description" content="Développeur web full stack. Découvrez mes projets et contactez-moi pour vos besoins en développement." />
-    <meta name="twitter:image" content="%PUBLIC_URL%/logo_Axel_Gregoire_bubbles.png" />
 
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
@@ -39,7 +29,7 @@
       "description": "Développeur web full stack spécialisé en React, Node.js, MongoDB et PocketBase.",
       "sameAs": [
         "https://www.linkedin.com/in/axel-gregoire/",
-        "https://github.com/Ostiic"
+        "https://github.com/Axelads"
       ],
       "knowsAbout": ["React", "Node.js", "JavaScript", "MongoDB", "PocketBase", "Next.js", "Express.js", "GSAP", "React Native"],
       "image": "https://axelgregoire.fr/logo_Axel_Gregoire_bubbles.png"
@@ -59,14 +49,40 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
-    <!-- Polices du CV (/cv) : Spectral (titres), Archivo (texte), Fragment Mono (données) -->
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Archivo:wght@400;500;600;700&family=Fragment+Mono&display=swap" rel="stylesheet">
+    <!-- Une seule feuille, chargée sans bloquer le rendu (media=print puis basculée en all).
+         Parisienne est chargée par la page /Avis, Spectral/Archivo/Fragment Mono par /cv.
+         JetBrains Mono ne sert qu'aux lignes de l'écran de chargement sur téléphone : le
+         navigateur ne télécharge ses fichiers que là où elle est affichée. -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet"></noscript>
 
     <!-- Flux RSS du blog -->
     <link rel="alternate" type="application/rss+xml" title="Blog — Axel Grégoire" href="https://chatbot-api-tan.vercel.app/api/blog/rss" />
+
+    <!-- Écran de chargement statique (app shell) : peint par le HTML avant le bundle
+         React, avec le poster de la vidéo comme LCP découvrable dès le document.
+         Le composant Loading.js le remplace à l'identique puis le retire.
+         La règle « montrer le splash ? » est la même que dans src/contexts/LoadingContext.js
+         (accueil seul, pas de ?nosplash/?audit, pas d'outil d'audit ni d'automatisation,
+         pas de prefers-reduced-motion). -->
+    <script>
+      (function () {
+        var p = location.pathname, q = location.search, ua = navigator.userAgent || '';
+        var show = p === '/' && !/[?&](nosplash|audit)(=|&|$)/.test(q) &&
+          !/Lighthouse|Chrome-Lighthouse|Google Page Speed|HeadlessChrome|bot|crawl|spider/i.test(ua) && !navigator.webdriver &&
+          !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+        document.documentElement.className += show ? ' splash' : ' no-splash';
+      })();
+    </script>
+    <!-- Même géométrie que src/styles/Loading.scss (.loading-container / .loading-video). -->
+    <style>
+      #splash-static{position:fixed;inset:0;z-index:100000;background:#080c1b;display:flex;align-items:center;justify-content:center;margin:0;padding:0}
+      #splash-static img{display:block;width:100%;height:auto;aspect-ratio:16/9;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 10%,#000 90%,transparent 100%)}
+      @media (min-aspect-ratio:16/10){#splash-static img{height:100%;object-fit:cover;-webkit-mask-image:none;mask-image:none}}
+      .no-splash #splash-static{display:none}
+      /* Barre de défilement (Windows) aux couleurs de l'intro tant qu'elle joue ; Loading.js retire la classe au fondu. */
+      html.splash{scrollbar-color:#1c2340 #080c1b}
+    </style>
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#8BC7B1" />
@@ -76,6 +92,9 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   </head>
   <body>
+    <div id="splash-static" aria-hidden="true">
+      <img src="%PUBLIC_URL%/loading-intro-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="sync" />
+    </div>
     <div id="root"></div>
   </body>
 </html>

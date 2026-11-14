@@ -1,0 +1,407 @@
+@use 'outils' as *;
+
+// Coffre de documents : écran « Documents », panneau « Documents » des fiches projet, formulaire de dépôt et
+// ligne d'un document (contrat signé, facture, devis, autre).
+
+.tdb-documents {
+  &__h1 {
+    @include titre-page;
+  }
+  &__intro {
+    @include texte-corps;
+    color: var(--tdb-texte-2);
+    max-width: 72ch;
+    margin-top: calc(-1 * var(--tdb-espace-3));
+    animation: tdb-entree var(--tdb-duree-entree) var(--tdb-courbe-sortie) 200ms backwards;
+    --tdb-depart: translateY(8px);
+  }
+  &__coffre {
+    @include entree(translateY(24px), 280ms);
+  }
+
+  // Dépôt d'un nouveau document, ouvert par « Ajouter un document ».
+  &__depot {
+    padding: var(--tdb-espace-5);
+    border-radius: var(--tdb-rayon-carte);
+    border: 1px solid var(--tdb-bordure-verre);
+    background: var(--tdb-fond-verre);
+    animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) backwards;
+    --tdb-depart: translateY(-8px);
+
+    @include mobile {
+      padding: var(--tdb-espace-4);
+    }
+  }
+  &__intertitre {
+    @include titre-carte;
+    margin-bottom: var(--tdb-espace-4);
+  }
+  &__formulaire {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--tdb-espace-4);
+
+    // Les champs s'étirent déjà dans leur étiquette (colonne flex) : seulement le droit de rétrécir.
+    .tdb-champ,
+    .tdb-champ__saisie {
+      min-width: 0;
+    }
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  &__large {
+    grid-column: 1 / -1;
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tdb-espace-2);
+    margin-top: var(--tdb-espace-4);
+  }
+  &__erreur {
+    @include texte-petit;
+    color: var(--tdb-panne);
+    margin-top: var(--tdb-espace-2);
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  // Filtres de l'écran : type en pilules, puis projet et recherche.
+  &__filtres {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-3);
+  }
+  &__tri {
+    display: flex;
+    flex: 1 1 420px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--tdb-espace-2);
+
+    @include mobile {
+      flex-basis: 100%;
+    }
+  }
+  &__filtre {
+    flex: 0 1 220px;
+    min-width: 0;
+
+    .tdb-champ__saisie {
+      min-width: 0;
+      height: 40px;
+    }
+    &--recherche {
+      flex: 1 1 240px;
+      max-width: 360px;
+    }
+    @include mobile {
+      flex: 1 1 100%;
+      max-width: none;
+    }
+  }
+  &__resume {
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+  }
+  &__liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+  }
+}
+
+// ─────────────── Période et dates clés (formulaire) ───────────────
+.tdb-periode {
+  min-width: 0;
+  margin: var(--tdb-espace-2) 0 0;
+  padding: var(--tdb-espace-4);
+  border: 1px solid var(--tdb-bordure-discrete);
+  border-radius: var(--tdb-rayon-moyen);
+
+  // Repliée : un simple bouton, sans cadre.
+  &--repliee {
+    padding: 0;
+    border: 0;
+
+    .tdb-bouton {
+      padding-inline: var(--tdb-espace-2);
+    }
+  }
+  &__titre {
+    padding: 0 var(--tdb-espace-2);
+    @include texte-petit;
+    font-weight: 600;
+    color: var(--tdb-texte);
+  }
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--tdb-espace-3);
+
+    .tdb-champ,
+    .tdb-champ__saisie {
+      min-width: 0;
+    }
+    .tdb-champ__saisie {
+      height: 42px;
+    }
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  &__dates {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    margin-top: var(--tdb-espace-3);
+  }
+  // Une date clé : le jour, ce qui s'y passe, et le bouton pour la retirer.
+  &__date {
+    display: grid;
+    grid-template-columns: minmax(0, 170px) minmax(0, 1fr) auto;
+    gap: var(--tdb-espace-2);
+    align-items: center;
+
+    .tdb-champ__saisie {
+      min-width: 0;
+      height: 42px;
+    }
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr) auto;
+
+      > :nth-child(2) {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+    }
+  }
+  &__ajout {
+    margin-top: var(--tdb-espace-2);
+
+    .tdb-bouton {
+      padding-inline: var(--tdb-espace-2);
+    }
+  }
+}
+.tdb-documents__projet-seul {
+  max-width: 360px;
+  margin-top: var(--tdb-espace-3);
+}
+
+// ─────────────── Un document du coffre ───────────────
+.tdb-document {
+  min-width: 0;
+  padding: var(--tdb-espace-3) var(--tdb-espace-4);
+  border-radius: var(--tdb-rayon-moyen);
+  border: 1px solid var(--tdb-bordure-discrete);
+  background: var(--tdb-fond-verre);
+  transition: border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), background-color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+  @include entree(translateY(8px), 0ms, 30ms, var(--tdb-duree-standard));
+  @include survol {
+    border-color: var(--tdb-bordure-verre);
+  }
+
+  &__ligne {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-3);
+  }
+  &__textes {
+    display: flex;
+    flex: 1 1 220px;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  // Contrat dont la signature est en cours : liseré de la couleur d'alerte, comme son badge.
+  &--en-attente {
+    border-color: color-mix(in srgb, var(--tdb-alerte) 38%, var(--tdb-bordure-discrete));
+  }
+
+  // Le titre ouvre le document dans un nouvel onglet.
+  &__titre {
+    @include texte-bouton;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+
+    a {
+      border-radius: 4px;
+      transition: color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+      @include focus-visible;
+      @include survol {
+        color: var(--tdb-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+  // Période du document (« du … au … ») et où elle en est (« à renouveler dans 23 jours »).
+  &__periode {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    overflow-wrap: anywhere;
+
+    .tdb-icone {
+      flex: none;
+      margin-top: 2px;
+    }
+  }
+  &__echeance {
+    font-weight: 600;
+    color: var(--tdb-texte);
+
+    &--accent {
+      color: var(--tdb-accent);
+    }
+    &--alerte {
+      color: var(--tdb-alerte);
+    }
+    &--panne {
+      color: var(--tdb-panne);
+    }
+  }
+  // Dates clés : le jour, ce qui s'y passe, dans combien de temps ; les dates passées s'effacent.
+  &__dates {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 2px;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__date {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--tdb-espace-2);
+    padding-left: 20px;
+
+    &--proche .tdb-document__delai {
+      color: var(--tdb-alerte);
+      font-weight: 600;
+    }
+    &--passee {
+      opacity: 0.6;
+    }
+  }
+  &__jour {
+    color: var(--tdb-texte);
+    font-variant-numeric: tabular-nums;
+  }
+  &__delai {
+    font-variant-numeric: tabular-nums;
+
+    &::before {
+      content: '· ';
+    }
+  }
+  // « Suivre ou relancer dans Signatures », sous un contrat en attente.
+  &__suivi {
+    color: var(--tdb-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    @include focus-visible;
+  }
+  &__detail,
+  &__note {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    overflow-wrap: anywhere;
+  }
+  &__projet {
+    color: var(--tdb-texte);
+    font-weight: 600;
+    @include focus-visible;
+
+    &:is(a) {
+      @include survol {
+        color: var(--tdb-accent);
+      }
+    }
+    &--aucun {
+      color: var(--tdb-texte-2);
+      font-weight: 400;
+      font-style: italic;
+    }
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    margin-left: auto;
+
+    .tdb-badge {
+      margin-right: var(--tdb-espace-1);
+    }
+    .tdb-icone-bouton:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    // Téléphone : une seule rangée sous le texte, le type à gauche, les boutons à droite.
+    @include mobile {
+      justify-content: space-between;
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  &__boutons {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    // Si le badge prend toute la rangée (« En attente de signature » sur téléphone), les boutons restent à droite.
+    margin-left: auto;
+
+    @include mobile {
+      gap: var(--tdb-espace-1);
+    }
+  }
+  // Téléphone : « Ouvrir » réduit à son icône (le libellé reste lu par les lecteurs d'écran).
+  &__ouvrir {
+    @include mobile {
+      width: 40px;
+      padding: 0;
+
+      > span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+    }
+  }
+  &__supprimer {
+    @include survol {
+      &:not(:disabled) {
+        color: var(--tdb-panne);
+        background: var(--tdb-voile-panne);
+      }
+    }
+  }
+
+  // Modification en place : le formulaire s'ouvre sous la ligne.
+  .tdb-documents__formulaire {
+    margin-top: var(--tdb-espace-4);
+    padding-top: var(--tdb-espace-4);
+    border-top: 1px solid var(--tdb-bordure-discrete);
+    animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) backwards;
+    --tdb-depart: translateY(-6px);
+  }
+}

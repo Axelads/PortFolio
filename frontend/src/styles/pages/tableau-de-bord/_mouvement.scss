@@ -1,0 +1,143 @@
+@use 'outils' as *;
+
+// Mouvement du tableau de bord (spécification Figma : vue d'ensemble 10:2, fiche 11:309, connexion,
+// planche « Micro-interactions » 23:1464). Transform et opacity uniquement ; rien ne boucle.
+
+@keyframes tdb-entree {
+  from {
+    opacity: 0;
+    transform: var(--tdb-depart, translateY(16px));
+  }
+}
+
+@keyframes tdb-fondu {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes tdb-apparition-lueur {
+  from {
+    opacity: 0;
+  }
+}
+
+// Titres : chaque mot monte dans son masque.
+@keyframes tdb-montee {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes tdb-onde {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes tdb-secousse {
+  0%, 100% { transform: translateX(0); }
+  17% { transform: translateX(-8px); }
+  33% { transform: translateX(8px); }
+  50% { transform: translateX(-6px); }
+  67% { transform: translateX(6px); }
+  83% { transform: translateX(-3px); }
+}
+
+.tdb-revele {
+  &__masque {
+    display: inline-block;
+    overflow: clip;
+    // marge pour les jambages (g, p, j) que le masque couperait
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+    vertical-align: bottom;
+  }
+  &__mot {
+    display: inline-block;
+    animation: tdb-montee 500ms var(--tdb-courbe-sortie) backwards;
+    animation-delay: calc(80ms + var(--i, 0) * 60ms);
+  }
+}
+
+// ─────────────── View Transitions ───────────────
+// Les pseudo-éléments vivent sous <html> : valeurs écrites en clair (les jetons sont posés sur .tdb).
+
+// Navigation entre écrans : fondu croisé court (limité au tableau de bord, seul à poser data-tdb-theme sur <html>).
+html[data-tdb-theme]::view-transition-old(root),
+html[data-tdb-theme]::view-transition-new(root) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+// Moment signature : la carte cliquée devient le héros de la fiche (700 ms, courbe de déplacement).
+html.tdb-vt-fiche {
+  &::view-transition-group(tdb-projet),
+  &::view-transition-group(tdb-projet-logo) {
+    animation-duration: 700ms;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  // Le cadre s'étire en gardant son contenu calé en haut à gauche, sans déformer le texte.
+  &::view-transition-old(tdb-projet),
+  &::view-transition-new(tdb-projet) {
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  &::view-transition-old(root) {
+    animation-duration: 200ms;
+  }
+  &::view-transition-new(root) {
+    animation-duration: 360ms;
+    animation-delay: 120ms;
+  }
+}
+
+// Changement de thème : révélation circulaire qui part du bouton.
+@keyframes tdb-revelation {
+  from {
+    clip-path: circle(0 at var(--tdb-vt-x, 100%) var(--tdb-vt-y, 0));
+  }
+  to {
+    clip-path: circle(150vmax at var(--tdb-vt-x, 100%) var(--tdb-vt-y, 0));
+  }
+}
+
+html.tdb-vt-theme {
+  &::view-transition-old(root) {
+    animation: none;
+  }
+  &::view-transition-new(root) {
+    animation: tdb-revelation 500ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+}
+
+// ─────────────── Mouvement réduit : fondus seulement ───────────────
+@media (prefers-reduced-motion: reduce) {
+  .tdb * {
+    --tdb-depart: none !important;
+  }
+  .tdb-revele__mot {
+    animation: none;
+  }
+  .tdb-theme__indicateur,
+  .tdb-commande__etat--fait .tdb-icone {
+    transition: none;
+  }
+  .tdb-pastille--onde::after,
+  .tdb-code--erreur .tdb-code__cases {
+    animation: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

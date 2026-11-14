@@ -1,0 +1,120 @@
+// Jetons du tableau de bord, relus dans Figma (fichier Gu6n2AvigW6guM0i1nglff, collections Couleur, Espace,
+// Rayon, Mouvement) le 10/10/2026. Valeurs EXACTES : toute retouche passe d'abord par la maquette.
+
+.tdb,
+html[data-tdb-theme] {
+  // Espace
+  --tdb-espace-1: 4px;
+  --tdb-espace-2: 8px;
+  --tdb-espace-3: 12px;
+  --tdb-espace-4: 16px;
+  --tdb-espace-5: 20px;
+  --tdb-espace-6: 24px;
+  --tdb-espace-8: 32px;
+  --tdb-espace-10: 40px;
+  --tdb-espace-14: 56px;
+
+  // Rayon
+  --tdb-rayon-petit: 8px;
+  --tdb-rayon-moyen: 12px;
+  --tdb-rayon-carte: 20px;
+  --tdb-rayon-panneau: 28px;
+  --tdb-rayon-pilule: 999px;
+
+  // Mouvement
+  --tdb-duree-instant: 100ms;
+  --tdb-duree-rapide: 160ms;
+  --tdb-duree-standard: 240ms;
+  --tdb-duree-entree: 480ms;
+  --tdb-duree-signature: 700ms;
+  --tdb-duree-compteur: 900ms;
+  --tdb-decalage-cascade: 50ms;
+  --tdb-courbe-sortie: cubic-bezier(0.23, 1, 0.32, 1);
+  --tdb-courbe-deplacement: cubic-bezier(0.77, 0, 0.175, 1);
+  --tdb-courbe-survol: ease;
+  // Motion v2 « éditorial cinématique » (page Figma « Motion v2 — Éditorial », relue le 13/10/2026)
+  --tdb-duree-rideau: 600ms;
+  --tdb-duree-volet: 520ms;
+  --tdb-duree-bloc: 720ms;
+  --tdb-duree-trait: 600ms;
+  --tdb-duree-generique: 2200ms;
+  --tdb-decalage-plan: 140ms;
+  --tdb-decalage-bloc: 70ms;
+  --tdb-courbe-rideau: cubic-bezier(0.76, 0, 0.24, 1);
+  // Ressort « rebond 0,15 / 0,5 s » échantillonné (même modèle que motion.dev) : repos visuel vers 500 ms.
+  --tdb-ressort: linear(0, 0.042, 0.14, 0.262, 0.39, 0.511, 0.619, 0.712, 0.787, 0.848, 0.895, 0.93, 0.956, 0.975, 0.988, 0.996, 1.001, 1.004, 1.006, 1.006, 1.006, 1.005, 1.004, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1);
+  --tdb-ressort-duree: 750ms;
+
+  // Effets (styles d'effet Figma)
+  --tdb-flou-verre: 24px; // Verre/Flou
+  --tdb-ombre-carte: 0 12px 40px -8px rgba(0, 0, 0, 0.28); // Ombre/Carte
+  --tdb-lueur-accent: 0 0 28px rgba(139, 199, 177, 0.35); // Lueur/Accent
+}
+
+// Couleur — mode Sombre (par défaut)
+.tdb,
+html[data-tdb-theme='sombre'] {
+  --tdb-fond-page: #070b1a;
+  --tdb-fond-verre: rgba(255, 255, 255, 0.06);
+  --tdb-fond-verre-fort: rgba(255, 255, 255, 0.1);
+  --tdb-fond-champ: #0b1124;
+  --tdb-bordure-verre: rgba(139, 199, 177, 0.28);
+  --tdb-bordure-discrete: rgba(255, 255, 255, 0.08);
+  --tdb-texte: #eef2ff;
+  --tdb-texte-2: #94a3b8;
+  --tdb-accent: #8bc7b1;
+  --tdb-accent-2: #4a90e2;
+  --tdb-en-ligne: #4ade80;
+  --tdb-alerte: #fbbf24;
+  --tdb-panne: #f87171;
+  --tdb-inconnu: #94a3b8;
+  --tdb-lueur-menthe: #8bc7b1;
+  --tdb-lueur-bleu: #4a90e2;
+  --tdb-bouton-fond: #8bc7b1;
+  --tdb-bouton-texte: #070b1a;
+  --tdb-voile-accent: rgba(139, 199, 177, 0.14);
+  --tdb-voile-en-ligne: rgba(74, 222, 128, 0.14);
+  --tdb-voile-alerte: rgba(251, 191, 36, 0.16);
+  --tdb-voile-panne: rgba(248, 113, 113, 0.16);
+  --tdb-opacite-lueur: 0.32;
+  color-scheme: dark;
+}
+
+// Couleur — mode Clair
+.tdb[data-tdb-theme='clair'],
+html[data-tdb-theme='clair'] {
+  --tdb-fond-page: #eef3fa;
+  --tdb-fond-verre: rgba(255, 255, 255, 0.72);
+  --tdb-fond-verre-fort: rgba(255, 255, 255, 0.9);
+  --tdb-fond-champ: #ffffff;
+  --tdb-bordure-verre: rgba(74, 144, 226, 0.25);
+  --tdb-bordure-discrete: rgba(11, 21, 48, 0.08);
+  --tdb-texte: #0b1530;
+  --tdb-texte-2: #52607a;
+  --tdb-accent: #1f7a63;
+  --tdb-accent-2: #2563c7;
+  --tdb-en-ligne: #15803d;
+  --tdb-alerte: #b45309;
+  --tdb-panne: #dc2626;
+  --tdb-inconnu: #52607a;
+  --tdb-lueur-menthe: #8bc7b1;
+  --tdb-lueur-bleu: #4a90e2;
+  --tdb-bouton-fond: #0b1530;
+  --tdb-bouton-texte: #ffffff;
+  --tdb-voile-accent: rgba(31, 122, 99, 0.12);
+  --tdb-voile-en-ligne: rgba(21, 128, 61, 0.12);
+  --tdb-voile-alerte: rgba(180, 83, 9, 0.12);
+  --tdb-voile-panne: rgba(220, 38, 38, 0.12);
+  --tdb-opacite-lueur: 0.32;
+  --tdb-ombre-carte: 0 12px 40px -8px rgba(11, 21, 48, 0.14);
+  color-scheme: light;
+}
+
+// Fond du document (rebond de défilement, captures des View Transitions) aux couleurs de la page.
+html[data-tdb-theme] {
+  background: var(--tdb-fond-page);
+
+  body {
+    background: transparent;
+  }
+}

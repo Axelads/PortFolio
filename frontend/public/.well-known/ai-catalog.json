@@ -1,0 +1,48 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Axel Grégoire — Développeur Web Full Stack",
+    "documentationUrl": "https://axelgregoire.fr/llms.txt",
+    "logoUrl": "https://axelgregoire.fr/logo_Axel_Gregoire_bubbles.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:axelgregoire.fr:blog:rss",
+      "displayName": "Flux RSS du blog d'Axel Grégoire",
+      "type": "application/rss+xml",
+      "url": "https://chatbot-api-tan.vercel.app/api/blog/rss",
+      "description": "Derniers articles techniques (JavaScript, React, Node.js, React Native, IA) au format RSS 2.0.",
+      "tags": ["blog", "rss", "javascript", "react", "nodejs"],
+      "representativeQueries": [
+        "derniers articles d'Axel Grégoire",
+        "blog développeur web React Node.js",
+        "articles techniques JavaScript en français"
+      ]
+    },
+    {
+      "identifier": "urn:air:axelgregoire.fr:site:llms-txt",
+      "displayName": "Guide du site pour les modèles de langage",
+      "type": "text/markdown",
+      "url": "https://axelgregoire.fr/llms.txt",
+      "description": "Plan du site en Markdown : pages principales, flux et données lisibles par les machines.",
+      "tags": ["llms.txt", "sitemap", "portfolio"],
+      "representativeQueries": [
+        "qui est Axel Grégoire",
+        "portfolio développeur web full stack Var PACA",
+        "contacter un développeur React freelance"
+      ]
+    },
+    {
+      "identifier": "urn:air:axelgregoire.fr:site:cv",
+      "displayName": "CV en ligne d'Axel Grégoire",
+      "type": "text/html",
+      "url": "https://axelgregoire.fr/cv",
+      "description": "CV complet et à jour : expériences, formation, compétences, projets. Imprimable en PDF.",
+      "tags": ["cv", "resume", "freelance"],
+      "representativeQueries": [
+        "CV Axel Grégoire développeur",
+        "expérience et compétences d'Axel Grégoire"
+      ]
+    }
+  ]
+}

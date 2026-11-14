@@ -1,0 +1,30 @@
+# Axel Grégoire — Développeur Web Full Stack
+
+> Portfolio d'Axel Grégoire, développeur web full stack freelance (Var, PACA) : React, Next.js, React Native / Expo, Node.js, PocketBase, MongoDB. Sites vitrines, applications mobiles, outils sur mesure et automatisations IA.
+
+Le site est une application React. Les pages listées ci-dessous sont les points d'entrée utiles ; le blog dispose d'un flux RSS lisible sans JavaScript.
+
+## Pages principales
+
+- [Accueil](https://axelgregoire.fr/): présentation, compétences, projets et actualité LinkedIn
+- [À propos](https://axelgregoire.fr/About): parcours et reconversion vers le développement web
+- [CV en ligne](https://axelgregoire.fr/cv): CV complet, imprimable en PDF, toujours à jour
+- [Avis](https://axelgregoire.fr/Avis): recommandations de collègues et mentors
+- [Blog](https://axelgregoire.fr/blog): articles techniques (JavaScript, React, Node.js, IA)
+
+## Données lisibles par les machines
+
+- [Flux RSS du blog](https://chatbot-api-tan.vercel.app/api/blog/rss): derniers articles au format RSS 2.0
+- [Sitemap du site](https://axelgregoire.fr/sitemap.xml): liste des pages
+- [Sitemap du blog](https://chatbot-api-tan.vercel.app/api/blog/sitemap): liste des articles
+- [Catalogue ARD](https://axelgregoire.fr/.well-known/ai-catalog.json): ressources déclarées pour les agents
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/axel-gregoire/)
+- [GitHub](https://github.com/Axelads)
+
+## Optional
+
+- [Vidéo de présentation](https://axelgregoire.fr/video/axel-gregoire-cv-1080.mp4): mon CV en 86 secondes, en motion design (MP4, 1080p, avec musique) ; aussi visible sur l'accueil
+- [Zones d'intervention](https://axelgregoire.fr/carte): carte des secteurs couverts

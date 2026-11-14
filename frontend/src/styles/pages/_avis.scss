@@ -3,7 +3,7 @@
     background-size: 200% 200%;
     animation: gradient 6s ease infinite;
     padding: 5% 0 2% 0;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
     color: #333;
   
     @keyframes gradient {

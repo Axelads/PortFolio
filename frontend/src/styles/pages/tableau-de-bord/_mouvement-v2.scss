@@ -1,0 +1,355 @@
+@use 'outils' as *;
+
+// Motion v2 « éditorial cinématique » — page Figma « Motion v2 — Éditorial » (planche « Spécification » 37:484,
+// écrans « Générique d'ouverture / bureau » 34:1999 et « Carte → fiche / bureau » 34:2541), validée le 13/10/2026.
+// Grammaire : rideau, révélation en bloc, trait, volet, montée dans la fenêtre. transform et opacity, sauf la fenêtre
+// des indicateurs (clip-path, jouée une fois par session). Tout est sous no-preference : en mouvement réduit, les
+// fondus existants restent seuls.
+//
+// Les timings du générique (en ms depuis l'affichage) reprennent les images clés Figma :
+//   rideau 60 → 660 · en-tête 300 → 750 · titre en bloc 400 → 1120 · sous-titre 900 → 1300
+//   indicateurs en bloc 620 + 70 × i · filtres 950 · rangée r : trait 950 + 120 × r, cartes + 100 + 50 × k
+//   colonne : trait vertical 1050, volets 1150 + 100 × i
+
+// La courbe/rideau est écrite en clair dans les @keyframes (une variable n'y est pas fiable partout).
+@keyframes tdb-rideau-leve {
+  to {
+    transform: translateY(calc(-100% - 8px));
+  }
+}
+
+// Révélation en bloc : l'aplat couvre depuis la gauche, puis découvre vers la droite.
+@keyframes tdb-bloc {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  50.01% {
+    transform: scaleX(1);
+    transform-origin: right center;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+// Fenêtre qui s'ouvre au même rythme que l'aplat : le contenu n'est jamais visible hors de l'aplat.
+@keyframes tdb-fenetre {
+  from {
+    clip-path: inset(0 100% 0 0 round var(--tdb-rayon-fenetre, 0px));
+  }
+  to {
+    clip-path: inset(0 0 0 0 round var(--tdb-rayon-fenetre, 0px));
+  }
+}
+
+@keyframes tdb-trace {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes tdb-trace-vertical {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes tdb-efface {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes tdb-volet {
+  from {
+    transform: translateX(48px);
+  }
+}
+
+@keyframes tdb-monte-fenetre {
+  from {
+    transform: translateY(var(--tdb-montee, 40px));
+  }
+}
+
+@mixin bloc($delai, $rayon: 0px) {
+  position: relative;
+  --tdb-rayon-fenetre: #{$rayon};
+  animation: tdb-fenetre calc(var(--tdb-duree-bloc) / 2) cubic-bezier(0.76, 0, 0.24, 1) #{$delai} backwards;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    border-radius: inherit;
+    background: var(--tdb-accent);
+    transform: scaleX(0);
+    pointer-events: none;
+    animation: tdb-bloc var(--tdb-duree-bloc) linear #{$delai} backwards;
+  }
+}
+
+@mixin monte-plan($delai, $montee: 40px) {
+  --tdb-montee: #{$montee};
+  animation:
+    tdb-monte-fenetre var(--tdb-duree-rideau) var(--tdb-courbe-rideau) #{$delai} backwards,
+    tdb-fondu 300ms var(--tdb-courbe-sortie) #{$delai} backwards;
+}
+
+@mixin volet($delai) {
+  animation:
+    tdb-volet var(--tdb-duree-volet) var(--tdb-courbe-rideau) #{$delai} backwards,
+    tdb-fondu 300ms var(--tdb-courbe-sortie) #{$delai} backwards;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // ───────────── Générique d'ouverture : premier affichage de la session seulement ─────────────
+  .tdb-rideau {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--tdb-fond-page);
+    pointer-events: none;
+    animation: tdb-rideau-leve var(--tdb-duree-rideau) var(--tdb-courbe-rideau) 60ms forwards;
+
+    // Lèvre d'accent qui suit le bord du rideau.
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--tdb-accent);
+    }
+  }
+
+  .tdb-entete--generique {
+    animation: tdb-entree 450ms var(--tdb-courbe-sortie) 300ms backwards;
+    --tdb-depart: translateY(-10px);
+  }
+
+  .tdb-vue--generique {
+    // Titre : révélation en bloc ; les mots ne montent plus un à un.
+    .tdb-titre__texte {
+      width: fit-content;
+      @include bloc(400ms);
+
+      .tdb-revele__mot {
+        animation: none;
+      }
+    }
+    .tdb-titre__sous {
+      animation: tdb-entree 400ms var(--tdb-courbe-sortie) 900ms backwards;
+      --tdb-depart: translateY(12px);
+    }
+
+    // Indicateurs : révélation en bloc, 70 ms d'écart.
+    .tdb-indicateur {
+      @include bloc(calc(620ms + var(--i, 0) * var(--tdb-decalage-bloc)), var(--tdb-rayon-carte));
+    }
+
+    .tdb-bento__filtres {
+      animation: tdb-entree 300ms var(--tdb-courbe-sortie) 950ms backwards;
+      --tdb-depart: translateY(10px);
+    }
+
+    // Projets : la carte apparaît, son contenu monte dans la carte (qui sert de fenêtre).
+    // --tdb-delai est posé par rangée et par colonne (VueEnsemble) ; repli sur l'ordre des cartes.
+    .tdb-bento__grille {
+      position: relative;
+    }
+    .tdb-carte {
+      --tdb-montee: 150px;
+      --tdb-delai-carte: var(--tdb-delai, calc(1050ms + var(--i, 0) * 50ms));
+      animation: tdb-fondu 300ms var(--tdb-courbe-sortie) var(--tdb-delai-carte) backwards;
+
+      > :not(.tdb-carte__reflet) {
+        animation: tdb-monte-fenetre var(--tdb-duree-rideau) var(--tdb-courbe-rideau) var(--tdb-delai-carte) backwards;
+      }
+    }
+    .tdb-carte--petite {
+      --tdb-montee: 70px;
+    }
+
+    // Trait au-dessus de chaque rangée, puis il s'efface.
+    .tdb-trait-rangee {
+      position: absolute;
+      right: 0;
+      left: 0;
+      height: 1px;
+      background: var(--tdb-accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+      animation:
+        tdb-trace var(--tdb-duree-trait) var(--tdb-courbe-rideau) var(--tdb-delai) forwards,
+        tdb-efface 350ms var(--tdb-courbe-sortie) calc(var(--tdb-delai) + 850ms) forwards;
+    }
+
+    // Colonne : volets de 100 ms d'écart, précédés d'un trait vertical (bureau).
+    .tdb-colonne > .tdb-panneau {
+      @include volet(calc(1150ms + var(--i, 0) * 100ms));
+    }
+    @include bureau {
+      .tdb-colonne {
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -12px;
+          width: 2px;
+          background: var(--tdb-accent);
+          transform: scaleY(0);
+          transform-origin: top center;
+          pointer-events: none;
+          animation:
+            tdb-trace-vertical var(--tdb-duree-trait) var(--tdb-courbe-rideau) 1050ms forwards,
+            tdb-efface 350ms var(--tdb-courbe-sortie) 1850ms forwards;
+        }
+      }
+    }
+  }
+
+  // ───────────── Retours sur la vue d'ensemble : mêmes gestes, version courte (240 ms) ─────────────
+  .tdb-vue:not(.tdb-vue--generique) {
+    .tdb-indicateur,
+    .tdb-carte,
+    .tdb-colonne > .tdb-panneau {
+      animation-duration: var(--tdb-duree-standard);
+      --tdb-depart: translateY(8px);
+    }
+    .tdb-indicateur {
+      animation-delay: calc(var(--i, 0) * 30ms);
+    }
+    .tdb-carte {
+      animation-delay: calc(var(--i, 0) * 20ms);
+    }
+    .tdb-colonne > .tdb-panneau {
+      animation-delay: calc(var(--i, 0) * 30ms);
+    }
+    .tdb-revele__mot {
+      animation-duration: 300ms;
+      animation-delay: calc(var(--i, 0) * 40ms);
+    }
+    .tdb-titre__sous,
+    .tdb-bento__filtres {
+      animation-delay: 0ms;
+    }
+  }
+
+  // ───────────── Fiche : plans successifs après la morphose carte → héros ─────────────
+  .tdb-fiche__retour {
+    animation-duration: 350ms;
+    animation-delay: 600ms;
+  }
+  // Trait d'accent qui se dessine sous le héros, puis s'efface.
+  .tdb-fiche__heros {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: -13px;
+      left: 0;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--tdb-accent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+      animation:
+        tdb-trace var(--tdb-duree-trait) var(--tdb-courbe-rideau) 550ms forwards,
+        tdb-efface 350ms var(--tdb-courbe-sortie) 1400ms forwards;
+    }
+  }
+  .tdb-fiche__liens {
+    @include monte-plan(850ms);
+  }
+  .tdb-fiche__colonne > .tdb-panneau {
+    @include monte-plan(calc(1000ms + var(--i, 0) * 120ms));
+  }
+  .tdb-fiche__colonne--exploitation > .tdb-panneau {
+    @include volet(calc(1050ms + var(--i, 0) * 120ms));
+  }
+  // Panneaux sous la ligne de flottaison : ils jouent leur montée quand on les fait défiler (FicheProjet).
+  .tdb-fiche .tdb-panneau.tdb-hors-ecran {
+    opacity: 0;
+    animation: none;
+  }
+  .tdb-fiche .tdb-panneau.tdb-revele-defilement {
+    @include monte-plan(0ms);
+  }
+
+  // ───────────── View Transitions ─────────────
+  // Changement d'écran (Vue ↔ Sécurité) : le nouvel écran entre en rideau horizontal.
+  @keyframes tdb-volet-ecran {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+  // (Thème, carte → fiche et retour ont leurs propres transitions : exclus ici.)
+  html[data-tdb-theme]:not(.tdb-vt-theme):not(.tdb-vt-fiche):not(.tdb-vt-retour)::view-transition-old(root) {
+    animation: none;
+  }
+  html[data-tdb-theme]:not(.tdb-vt-theme):not(.tdb-vt-fiche):not(.tdb-vt-retour)::view-transition-new(root) {
+    animation: tdb-volet-ecran 520ms cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  // Carte → fiche : la vue d'ensemble descend comme un voile pendant que la carte devient le héros.
+  @keyframes tdb-voile-descend {
+    to {
+      transform: translateY(100%);
+    }
+  }
+  html.tdb-vt-fiche {
+    &::view-transition-old(root) {
+      z-index: 1;
+      animation: tdb-voile-descend 650ms cubic-bezier(0.76, 0, 0.24, 1) 300ms both;
+    }
+    &::view-transition-new(root) {
+      animation: none;
+    }
+  }
+
+  // Fiche → vue : voile inverse, la vue d'ensemble remonte (360 ms) ; la carte reprend sa place.
+  @keyframes tdb-voile-remonte {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  html.tdb-vt-retour {
+    &::view-transition-group(tdb-projet),
+    &::view-transition-group(tdb-projet-logo) {
+      animation-duration: 700ms;
+      animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    &::view-transition-old(tdb-projet),
+    &::view-transition-new(tdb-projet) {
+      height: 100%;
+      object-fit: cover;
+      object-position: left top;
+      animation-duration: 280ms;
+      animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    &::view-transition-old(root) {
+      animation: none;
+    }
+    &::view-transition-new(root) {
+      animation: tdb-voile-remonte 360ms cubic-bezier(0.76, 0, 0.24, 1) both;
+    }
+  }
+}

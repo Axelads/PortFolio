@@ -8,7 +8,7 @@
     box-sizing: border-box;
     background-color: #8BC7B1; /* Couleur de fond cohérente avec le style général */
     text-align: center;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
   
     // Avatar d'Axel, surpris de ne pas trouver la page : il monte en place à l'arrivée.
     .not-found-avatar {

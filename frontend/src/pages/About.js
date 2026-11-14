@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import Contact from '../components/contact/Contact';
 import Video from '../components/video/ReconversionVideo';
 
@@ -15,11 +15,11 @@ const About = () => {
   };
   return (
     <div className="about-container">
-      <Helmet>
-        <title>A propos - Axel Grégoire | Mon parcours</title>
-        <meta name="description" content="Découvrez le parcours d'Axel Grégoire : de la banque à l'entrepreneuriat, puis reconversion en développeur web full stack. Formation OpenClassrooms, React, Node.js." />
-        <link rel="canonical" href="https://axelgregoire.fr/About" />
-      </Helmet>
+      <Seo
+        title="À propos - Axel Grégoire | Mon parcours"
+        description="Découvrez le parcours d'Axel Grégoire : de la banque à l'entrepreneuriat, puis reconversion en développeur web full stack. Formation OpenClassrooms, React, Node.js."
+        path="/About"
+      />
       <section className="about-intro">
         <h1>À propos de moi</h1>
         <p>

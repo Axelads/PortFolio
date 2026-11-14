@@ -1,0 +1,28 @@
+// ============================================
+// SSR — bloc servi par public/index.php dans #root avant que React ne monte
+// (H1 + chapeau de la route, pour les robots et le premier affichage).
+// React 18 vide #root au premier rendu : ce bloc ne vit que quelques dizaines de ms
+// à l'écran. Même décalage que .blog-page / .blog-article sous l'en-tête fixe.
+// ============================================
+
+.ssr {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 140px 24px 80px;
+  color: var(--text-secondary);
+
+  @media (max-width: 750px) {
+    padding: 110px 16px 60px;
+  }
+
+  h1 {
+    margin: 0 0 16px;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.2;
+    color: var(--text-heading);
+  }
+
+  p {
+    margin: 0;
+  }
+}

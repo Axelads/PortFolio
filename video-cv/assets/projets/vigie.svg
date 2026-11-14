@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Vigie">
+  <title>Vigie</title>
+  <rect width="100" height="100" rx="22.0" fill="#0D1520"/>
+  <g transform="translate(7.35 7.15) scale(0.8529)">
+    <path d="M8 18H30L50 60V86Z" fill="#DCE6F2"/>
+    <path d="M92 18H70L50 60V86Z" fill="#5F7EA1"/>
+  </g>
+</svg>

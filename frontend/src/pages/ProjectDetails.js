@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import Seo, { SITE_URL } from "../components/Seo";
 import { useParams, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import SkillProjects from "../components/Skills/skillProjects";
+import GalerieProjet from "../components/Projects/GalerieProjet";
+import VitrineProjet from "../components/Projects/VitrineProjet";
+import VITRINES from "../assets/Data/DataVitrines.json";
 import { getProjectBySlug } from "../services/pocketbase";
 
 // Supprime les balises HTML pour la meta description SEO
@@ -86,14 +89,22 @@ const ProjectDetails = () => {
 
   return (
     <div className="project-details">
-      <Helmet>
-        <title>{project.name} - Projet | Axel Grégoire</title>
-        <meta name="description" content={project.resume ? stripHtml(project.resume).substring(0, 160) : `Découvrez le projet ${project.name} réalisé par Axel Grégoire.`} />
-        <meta property="og:title" content={`${project.name} - Projet | Axel Grégoire`} />
-        <meta property="og:description" content={project.resume ? stripHtml(project.resume).substring(0, 160) : `Projet ${project.name} par Axel Grégoire.`} />
-        {project.imageUrls?.[0] && <meta property="og:image" content={project.imageUrls[0]} />}
-        <link rel="canonical" href={`https://axelgregoire.fr/Projet/${project.slug}`} />
-      </Helmet>
+      <Seo
+        title={`${project.name} - Projet | Axel Grégoire`}
+        description={project.resume ? stripHtml(project.resume).substring(0, 160) : `Découvrez le projet ${project.name} réalisé par Axel Grégoire.`}
+        path={`/Projet/${encodeURIComponent(project.slug)}`}
+        image={project.imageUrls?.[0] ? sanitizeUrl(project.imageUrls[0]) : undefined}
+        imageAlt={project.name}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Accueil", item: `${SITE_URL}/` },
+            { "@type": "ListItem", position: 2, name: "Projets", item: `${SITE_URL}/#projects` },
+            { "@type": "ListItem", position: 3, name: project.name, item: `${SITE_URL}/Projet/${encodeURIComponent(project.slug)}` },
+          ],
+        }}
+      />
       <h1>{project.name}</h1>
       <div className="Project">
         <p className="project-date">
@@ -166,14 +177,11 @@ const ProjectDetails = () => {
         </div>
       )}
 
-      {/* Images du projet */}
-      {project.imageUrls && project.imageUrls.length > 0 && (
-        <div className="project-images">
-          {project.imageUrls.map((url, index) => (
-            <img key={index} src={url} alt={`${project.name} - ${index + 1}`} />
-          ))}
-        </div>
-      )}
+      {/* Captures du projet : une seule rangée animée (GalerieProjet) */}
+      <GalerieProjet images={project.imageUrls} nom={project.name} />
+
+      {/* Vitrine : éléments réels du site, liens directs (DataVitrines.json) */}
+      <VitrineProjet vitrine={VITRINES[project.slug]} />
     </div>
   );
 };

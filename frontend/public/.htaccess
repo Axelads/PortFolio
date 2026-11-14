@@ -1,0 +1,111 @@
+# ---------------------------------------------------------------------------
+# axelgregoire.fr — Apache/LiteSpeed (o2switch). Copié tel quel dans build/ par CRA.
+# 1. Compression  2. Cache et en-têtes  3. Redirections canoniques  4. Pages pré-rendues + routes SPA + vrai 404
+# Site 100 % statique : aucun script serveur (PHP du compte en 8.1, fin de vie — voir tasks/lessons.md).
+# ---------------------------------------------------------------------------
+
+# --- Compression -----------------------------------------------------------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml text/markdown application/javascript application/json application/manifest+json application/xml application/rss+xml image/svg+xml
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/markdown application/javascript application/json application/manifest+json application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+# --- Cache et en-têtes -----------------------------------------------------
+<IfModule mod_headers.c>
+  # Fichiers hachés par le build (main.<hash>.js, <n>.<hash>.chunk.js, static/media/*) : immuables
+  <If "%{REQUEST_URI} =~ m#^/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # Médias non hachés de /public : 30 jours (changer le nom du fichier pour forcer une MAJ)
+  <FilesMatch "\.(mp4|webm|webp|avif|png|jpe?g|gif|svg|ico|woff2?|ttf)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  # Coquille de la SPA, pages pré-rendues (pages/*.html) et fichiers de découverte : toujours revalidés
+  <FilesMatch "\.html$|^(manifest\.json|robots\.txt|sitemap\.xml|sitemap-blog\.xml|llms\.txt|ai-catalog\.json)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # En-têtes de sécurité du site public. HSTS sans includeSubDomains : les sous-domaines (cPanel, webmail, api)
+  # ne sont pas tous servis par ce dossier. La CSP est en mode rapport seulement (console du navigateur), calculée au
+  # build par scripts/csp-tableau-de-bord.js (empreintes des scripts inline), avant d'être un jour appliquée.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Content-Security-Policy-Report-Only "__CSP_SITE_PUBLIC__"
+
+  # Tableau de bord privé : jamais indexé, jamais encadré, aucune fuite de référent, CSP stricte.
+  # La CSP est calculée au build (empreintes des scripts inline de index.html) par
+  # scripts/csp-tableau-de-bord.js, qui remplace le marqueur ci-dessous dans build/.htaccess.
+  # THE_REQUEST (ligne de requête d'origine) et non REQUEST_URI : la réécriture SPA plus bas redirige en
+  # interne vers /index.html, et REQUEST_URI ne correspondrait plus.
+  <If "%{THE_REQUEST} =~ m#^[A-Z]+\s/projet-ensemble-protege(/[a-z0-9-]*)*/?(\?\S*)?\s#">
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+    Header always set X-Frame-Options "DENY"
+    Header always set Referrer-Policy "no-referrer"
+    Header always set Cache-Control "no-store"
+    Header always set Content-Security-Policy "__CSP_TABLEAU_DE_BORD__"
+  </If>
+  # Page de signature électronique (/signer/<jeton>) : lien personnel, jamais indexé ni mis en cache.
+  <If "%{THE_REQUEST} =~ m#^[A-Z]+\s/signer/#">
+    Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+    Header always set Referrer-Policy "no-referrer"
+    Header always set Cache-Control "no-store"
+  </If>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType text/markdown .md
+  AddType application/json .json
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType video/mp4 .mp4
+  AddType font/woff2 .woff2
+</IfModule>
+
+# --- Réécritures -------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Une seule adresse : https, sans www (301). X-Forwarded-Proto couvre le cas d'un proxy TLS en amont.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://axelgregoire.fr%{REQUEST_URI} [R=301,L]
+  RewriteCond %{HTTP_HOST} ^www\.axelgregoire\.fr$ [NC]
+  RewriteRule ^ https://axelgregoire.fr%{REQUEST_URI} [R=301,L]
+
+  # 2. pages/ n'est jamais adressé directement (une seule URL par page) ; la sous-requête ErrorDocument est exemptée.
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteCond %{THE_REQUEST} \s/pages/ [NC]
+  RewriteRule ^ - [R=404,L]
+
+  # 3. Accueil pré-rendu (avant la règle « dossier réel » : la racine est un dossier)
+  RewriteRule ^$ pages/accueil.html [L]
+
+  # 4. Un fichier ou dossier réel est servi tel quel
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 5. /.well-known/* inexistant -> vrai 404 (jamais la coquille : les validateurs d'agents attendent du JSON ou rien)
+  RewriteRule ^\.well-known/ - [R=404,L]
+
+  # 6. Page pré-rendue de la route (scripts/prerender-seo.mjs) : même URL, HTML propre à la page
+  RewriteCond %{DOCUMENT_ROOT}/pages/$1.html -f
+  RewriteRule ^(.+?)/?$ pages/$1.html [L]
+
+  # 7. Routes connues de l'application (src/AppRouter.js) -> coquille React Router
+  #    (un article publié depuis le dernier build, un projet au slug exotique, l'admin, le tableau de bord…)
+  RewriteRule ^(About|cv|Avis|carte|blog|admin|admin/dashboard|404)/?$ index.html [L,NC]
+  RewriteRule ^(blog|Projet)/[^/]+/?$ index.html [L,NC]
+  RewriteRule ^projet-ensemble-protege(/.*)?$ index.html [L]
+  RewriteRule ^signer/[^/]+/?$ index.html [L]
+
+  # 8. Tout le reste : vrai 404 (fini le « soft 404 » qui répondait 200 avec la coquille)
+  RewriteRule ^ - [R=404,L]
+</IfModule>
+ErrorDocument 404 /pages/404.html

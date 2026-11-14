@@ -1,0 +1,786 @@
+@use 'outils' as *;
+
+// Mise en page des quatre écrans de la maquette.
+
+// ─────────────────────────────── Connexion ───────────────────────────────
+.tdb-connexion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tdb-espace-6);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--tdb-espace-6) var(--tdb-espace-4);
+
+  &__carte {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-5);
+    width: 100%;
+    max-width: 480px;
+    padding: var(--tdb-espace-8);
+    @include verre(var(--tdb-fond-verre-fort), var(--tdb-rayon-panneau));
+    animation: tdb-entree var(--tdb-duree-entree) var(--tdb-courbe-sortie) 100ms backwards;
+    --tdb-depart: translateY(24px) scale(0.97);
+
+    @include mobile {
+      padding: var(--tdb-espace-6) var(--tdb-espace-5);
+      border-radius: var(--tdb-espace-6);
+    }
+  }
+
+  &__marque {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    @include texte-bouton;
+  }
+
+  &__formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-5);
+
+    // Cascade des éléments du formulaire : 50 ms d'écart après l'entrée de la carte.
+    > * {
+      animation: tdb-entree 360ms var(--tdb-courbe-sortie) backwards;
+      --tdb-depart: translateY(8px);
+    }
+    @for $n from 1 through 8 {
+      > :nth-child(#{$n}) {
+        animation-delay: #{200 + ($n - 1) * 50}ms;
+      }
+    }
+  }
+
+  &__etape {
+    @include texte-libelle;
+    color: var(--tdb-accent);
+  }
+  &__titre {
+    @include titre-page;
+  }
+  &__texte {
+    @include texte-corps;
+    color: var(--tdb-texte-2);
+  }
+  &__note {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: calc(-1 * var(--tdb-espace-4));
+  }
+  &__erreur {
+    @include texte-petit;
+    color: var(--tdb-panne);
+
+    &:empty {
+      display: none;
+    }
+  }
+  &__pied {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    animation: tdb-fondu var(--tdb-duree-entree) var(--tdb-courbe-sortie) 600ms backwards;
+  }
+
+  .tdb-bouton--principal {
+    width: 100%;
+    height: 48px;
+  }
+}
+
+// « Se souvenir de cet appareil » : l'interrupteur maison (368 × 130 au naturel) réduit à 34 %, texte à côté.
+.tdb-souvenir {
+  display: flex;
+  align-items: center;
+  gap: var(--tdb-espace-3);
+
+  &__interrupteur {
+    display: flex;
+    align-items: center;
+    flex: none;
+    width: 125px;
+    height: 44px;
+
+    // Plus spécifique que la mise à l'échelle mobile du composant (une seule classe) : la nôtre s'applique partout.
+    .interrupteur-glissant {
+      gap: 28px;
+      transform: scale(0.34);
+      transform-origin: 0 50%;
+    }
+  }
+  &__textes {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  &__titre {
+    @include texte-bouton;
+    line-height: 1.35;
+  }
+  &__detail {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+}
+
+// Code à 8 chiffres : un vrai champ transparent posé sur 8 cases d'affichage.
+.tdb-code {
+  position: relative;
+  display: block;
+
+  &__saisie {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0;
+    font-size: 16px;
+    caret-color: transparent;
+    cursor: text;
+  }
+
+  &__cases {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: var(--tdb-espace-2);
+
+    @include mobile {
+      gap: 6px;
+    }
+  }
+
+  &__case {
+    display: grid;
+    place-items: center;
+    height: 56px;
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-champ);
+    border: 1px solid var(--tdb-bordure-discrete);
+    @include chiffre-m;
+    transition: border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), box-shadow var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+
+    @include mobile {
+      height: 48px;
+    }
+  }
+
+  // Entrée en cascade des cases au premier affichage seulement : après un code refusé, elles restent et tremblent.
+  &--premiere &__case {
+    animation: tdb-entree 300ms var(--tdb-courbe-sortie) backwards;
+    animation-delay: calc(350ms + var(--i) * 40ms);
+    --tdb-depart: translateY(12px);
+  }
+
+  &__saisie:focus + &__cases &__case--courante {
+    border-color: var(--tdb-accent);
+    box-shadow: inset 0 0 0 1px var(--tdb-accent), var(--tdb-lueur-accent);
+  }
+
+  &--erreur &__case {
+    border-color: var(--tdb-panne);
+  }
+  &--erreur &__cases {
+    animation: tdb-secousse 300ms var(--tdb-courbe-sortie) 1;
+  }
+}
+
+// ─────────────────────────────── Vue d'ensemble ───────────────────────────────
+.tdb-vue__corps {
+  display: grid;
+  gap: var(--tdb-espace-6);
+  align-items: start;
+
+  @include bureau {
+    grid-template-columns: minmax(0, 1fr) 400px;
+  }
+}
+
+// Colonne principale : les projets, puis leur audience comparée.
+.tdb-vue__principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-6);
+  min-width: 0;
+
+  // Téléphone : ses enfants rejoignent la colonne unique de la page (les alertes passent devant).
+  @include mobile {
+    display: contents;
+  }
+}
+
+// Audience : une tuile par site ou app mesuré (projet, total de la période, courbe à lire jour par jour).
+.tdb-vue__audience {
+  @include entree(translateY(12px), 120ms, 0ms, var(--tdb-duree-standard));
+}
+// Au générique d'ouverture, le panneau attend la fin de la cascade des cartes.
+.tdb-vue--generique .tdb-vue__audience {
+  animation-delay: 1900ms;
+}
+.tdb-vue__audience-aide {
+  @include texte-petit;
+  color: var(--tdb-texte-2);
+}
+
+.tdb-audience {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--tdb-espace-3);
+
+  &__ligne {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--tdb-espace-3);
+    min-width: 0;
+    padding: var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-verre);
+    border: 1px solid var(--tdb-bordure-discrete);
+
+    > .tdb-courbe {
+      grid-column: 1 / -1;
+    }
+  }
+  &__projet {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    border-radius: var(--tdb-rayon-petit);
+    color: inherit;
+    text-decoration: none;
+    @include focus-visible;
+  }
+  &__noms {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &__nom {
+    overflow: hidden;
+    @include texte-bouton;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+  }
+  &__mesure {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__valeur {
+    @include chiffre-m;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &__projet:hover &__nom {
+      color: var(--tdb-accent);
+    }
+  }
+}
+
+.tdb-bento {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+  min-width: 0;
+
+  &__filtres {
+    animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) 500ms backwards;
+    --tdb-depart: translateY(8px);
+
+    @include mobile {
+      flex-wrap: nowrap;
+      margin-inline: calc(-1 * var(--tdb-espace-4));
+      padding-inline: var(--tdb-espace-4);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+  }
+
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-flow: dense;
+    gap: var(--tdb-espace-4);
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      .tdb-carte--grande {
+        grid-column: span 2;
+      }
+      .tdb-carte--moyenne,
+      .tdb-carte--petite {
+        grid-column: span 1;
+      }
+    }
+    @media (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+
+      .tdb-carte {
+        grid-column: span 1;
+      }
+    }
+  }
+}
+
+.tdb-colonne {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-6);
+  min-width: 0;
+
+  > .tdb-panneau {
+    @include entree(translateX(24px), 650ms, 80ms);
+
+    @include mobile {
+      --tdb-depart: translateY(16px);
+    }
+  }
+
+  // Sur téléphone, les alertes passent avant les projets : on vient voir si quelque chose casse.
+  @media (max-width: #{$bureau - 1px}) {
+    gap: var(--tdb-espace-4);
+  }
+}
+
+.tdb-vue__corps {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    // Pleine largeur : avec « start », la rangée de filtres (sans retour à la ligne) imposait sa largeur au bento
+    // et élargissait la page au-delà de l'écran (430 px sur un téléphone de 390).
+    align-items: stretch;
+
+    .tdb-colonne {
+      display: contents;
+    }
+    #tdb-alertes {
+      order: -1;
+      scroll-margin-top: var(--tdb-espace-4);
+    }
+  }
+}
+
+// ─────────────────────────────── Fiche projet ───────────────────────────────
+.tdb-fiche {
+  &__retour {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    align-self: flex-start;
+    padding: 6px 0;
+    color: var(--tdb-texte-2);
+    @include texte-bouton;
+    transition: color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+    animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) 350ms backwards;
+    --tdb-depart: translateX(-12px);
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-texte);
+    }
+  }
+
+  &__heros {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-6);
+    padding: 28px;
+    @include verre(var(--tdb-fond-verre), var(--tdb-rayon-panneau));
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--tdb-espace-4);
+      padding: var(--tdb-espace-5);
+      border-radius: var(--tdb-espace-6);
+
+      .tdb-logo {
+        --taille: 56px !important;
+      }
+    }
+  }
+  &__identite {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  &__nom {
+    @include titre-page;
+  }
+  &__description {
+    max-width: 640px;
+    @include texte-corps;
+    color: var(--tdb-texte-2);
+    animation: tdb-entree 360ms var(--tdb-courbe-sortie) 400ms backwards;
+    --tdb-depart: translateY(8px);
+  }
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tdb-espace-2);
+    margin-top: var(--tdb-espace-1);
+
+    > * {
+      animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) backwards;
+      --tdb-depart: scale(0.96);
+    }
+    @for $n from 1 through 4 {
+      > :nth-child(#{$n}) {
+        animation-delay: #{450 + ($n - 1) * 50}ms;
+      }
+    }
+  }
+  &__sante {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--tdb-espace-2);
+    max-width: 280px;
+    text-align: right;
+    animation: tdb-entree 360ms var(--tdb-courbe-sortie) 500ms backwards;
+    --tdb-depart: translateX(12px);
+
+    @include mobile {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+  &__sante-cible {
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
+    gap: 2px;
+  }
+  &__sante-etat {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    @include texte-bouton;
+  }
+  &__sante-detail {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    overflow-wrap: anywhere;
+  }
+
+  &__onglets {
+    display: none;
+  }
+
+  &__grille-liens {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+
+    > * {
+      animation: tdb-entree 300ms var(--tdb-courbe-sortie) backwards;
+      --tdb-depart: translateY(8px);
+    }
+    @for $n from 1 through 16 {
+      > :nth-child(#{$n}) {
+        animation-delay: #{600 + ($n - 1) * 50}ms;
+      }
+    }
+
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+    }
+  }
+
+  &__liens {
+    @include entree(translateY(16px), 550ms);
+  }
+
+  &__corps {
+    display: grid;
+    gap: var(--tdb-espace-6);
+    align-items: start;
+
+    @include bureau {
+      grid-template-columns: minmax(0, 1fr) 520px;
+    }
+    @include mobile {
+      gap: var(--tdb-espace-4);
+    }
+  }
+  &__colonne {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-6);
+    min-width: 0;
+
+    > .tdb-panneau {
+      @include entree(translateY(24px), 700ms, 80ms);
+    }
+    &--exploitation > .tdb-panneau {
+      animation-delay: calc(750ms + var(--i, 0) * 80ms);
+    }
+
+    @include mobile {
+      gap: var(--tdb-espace-4);
+    }
+  }
+  &__commandes {
+    gap: var(--tdb-espace-4);
+  }
+  &__stack {
+    @include code;
+    color: var(--tdb-texte-2);
+  }
+  &__liste-notes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+
+    li {
+      position: relative;
+      padding-left: var(--tdb-espace-4);
+      @include texte-petit;
+      color: var(--tdb-texte-2);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0.6em;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--tdb-accent);
+      }
+    }
+  }
+
+  // Téléphone : onglets Aperçu · Liens · Documents · Commandes · Coûts, un seul groupe de panneaux visible à la fois.
+  @include mobile {
+    &__onglets {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      padding: var(--tdb-espace-1);
+      border-radius: var(--tdb-rayon-pilule);
+      @include verre(var(--tdb-fond-verre), var(--tdb-rayon-pilule));
+
+      // Cinq onglets quand le projet a des membres : la rangée défile plutôt que de déborder.
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .tdb-onglet {
+        flex: none;
+        padding-inline: 14px;
+      }
+    }
+
+    &:not(.tdb-fiche--onglet-liens) .tdb-fiche__liens,
+    &:not(.tdb-fiche--onglet-documents) .tdb-fiche__documents,
+    &:not(.tdb-fiche--onglet-commandes) .tdb-fiche__commandes,
+    &:not(.tdb-fiche--onglet-couts) .tdb-fiche__couts,
+    &:not(.tdb-fiche--onglet-membres) .tdb-fiche__membres,
+    &:not(.tdb-fiche--onglet-apercu):not(.tdb-fiche--onglet-membres) .tdb-fiche__colonne--apercu,
+    // Onglet Membres : la colonne Aperçu reste affichée, réduite à son panneau Membres.
+    &.tdb-fiche--onglet-membres .tdb-fiche__colonne--apercu > :not(.tdb-fiche__membres),
+    &:not(.tdb-fiche--onglet-apercu) .tdb-fiche__notes {
+      display: none;
+    }
+
+    // Changement d'onglet : le contenu entre en 240 ms, décalé de 8 px.
+    .tdb-fiche__liens,
+    .tdb-fiche__colonne > .tdb-panneau,
+    .tdb-fiche__colonne--apercu {
+      animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) backwards;
+      --tdb-depart: translateY(8px);
+    }
+  }
+}
+
+// ─────────────────────────────── Sécurité ───────────────────────────────
+.tdb-securite {
+  &__corps {
+    display: grid;
+    gap: var(--tdb-espace-6);
+    align-items: start;
+
+    @include bureau {
+      grid-template-columns: minmax(0, 1fr) 440px;
+    }
+    @include mobile {
+      gap: var(--tdb-espace-4);
+    }
+  }
+  &__colonne {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-6);
+    min-width: 0;
+
+    > .tdb-panneau {
+      @include entree(translateX(24px), 500ms, 80ms);
+    }
+
+    // Sur téléphone, la session en cours passe en premier (l'action utile), les protections en dernier.
+    @media (max-width: #{$bureau - 1px}) {
+      display: contents;
+    }
+  }
+  @media (max-width: #{$bureau - 1px}) {
+    &__corps {
+      display: flex;
+      flex-direction: column;
+    }
+    .tdb-session {
+      order: -1;
+    }
+  }
+}
+
+.tdb-journal {
+  --tdb-colonnes: 10px minmax(0, 1fr) 130px 140px 100px;
+  @include entree(translateY(24px), 450ms);
+
+  &__filtres {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  &__entetes,
+  &__ligne {
+    display: grid;
+    grid-template-columns: var(--tdb-colonnes);
+    align-items: center;
+    gap: var(--tdb-espace-4);
+    padding: 0 var(--tdb-espace-4);
+  }
+  &__entetes {
+    padding-bottom: 6px;
+    @include texte-libelle;
+    color: var(--tdb-texte-2);
+  }
+  &__ligne {
+    padding-block: 10px;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__textes {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &__evenement {
+    @include texte-bouton;
+    line-height: 1.35;
+  }
+  &__detail,
+  &__appareil,
+  &__date {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__ip {
+    @include code;
+    color: var(--tdb-texte-2);
+  }
+  &__date {
+    text-align: right;
+    white-space: nowrap;
+  }
+  &__pied {
+    padding-top: var(--tdb-espace-2);
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+
+  @media (max-width: 900px) {
+    --tdb-colonnes: 10px minmax(0, 1fr) 84px;
+
+    &__ip,
+    &__appareil {
+      display: none;
+    }
+    &__entetes,
+    &__ligne {
+      gap: var(--tdb-espace-3);
+      padding-inline: var(--tdb-espace-2);
+    }
+  }
+}
+
+.tdb-session {
+  &__bouton {
+    width: 100%;
+    margin-top: var(--tdb-espace-2);
+  }
+  &__explication {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+}
+
+.tdb-appareils {
+  &__liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__ligne {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--tdb-espace-3);
+
+    .tdb-pastille {
+      margin-top: 4px;
+    }
+    .tdb-ligne__textes {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+  &__courant {
+    margin-left: var(--tdb-espace-2);
+    padding: 2px 8px;
+    border-radius: var(--tdb-rayon-pilule);
+    background: var(--tdb-voile-en-ligne);
+    color: var(--tdb-en-ligne);
+    @include texte-libelle;
+  }
+  &__revoquer {
+    flex: none;
+    margin-right: calc(-1 * var(--tdb-espace-3));
+  }
+}
+
+.tdb-protections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-3);
+
+  &__ligne {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--tdb-espace-3);
+
+    .tdb-pastille {
+      margin-top: 4px;
+    }
+  }
+}

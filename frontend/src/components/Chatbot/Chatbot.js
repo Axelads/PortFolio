@@ -5,6 +5,10 @@ import '../../styles/components/_chatbot.scss';
 import avatarAxel from '../../images/avatar/avatar-joie.webp';
 
 const CHATBOT_API_URL = process.env.REACT_APP_CHATBOT_API_URL || 'https://chatbot-api-tan.vercel.app/api/chat';
+const MAX_HISTORY = 12; // tours envoyés à l'API (les plus récents), aligné sur le serveur
+const MAX_INPUT_CHARS = 1500; // taille max d'un message, alignée sur le serveur
+const QUOTA_MESSAGE =
+  "Vous avez envoyé beaucoup de messages : la limite est atteinte pour le moment. Réessayez un peu plus tard ou utilisez le formulaire de contact.";
 
 const WELCOME_MESSAGE = {
   role: 'assistant',
@@ -87,20 +91,23 @@ const Chatbot = () => {
         body: JSON.stringify({
           messages: updatedMessages
             .filter((m) => m.role !== 'assistant' || m !== WELCOME_MESSAGE)
-            .map((m) => ({ role: m.role, content: m.content })),
+            .map((m) => ({ role: m.role, content: m.content }))
+            .slice(-MAX_HISTORY),
         }),
       });
 
-      if (!response.ok) throw new Error('Erreur serveur');
+      if (!response.ok) throw new Error(response.status === 429 ? 'quota' : 'server');
 
       const data = await response.json();
       setMessages((prev) => [...prev, { role: 'assistant', content: data.content }]);
-    } catch {
+    } catch (err) {
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: "Désolé, une erreur s'est produite. Veuillez réessayer ou utiliser le formulaire de contact.",
+          content: err && err.message === 'quota'
+            ? QUOTA_MESSAGE
+            : "Désolé, une erreur s'est produite. Veuillez réessayer ou utiliser le formulaire de contact.",
         },
       ]);
     } finally {
@@ -163,6 +170,7 @@ const Chatbot = () => {
               onKeyDown={handleKeyDown}
               placeholder="Posez votre question..."
               rows={1}
+              maxLength={MAX_INPUT_CHARS}
               disabled={isLoading}
             />
             <button
@@ -181,7 +189,7 @@ const Chatbot = () => {
       <button
         className={`chatbot__bubble ${isOpen ? 'chatbot__bubble--open' : ''}`}
         onClick={() => setIsOpen((prev) => !prev)}
-        aria-label="Ouvrir le chat"
+        aria-label={isOpen ? "Fermer le chat interactif d'Axel" : "Ouvrir le chat interactif d'Axel"}
       >
         <span className="chatbot__bubble-icon">
           {isOpen ? <FiX /> : <img className="chatbot__bubble-avatar" src={avatarAxel} alt="" width="102" height="128" />}

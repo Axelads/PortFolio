@@ -64,23 +64,6 @@
     }
   }
   
-    .project-images {
-      display: flex;
-      flex-direction: column; /* Images en colonne */
-      align-items: center;
-      gap: 20px;
-      margin: 20px 0px 60px 0;
-  
-      img { 
-        max-width: 80%; /* Ajuste les images à la largeur de la page */
-        max-height: 450px;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      }
-    }
-  
-  
   .project-visuel {
     display: flex;
     flex-direction: column;

@@ -1,0 +1,233 @@
+@use 'outils' as *;
+
+// Écran « Signatures » : formulaire d'envoi d'un document et suivi des dossiers.
+
+.tdb-signatures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-6);
+
+  &__h1 {
+    @include titre-page;
+  }
+  &__intro {
+    @include texte-corps;
+    color: var(--tdb-texte-2);
+    max-width: 72ch;
+    margin-top: calc(-1 * var(--tdb-espace-3));
+  }
+  &__intertitre {
+    @include texte-libelle;
+    color: var(--tdb-texte-2);
+    margin: var(--tdb-espace-5) 0 var(--tdb-espace-3);
+  }
+
+  &__formulaire {
+    display: flex;
+    flex-direction: column;
+  }
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--tdb-espace-4);
+
+    // Un champ « fichier » ou une liste garde sinon sa largeur propre : sur téléphone, la page dépassait de 25 px.
+    .tdb-champ,
+    .tdb-champ__saisie {
+      min-width: 0;
+    }
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  &__large {
+    grid-column: 1 / -1;
+    @include mobile {
+      grid-column: auto;
+    }
+  }
+  &__note {
+    height: auto;
+    min-height: 72px;
+    padding: 12px var(--tdb-espace-4);
+    resize: vertical;
+    line-height: 1.45;
+  }
+
+  &__signataires {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+  }
+  &__signataire {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr 1fr auto;
+    gap: var(--tdb-espace-2);
+    align-items: center;
+    .tdb-champ__saisie {
+      height: 42px;
+      min-width: 0;
+    }
+    @include mobile {
+      grid-template-columns: 1fr 1fr;
+      padding-bottom: var(--tdb-espace-3);
+      border-bottom: 1px solid var(--tdb-bordure-discrete);
+      > :nth-child(3) {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--tdb-espace-2);
+    margin-top: var(--tdb-espace-4);
+  }
+  &__erreur {
+    @include texte-petit;
+    color: var(--tdb-panne);
+    min-height: 1.4em;
+    margin-top: var(--tdb-espace-2);
+    &--page {
+      margin-top: 0;
+    }
+  }
+
+  &__liens {
+    margin-top: var(--tdb-espace-3);
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: var(--tdb-espace-2);
+    }
+  }
+  &__lien {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-3);
+    padding: var(--tdb-espace-2) var(--tdb-espace-3);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-champ);
+    border: 1px solid var(--tdb-bordure-discrete);
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  &__email,
+  &__role {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+
+  &__dossiers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-4);
+  }
+  &__dossier {
+    padding: var(--tdb-espace-4) var(--tdb-espace-5);
+    border-radius: var(--tdb-rayon-carte);
+    border: 1px solid var(--tdb-bordure-discrete);
+    background: var(--tdb-fond-verre);
+    @include mobile {
+      padding: var(--tdb-espace-3) var(--tdb-espace-4);
+    }
+  }
+  &__tete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--tdb-espace-3);
+    margin-bottom: var(--tdb-espace-3);
+  }
+  &__titre {
+    @include titre-carte;
+  }
+  &__etats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    .tdb-ligne {
+      padding: 0;
+    }
+  }
+  // Classement du dossier : projet où il est rangé, période du contrat et dates clés (fiche du projet, Documents).
+  &__rangement {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-2) var(--tdb-espace-3);
+    margin-top: var(--tdb-espace-4);
+
+    .tdb-bouton {
+      height: 32px;
+      padding-inline: var(--tdb-espace-2);
+    }
+    .tdb-documents__formulaire {
+      flex: 1 1 100%;
+      padding: var(--tdb-espace-4);
+      border-radius: var(--tdb-rayon-moyen);
+      border: 1px solid var(--tdb-bordure-discrete);
+      animation: tdb-entree var(--tdb-duree-standard) var(--tdb-courbe-sortie) backwards;
+      --tdb-depart: translateY(-6px);
+
+      .tdb-bouton {
+        height: 40px;
+        padding-inline: var(--tdb-espace-4);
+      }
+      .tdb-periode .tdb-bouton {
+        padding-inline: var(--tdb-espace-2);
+      }
+    }
+  }
+  &__classement {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    overflow-wrap: anywhere;
+
+    .tdb-icone {
+      flex: none;
+      margin-top: 2px;
+    }
+    strong:first-child {
+      color: var(--tdb-texte);
+    }
+  }
+  &__empreinte {
+    @include code;
+    font-size: 11px;
+    color: var(--tdb-texte-2);
+    word-break: break-all;
+    margin-top: var(--tdb-espace-2);
+  }
+  &__journal {
+    margin-top: var(--tdb-espace-3);
+    padding: var(--tdb-espace-3) var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-champ);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    @include texte-petit;
+    li {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: var(--tdb-espace-3);
+      @include mobile {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+  }
+  &__date {
+    color: var(--tdb-texte-2);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+}

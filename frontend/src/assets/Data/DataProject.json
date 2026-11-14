@@ -62,7 +62,7 @@
     "imageUrls": [
       "https://i.ibb.co/xf0TWFS/DALL-E-2024-11-15-16-48-20-A-visual-preview-of-a-spice-selling-website-built-with-HTML-and-CSS-The-p.webp"
     ],
-    "githubUrl": "https://github.com/Axelads/Epices",
+    "githubUrl": null,
     "liveUrl": null,
     "skillsUsed": ["TypeScript", "Node.js", "Express", "Dotenv", "PostgreSQL/pgAdmin", "google-oauth20", "JWT", "Bcrypt", "Stripe & Paypal", "Swagger", "Multer&Sharp", "ESLint / Jest / Prettier"]
   },
@@ -84,17 +84,17 @@
   {
     "_id": "6",
     "slug": "RolistesUnis.fr",
-    "name": "RolistesUnis",
-    "date": "2025-01-25",
+    "name": "RolistesUnis V2",
+    "date": "2026-10-23",
     "completed": true,
     "category": "site-web",
-    "Resume": "Ce projet est un site web moderne et interactif développé pour l'association RUNE, dédiée aux jeux de rôle. Il met en avant les actualités, événements et activités de l'association, tout en offrant une navigation fluide et optimisée. Projet conçu avec une attention particulière à l'expérience utilisateur et à la performance !",
+    "Resume": "Le site de l'association de jeu de rôle R.U.N.E (Toulon, depuis 1998), repensé en jeu point & click : on explore une vallée, une auberge, un refuge et une citadelle, et chaque lieu ouvre un contenu du site (actualités WordPress, agenda Google, adhésion, contact).",
     "imageUrls": [
-      "https://www.image-heberg.fr/files/17388540692511340315.webp"
+      "https://coastal-abagail-axelads-a874777e.koyeb.app/api/files/projects/geuyeodw897evar/rolistesunis_00_partage_8ddorsamkw.webp"
     ],
     "githubUrl": "https://github.com/Axelads/Runes",
-    "liveUrl": "www.rolistesunis.fr",
-    "skillsUsed": ["JavaScript", "React.js", "React Router", "Gsap", "Sass", "Axios", "Responsive", "Référencement SEO", "gestion DNS&SSL"]
+    "liveUrl": "https://www.rolistesunis.fr",
+    "skillsUsed": ["React 19", "Framer Motion", "Point & click", "SVG", "React Router 7", "Sass", "GSAP", "Google Calendar API", "WordPress REST API", "EmailJS", "Responsive", "SEO", "CSP / HTTPS", "gestion DNS & SSL"]
   },
   {
     "_id": "7",

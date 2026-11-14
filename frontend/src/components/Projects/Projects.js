@@ -88,10 +88,6 @@ const Projects = () => {
     }
   }, [projects, activeCategory]);
 
-  const handleCardClick = (slug) => {
-    window.open(`/Projet/${slug}`, "_blank");
-  };
-
   const handleCategoryChange = (categoryId) => {
     cardsRef.current = [];
     setActiveCategory(categoryId);
@@ -142,21 +138,30 @@ const Projects = () => {
   // Compter le total des projets affichés
   const totalCount = filteredProjects.length;
 
+  // Un vrai lien (nouvel onglet) : accessible au clavier, lisible par les
+  // crawlers et les agents, sans role="button" posé sur un <article>.
+  // L'image est un <img loading="lazy"> : les visuels distants (souvent > 1 Mo)
+  // ne sont téléchargés qu'à l'approche de la carte, pas au chargement.
   const renderProjectCard = (project, index) => (
-    <article
+    <a
       key={project._id || project.id}
       ref={(el) => (cardsRef.current[index] = el)}
       className={`project-card ${project.completed ? "completed" : "in-progress"}`}
-      onClick={() => handleCardClick(project.slug)}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && handleCardClick(project.slug)}
+      href={`/Projet/${project.slug}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Voir le projet ${project.name}`}
     >
       <div className="card-image-wrapper">
-        <div
-          className="card-image"
-          style={{ backgroundImage: `url(${project.imageUrls?.[0] || ''})` }}
-        />
+        {project.imageUrls?.[0] && (
+          <img
+            className="card-image"
+            src={project.imageUrls[0]}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        )}
         <div className="card-overlay">
           <span className="view-project">Voir le projet</span>
         </div>
@@ -192,7 +197,7 @@ const Projects = () => {
           )}
         </div>
       </div>
-    </article>
+    </a>
   );
 
   if (loading) {

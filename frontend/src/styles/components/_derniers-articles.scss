@@ -1,0 +1,76 @@
+// ============================================
+// DERNIERS ARTICLES — bloc de l'accueil (3 cartes du blog)
+// Réutilise .articles-grid / .article-card de pages/_blog.scss. Tout en var(--*).
+// Posé dans .informations (fond vert, text-align center) : la grille repasse à gauche.
+// ============================================
+
+.derniers-articles {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0 60px;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 36px;
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+
+      [data-theme="dark"] & {
+        color: #888888;
+      }
+    }
+  }
+
+  .articles-grid {
+    text-align: left;
+  }
+
+  &__suite {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  &__tous {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 12px 26px;
+    border-radius: 30px;
+    background: var(--accent-gradient);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--text-heading);
+      outline-offset: 3px;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import Seo, { SITE_URL } from "../components/Seo";
 import { gsap } from "gsap";
 import ArticleCard from "../components/Blog/ArticleCard";
 // Avatar dessiné d'Axel, expression « réflexion » (planche d'expressions v3, détourée).
@@ -7,6 +7,16 @@ import avatarReflexion from "../images/avatar/avatar-reflexion.webp";
 import { getArticles, BLOG_CATEGORIES } from "../services/blog";
 
 const FILTERS = [{ id: "all", label: "Tous" }, ...BLOG_CATEGORIES];
+
+const BLOG_LD = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Blog d'Axel Grégoire",
+  url: `${SITE_URL}/blog`,
+  description: "Veille technique en français sur React, CSS, JavaScript, les outils et l'IA.",
+  inLanguage: "fr",
+  author: { "@type": "Person", name: "Axel Grégoire", url: SITE_URL },
+};
 
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -84,21 +94,12 @@ const Blog = () => {
 
   return (
     <div className="blog-page" ref={pageRef}>
-      <Helmet>
-        <title>Blog | Axel Grégoire — Développeur Web</title>
-        <meta
-          name="description"
-          content="Veille et articles techniques : IA, JavaScript, React, CSS et outils de développement. Nouveaux articles chaque semaine."
-        />
-        <link rel="canonical" href="https://axelgregoire.fr/blog" />
-        <meta property="og:title" content="Blog | Axel Grégoire — Développeur Web" />
-        <meta
-          property="og:description"
-          content="Veille et articles techniques : IA, JavaScript, React, CSS et outils de développement."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://axelgregoire.fr/blog" />
-      </Helmet>
+      <Seo
+        title="Blog dev : React, CSS, JavaScript et IA | Axel Grégoire"
+        description="Veille technique en français sur React, CSS, JavaScript, les outils et l'IA, avec du code. Un nouvel article chaque semaine."
+        path="/blog"
+        jsonLd={BLOG_LD}
+      />
 
       <header className="blog-hero">
         <img className="blog-hero__avatar" src={avatarReflexion} alt="" width="183" height="256" />

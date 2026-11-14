@@ -1,0 +1,316 @@
+// Vitrine d'un projet (VitrineProjet.js) : cartes d'éléments réels du site
+// présenté, chacune lien direct vers sa page. Posée sous la galerie, sur le
+// fond vert fixe de la page projet, identique en thème sombre et clair : les
+// jetons locaux sont calibrés pour ce vert (mêmes valeurs que la galerie).
+// L'entrée et la parallaxe sont pilotées par GSAP ; ici : mise en page, survol,
+// focus et repli sans mouvement.
+
+.vitrine-projet {
+  --vitrine-encre: #1f2a2a;
+  --vitrine-encre-douce: rgba(31, 42, 42, 0.66);
+  --vitrine-accent: #00334d;
+  --vitrine-verre: rgba(255, 255, 255, 0.42);
+  --vitrine-verre-bord: rgba(255, 255, 255, 0.58);
+  --vitrine-ombre: 0 14px 34px rgba(0, 51, 77, 0.16);
+  --vitrine-ombre-haute: 0 26px 52px rgba(0, 51, 77, 0.26);
+  --vitrine-rayon: 18px;
+  --vitrine-ecart: 22px;
+  --vitrine-courbe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  max-width: 1200px;
+  margin: 8px auto 64px;
+  text-align: left;
+  color: var(--vitrine-encre);
+
+  @media (max-width: 768px) {
+    --vitrine-rayon: 14px;
+    --vitrine-ecart: 12px;
+    margin-bottom: 44px;
+  }
+
+  // ----- En-tête -----
+
+  &__entete {
+    margin-bottom: 26px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 18px;
+    }
+  }
+
+  // Sélecteurs doublés : `.project-details p` (1,5 rem) passerait sinon devant.
+  & &__libelle {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--vitrine-encre-douce);
+  }
+
+  &__titre {
+    margin: 0;
+    font-size: clamp(1.55rem, 3.2vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--vitrine-encre);
+    text-wrap: balance;
+  }
+
+  // Masque de la révélation mot par mot (le mot monte depuis sous sa ligne).
+  &__mot {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+    vertical-align: bottom;
+
+    > span {
+      display: inline-block;
+    }
+  }
+
+  & &__intro {
+    max-width: 56ch;
+    margin: 12px 0 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--vitrine-encre-douce);
+
+    @media (max-width: 768px) {
+      font-size: 0.92rem;
+    }
+  }
+
+  // ----- Grille -----
+
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--vitrine-ecart);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__carte {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--vitrine-verre-bord);
+    border-radius: var(--vitrine-rayon);
+    background: var(--vitrine-verre);
+    box-shadow: var(--vitrine-ombre);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      transform 0.55s var(--vitrine-courbe),
+      box-shadow 0.55s var(--vitrine-courbe),
+      background-color 0.3s ease;
+
+    &:focus-visible {
+      outline: 3px solid var(--vitrine-accent);
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 768px) {
+      padding: 6px;
+    }
+  }
+
+  &__fenetre {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: calc(var(--vitrine-rayon) - 6px);
+    background: rgba(255, 255, 255, 0.5);
+    // isole le clip des transformations GSAP de la photo (coins nets)
+    isolation: isolate;
+  }
+
+  &__calque {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--vitrine-courbe);
+  }
+
+  &__texte {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 10px 10px;
+
+    @media (max-width: 768px) {
+      gap: 3px;
+      padding: 10px 6px 6px;
+    }
+  }
+
+  &__rayon {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--vitrine-encre-douce);
+
+    @media (max-width: 768px) {
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+    }
+  }
+
+  &__nom {
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--vitrine-encre);
+
+    @media (max-width: 768px) {
+      font-size: 0.92rem;
+    }
+  }
+
+  &__action {
+    display: block;
+    margin-top: auto;
+    padding-top: 12px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--vitrine-accent);
+
+    @media (max-width: 768px) {
+      padding-top: 8px;
+      font-size: 0.74rem;
+    }
+  }
+
+  &__insecable {
+    white-space: nowrap;
+  }
+
+  &__action &__fleche {
+    margin-left: 5px;
+    vertical-align: -2px;
+  }
+
+  &__fleche {
+    display: inline-flex;
+    flex: 0 0 auto;
+    transition: transform 0.45s var(--vitrine-courbe);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  // ----- Lien vers toute la boutique -----
+
+  &__tout {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--vitrine-accent);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(0, 51, 77, 0.22);
+    transition:
+      transform 0.5s var(--vitrine-courbe),
+      box-shadow 0.5s var(--vitrine-courbe);
+
+    &:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 768px) {
+      margin-top: 22px;
+    }
+  }
+
+  &__cache {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  // ----- Survol (pointeur fin seulement) -----
+
+  @media (hover: hover) and (pointer: fine) {
+    &__carte:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--vitrine-ombre-haute);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    &__carte:hover &__image {
+      transform: scale(1.06);
+    }
+
+    &__carte:hover &__fleche,
+    &__tout:hover &__fleche {
+      transform: translate(3px, -3px);
+    }
+
+    &__tout:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(0, 51, 77, 0.3);
+    }
+  }
+
+  // Pendant l'entrée GSAP, aucune transition CSS ne doit lisser les valeurs.
+  &.est-animee &__carte,
+  &.est-animee &__tout {
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__carte,
+    &__image,
+    &__fleche,
+    &__tout {
+      transition: none;
+    }
+
+    &__carte:hover,
+    &__carte:hover &__image,
+    &__carte:hover &__fleche,
+    &__tout:hover,
+    &__tout:hover &__fleche {
+      transform: none;
+    }
+  }
+}

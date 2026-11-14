@@ -1,0 +1,512 @@
+// Galerie des captures d'un projet : une seule rangée (pellicule) pleine
+// largeur, alignée sur la colonne de contenu (1200 px). Posée sur le fond vert
+// fixe de la page projet, identique en thème sombre et clair : les jetons
+// locaux ci-dessous sont donc calibrés pour ce vert, pas pour var(--bg-*).
+// Le mouvement d'entrée, la parallaxe et la visionneuse sont pilotés par GSAP
+// (GalerieProjet.js) ; ici : survol, chargement, compteur et visionneuse.
+
+.galerie-projet {
+  --galerie-h: clamp(240px, 42vh, 440px);
+  --galerie-marge: max(20px, calc((100% - 1200px) / 2));
+  --galerie-ecart: 18px;
+  --galerie-rayon: 16px;
+  --galerie-encre: #1f2a2a;
+  --galerie-encre-douce: rgba(31, 42, 42, 0.62);
+  --galerie-verre: rgba(255, 255, 255, 0.42);
+  --galerie-verre-bord: rgba(255, 255, 255, 0.58);
+  --galerie-ombre: 0 14px 34px rgba(0, 51, 77, 0.18);
+  --galerie-ombre-haute: 0 26px 52px rgba(0, 51, 77, 0.28);
+  --galerie-courbe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  margin: 28px -20px 56px; // pleine largeur : annule le padding 20px de .project-details
+  text-align: left;
+
+  @media (max-width: 768px) {
+    --galerie-h: min(62vw, 320px);
+    --galerie-ecart: 14px;
+    --galerie-rayon: 14px;
+    margin-bottom: 40px;
+  }
+
+  // ----- En-tête : libellé, compteur, flèches -----
+
+  &__entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 var(--galerie-marge);
+    margin-bottom: 18px;
+  }
+
+  &__libelle {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--galerie-encre-douce);
+  }
+
+  &__compteur {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3em;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--galerie-encre);
+  }
+
+  &__separateur {
+    opacity: 0.45;
+    font-weight: 400;
+  }
+
+  &__chiffre {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em;
+    line-height: 1.2em;
+    vertical-align: bottom;
+
+    > span {
+      display: inline-block;
+      animation: galerie-chiffre 0.45s var(--galerie-courbe) both;
+    }
+  }
+
+  &__fleches {
+    display: flex;
+    gap: 8px;
+
+    &[hidden] {
+      display: none;
+    }
+
+    @media (pointer: coarse) {
+      display: none;
+    }
+  }
+
+  &__fleche {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(31, 42, 42, 0.28);
+    border-radius: 50%;
+    background: var(--galerie-verre);
+    color: var(--galerie-encre);
+    cursor: pointer;
+    transition:
+      transform 0.45s var(--galerie-courbe),
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      opacity 0.3s ease;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #00334d;
+      outline-offset: 3px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:not(:disabled):hover {
+        background: rgba(255, 255, 255, 0.82);
+        border-color: rgba(31, 42, 42, 0.5);
+      }
+
+      &--prec:not(:disabled):hover {
+        transform: translateX(-3px);
+      }
+
+      &--suiv:not(:disabled):hover {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  // ----- Piste : défilement natif, accroche, glisser à la souris -----
+
+  &__piste {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 12px 0 30px; // place pour l'élévation au survol et son ombre
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--galerie-marge);
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #00334d;
+      outline-offset: -2px;
+      border-radius: 6px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      cursor: grab;
+    }
+
+    &.est-saisie {
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+      cursor: grabbing;
+      user-select: none;
+    }
+  }
+
+  &__rangee {
+    display: flex;
+    gap: var(--galerie-ecart);
+    width: max-content; // le padding de fin compte dans la largeur défilable
+    margin: 0;
+    padding: 0 var(--galerie-marge);
+    list-style: none;
+  }
+
+  // ----- Cadre : vignette cliquable -----
+
+  &__cadre {
+    position: relative;
+    flex: 0 0 auto;
+    height: var(--galerie-h);
+    min-width: calc(var(--galerie-h) * 0.42); // squelette avant chargement
+    margin: 0;
+    border-radius: var(--galerie-rayon);
+    border: 1px solid var(--galerie-verre-bord);
+    background: var(--galerie-verre);
+    box-shadow: var(--galerie-ombre);
+    scroll-snap-align: start;
+    transition:
+      transform 0.55s var(--galerie-courbe),
+      box-shadow 0.55s var(--galerie-courbe);
+  }
+
+  // Pendant l'entrée GSAP, aucune transition CSS ne doit lisser les valeurs.
+  &.est-animee &__cadre {
+    transition: none;
+  }
+
+  &__bouton {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 3px solid #00334d;
+      outline-offset: 4px;
+    }
+  }
+
+  &__fenetre {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    // isole le clip des transformations GSAP de l'image (coins nets)
+    isolation: isolate;
+  }
+
+  &__calque {
+    display: block;
+    height: 100%;
+    transition: transform 0.7s var(--galerie-courbe);
+  }
+
+  &__image {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: min(86vw, 900px);
+    object-fit: cover;
+    object-position: top center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &__cadre.est-chargee &__image {
+    opacity: 1;
+  }
+
+  &__loupe {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    color: #00334d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.5s var(--galerie-courbe);
+    pointer-events: none;
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    @media (pointer: coarse) {
+      display: none;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &__cadre:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--galerie-ombre-haute);
+    }
+
+    &__cadre:hover &__calque {
+      transform: scale(1.035);
+    }
+
+    &__cadre:hover &__loupe,
+    &__bouton:focus-visible &__loupe {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // ----- Progression -----
+
+  &__progression {
+    height: 2px;
+    margin: 0 var(--galerie-marge);
+    border-radius: 2px;
+    background: rgba(31, 42, 42, 0.16);
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+
+    > span {
+      display: block;
+      height: 100%;
+      background: var(--galerie-encre);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    &.est-inactive {
+      opacity: 0;
+    }
+  }
+
+  // ----- Visionneuse (<dialog> en couche supérieure) -----
+
+  &__visionneuse {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    overflow: hidden;
+
+    &::backdrop {
+      background: transparent;
+    }
+
+    &:not([open]) {
+      display: none;
+    }
+  }
+
+  &__fond {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 12, 18, 0.93);
+    opacity: 0;
+    cursor: zoom-out;
+  }
+
+  &__grande {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    transform-origin: 0 0;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &__fermer,
+  &__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      transform 0.45s var(--galerie-courbe);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #8bc7b1;
+      outline-offset: 3px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+    }
+  }
+
+  &__fermer {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    width: 46px;
+    height: 46px;
+    opacity: 0;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &__nav {
+    width: 44px;
+    height: 44px;
+  }
+
+  &__pied {
+    position: fixed;
+    right: 0;
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 16px;
+    opacity: 0;
+  }
+
+  &__legende {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 120px;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    text-align: center;
+
+    .galerie-projet__compteur {
+      color: #fff;
+      font-size: 1rem;
+    }
+  }
+
+  &__nom {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  // ----- Mouvement réduit -----
+
+  @media (prefers-reduced-motion: reduce) {
+    &__piste {
+      scroll-behavior: auto;
+    }
+
+    &__cadre,
+    &__calque,
+    &__loupe,
+    &__fleche,
+    &__image,
+    &__fermer,
+    &__nav,
+    &__progression {
+      transition: none;
+    }
+
+    &__chiffre > span {
+      animation: none;
+    }
+
+    &__fond,
+    &__fermer,
+    &__pied {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes galerie-chiffre {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}

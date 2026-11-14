@@ -52,3 +52,11 @@
     opacity: 0.5;
   }
 }
+
+// Pendant que l'overlay de chargement (src/styles/Loading.scss) est opaque,
+// l'app montée dessous est en opacity 0 : rien de « peint » à mesurer (LCP),
+// mais layout, images et arbre d'accessibilité restent en place.
+// La classe est retirée dès le début du fondu du splash (App.js).
+.app-container--under-splash {
+  opacity: 0;
+}

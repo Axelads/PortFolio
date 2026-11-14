@@ -1,0 +1,33 @@
+{
+  "slug": "jeu-arkhelyr",
+  "name": "Arkhélyr",
+  "date": "2026-09-29 00:00:00.000Z",
+  "completed": false,
+  "category": "application-mobile",
+  "skillsUsed": [
+    "React Native",
+    "Expo SDK 57",
+    "JavaScript",
+    "Reanimated 4",
+    "SCSS",
+    "Supabase",
+    "Edge Functions",
+    "IA de jeu (simulation)",
+    "expo-audio",
+    "EAS Build / OTA",
+    "Google Play Console",
+    "TestFlight"
+  ],
+  "resume": "<h1>Arkhélyr — Jeu de cartes dark fantasy sur mobile, contre l'IA et en ligne</h1><h2>Le contexte :</h2><p>Arkhélyr est un jeu de cartes à collectionner dark fantasy imaginé par Max, son créateur : six races (Humains, Démons, Dragons, Bêtes, Célestes, Morts-vivants) s'y disputent l'Emprise, avec plus de 200 cartes illustrées et des règles qui bougent encore au fil des tests. Max voulait jouer à son jeu sur téléphone et sur tablette, en mode paysage, sans trahir une seule règle officielle.</p><h2>La réponse :</h2><p>Une application iOS et Android en React Native, commencée le 29 septembre 2026. Max dépose les règles, les cartes, les illustrations et le kit graphique dans un Drive partagé ; j'en fais le moteur de jeu, l'interface et le serveur en ligne. Chaque retour du créateur ou des testeurs repart en mise à jour OTA, envoyée directement aux téléphones sans repasser par les stores, avec sa fenêtre « Quoi de neuf » dans l'app. <strong>En test fermé sur Google Play et sur TestFlight depuis début novembre 2026</strong>, toutes les cartes débloquées pour les testeurs.</p><h3>Ce qui a été livré :</h3><ul><li><p><strong>Un moteur de règles complet</strong> : 210 cartes de collection et 12 cartes générées en jeu, une Emprise qui grandit d'un point par tour jusqu'à 10, l'Apparition des Mythiques, des Secrets posés face cachée que le joueur déclenche au moment choisi, et les mots-clés de chaque race (Protection et Jugement, Meute et Prédation, Trésors et Souffles, Résurrection, marques démoniaques). Chaque carte est une fiche de données, et ses effets posent leurs questions au joueur comme à l'IA, par le même chemin.</p></li><li><p><strong>Trois IA, trois algorithmes</strong> : la Novice joue ses cartes comme elles viennent, la Normale suit une heuristique, l'Experte simule chaque attaque sur une copie du moteur, essaie cinq styles de tour (agressif, tempo, équilibré, prudent, tortue) en jouant la riposte adverse, puis garde le meilleur. Elle ne voit pas la main adverse et tient dans un budget de 700 ms par tour sur téléphone.</p></li><li><p><strong>Le jeu en ligne</strong> (partie non classée) : le serveur fait foi. Il ne garde d'une partie que la graine, les decks et les coups, et la rebâtit à chaque requête en 2 ms ; les cartes cachées voyagent sous un alias, si bien qu'aucun téléphone ne peut lire la main de l'autre. Chronos de tour, salons, file d'attente, comptes anonymes, pseudos filtrés. L'avantage du premier joueur, mesuré à 57,7 % de victoires sur 1 440 parties simulées, a été ramené à 51,7 % en donnant une carte de plus au second.</p></li><li><p><strong>L'interface du kit validé par Max</strong> : métal ciselé, médaillons raciaux, décor du plateau propre à la race adverse, historique du tour adverse, cimetières consultables, collection filtrable avec une loupe sur chaque carte, 18 decks et un éditeur qui affiche la courbe d'Emprise, guide « Bien débuter ». Une scène de 844 × 390 mise à l'échelle sert le téléphone comme la tablette.</p></li><li><p><strong>Le mouvement et le son</strong> : animations de combat avec Reanimated (attaque, choc, entrée en jeu dont la durée suit le coût de la carte), versions animées « Emprise sublimée » et « Emprise transcendée » chargées à la demande, six musiques sous licence Creative Commons en fondu enchaîné et 27 bruitages calés sur le déroulé de la partie.</p></li></ul><h3>Côté technique :</h3><p>React Native 0.86 et Expo SDK 57 en JavaScript, styles en SCSS compilés par un worker Metro maison, Reanimated 4, expo-audio, expo-image. Le jeu en ligne tourne sur Supabase : une fonction Edge qui embarque le même moteur que l'app, des comptes anonymes, une base Postgres protégée par RLS et un Storage pour les cartes animées. Le moteur est vérifié par 47 tests ciblés, 20 parties IA contre IA par affrontement de races et 120 parties en ligne jouées par deux téléphones simulés (triche, chronos, salons). Builds EAS, mises à jour OTA, test fermé Google Play et TestFlight.</p>",
+  "images": [
+    "arkhelyr_00_accueil.webp",
+    "arkhelyr_01_plateau.webp",
+    "arkhelyr_02_main_depart.webp",
+    "arkhelyr_03_modes.webp",
+    "arkhelyr_04_adversaire.webp",
+    "arkhelyr_05_loupe_transcendee.webp",
+    "arkhelyr_06_mythiques.webp",
+    "arkhelyr_07_editeur_deck.webp",
+    "arkhelyr_08_guide.webp"
+  ]
+}

@@ -2,6 +2,8 @@
 User-agent: *
 Disallow: /admin
 Disallow: /admin/dashboard
+Disallow: /signer/
 
 Sitemap: https://axelgregoire.fr/sitemap.xml
+Sitemap: https://axelgregoire.fr/sitemap-blog.xml
 Sitemap: https://chatbot-api-tan.vercel.app/api/blog/sitemap

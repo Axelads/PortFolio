@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Axel Grégoire — CV en mouvement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@500;600;700;800;900&family=Poppins:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root {
+  --nuit: #0B0F1E;
+  --nuit-2: #141B36;
+  --papier: #F3EEE3;
+  --encre: #1E2620;
+  --olive: #4F6B3A;
+  --ocre: #C98A2B;
+  --sauge: #8BC7B1;
+  --bleu: #4A90E2;
+  --creme-lu: #FFF6EA;
+  --cacao: #6B5B57;
+  --texte: #F3EEE3;
+  --texte-doux: rgba(243, 238, 227, 0.62);
+  --display: 'Montserrat', sans-serif;
+  --corps: 'Poppins', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --lu: 'Fredoka', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+#scene {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+  overflow: hidden; background: var(--nuit); color: var(--texte);
+  font-family: var(--corps); transform-origin: 0 0;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+}
+.calque { position: absolute; inset: 0; }
+.abs { position: absolute; }
+
+/* ---------- fond ---------- */
+#fond { background: var(--nuit); }
+.aurore { position: absolute; width: 1400px; height: 1400px; border-radius: 50%; left: 0; top: 0; }
+#aurore1 { background: radial-gradient(closest-side, rgba(31, 78, 140, 0.55), transparent); }
+#aurore2 { background: radial-gradient(closest-side, rgba(45, 110, 96, 0.42), transparent); }
+#aurore3 { background: radial-gradient(closest-side, rgba(74, 52, 140, 0.40), transparent); }
+.volet { position: absolute; inset: 0; clip-path: circle(0px at 960px 540px); visibility: hidden; }
+
+/* ---------- logo ---------- */
+#logo { position: absolute; left: 960px; top: 540px; width: 0; height: 0; }
+#arbre { position: absolute; overflow: visible; }
+.point {
+  position: absolute; left: 0; top: 0; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  white-space: nowrap; will-change: transform;
+}
+.point .lbl {
+  font: 500 23px/1 var(--corps); color: var(--texte); opacity: 0;
+  padding-left: 22px; letter-spacing: 0.005em;
+}
+.point .pip { position: absolute; left: 16px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; opacity: 0; }
+
+/* ---------- typographie commune ---------- */
+.kicker { font: 500 19px/1 var(--mono); letter-spacing: 0.32em; text-transform: uppercase; }
+.display { font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 0.95; }
+.masque { overflow: hidden; display: inline-block; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.masque > span { display: inline-block; }
+
+/* ---------- S1 intro ---------- */
+#s1-nom { left: 900px; top: 330px; font-size: 168px; }
+#s1-titre { left: 906px; top: 700px; font: 500 46px/1.1 var(--corps); }
+#s1-sous { left: 908px; top: 778px; font: 500 22px/1 var(--mono); letter-spacing: 0.3em; color: var(--sauge); text-transform: uppercase; }
+#s1-lieu { left: 908px; top: 830px; font: 400 19px/1 var(--mono); letter-spacing: 0.08em; color: var(--texte-doux); }
+#s1-trait { left: 908px; top: 672px; width: 160px; height: 3px; background: var(--sauge); transform-origin: 0 50%; }
+
+/* ---------- S2 avant ---------- */
+#s2 { color: var(--encre); }
+#s2-kicker { left: 160px; top: 150px; color: var(--ocre); }
+#s2-titre { left: 150px; top: 260px; font-size: 176px; color: var(--encre); }
+#s2-titre .accent { color: var(--olive); }
+.odometre { display: flex; font-family: var(--display); font-weight: 800; letter-spacing: -0.04em; }
+.odometre .col { height: 0.78em; overflow: hidden; line-height: 0.78em; }
+.odometre .bande { display: flex; flex-direction: column; }
+.odometre .bande span { height: 0.78em; line-height: 0.78em; display: block; text-align: center; }
+#s2-odo { left: 150px; top: 300px; font-size: 300px; color: var(--encre); height: 0.78em; overflow: hidden; }
+#s2-odo-legende { left: 162px; top: 590px; font: 500 20px/1 var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--ocre); }
+#s2-puis { left: 0; width: 1920px; top: 760px; text-align: center; font: 500 26px/1 var(--mono); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ocre); }
+#s2-carte { left: 1010px; top: 330px; width: 780px; }
+.etape { position: absolute; left: 0; top: 0; width: 780px; }
+.etape .soc { font: 800 74px/1 var(--display); letter-spacing: -0.03em; color: var(--encre); }
+.etape .role { font: 500 31px/1.25 var(--corps); color: var(--encre); }
+.etape .lieu { font: 500 19px/1.2 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--olive); }
+.etape .puce { font: 400 27px/1.4 var(--corps); color: rgba(30, 38, 32, 0.78); padding-left: 34px; position: relative; }
+.etape .puce::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 16px; height: 3px; background: var(--ocre); }
+.etape .ligne { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.etape .ligne:nth-child(2), .etape .ligne:nth-child(3) { margin-top: 22px; }
+.etape .ligne:nth-child(4) { margin-top: 30px; }
+.etape .ligne > span { display: block; }
+#s2-frise { left: 160px; top: 860px; width: 1600px; height: 120px; }
+#s2-axe { position: absolute; left: 0; top: 0; width: 1600px; height: 3px; background: var(--encre); transform-origin: 0 50%; }
+#s2-gerance { position: absolute; left: 0; top: -5px; height: 13px; background: var(--ocre); border-radius: 7px; transform-origin: 0 50%; }
+.cran { position: absolute; top: -8px; width: 2px; height: 19px; background: var(--encre); }
+.cran.petit { top: -4px; height: 11px; opacity: 0.45; }
+.cran-txt { position: absolute; top: 26px; font: 500 18px/1 var(--mono); letter-spacing: 0.1em; color: var(--encre); transform: translateX(-50%); }
+#s2-repere { position: absolute; left: 0; top: -12px; width: 27px; height: 27px; margin-left: -13.5px; border-radius: 50%; background: var(--ocre); box-shadow: 0 0 0 7px rgba(201, 138, 43, 0.22); }
+#s2-gerance-txt { position: absolute; top: -52px; font: 600 19px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ocre); white-space: nowrap; }
+
+/* ---------- S3 code ---------- */
+#s3-editeur { left: 330px; top: 230px; width: 1260px; height: 620px; border-radius: 22px; background: rgba(18, 24, 48, 0.92); border: 1px solid rgba(139, 199, 177, 0.18); box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45); overflow: hidden; }
+#s3-barre { height: 58px; display: flex; align-items: center; gap: 12px; padding: 0 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+#s3-barre i { width: 14px; height: 14px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); display: block; }
+#s3-barre b { font: 500 18px/1 var(--mono); color: var(--texte-doux); margin-left: 16px; letter-spacing: 0.04em; }
+#s3-code { padding: 40px 48px; font: 400 34px/1.62 var(--mono); }
+.lc { display: flex; white-space: pre; }
+.lc .num { width: 52px; font-size: 26px; line-height: 55px; color: rgba(243, 238, 227, 0.22); flex: none; }
+.lc .txt { overflow: hidden; display: inline-block; }
+.lc .txt > span { white-space: pre; }
+#s3-curseur { position: absolute; width: 18px; height: 42px; background: var(--sauge); left: 0; top: 0; }
+.k { color: #8BC7B1; } .s { color: #E0B36A; } .c { color: #6E7A99; font-style: italic; } .f { color: #8DB8F2; } .p { color: rgba(243,238,227,.55); } .n { color: #E49A7B; }
+#s3-sortie { left: 380px; top: 880px; font: 500 24px/1 var(--mono); color: var(--sauge); }
+
+/* ---------- S4 compétences ---------- */
+#s4-kicker { left: 80px; top: 72px; color: var(--sauge); }
+#s4-titre { left: 0; width: 1920px; top: 118px; text-align: center; font-size: 74px; }
+#s4-titre2 { left: 0; width: 1920px; top: 118px; text-align: center; font-size: 74px; }
+#s4-titre3 { left: 0; width: 1920px; top: 118px; text-align: center; font-size: 74px; }
+.cat-titre { position: absolute; font: 600 17px/1 var(--mono); letter-spacing: 0.26em; text-transform: uppercase; white-space: nowrap; }
+
+/* ---------- S5 Lunello ---------- */
+#s5 { color: var(--cacao); }
+#s5-kicker { left: 80px; top: 72px; color: var(--sauge); }
+#s5-label { left: 0; width: 1920px; top: 470px; text-align: center; font: 800 96px/1 var(--display); color: var(--texte); letter-spacing: -0.035em; }
+#balle { left: 0; top: 0; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: #F7A76C; }
+#s5-marque { left: 0; top: 0; width: 1073px; height: 502px; transform-origin: 0 0; }
+#s5-marque svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#s5-persos { position: absolute; left: 0; top: -300px; width: 1073px; height: 383px; overflow: hidden; }
+.perso { position: absolute; bottom: -12px; width: 230px; height: 230px; object-fit: contain; }
+#s5-gauche { left: 150px; top: 430px; width: 760px; }
+#s5-accroche { font: 600 50px/1.12 var(--lu); color: var(--cacao); letter-spacing: -0.01em; }
+.fonction { display: flex; align-items: center; gap: 22px; font: 500 30px/1.2 var(--corps); color: var(--cacao); margin-top: 26px; }
+.fonction i { width: 22px; height: 22px; border-radius: 50%; display: block; flex: none; }
+#s5-stores { font: 600 46px/1.15 var(--lu); color: var(--cacao); }
+#s5-stack { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.puce-lu { font: 500 22px/1 var(--corps); color: var(--cacao); background: #F3E6D3; border-radius: 999px; padding: 14px 24px; }
+#s5-fin { font: 600 44px/1.2 var(--lu); color: var(--cacao); }
+#telephones { position: absolute; inset: 0; perspective: 2200px; transform-style: preserve-3d; }
+.tel {
+  position: absolute; left: 0; top: 0; width: 300px; height: 580px; margin: -290px 0 0 -150px;
+  border-radius: 48px; background: #2D2833; padding: 11px;
+  box-shadow: 0 50px 90px rgba(107, 91, 87, 0.28), 0 12px 24px rgba(107, 91, 87, 0.18);
+}
+.tel .ecran { position: relative; width: 100%; height: 100%; border-radius: 38px; overflow: hidden; background: var(--creme-lu); }
+.tel .ecran img { position: absolute; left: 0; top: 0; width: 100%; height: auto; display: block; }
+.tel .ilot { position: absolute; left: 50%; top: 22px; width: 86px; height: 25px; margin-left: -43px; border-radius: 13px; background: #2D2833; z-index: 2; }
+
+/* ---------- S6 projets ---------- */
+#s6-kicker { left: 80px; top: 72px; color: var(--sauge); }
+#s6-titre { left: 80px; top: 112px; font: 600 26px/1 var(--display); color: var(--texte); }
+#piste { position: absolute; inset: 0; perspective: 2400px; }
+.carte {
+  position: absolute; left: 960px; top: 560px; width: 540px; height: 640px; margin: -320px 0 0 -270px;
+  border-radius: 34px; background: linear-gradient(180deg, #19213F, #121831);
+  border: 1px solid rgba(255, 255, 255, 0.08); padding: 46px 46px; overflow: hidden;
+}
+.carte .bande-acc { position: absolute; left: 0; top: 0; right: 0; height: 6px; }
+.carte .tuile { width: 150px; height: 150px; border-radius: 30px; background: #F6F1E8; display: flex; align-items: center; justify-content: center; }
+.carte .tuile img { width: 128px; height: 128px; object-fit: contain; }
+.carte h3 { font: 800 46px/1.05 var(--display); letter-spacing: -0.03em; margin-top: 38px; color: var(--texte); }
+.carte p { font: 400 23px/1.45 var(--corps); color: var(--texte-doux); margin-top: 18px; }
+.carte .pile { position: absolute; left: 46px; right: 46px; bottom: 44px; display: flex; flex-wrap: wrap; gap: 10px; }
+.carte .pile span { font: 500 17px/1 var(--mono); color: var(--texte); border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 999px; padding: 10px 16px; }
+#s6-legende { left: 0; width: 1920px; top: 930px; text-align: center; font: 500 30px/1 var(--corps); color: var(--texte-doux); }
+
+/* ---------- S7 forces ---------- */
+#s7-kicker { left: 160px; top: 150px; color: var(--sauge); }
+.force { position: absolute; left: 160px; top: 300px; width: 1600px; }
+.force .ft { font: 600 22px/1 var(--mono); letter-spacing: 0.26em; text-transform: uppercase; color: var(--sauge); }
+.force .fl { display: flex; align-items: baseline; gap: 36px; margin-top: 20px; }
+.force .fn { font: 900 300px/0.9 var(--display); letter-spacing: -0.05em; color: var(--texte); }
+.force .fu { font: 800 92px/1 var(--display); letter-spacing: -0.03em; color: var(--sauge); }
+.force .fx { font: 400 40px/1.3 var(--corps); color: var(--texte-doux); margin-top: 34px; max-width: 1300px; }
+.force .ligne { display: block; overflow: hidden; padding-bottom: 0.04em; }
+.force .ligne > span { display: block; }
+
+/* ---------- S8 fin ---------- */
+#s8-citation { left: 0; width: 1920px; top: 330px; text-align: center; font: 700 70px/1.2 var(--display); letter-spacing: -0.025em; }
+#s8-citation .vif { color: var(--sauge); }
+#s8-citation .l3 { margin-top: 44px; }
+#s8-nom { left: 900px; top: 300px; font-size: 140px; }
+#s8-titre { left: 906px; top: 606px; font: 500 40px/1.1 var(--corps); }
+#s8-trait { left: 908px; top: 580px; width: 160px; height: 3px; background: var(--sauge); transform-origin: 0 50%; }
+#s8-contacts { left: 908px; top: 686px; }
+#s8-contacts .site { font: 800 54px/1 var(--display); letter-spacing: -0.02em; color: var(--sauge); }
+#s8-contacts .ct { font: 400 25px/1 var(--mono); color: var(--texte-doux); margin-top: 22px; letter-spacing: 0.02em; }
+#s8-dispo { left: 908px; top: 952px; font: 500 19px/1 var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--texte); display: flex; align-items: center; gap: 14px; }
+#s8-dispo i { width: 12px; height: 12px; border-radius: 50%; background: var(--sauge); display: block; box-shadow: 0 0 0 6px rgba(139, 199, 177, 0.2); }
+
+/* ---------- habillage ---------- */
+#vignette { background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.42) 100%); pointer-events: none; }
+#grain { mix-blend-mode: overlay; opacity: 0.09; pointer-events: none; background-repeat: repeat; }
+#noir { background: #000; opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="scene">
+  <div id="fond" class="calque">
+    <div id="aurore1" class="aurore"></div>
+    <div id="aurore2" class="aurore"></div>
+    <div id="aurore3" class="aurore"></div>
+  </div>
+  <div id="volet-papier" class="volet" style="background: var(--papier)"></div>
+  <div id="volet-nuit" class="volet" style="background: var(--nuit)"></div>
+  <div id="volet-creme" class="volet" style="background: var(--creme-lu)"></div>
+  <div id="volet-nuit2" class="volet" style="background: var(--nuit)"></div>
+
+  <!-- S1 -->
+  <div id="s1" class="calque">
+    <div id="s1-nom" class="abs display"><span class="mot">Axel</span><br><span class="mot">Grégoire</span></div>
+    <div id="s1-trait" class="abs"></div>
+    <div id="s1-titre" class="abs">Développeur Full Stack JavaScript</div>
+    <div id="s1-sous" class="abs">Web · Mobile · Automatisation IA</div>
+    <div id="s1-lieu" class="abs">Freelance — Rougiers (Var) · à distance</div>
+  </div>
+
+  <!-- S2 -->
+  <div id="s2" class="calque">
+    <div id="s2-kicker" class="abs kicker">01 — Avant le code</div>
+    <div id="s2-titre" class="abs display">Quinze ans<br><span class="accent">face au client.</span></div>
+    <div id="s2-odo" class="abs odometre"></div>
+    <div id="s2-odo-legende" class="abs">Parcours</div>
+    <div id="s2-puis" class="abs">Nouvelle carrière · même exigence</div>
+    <div id="s2-carte" class="abs"></div>
+    <div id="s2-frise" class="abs">
+      <div id="s2-gerance"></div>
+      <div id="s2-axe"></div>
+      <div id="s2-gerance-txt">10 ans de gérance</div>
+      <div id="s2-repere"></div>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div id="s3" class="calque">
+    <div id="s3-editeur" class="abs">
+      <div id="s3-barre"><i></i><i></i><i></i><b>axel.js</b></div>
+      <div id="s3-code"></div>
+      <div id="s3-curseur"></div>
+    </div>
+    <div id="s3-sortie" class="abs">→ Prêt. Web · mobile · automatisation IA.</div>
+  </div>
+
+  <!-- S4 -->
+  <div id="s4" class="calque">
+    <div id="s4-kicker" class="abs kicker">02 — Compétences</div>
+    <div id="s4-titre" class="abs display">36 points dans mon logo.</div>
+    <div id="s4-titre2" class="abs display">Chacun est une compétence.</div>
+    <div id="s4-titre3" class="abs display">Le cœur du métier.</div>
+    <div id="s4-cats"></div>
+  </div>
+
+  <!-- S5 -->
+  <div id="s5" class="calque">
+    <div id="s5-kicker" class="abs kicker">03 — Projets</div>
+    <div id="s5-label" class="abs">Mon plus gros projet.</div>
+    <div id="s5-marque" class="abs">
+      <div id="s5-persos"></div>
+      <svg id="marque-svg" viewBox="0 0 596 279"></svg>
+    </div>
+    <div id="s5-gauche" class="abs">
+      <div id="s5-bloc1">
+        <div id="s5-accroche">Une app pour des matins plus calmes et des soirs plus doux.</div>
+        <div id="s5-fonctions"></div>
+      </div>
+      <div id="s5-bloc2" class="abs" style="left:0;top:0;width:760px">
+        <div id="s5-stores">Publiée sur l’App Store et Google Play.</div>
+        <div id="s5-stack"></div>
+      </div>
+      <div id="s5-bloc3" class="abs" style="left:0;top:0;width:760px">
+        <div id="s5-fin">Conçue, dessinée, codée et publiée de bout en bout.</div>
+      </div>
+    </div>
+    <div id="telephones"></div>
+    <div id="balle" class="abs"></div>
+  </div>
+
+  <!-- S6 -->
+  <div id="s6" class="calque">
+    <div id="s6-kicker" class="abs kicker">03 — Projets</div>
+    <div id="s6-titre" class="abs">Et aussi</div>
+    <div id="piste"></div>
+    <div id="s6-legende" class="abs">+ sites vitrines, boutiques, bots et agents IA</div>
+  </div>
+
+  <!-- S7 -->
+  <div id="s7" class="calque">
+    <div id="s7-kicker" class="abs kicker">04 — Ce que j’apporte</div>
+  </div>
+
+  <!-- S8 -->
+  <div id="s8" class="calque">
+    <div id="s8-citation" class="abs"></div>
+    <div id="s8-nom" class="abs display"><span class="mot">Axel</span><br><span class="mot">Grégoire</span></div>
+    <div id="s8-trait" class="abs"></div>
+    <div id="s8-titre" class="abs">Développeur Full Stack JavaScript</div>
+    <div id="s8-contacts" class="abs"></div>
+    <div id="s8-dispo" class="abs"><i></i>Disponible pour vos projets</div>
+  </div>
+
+  <!-- logo partagé entre les scènes -->
+  <div id="logo">
+    <svg id="arbre" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+
+  <div id="vignette" class="calque"></div>
+  <div id="grain" class="calque"></div>
+  <div id="noir" class="calque"></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="node_modules/gsap/dist/CustomEase.min.js"></script>
+<script src="node_modules/gsap/dist/SplitText.min.js"></script>
+<script src="assets/donnees-logo.js"></script>
+<script src="assets/lunello/marque.js"></script>
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

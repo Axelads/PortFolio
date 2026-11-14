@@ -1,6 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import dataComments from '../../assets/Data/DataComments.json'; // Chemin vers le fichier JSON
 
+// Initiales (deux lettres) d'un avis sans photo : les photos de profil LinkedIn portent un jeton qui expire.
+const initiales = (nom) =>
+  String(nom)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((mot) => mot[0].toUpperCase())
+    .join('');
+
+const AvatarAvis = ({ comment }) => {
+  const [enEchec, setEnEchec] = useState(false);
+  const ouvrirLinkedIn = comment.linkedin ? () => window.open(comment.linkedin, '_blank', 'noopener') : undefined;
+  const style = { cursor: comment.linkedin ? 'pointer' : 'default' };
+
+  if (!comment.urlImage || enEchec) {
+    return (
+      <div
+        className="carousel-image carousel-image--initiales"
+        role="img"
+        aria-label={comment.username}
+        onClick={ouvrirLinkedIn}
+        style={style}
+      >
+        {initiales(comment.username)}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={comment.urlImage}
+      alt={comment.username}
+      loading="lazy"
+      decoding="async"
+      className="carousel-image"
+      onClick={ouvrirLinkedIn}
+      style={style}
+      onError={() => setEnEchec(true)}
+    />
+  );
+};
+
 const CarouselComments = () => {
   const [active, setActive] = useState(0);
 
@@ -70,16 +111,10 @@ const CarouselComments = () => {
                 : 'none',
           }}
         >
-          <img
-            src={comment.urlImage}
-            alt={comment.username}
-            className="carousel-image"
-            onClick={() => window.open(comment.linkedin, '_blank')} // Redirection LinkedIn
-            style={{ cursor: 'pointer' }} // Ajoute un curseur pointeur pour indiquer un clic
-          />
+          <AvatarAvis comment={comment} />
           <div className="carousel-content">
-            <h4>{comment.username}</h4>
-            <h5>{comment.poste}</h5>
+            <h3>{comment.username}</h3>
+            <p className="carousel-poste">{comment.poste}</p>
             <p>{comment.commentary}</p>
           </div>
         </div>

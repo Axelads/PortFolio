@@ -1,0 +1,1387 @@
+@use 'outils' as *;
+
+// Un bloc par composant Figma (page « Composants »).
+
+.tdb-icone {
+  flex: none;
+}
+
+// ─────────────── Pastille d'état ───────────────
+.tdb-pastille {
+  --c: var(--tdb-inconnu);
+  position: relative;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--c) 55%, transparent);
+
+  &--petite {
+    width: 6px;
+    height: 6px;
+    box-shadow: 0 0 6px color-mix(in srgb, var(--c) 55%, transparent);
+  }
+  &--en-ligne { --c: var(--tdb-en-ligne); }
+  &--accent { --c: var(--tdb-accent-2); }
+  &--alerte { --c: var(--tdb-alerte); }
+  &--panne { --c: var(--tdb-panne); }
+  &--inconnu { --c: var(--tdb-inconnu); box-shadow: none; }
+
+  // Une panne qui apparaît : une seule onde, jamais de clignotement en boucle.
+  &--onde::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px solid var(--c);
+    border-radius: 50%;
+    animation: tdb-onde 600ms var(--tdb-courbe-sortie) 400ms both;
+  }
+}
+
+// ─────────────── Badge ───────────────
+.tdb-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--tdb-rayon-pilule);
+  background: var(--tdb-fond-verre-fort);
+  color: var(--tdb-texte-2);
+  @include texte-libelle;
+
+  &--accent { background: var(--tdb-voile-accent); color: var(--tdb-accent); }
+  &--en-ligne { background: var(--tdb-voile-en-ligne); color: var(--tdb-en-ligne); }
+  &--alerte { background: var(--tdb-voile-alerte); color: var(--tdb-alerte); }
+  &--panne { background: var(--tdb-voile-panne); color: var(--tdb-panne); }
+}
+
+// ─────────────── Bouton ───────────────
+.tdb-bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tdb-espace-2);
+  height: 40px;
+  padding: 0 var(--tdb-espace-4);
+  border-radius: var(--tdb-rayon-moyen);
+  @include texte-bouton;
+  white-space: nowrap;
+  transition:
+    background-color var(--tdb-duree-rapide) var(--tdb-courbe-survol),
+    border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol),
+    transform var(--tdb-duree-instant) var(--tdb-courbe-sortie),
+    opacity var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+  @include focus-visible;
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &--principal {
+    background: var(--tdb-bouton-fond);
+    color: var(--tdb-bouton-texte);
+    @include survol {
+      &:not(:disabled) {
+        background: color-mix(in srgb, var(--tdb-bouton-fond) 88%, var(--tdb-texte));
+      }
+    }
+  }
+  &--secondaire {
+    background: var(--tdb-fond-verre-fort);
+    border: 1px solid var(--tdb-bordure-verre);
+    color: var(--tdb-texte);
+    @include survol {
+      &:not(:disabled) {
+        background: var(--tdb-voile-accent);
+      }
+    }
+  }
+  &--fantome {
+    color: var(--tdb-accent);
+    @include survol {
+      &:not(:disabled) {
+        background: var(--tdb-voile-accent);
+      }
+    }
+  }
+}
+
+// ─────────────── Onglet ───────────────
+.tdb-onglets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tdb-espace-1);
+}
+
+.tdb-onglet {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--tdb-espace-2) var(--tdb-espace-4);
+  border: 1px solid transparent;
+  border-radius: var(--tdb-rayon-pilule);
+  color: var(--tdb-texte-2);
+  @include texte-bouton;
+  white-space: nowrap;
+  transition: background-color var(--tdb-duree-standard) var(--tdb-courbe-sortie), color var(--tdb-duree-standard) var(--tdb-courbe-sortie), border-color var(--tdb-duree-standard) var(--tdb-courbe-sortie), transform var(--tdb-duree-instant) var(--tdb-courbe-sortie);
+  @include focus-visible;
+  @include survol {
+    color: var(--tdb-texte);
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &--actif,
+  &[aria-selected='true'] {
+    background: var(--tdb-fond-verre-fort);
+    border-color: var(--tdb-bordure-verre);
+    color: var(--tdb-texte);
+  }
+}
+
+// ─────────────── Sélecteur de thème ───────────────
+.tdb-theme {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  padding: var(--tdb-espace-1);
+  border-radius: var(--tdb-rayon-pilule);
+  background: var(--tdb-fond-verre);
+  border: 1px solid var(--tdb-bordure-discrete);
+
+  &__indicateur {
+    position: absolute;
+    top: var(--tdb-espace-1);
+    bottom: var(--tdb-espace-1);
+    left: var(--tdb-espace-1);
+    width: 72px;
+    border-radius: var(--tdb-rayon-pilule);
+    background: var(--tdb-fond-verre-fort);
+    border: 1px solid var(--tdb-bordure-verre);
+    transform: translateX(calc(var(--rang, 0) * 100%));
+    transition: transform var(--tdb-ressort-duree) var(--tdb-ressort);
+  }
+
+  &__choix {
+    position: relative;
+    height: 30px;
+    border-radius: var(--tdb-rayon-pilule);
+    color: var(--tdb-texte-2);
+    @include texte-bouton;
+    font-size: 13px;
+    transition: color var(--tdb-duree-standard) var(--tdb-courbe-sortie);
+    @include focus-visible;
+
+    &[aria-checked='true'] {
+      color: var(--tdb-texte);
+    }
+    @include survol {
+      color: var(--tdb-texte);
+    }
+  }
+}
+
+// ─────────────── Panneau ───────────────
+.tdb-panneau {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  padding: var(--tdb-espace-6);
+  @include verre;
+
+  &__tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-3);
+  }
+  &__titre {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    @include titre-section;
+  }
+  &__compteur {
+    display: inline-grid;
+    place-items: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: var(--tdb-rayon-pilule);
+    background: var(--tdb-fond-verre-fort);
+    color: var(--tdb-texte-2);
+    @include texte-bouton;
+    font-size: 12px;
+  }
+
+  @include mobile {
+    padding: var(--tdb-espace-5);
+  }
+}
+
+.tdb-vide {
+  @include texte-petit;
+  color: var(--tdb-texte-2);
+
+  &--erreur {
+    color: var(--tdb-panne);
+  }
+}
+
+// ─────────────── Source non branchée ───────────────
+.tdb-source {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tdb-espace-3);
+  padding: var(--tdb-espace-6);
+  border: 1px dashed var(--tdb-bordure-verre);
+  border-radius: var(--tdb-rayon-carte);
+  color: var(--tdb-texte-2);
+
+  &__titre {
+    @include titre-carte;
+    color: var(--tdb-texte);
+  }
+  &__explication {
+    @include texte-petit;
+    max-width: 62ch;
+  }
+
+  &--compacte {
+    gap: var(--tdb-espace-2);
+    padding: var(--tdb-espace-4);
+
+    .tdb-source__titre {
+      font-size: 15px;
+    }
+  }
+}
+
+// ─────────────── Lien console ───────────────
+.tdb-lien {
+  display: flex;
+  align-items: center;
+  gap: var(--tdb-espace-3);
+  min-width: 0;
+  padding: var(--tdb-espace-3) var(--tdb-espace-4);
+  border-radius: var(--tdb-rayon-moyen);
+  background: var(--tdb-fond-verre);
+  border: 1px solid var(--tdb-bordure-discrete);
+  @include texte-bouton;
+  transition: background-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), transform var(--tdb-duree-instant) var(--tdb-courbe-sortie);
+  @include focus-visible;
+
+  &__libelle {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__externe {
+    color: var(--tdb-texte-2);
+    transition: transform var(--tdb-duree-rapide) var(--tdb-courbe-sortie);
+  }
+
+  @include survol {
+    background: var(--tdb-fond-verre-fort);
+    border-color: var(--tdb-bordure-verre);
+    .tdb-lien__externe {
+      transform: translate(2px, -2px);
+      color: var(--tdb-accent);
+    }
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// ─────────────── Bloc commande ───────────────
+.tdb-commande {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__libelle {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__ligne {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-3);
+    padding: 10px 10px 10px var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-champ);
+    border: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__code {
+    flex: 1;
+    min-width: 0;
+    @include code;
+    color: var(--tdb-texte);
+    overflow-wrap: anywhere;
+  }
+  &__copier {
+    display: grid;
+    flex: none;
+    border-radius: var(--tdb-rayon-petit);
+    background: var(--tdb-fond-verre-fort);
+    border: 1px solid var(--tdb-bordure-discrete);
+    @include texte-bouton;
+    font-size: 13px;
+    transition: background-color var(--tdb-duree-instant) var(--tdb-courbe-survol), color var(--tdb-duree-instant) var(--tdb-courbe-survol), transform var(--tdb-duree-instant) var(--tdb-courbe-sortie);
+    @include focus-visible;
+    @include survol {
+      border-color: var(--tdb-bordure-verre);
+    }
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &--fait {
+      background: var(--tdb-voile-accent);
+      color: var(--tdb-accent);
+    }
+  }
+  // Les deux états occupent la même case : fondu croisé de 100 ms.
+  &__etat {
+    grid-area: 1 / 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 10px;
+    transition: opacity var(--tdb-duree-instant) var(--tdb-courbe-survol);
+
+    &--fait {
+      opacity: 0;
+      .tdb-icone {
+        transform: scale(0.6);
+        transition: transform var(--tdb-ressort-duree) var(--tdb-ressort);
+      }
+    }
+  }
+  &__copier--fait &__etat--repos {
+    opacity: 0;
+  }
+  &__copier--fait &__etat--fait {
+    opacity: 1;
+    .tdb-icone {
+      transform: none;
+    }
+  }
+}
+
+// ─────────────── Lignes (alerte, activité, échéance) ───────────────
+.tdb-liste {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-2);
+}
+
+.tdb-ligne {
+  display: flex;
+  align-items: center;
+  gap: var(--tdb-espace-3);
+  min-width: 0;
+
+  &--alerte {
+    padding: var(--tdb-espace-3) var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-verre);
+  }
+  &--activite {
+    padding: 6px 0;
+  }
+
+  &__icone {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--tdb-fond-verre-fort);
+    color: var(--tdb-texte-2);
+  }
+  &__textes {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &__titre {
+    @include texte-bouton;
+    line-height: 1.35;
+  }
+  &__texte {
+    @include texte-petit;
+    color: var(--tdb-texte);
+  }
+  &__detail {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__temps {
+    flex: none;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    text-align: right;
+  }
+}
+
+// ─────────────── Indicateur ───────────────
+.tdb-indicateur {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-3);
+  min-width: 0;
+  padding: var(--tdb-espace-5) var(--tdb-espace-6);
+  @include verre;
+  @include entree(translateY(16px), 300ms);
+
+  &__tete {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    color: var(--tdb-texte-2);
+  }
+  &__libelle {
+    @include texte-libelle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__valeur {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--tdb-espace-2);
+  }
+  &__chiffre {
+    @include chiffre-l;
+    white-space: nowrap;
+  }
+  &__unite,
+  &__contexte,
+  &__fraicheur {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__fraicheur {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+  }
+
+  &--non-branche &__chiffre {
+    color: var(--tdb-texte-2);
+  }
+
+  @media (max-width: 1360px) {
+    padding: var(--tdb-espace-5);
+    &__chiffre {
+      font-size: 34px;
+    }
+  }
+}
+
+// ─────────────── Logo et carte projet ───────────────
+.tdb-logo {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--taille);
+  height: var(--taille);
+  border-radius: calc(var(--taille) * 0.28);
+  font: 700 calc(var(--taille) * 0.47) / 1 $police-titres;
+
+  &--image {
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Liseré discret : une icône sombre ne se fond pas dans le thème sombre, une plaque claire dans le thème clair.
+  // Les icônes « forme » (cercle, carré arrondi détourés) gardent leur propre silhouette.
+  &--plein,
+  &--plaque,
+  &--plaque-sombre {
+    outline: 1px solid var(--tdb-bordure-discrete);
+    outline-offset: -1px;
+  }
+}
+
+.tdb-carte {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+  min-width: 0;
+  padding: var(--tdb-espace-5);
+  overflow: hidden;
+  @include verre;
+  transition: border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), box-shadow var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+  @include entree(translateY(24px) scale(0.97), 550ms);
+  @include focus-visible;
+
+  &--grande {
+    grid-column: span 3;
+  }
+  &--moyenne,
+  &--petite {
+    grid-column: span 2;
+  }
+  &--petite {
+    gap: var(--tdb-espace-3);
+  }
+
+  // Reflet qui suit le pointeur (déplacé par useInclinaison, bureau seulement).
+  &__reflet {
+    position: absolute;
+    top: -160px;
+    left: -160px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.14), transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--tdb-duree-standard) var(--tdb-courbe-survol);
+  }
+
+  @include survol {
+    border-color: color-mix(in srgb, var(--tdb-accent) 55%, transparent);
+    box-shadow: var(--tdb-ombre-carte);
+    .tdb-carte__reflet {
+      opacity: 1;
+    }
+  }
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &__identite {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-3);
+    min-width: 0;
+  }
+  &__noms {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &__nom {
+    @include titre-carte;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__type {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__statut {
+    display: flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    @include texte-petit;
+  }
+  &__note {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &--grande &__note {
+    -webkit-line-clamp: 3;
+  }
+  &__cle {
+    display: flex;
+    align-items: baseline;
+    gap: var(--tdb-espace-2);
+    margin-top: auto;
+  }
+  &__valeur {
+    @include chiffre-l;
+  }
+  &__unite {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+}
+
+// ─────────────── Champ de formulaire ───────────────
+.tdb-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__libelle {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__saisie {
+    height: 48px;
+    padding: 0 var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-champ);
+    border: 1px solid var(--tdb-bordure-discrete);
+    @include texte-corps;
+    font-size: 16px; // évite le zoom automatique d'iOS
+    color: var(--tdb-texte);
+    transition: border-color var(--tdb-duree-rapide) var(--tdb-courbe-survol), box-shadow var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+
+    &:focus {
+      outline: none;
+      border-color: var(--tdb-accent);
+      box-shadow: inset 0 0 0 1px var(--tdb-accent), var(--tdb-lueur-accent);
+    }
+
+    // Choix d'un fichier : le bouton natif prend les couleurs des boutons du tableau de bord.
+    &--fichier {
+      padding-top: 11px;
+      cursor: pointer;
+
+      &::file-selector-button {
+        font: inherit;
+        color: var(--tdb-bouton-texte);
+        background: var(--tdb-bouton-fond);
+        border: 0;
+        border-radius: var(--tdb-rayon-petit);
+        padding: 4px 10px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+
+    // Liste déroulante : flèche dessinée (deux dégradés), la liste ouverte suit le thème.
+    &--liste {
+      appearance: none;
+      padding-right: 40px;
+      background-image: linear-gradient(45deg, transparent 50%, var(--tdb-texte-2) 50%), linear-gradient(135deg, var(--tdb-texte-2) 50%, transparent 50%);
+      background-position: calc(100% - 21px) 50%, calc(100% - 16px) 50%;
+      background-size: 5px 5px;
+      background-repeat: no-repeat;
+      text-overflow: ellipsis;
+      cursor: pointer;
+
+      option {
+        background: var(--tdb-fond-page);
+        color: var(--tdb-texte);
+      }
+      &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// ─────────────── Liste clé / valeur (identifiants, session) ───────────────
+.tdb-identifiants {
+  display: flex;
+  flex-direction: column;
+
+  &__ligne {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--tdb-espace-4);
+    padding: var(--tdb-espace-2) 0;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  dt {
+    flex: none;
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  dd {
+    min-width: 0;
+    @include code;
+    font-size: 12.5px;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  // Valeurs en texte courant (session en cours) plutôt qu'en police de code.
+  &--texte dd {
+    @include texte-bouton;
+    line-height: 1.4;
+  }
+}
+
+// ─────────────── Dépôt GitHub (panneau « Code » de la fiche) ───────────────
+.tdb-depot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-2);
+  padding-top: var(--tdb-espace-3);
+  border-top: 1px solid var(--tdb-bordure-discrete);
+
+  &:first-of-type {
+    padding-top: 0;
+    border-top: 0;
+  }
+  & + & {
+    margin-top: var(--tdb-espace-2);
+  }
+
+  &__tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-2);
+  }
+  &__nom {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    min-width: 0;
+    @include texte-bouton;
+    overflow-wrap: anywhere;
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-accent);
+    }
+  }
+  &__meta {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+  &__ci {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    align-self: flex-start;
+    @include texte-petit;
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-accent);
+    }
+  }
+  &__commits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+    margin-top: var(--tdb-espace-1);
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-left: var(--tdb-espace-3);
+      border-left: 2px solid var(--tdb-bordure-discrete);
+    }
+  }
+  &__message {
+    @include texte-petit;
+    color: var(--tdb-texte);
+    overflow-wrap: anywhere;
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-accent);
+    }
+  }
+  &__quand {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+
+    code {
+      @include code;
+      font-size: 12px;
+    }
+  }
+}
+
+.tdb-ligne__lien {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  @include focus-visible;
+  @include survol {
+    color: var(--tdb-accent);
+  }
+}
+
+// État d'une ligne d'activité (build terminé, en échec, en cours…) porté par la pastille d'icône.
+.tdb-ligne__icone {
+  &--en-ligne { color: var(--tdb-en-ligne); background: var(--tdb-voile-en-ligne); }
+  &--alerte { color: var(--tdb-alerte); background: var(--tdb-voile-alerte); }
+  &--panne { color: var(--tdb-panne); background: var(--tdb-voile-panne); }
+}
+
+// ─────────────── Builds Expo (panneau « Builds et mises à jour » de la fiche) ───────────────
+.tdb-expo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-3);
+
+  &__titre {
+    @include texte-libelle;
+    color: var(--tdb-texte-2);
+
+    &:not(:first-child) {
+      margin-top: var(--tdb-espace-2);
+    }
+  }
+}
+
+// ─────────────── App Store (panneau iOS de la fiche) ───────────────
+.tdb-ios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+
+  &__courbe {
+    margin: 0;
+
+    figcaption {
+      margin-top: var(--tdb-espace-1);
+      @include texte-petit;
+      color: var(--tdb-texte-2);
+    }
+  }
+  &__version {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tdb-espace-2);
+    @include texte-bouton;
+    line-height: 1.4;
+  }
+}
+
+// Sous-section d'un panneau (fiche d'une app dans son store) : séparée par un filet, titrée comme une carte.
+.tdb-sous-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+  padding-top: var(--tdb-espace-5);
+  border-top: 1px solid var(--tdb-bordure-discrete);
+
+  &__titre {
+    @include titre-carte;
+  }
+}
+
+.tdb-chiffres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--tdb-espace-3);
+
+  &__bloc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-1);
+    padding: var(--tdb-espace-4);
+    border-radius: var(--tdb-rayon-moyen);
+    background: var(--tdb-fond-verre);
+    border: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__libelle {
+    @include texte-libelle;
+    color: var(--tdb-texte-2);
+  }
+  &__valeur {
+    @include chiffre-m;
+  }
+  &__contexte {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+}
+
+// Courbe d'une série par jour : aire en voile et trait, dévoilés une seule fois de gauche à droite à l'apparition,
+// puis lisibles jour par jour (repère vertical, point et bulle « valeur · date » à la souris, au doigt, au clavier).
+// Couleur de série : celle des graphiques de fréquentation, validée pour les deux thèmes (skill dataviz) ; le texte
+// reste en couleurs de texte, jamais dans la couleur de la série.
+.tdb-courbe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-1);
+  min-width: 0;
+
+  // Zone sensible : 10 px de plus que le tracé de chaque côté, pour viser sans peine le premier et le dernier jour.
+  &__zone {
+    margin: 0 -10px;
+    padding: 0 10px;
+    border-radius: var(--tdb-rayon-petit);
+    // Le doigt lit la courbe à l'horizontale ; le défilement vertical de la page reste libre.
+    touch-action: pan-y;
+    cursor: crosshair;
+    @include focus-visible;
+  }
+  &__plan {
+    position: relative;
+    height: 88px;
+    // Graduations : la ligne de base et la valeur maximale, en filets discrets.
+    background: linear-gradient(var(--tdb-bordure-discrete), var(--tdb-bordure-discrete)) 0 10% / 100% 1px no-repeat;
+    border-bottom: 1px solid var(--tdb-bordure-discrete);
+  }
+  &__trace {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    animation: tdb-devoile 900ms var(--tdb-courbe-sortie) 400ms backwards;
+  }
+  &__aire {
+    fill: var(--tdb-freq-visites);
+    fill-opacity: 0.14;
+  }
+  &__trait {
+    fill: none;
+    stroke: var(--tdb-freq-visites);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  // Valeur maximale, sur son filet (10 % du haut : la courbe culmine là).
+  &__max {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    padding-right: 6px;
+    transform: translateY(-110%);
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+    pointer-events: none;
+  }
+  &__repere {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    margin-left: -0.5px;
+    background: var(--tdb-texte-2);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  // Point : 10 px, cerné de la couleur du fond pour rester lisible sur l'aire et sur le repère.
+  &__point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: var(--tdb-freq-visites);
+    box-shadow: 0 0 0 2px var(--tdb-fond-champ);
+    pointer-events: none;
+  }
+  // Bulle : au-dessus du tracé, pour ne jamais le masquer. La valeur d'abord, la date ensuite. Elle n'existe dans la
+  // page que pendant la lecture, et Courbe.js la garde dans la largeur du graphique.
+  &__bulle {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: max-content;
+    max-width: min(280px, 100%);
+    padding: 6px 10px;
+    border-radius: var(--tdb-rayon-petit);
+    border: 1px solid var(--tdb-bordure-verre);
+    background: var(--tdb-fond-champ);
+    box-shadow: var(--tdb-ombre-carte);
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+    pointer-events: none;
+    animation: tdb-bulle-entree var(--tdb-duree-instant) var(--tdb-courbe-sortie);
+
+    strong {
+      @include texte-bouton;
+      line-height: 1.3;
+      font-variant-numeric: tabular-nums;
+      color: var(--tdb-texte);
+    }
+  }
+  &__axe {
+    display: flex;
+    justify-content: space-between;
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+  }
+
+  // Tuiles de la vue d'ensemble : un tracé court, sans graduations ; la lecture du jour s'écrit dessous, sur une
+  // ligne de hauteur fixe (au repos : la période), pour ne rien masquer de la tuile ni la faire bouger.
+  &--compacte &__plan {
+    height: 44px;
+    background: none;
+  }
+  &__lecture {
+    overflow: hidden;
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    strong {
+      font-weight: 600;
+      color: var(--tdb-texte);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__trace,
+    &__bulle {
+      animation: none;
+    }
+  }
+}
+
+@keyframes tdb-bulle-entree {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes tdb-devoile {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+.tdb-avis {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-3);
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: var(--tdb-espace-3);
+    border-left: 2px solid var(--tdb-bordure-discrete);
+  }
+  &__tete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--tdb-espace-2);
+  }
+  &__etoiles {
+    color: var(--tdb-alerte);
+    letter-spacing: 1px;
+
+    span {
+      color: var(--tdb-bordure-verre);
+    }
+  }
+  &__titre {
+    @include texte-bouton;
+  }
+  &__texte {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    @include texte-petit;
+  }
+  &__meta {
+    @include texte-petit;
+    color: var(--tdb-texte-2);
+  }
+}
+
+.tdb-ios__pays {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--tdb-espace-2);
+  @include texte-petit;
+}
+
+// ─────────────── PocketBase des projets : trafic du site (panneau « Trafic » de la fiche) ───────────────
+.tdb-trafic {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+
+  &__repartitions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: var(--tdb-espace-5) var(--tdb-espace-6);
+  }
+}
+
+// Répartition en barres : chaque barre se dessine une fois depuis la gauche (scaleX), en cascade de 40 ms.
+.tdb-repartition {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-2);
+  min-width: 0;
+
+  &__titre {
+    @include texte-libelle;
+    color: var(--tdb-texte-2);
+  }
+  &__liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tdb-espace-2);
+  }
+  &__ligne {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 4px var(--tdb-espace-3);
+  }
+  &__libelle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @include texte-petit;
+
+    &--code {
+      @include code;
+      font-size: 12px;
+    }
+  }
+  &__valeur {
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+  }
+  &__barre {
+    grid-column: 1 / -1;
+    position: relative;
+    height: 4px;
+    overflow: hidden;
+    border-radius: var(--tdb-rayon-pilule);
+    background: var(--tdb-bordure-discrete);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--tdb-accent);
+      transform: scaleX(var(--part));
+      transform-origin: left;
+      animation: tdb-barre var(--tdb-duree-signature) var(--tdb-courbe-sortie) backwards;
+      animation-delay: calc(450ms + var(--i, 0) * 40ms);
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}
+
+@keyframes tdb-barre {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+// ─────────────── PocketBase des projets : liste détaillée des membres ───────────────
+.tdb-membres {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tdb-espace-4);
+  margin-top: var(--tdb-espace-2);
+
+  &__outils {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--tdb-espace-3);
+  }
+  &__recherche {
+    flex: 1 1 260px;
+    max-width: 420px;
+
+    .tdb-champ__saisie {
+      height: 40px;
+    }
+  }
+  &__compte {
+    @include texte-petit;
+    font-variant-numeric: tabular-nums;
+    color: var(--tdb-texte-2);
+  }
+  // Entre téléphone et bureau, le tableau défile à l'horizontale dans le panneau, jamais la page.
+  &__defilement {
+    overflow-x: auto;
+  }
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    @include texte-petit;
+
+    th,
+    td {
+      padding: 10px var(--tdb-espace-3);
+      border-bottom: 1px solid var(--tdb-bordure-discrete);
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+      color: var(--tdb-texte);
+      font-weight: 400;
+    }
+    thead th {
+      padding-top: 0;
+      @include texte-libelle;
+      color: var(--tdb-texte-2);
+    }
+    tbody tr {
+      transition: background-color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+
+      @include survol {
+        background: var(--tdb-fond-verre);
+      }
+      &:last-child > * {
+        border-bottom: 0;
+      }
+    }
+  }
+  &__nom {
+    display: block;
+    @include texte-bouton;
+    line-height: 1.35;
+  }
+  &__pseudo {
+    display: block;
+    color: var(--tdb-texte-2);
+  }
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  &__lien {
+    text-decoration: underline;
+    text-decoration-color: var(--tdb-bordure-verre);
+    text-underline-offset: 3px;
+    transition: color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-accent);
+    }
+  }
+  &__absent {
+    color: var(--tdb-texte-2);
+  }
+  &__tri {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    transition: color var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+    @include focus-visible;
+    @include survol {
+      color: var(--tdb-texte);
+    }
+
+    &--actif {
+      color: var(--tdb-texte);
+    }
+  }
+  &__sens {
+    opacity: 0;
+    transition: opacity var(--tdb-duree-rapide) var(--tdb-courbe-survol);
+  }
+  &__tri--actif &__sens {
+    opacity: 1;
+  }
+  &__plus {
+    align-self: center;
+  }
+
+  // Téléphone : chaque membre devient une fiche, libellés en regard des valeurs ; seuls les tris restent en tête.
+  @include mobile {
+    &__table {
+      thead tr {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--tdb-espace-2) var(--tdb-espace-4);
+        padding-bottom: var(--tdb-espace-2);
+        border-bottom: 1px solid var(--tdb-bordure-discrete);
+      }
+      thead th {
+        padding: 0;
+        border: 0;
+
+        &:not(:has(button)) {
+          display: none;
+        }
+      }
+      tbody,
+      tbody tr {
+        display: block;
+      }
+      tbody tr {
+        padding: var(--tdb-espace-3) 0;
+        border-bottom: 1px solid var(--tdb-bordure-discrete);
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+      tbody th,
+      tbody td {
+        padding: 2px 0;
+        border: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      tbody th {
+        display: block;
+        margin-bottom: var(--tdb-espace-2);
+      }
+      tbody td {
+        display: grid;
+        grid-template-columns: 9.5em minmax(0, 1fr);
+        justify-items: start;
+        gap: var(--tdb-espace-3);
+
+        &::before {
+          content: attr(data-libelle);
+          color: var(--tdb-texte-2);
+        }
+      }
+    }
+  }
+}

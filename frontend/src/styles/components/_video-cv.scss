@@ -1,0 +1,262 @@
+// Section « Présentation vidéo » de l'accueil — même grammaire que la section Compétences
+// (sur-titre mono à filet, titre en masques mot à mot, chapô). Thème : tout passe par var(--*).
+.video-cv {
+  --vc-ink: var(--text-primary);
+  --vc-ink-2: var(--text-secondary);
+  --vc-brand: #00334d;
+  --vc-ligne: rgba(0, 51, 77, 0.14);
+  --vc-ombre: 0 34px 70px -28px rgba(0, 32, 56, 0.55);
+  --vc-nuit: #0b0f1e; // fond de la vidéo : le cadre reste nuit dans les deux thèmes
+
+  [data-theme="dark"] & {
+    --vc-brand: #8BC7B1;
+    --vc-ligne: rgba(139, 199, 177, 0.22);
+    --vc-ombre: 0 34px 70px -28px rgba(0, 0, 0, 0.75);
+  }
+
+  padding: 40px 20px 46px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: var(--vc-ink);
+  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+  text-align: left; // le conteneur .informations centre tout
+
+  // sur mobile, la carte et le fond vert ont déjà leurs marges : la vidéo prend la largeur
+  @media (max-width: 600px) {
+    padding: 26px 2px 30px;
+  }
+
+  // ── En-tête ──
+  .video-cv-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 18px 64px;
+    align-items: end;
+    margin-bottom: 34px;
+
+    @media (max-width: 720px) {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  .video-cv-eyebrow {
+    font: 12px/1 'Fragment Mono', ui-monospace, monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--vc-brand);
+    margin: 0 0 18px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 1px;
+      background: var(--vc-brand);
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+  }
+
+  .video-cv-title {
+    font: 700 clamp(2.1rem, 5vw, 3.6rem)/1.02 'Archivo', 'Poppins', sans-serif;
+    letter-spacing: -0.035em;
+    margin: 0;
+    text-wrap: balance;
+    color: var(--vc-ink);
+
+    .word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
+      margin-right: 0.25em;
+
+      > span {
+        display: inline-block;
+        will-change: transform;
+      }
+    }
+
+    em {
+      font-style: normal;
+      color: var(--vc-brand);
+    }
+  }
+
+  .video-cv-lede {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--vc-ink-2);
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+
+  // ── Cadre 16:9 : l'espace est réservé avant le chargement (zéro CLS) ──
+  .video-cv-cadre {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--vc-nuit);
+    box-shadow: var(--vc-ombre), 0 0 0 1px var(--vc-ligne);
+    isolation: isolate;
+  }
+
+  .video-cv-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--vc-nuit);
+  }
+
+  .video-cv-affiche {
+    appearance: none;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: var(--vc-nuit);
+    cursor: pointer;
+    overflow: hidden;
+    color: #f3eee3;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    // voile bas pour la lisibilité du bouton et de la légende
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5, 8, 18, 0.62) 0%, rgba(5, 8, 18, 0) 38%);
+      pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--accent-primary);
+      outline-offset: -3px;
+    }
+  }
+
+  .video-cv-lecture {
+    position: absolute;
+    left: clamp(16px, 3vw, 34px);
+    bottom: clamp(16px, 3vw, 32px);
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: clamp(52px, 6.4vw, 78px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #8BC7B1;
+    color: #0b0f1e;
+    box-shadow: 0 10px 30px rgba(139, 199, 177, 0.35);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.45s ease;
+
+    svg {
+      width: 42%;
+      height: 42%;
+      margin-left: 6%; // centrage optique du triangle
+    }
+  }
+
+  .video-cv-meta {
+    position: absolute;
+    left: calc(clamp(16px, 3vw, 34px) + clamp(52px, 6.4vw, 78px) + 18px);
+    bottom: clamp(16px, 3vw, 32px);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    height: clamp(52px, 6.4vw, 78px);
+    text-align: left;
+  }
+
+  .video-cv-meta__titre {
+    font: 600 clamp(0.95rem, 1.6vw, 1.2rem)/1.1 'Poppins', 'Poppins Fallback', sans-serif;
+    color: #f3eee3;
+  }
+
+  .video-cv-meta__infos {
+    font: 12px/1 'Fragment Mono', ui-monospace, monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(243, 238, 227, 0.72);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .video-cv-affiche:hover {
+      img { transform: scale(1.035); }
+
+      .video-cv-lecture {
+        transform: scale(1.1);
+        box-shadow: 0 14px 40px rgba(139, 199, 177, 0.5);
+      }
+    }
+  }
+
+  @media (max-width: 520px) {
+    .video-cv-meta__titre { display: none; }
+  }
+
+  // ── Actions ──
+  .video-cv-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+    margin-top: 34px;
+
+    // le bouton historique garde son style ; seules ses marges changent dans cette rangée
+    .cv-button {
+      margin: 10px;
+    }
+  }
+
+  .video-cv-lancer {
+    margin: 10px 0;
+    padding: 15px 25px;
+    border: 2px solid var(--vc-brand);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--vc-brand);
+    font: 700 18px/1.2 'Poppins', 'Poppins Fallback', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.3s ease;
+
+    &:hover {
+      background: var(--vc-brand);
+      color: var(--bg-primary);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--accent-primary);
+      outline-offset: 3px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .video-cv-affiche img,
+    .video-cv-lecture,
+    .video-cv-lancer {
+      transition: none;
+    }
+
+    .video-cv-affiche:hover img,
+    .video-cv-affiche:hover .video-cv-lecture {
+      transform: none;
+    }
+  }
+}

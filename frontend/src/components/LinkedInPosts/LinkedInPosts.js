@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaLinkedin, FaEye, FaHeart, FaComment, FaExternalLinkAlt } from 'react-icons/fa';
@@ -8,6 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LinkedInCard = ({ post, index }) => {
   const cardRef = useRef(null);
+  // Les visuels media.licdn.com portent un jeton qui expire : sans image (null) ou si elle ne charge pas,
+  // une couverture LinkedIn remplace l'image cassée.
+  const [imageOk, setImageOk] = useState(Boolean(post.image));
 
   useEffect(() => {
     const card = cardRef.current;
@@ -49,7 +52,20 @@ const LinkedInCard = ({ post, index }) => {
       className="linkedin-card"
     >
       <div className="card-image-wrapper">
-        <img src={post.image} alt="Post LinkedIn" className="card-image" />
+        {imageOk ? (
+          <img
+            src={post.image}
+            alt=""
+            className="card-image"
+            loading="lazy"
+            decoding="async"
+            onError={() => setImageOk(false)}
+          />
+        ) : (
+          <div className="card-image card-image--repli" aria-hidden="true">
+            <FaLinkedin />
+          </div>
+        )}
         <div className="card-overlay">
           <FaExternalLinkAlt className="overlay-icon" />
         </div>

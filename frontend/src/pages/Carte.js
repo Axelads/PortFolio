@@ -1,10 +1,16 @@
 // src/assets/pages/Carte.js
 import React from 'react';
+import Seo from '../components/Seo';
 
 
 const Carte = () => {
   return (
     <div className="carte-wrapper">
+      <Seo
+        title="Carte de visite - Axel Grégoire, développeur web"
+        description="Carte de visite numérique d'Axel Grégoire, développeur web : e-mail, portfolio, LinkedIn et GitHub."
+        path="/carte"
+      />
       <div className="carte-bg">
         <div className="code-container">
           <div className="ligne"><span className="keyword">const</span> <span className="keyConst">businessCard</span> <span className="operator">=</span> <span className="brace">&#123;</span></div>
@@ -15,7 +21,7 @@ const Carte = () => {
           <div className="ligne">  <span className="key">description</span>: <span className="string">"Développeur front-end passionné par les dernières technologies."</span>,</div>
           <div className="ligne">  <span className="key">socials</span>: <span className="brace">&#123;</span></div>
           <div className="ligne socials">
-            <a href="https://www.linkedin.com/in/axelgregoire" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/axel-gregoire" target="_blank" rel="noopener noreferrer">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" />
             </a>
             <a href="https://github.com/Axelads" target="_blank" rel="noopener noreferrer">

@@ -226,7 +226,7 @@
   justify-content: center;
 
   &__glyph {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
     font-size: 3rem;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.92);
@@ -430,6 +430,7 @@
     border-radius: 4px;
     font-family: 'Consolas', 'Monaco', monospace;
     font-size: 0.9em;
+    overflow-wrap: anywhere; // un identifiant long se coupe au lieu de déborder sur mobile
   }
 
   pre code {

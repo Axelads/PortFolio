@@ -120,7 +120,7 @@ const Contact = ({ isOpen, onClose }) => {
                 <a href="https://www.linkedin.com/in/axel-gregoire/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <FaLinkedin />
                 </a>
-                <a href="https://github.com/Ostiic" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <a href="https://github.com/Axelads" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <FaGithub />
                 </a>
               </div>

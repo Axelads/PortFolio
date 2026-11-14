@@ -1,12 +1,16 @@
-$dark-bg: #0f1524;
+// Fond = couleur des bords de la vidéo d'intro (#060916 → #0d1422) : la vidéo
+// se fond dans l'écran, aucun cadre visible autour.
+$intro-bg: #080c1b;
+// Fondu des bords haut/bas quand la vidéo 16:9 ne remplit pas l'écran
+// (portrait, tablette) : les reflets de l'aurore n'y dessinent pas de trait.
+$intro-edges: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
 
 .loading-container {
   position: fixed;
   inset: 0;
   z-index: 100000; // au-dessus de tout (grain ~9990, chatbot 9999)
-  background: #ffffff;
+  background: $intro-bg;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -17,87 +21,106 @@ $dark-bg: #0f1524;
   }
 }
 
-.loading-video-div {
-  width: 70%;
-  line-height: 0;
-}
-
+// Même géométrie que l'app shell #splash-static de index.html (aucun saut à la
+// bascule). Pas d'attributs width/height sur <video> : la hauteur y serait figée.
 .loading-video {
+  // Écran plus étroit que 16:10 : la vidéo occupe toute la largeur, centrée.
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  -webkit-mask-image: $intro-edges;
+  mask-image: $intro-edges;
   display: block;
   pointer-events: none;
+
+  // Écran large : plein cadre, le rognage reste hors du logo et du titre.
+  @media (min-aspect-ratio: 16/10) {
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
-.loading-text-div {
-  width: 100%;
-  flex: 1;
-  background: $dark-bg;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 22px;
-  margin: 0;
-  position: relative;
+// Lignes « Web · Mobile · Automatisation IA » et « Freelance — Rougiers… »
+// reprises en texte sous la vidéo, téléphone en portrait seulement : ailleurs
+// elles sont lisibles dans la vidéo. Typo et couleurs = celles de la vidéo
+// (video-cv/index.html, #s1-sous / #s1-lieu).
+$intro-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+$ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1); // expo.out de la timeline GSAP
 
-  &::before {
-    content: '';
+.loading-lines {
+  display: none;
+}
+
+@media (max-width: 750px) and (orientation: portrait) {
+  .loading-lines {
     position: absolute;
-    top: -40px;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, $dark-bg);
+    left: 16px;
+    right: 16px;
+    // Juste sous la bande vidéo : centrée, haute de 9/16 de la largeur
+    top: calc(50% + 100vw * 9 / 32 + 6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
     pointer-events: none;
   }
 }
 
-.loading-name {
-  font-family: 'Arial', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0.75);
-  text-transform: uppercase;
-  margin: 0;
+.loading-lines__sous {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 0.6em;
+  margin: 0;
+  padding-left: 0.3em; // compense l'espacement après la dernière lettre
+  font: 500 clamp(8.5px, 2.9vw, 12px) / 1.4 $intro-mono;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #8bc7b1;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.35);
-  }
+// Révélation mot à mot en masque, comme dans la vidéo
+.loading-lines__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
 
-  span {
-    color: rgba(255, 255, 255, 0.4);
-    font-style: italic;
-    letter-spacing: 0.15em;
-    text-transform: none;
+  > span {
+    display: inline-block;
+    transform: translateY(140%);
   }
 }
 
-/* Logo à bulles animées : visible uniquement en version mobile, sous le texte */
-.loading-logo-mobile {
-  display: none;
+.loading-lines__lieu {
+  margin: 0;
+  font: 400 clamp(8.5px, 2.7vw, 11px) / 1.4 $intro-mono;
+  letter-spacing: 0.08em;
+  color: rgba(243, 238, 227, 0.62);
+  opacity: 0;
 }
 
-@media (max-width: 750px) {
-  .loading-logo-mobile {
-    display: flex;
-    justify-content: center;
-    margin-top: 18px;
+.loading-lines.is-on {
+  .loading-lines__mask > span {
+    animation: loading-word-in 0.7s $ease-expo-out both;
+    animation-delay: calc(var(--i) * 70ms);
+  }
+
+  .loading-lines__lieu {
+    animation: loading-lieu-in 0.7s ease-out 0.4s both;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .loading-logo-mobile [style*="axel-logo-spin"] {
-    animation: none !important;
-  }
+@keyframes loading-word-in {
+  from { transform: translateY(140%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes loading-lieu-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeOut {

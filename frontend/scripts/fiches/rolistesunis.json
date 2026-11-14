@@ -1,0 +1,40 @@
+{
+  "slug": "RolistesUnis.fr",
+  "name": "RolistesUnis V2",
+  "date": "2026-10-23 00:00:00.000Z",
+  "completed": true,
+  "category": "site-web",
+  "githubUrl": "https://github.com/Axelads/Runes",
+  "liveUrl": "https://www.rolistesunis.fr",
+  "skillsUsed": [
+    "React 19",
+    "Framer Motion",
+    "Point & click",
+    "SVG",
+    "React Router 7",
+    "Sass",
+    "GSAP",
+    "Google Calendar API",
+    "WordPress REST API",
+    "EmailJS",
+    "Responsive",
+    "SEO",
+    "CSP / HTTPS",
+    "gestion DNS & SSL"
+  ],
+  "resume": "<h1>RolistesUnis V2 — Le site d'une association de jeu de rôle, transformé en jeu point &amp; click</h1><h2>Le contexte :</h2><p>R.U.N.E (Rôlistes Unis, sous un Nouvel Emblème) est une association loi 1901 fondée en 1998, qui fait vivre le jeu de rôle à Toulon et dans le Var : campagnes toute l'année, journées multi-tables et la convention annuelle Jeux de Rune. La V1, en ligne depuis janvier 2025, était un site vitrine classique. Elle faisait le travail, mais elle ne ressemblait pas à ce que l'association propose : de l'aventure.</p><h2>La réponse :</h2><p>Pour la V2, j'ai repensé le site comme un <strong>jeu point &amp; click</strong>. On n'y lit plus une page d'accueil : on arrive dans une vallée, on pousse la porte d'une auberge, on monte jusqu'à un refuge ou on traverse une citadelle. Chaque lieu cache un contenu du site. Les données restent celles de la V1 (articles WordPress, agenda Google de l'association), seule la façon d'y entrer change. Conçue en août 2026, <strong>en ligne sur rolistesunis.fr</strong> (dernière mise à jour le 23 octobre 2026).</p><h3>Ce qui a été livré :</h3><ul><li><p><strong>Écran-titre</strong> : l'emblème doré s'allume, puis R.U.N.E s'écrit lettre par lettre. Il ne se joue qu'une fois par session.</p></li><li><p><strong>La Vallée de Rune</strong> : un panorama qu'on fait glisser du doigt ou à la souris. Pendant le geste, l'image pivote de quelques degrés dans le sens du regard puis se repose à plat, comme quand on tourne la tête. Des oiseaux traversent le ciel et, de loin en loin, un dragon. Six lieux s'y explorent : l'auberge, la citadelle, le sentier, le d20 solaire, la forêt aux rumeurs (les actualités) et les monts anciens.</p></li><li><p><strong>Des zones cliquables dessinées à la main</strong> : j'ai détouré chaque lieu directement sur les illustrations, puis converti ces tracés en polygones SVG exprimés en pourcentage de l'image. Ils restent calés sur le décor à toutes les tailles d'écran. Au survol, le contour s'illumine et une infobulle de jeu apparaît ; un bouton « ? » révèle tous les lieux d'un coup.</p></li><li><p><strong>On marche vers le lieu</strong> : au clic, le point visé glisse vers le centre de l'écran pendant que le zoom accélère (on part au pas, puis on court), avant un fondu au noir.</p></li><li><p><strong>L'Auberge des Rôlistes</strong> regroupe tout l'ancien accueil : l'aubergiste raconte l'association dans un parchemin, le panneau des quêtes affiche les actualités, l'horloge ouvre l'agenda, la grande tablée présente les journées multi-tables, l'écritoire envoie un message, la bibliothèque mène à la page « À propos ». Le feu de la cheminée est animé.</p></li><li><p><strong>Un jet de d20</strong> en easter egg, depuis le soleil de la vallée ou le lustre de l'auberge : le dé roule, et un 20 naturel vaut une tournée offerte par l'aubergiste.</p></li><li><p><strong>Le Refuge des Monts Anciens</strong> : neige et rafales de vent animées, et le parchemin du sponsoring du mois qui s'ouvre tout seul à l'arrivée.</p></li><li><p><strong>La Citadelle</strong> remplace la page Événements : un hall éclairé de torches et de bougies qui vacillent, trois portes, trois salles. La Salle des Quêtes épingle les parties à venir, la Bibliothèque des Chroniques classe les événements passés par année, la Salle Haute affiche les prochaines journées multi-tables et une plaque de bronze garde la mémoire des éditions passées. Tout vient de l'agenda Google de l'association, avec une carte Google Maps quand l'événement porte un lien de localisation.</p></li><li><p><strong>Une interface de jeu</strong> : enseigne de bois et d'or en en-tête, médaillon central pour revenir à l'accueil, nom du lieu en haut à gauche, bouton de sortie. La carte d'adhésion (HelloAsso et QR code) change de coin selon la scène pour ne jamais masquer le décor, et se replie en sceau quand la place manque. La carte de la convention Jeux de Rune bascule entre compte à rebours et tampon « Annulé » depuis un seul fichier de réglage annuel.</p></li><li><p><strong>Sur téléphone</strong>, les mêmes scènes se parcourent au doigt, avec une interface resserrée. Avec le réglage « réduire les animations » du système, l'inclinaison du panorama est coupée.</p></li></ul><h3>Côté technique :</h3><p>React 19 et React Router 7, Framer Motion pour le moteur de scène (valeurs animées, vitesse du geste, ressorts, transitions de sortie), GSAP sur les composants hérités de la V1, Sass. Les scènes sont décrites par des fichiers de données (image, ratio, zones, effets d'ambiance, actions) : ajouter un lieu revient à écrire une entrée, sans toucher au moteur. Contenus branchés sur l'API WordPress (articles nettoyés par DOMPurify), l'API Google Calendar, Google Maps et EmailJS. Hébergé chez o2switch avec un .htaccess qui force HTTPS et pose une Content-Security-Policy stricte (aucun script inline) ; Google Analytics ne se charge qu'après consentement (tarteaucitron, Consent Mode v2).</p>",
+  "images": [
+    "rolistesunis_00_partage.webp",
+    "rolistesunis_01_ecran_titre.webp",
+    "rolistesunis_02_vallee.webp",
+    "rolistesunis_03_auberge_lieux.webp",
+    "rolistesunis_04_auberge_parchemin.webp",
+    "rolistesunis_05_jet_de_de.webp",
+    "rolistesunis_06_refuge_sponsoring.webp",
+    "rolistesunis_07_citadelle.webp",
+    "rolistesunis_08_bibliotheque.webp",
+    "rolistesunis_09_salle_haute.webp",
+    "rolistesunis_10_mobile_vallee.webp",
+    "rolistesunis_11_mobile_auberge.webp"
+  ]
+}

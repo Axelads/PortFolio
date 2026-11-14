@@ -1,0 +1,68 @@
+// Marque « Hublot d'aurore » (composants/HublotAurore.js) : vectoriel 48 × 48 rendu à 22 px dans l'en-tête et
+// sur la carte de connexion. Les couleurs sont les jetons du thème (sombre et clair) ; le mouvement est en
+// JavaScript (WAAPI) et ne touche que transform et opacity. Seule boucle permanente du tableau de bord : demandée.
+.tdb-hublot {
+  flex: none;
+  overflow: visible;
+
+  // Toutes les transformations s'expriment dans le repère du dessin, autour du centre du hublot.
+  * {
+    transform-box: view-box;
+    transform-origin: 24px 24px;
+  }
+
+  &__verre {
+    fill: var(--tdb-fond-verre-fort);
+    stroke: var(--tdb-bordure-verre);
+    stroke-width: 1.6;
+  }
+
+  // Trois nappes : la houle du fond (bleu, lointaine et voilée), la nappe du milieu, la vague de surface.
+  &__fond {
+    fill: var(--tdb-accent-2);
+    opacity: 0.55;
+  }
+  &__milieu {
+    opacity: 0.9;
+  }
+  &__crete {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.55;
+    stroke-linecap: round;
+    opacity: 0.5;
+  }
+  &__lueur {
+    opacity: 0.22;
+  }
+
+  &__etoile {
+    fill: var(--tdb-texte);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  &__reflet {
+    fill: none;
+    stroke: var(--tdb-texte);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    opacity: 0.35;
+  }
+
+  // Arrêts des dégradés : accents du thème, éclat blanc, profondeur dérivée du bleu.
+  &__stop-a {
+    stop-color: var(--tdb-accent);
+  }
+  &__stop-b {
+    stop-color: var(--tdb-accent-2);
+  }
+  &__stop-eclat {
+    stop-color: #fff;
+  }
+  &__stop-profond {
+    stop-color: color-mix(in oklab, var(--tdb-accent-2) 66%, #020814);
+  }
+  &__stop-ombre {
+    stop-color: #020814;
+  }
+}

@@ -35,7 +35,7 @@
   max-width: 1200px;
   margin: 0 auto;
   color: var(--sk-ink);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
   text-align: left; // le conteneur parent centre tout
 
   // ── En-tête ──

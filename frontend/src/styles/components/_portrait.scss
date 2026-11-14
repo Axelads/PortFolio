@@ -34,7 +34,7 @@
     }
   
     @media (max-width: 745px) {
-      margin-top: 25px;
+      margin-top: 88px; // barre fixe mobile de 64 px (_header.scss) + 24 px d'air : la photo n'est plus rognée
     }
   
     h2 {
@@ -119,6 +119,21 @@
 
     h1, h2, h3 {
       margin: 0;
+    }
+
+    // L'âge n'est pas un titre : un <p> stylé comme l'ancien h3 (le h2 « Développeur
+    // WEB » est masqué sur desktop, un h3 après le h1 sautait un niveau).
+    .portrait-age {
+      margin: 0;
+      font-size: 1.17em;
+      font-weight: bold;
+    }
+
+    // Ce que je propose, lisible sans attendre l'écran d'intro (qui est aria-hidden)
+    .portrait-tagline {
+      margin: 6px 0 0;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
     }
 
     h2 {

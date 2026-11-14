@@ -1,7 +1,7 @@
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import { FaLinkedin } from 'react-icons/fa';
 import dataComments from '../assets/Data/DataComments.json';
 import '../styles/pages/_avis.scss';
@@ -13,11 +13,14 @@ const Avis = () => {
 
   return (
     <div className="avis-container">
-      <Helmet>
-        <title>Avis et recommandations - Axel Grégoire</title>
-        <meta name="description" content="Découvrez les avis et recommandations de collègues et mentors sur le travail d'Axel Grégoire, développeur web full stack." />
-        <link rel="canonical" href="https://axelgregoire.fr/Avis" />
-      </Helmet>
+      <Seo
+        title="Avis et recommandations - Axel Grégoire"
+        description="Découvrez les avis et recommandations de collègues et mentors sur le travail d'Axel Grégoire, développeur web full stack."
+        path="/Avis"
+      >
+        {/* Parisienne n'est utilisée que sur cette page */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" />
+      </Seo>
       <h1>
         <span className="animated-title">Ce que disent mes collègues et mentors</span>
       </h1>

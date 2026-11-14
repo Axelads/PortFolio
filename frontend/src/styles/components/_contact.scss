@@ -13,6 +13,7 @@
   align-items: center;
   z-index: 1000;
   padding: 20px;
+  box-sizing: border-box; // sinon l'overlay fait 100 % + 40 px et la modale déborde de 20 px à droite sur mobile
   animation: fadeIn 0.3s ease;
 }
 
@@ -235,6 +236,7 @@
 
   &__input {
     width: 100%;
+    box-sizing: border-box; // bordure et padding compris dans les 100 % (débordait de la modale à 390 px)
     padding: 16px 16px 16px 48px;
     border: 2px solid var(--border-color);
     border-radius: 12px;
@@ -258,6 +260,7 @@
 
   &__textarea {
     width: 100%;
+    box-sizing: border-box;
     padding: 16px;
     border: 2px solid var(--border-color);
     border-radius: 12px;

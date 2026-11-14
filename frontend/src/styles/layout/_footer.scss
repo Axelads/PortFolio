@@ -108,10 +108,19 @@
       margin-bottom: 15px;
     }
 
+    // Zone tactile de 44 px autour de chaque icône de 24 px (cibles trop petites au doigt)
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      margin: 0 2px;
+    }
+
     .footer-icon {
       font-size: 1.5rem;
       color: var(--text-primary);
-      margin: 0 10px;
       transition: color 0.3s;
 
       &:hover {

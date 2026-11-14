@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Image de partage — site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body {
+      width: 1200px; height: 630px; overflow: hidden;
+      font-family: 'Poppins', sans-serif; color: #ffffff;
+      background: #080c1b;
+      background-image:
+        radial-gradient(circle at 18% 60%, rgba(139, 199, 177, 0.28), transparent 46%),
+        radial-gradient(circle at 86% 12%, rgba(74, 144, 226, 0.26), transparent 42%),
+        linear-gradient(135deg, #080c1b 0%, #16213e 100%);
+      position: relative;
+    }
+    .carte { position: absolute; inset: 0; display: flex; align-items: center; gap: 72px; padding: 0 96px; }
+    .portrait {
+      width: 320px; height: 320px; border-radius: 50%; object-fit: cover; flex: none;
+      border: 8px solid #8BC7B1;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 18px rgba(139, 199, 177, 0.12);
+    }
+    .texte { display: flex; flex-direction: column; gap: 14px; }
+    .nom { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 76px; line-height: 1.02; letter-spacing: -0.02em; margin: 0; }
+    .role { font-weight: 600; font-size: 36px; line-height: 1.2; color: #8BC7B1; margin: 0; }
+    .stack { font-weight: 300; font-size: 26px; line-height: 1.4; color: rgba(255, 255, 255, 0.78); margin: 6px 0 0; }
+    .pied { position: absolute; left: 96px; bottom: 44px; display: flex; align-items: center; gap: 16px; }
+    .pied img { width: 56px; height: 56px; }
+    .pied span { font-weight: 400; font-size: 24px; color: rgba(255, 255, 255, 0.72); letter-spacing: 0.01em; }
+    .ligne { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: linear-gradient(90deg, #00334d, #8BC7B1 55%, #4a90e2); }
+  </style>
+</head>
+<body>
+  <div class="carte">
+    <img class="portrait" src="../../src/images/portrait.jpg" alt="" />
+    <div class="texte">
+      <h1 class="nom">Axel Grégoire</h1>
+      <p class="role">Développeur web full stack</p>
+      <p class="stack">React · Node.js · React Native · PocketBase<br />Sites web, applications mobiles et outils sur mesure</p>
+    </div>
+  </div>
+  <div class="pied">
+    <img src="../../public/logo_Axel_Gregoire_bubbles.png" alt="" />
+    <span>axelgregoire.fr</span>
+  </div>
+  <div class="ligne"></div>
+</body>
+</html>

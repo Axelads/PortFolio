@@ -1,0 +1,375 @@
+// Page de signature électronique (/signer/:jeton) : page autonome, claire, aux couleurs du portfolio.
+// Tout est porté par la classe .sig : rien ne fuit vers le reste du site. Interrupteur maison réutilisé.
+@use '../tableau-de-bord/interrupteur';
+
+$police-titres: 'Montserrat', 'Poppins', system-ui, sans-serif;
+$police-texte: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+$mobile: 719px;
+
+.sig {
+  --sig-fond: #f3f8f6;
+  --sig-carte: #ffffff;
+  --sig-bordure: #d7dde3;
+  --sig-titre: #00334d;
+  --sig-texte: #1f2937;
+  --sig-texte-2: #4b5563;
+  --sig-texte-3: #6b7280;
+  --sig-accent: #8bc7b1;
+  --sig-accent-sombre: #3f8f74;
+  --sig-erreur: #b91c1c;
+  --sig-rayon: 16px;
+  --sig-duree: 240ms;
+  --sig-courbe: cubic-bezier(0.23, 1, 0.32, 1);
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--sig-fond);
+  color: var(--sig-texte);
+  font: 400 15px / 1.55 $police-texte;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+
+  :where(&) {
+    h1, h2, p, ul, ol { margin: 0; }
+    ul, ol { padding: 0; list-style: none; }
+    button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; padding: 0; }
+    a { color: var(--sig-accent-sombre); }
+  }
+
+  &__entete {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 22px 20px 6px;
+  }
+  &__logo { width: 44px; height: 44px; object-fit: contain; }
+  &__marque { font: 700 16px / 1.2 $police-titres; color: var(--sig-titre); }
+  &__sous-marque { font-size: 12.5px; color: var(--sig-texte-3); }
+
+  &__contenu {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, 1fr);
+    grid-template-areas: 'document etapes' 'document signataires';
+    gap: 20px;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 14px 20px 32px;
+    align-items: start;
+
+    @media (max-width: 959px) {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'document' 'etapes' 'signataires';
+    }
+    @media (max-width: $mobile) {
+      padding: 10px 16px 28px;
+      gap: 14px;
+    }
+  }
+
+  &__pied {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px 36px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--sig-texte-3);
+    p { margin-bottom: 6px; }
+  }
+}
+
+.sig-carte {
+  background: var(--sig-carte);
+  border: 1px solid var(--sig-bordure);
+  border-radius: var(--sig-rayon);
+  padding: 24px;
+  box-shadow: 0 12px 40px -18px rgba(0, 51, 77, 0.18);
+  animation: sig-entree 480ms var(--sig-courbe) backwards;
+
+  @media (max-width: $mobile) { padding: 18px 16px; }
+
+  &--document { grid-area: document; animation-delay: 40ms; }
+  &--etapes { grid-area: etapes; animation-delay: 100ms; }
+  &--signataires { grid-area: signataires; animation-delay: 160ms; }
+  &--message { max-width: 560px; margin: 40px auto; }
+}
+
+@keyframes sig-entree {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sig-carte { animation: sig-fondu 240ms ease backwards; }
+  @keyframes sig-fondu { from { opacity: 0; } to { opacity: 1; } }
+}
+
+.sig-etiquette {
+  font: 600 11.5px / 1.3 $police-texte;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sig-accent-sombre);
+  margin-bottom: 6px;
+}
+.sig-titre {
+  font: 700 26px / 1.2 $police-titres;
+  letter-spacing: -0.015em;
+  color: var(--sig-titre);
+  margin-bottom: 6px;
+  &--petit { font-size: 19px; margin-bottom: 12px; }
+}
+.sig-texte {
+  color: var(--sig-texte-2);
+  margin-bottom: 12px;
+  &--meta { font-size: 13.5px; color: var(--sig-texte-3); }
+  &--petit { font-size: 13px; color: var(--sig-texte-3); }
+}
+.sig-note {
+  font-size: 14px;
+  color: var(--sig-texte-2);
+  background: var(--sig-fond);
+  border-left: 3px solid var(--sig-accent);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  white-space: pre-line;
+}
+.sig-empreinte {
+  margin-top: 12px;
+  font: 400 11px / 1.5 ui-monospace, Menlo, Consolas, monospace;
+  color: var(--sig-texte-3);
+  word-break: break-all;
+}
+
+// Visionneuse PDF
+.sig-visionneuse {
+  position: relative;
+  margin-top: 14px;
+  border: 1px solid var(--sig-bordure);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e9eef2;
+  height: min(72vh, 820px);
+  @media (max-width: $mobile) { height: 60vh; }
+
+  &__cadre { width: 100%; height: 100%; border: 0; display: block; }
+  &__attente { position: absolute; inset: 0; display: grid; place-items: center; color: var(--sig-texte-3); }
+}
+
+// Boutons
+.sig-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.sig-bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background: var(--sig-titre);
+  color: #fff;
+  font: 600 14.5px / 1 $police-texte;
+  text-decoration: none;
+  transition: transform var(--sig-duree) var(--sig-courbe), background-color var(--sig-duree) ease, opacity var(--sig-duree) ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) { transform: translateY(-1px); background: #0b4a69; }
+  }
+  &:active:not(:disabled) { transform: scale(0.98); }
+  &:focus-visible { outline: 2px solid var(--sig-accent-sombre); outline-offset: 2px; }
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  &--secondaire {
+    background: var(--sig-fond);
+    color: var(--sig-titre);
+    border: 1px solid var(--sig-bordure);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) { background: #e6f1ec; }
+    }
+  }
+  &--fantome {
+    background: transparent;
+    color: var(--sig-texte-2);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not(:disabled) { background: var(--sig-fond); }
+    }
+  }
+}
+.sig-erreur {
+  min-height: 1.4em;
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--sig-erreur);
+}
+
+// Étapes
+.sig-etapes {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+
+  &__etape {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--sig-texte-3);
+    background: var(--sig-fond);
+    transition: background-color var(--sig-duree) ease, color var(--sig-duree) ease;
+
+    &--courante { background: var(--sig-titre); color: #fff; }
+    &--faite { color: var(--sig-accent-sombre); }
+    @media (max-width: $mobile) { span:last-child { display: none; } justify-content: center; }
+  }
+  &__numero {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--sig-titre);
+    font: 700 12px / 1 $police-texte;
+    .sig-etapes__etape--faite & { background: var(--sig-accent); color: var(--sig-titre); }
+    .sig-etapes__etape--a-venir & { background: #fff; border: 1px solid var(--sig-bordure); }
+  }
+}
+.sig-etape { animation: sig-entree 360ms var(--sig-courbe) backwards; }
+
+// Consentements (interrupteur maison, réduit)
+.sig-consentement {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sig-bordure);
+  &:last-of-type { border-bottom: 0; }
+
+  // Interrupteur maison réduit comme sur l'écran de connexion du tableau de bord : boîte fixe, mise à l'échelle dedans.
+  &__interrupteur {
+    display: flex;
+    align-items: center;
+    flex: none;
+    width: 125px;
+    height: 44px;
+    .interrupteur-glissant { gap: 28px; transform: scale(0.34); transform-origin: 0 50%; }
+  }
+  &__texte {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    strong { color: var(--sig-titre); font-weight: 600; }
+    span { color: var(--sig-texte-3); font-size: 13px; }
+  }
+}
+
+// Champs
+.sig-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0;
+  &__libelle { font-size: 13px; color: var(--sig-texte-2); }
+  &__saisie {
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid var(--sig-bordure);
+    background: #fff;
+    font: 400 16px $police-texte;
+    color: var(--sig-texte);
+    &:focus { outline: none; border-color: var(--sig-accent-sombre); box-shadow: 0 0 0 3px rgba(139, 199, 177, 0.35); }
+    &--code { max-width: 220px; font: 700 26px / 1 ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.3em; text-align: center; padding-left: 0.3em; }
+  }
+}
+
+// Pavé de signature
+.sig-pave {
+  &__modes { display: flex; gap: 6px; margin-bottom: 10px; }
+  &__mode {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    color: var(--sig-texte-2);
+    background: var(--sig-fond);
+    border: 1px solid transparent;
+    transition: background-color var(--sig-duree) ease, color var(--sig-duree) ease;
+    &--actif { background: var(--sig-titre); color: #fff; }
+    &:focus-visible { outline: 2px solid var(--sig-accent-sombre); outline-offset: 2px; }
+  }
+  &__zone {
+    position: relative;
+    border: 1.5px dashed var(--sig-accent-sombre);
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    &--texte { padding: 12px 16px 16px; border-style: solid; border-color: var(--sig-bordure); }
+  }
+  &__toile {
+    display: block;
+    width: 100%;
+    height: 200px;
+    touch-action: none;
+    cursor: crosshair;
+    @media (max-width: $mobile) { height: 170px; }
+  }
+  &__aide {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--sig-texte-3);
+    font-size: 14px;
+    pointer-events: none;
+  }
+  &__effacer {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: var(--sig-texte-2);
+    background: var(--sig-fond);
+    &:disabled { opacity: 0.4; cursor: default; }
+  }
+  &__apercu {
+    font: 400 44px / 1.2 'Parisienne', 'Segoe Script', 'Brush Script MT', cursive;
+    color: #101828;
+    padding: 6px 4px 0;
+    min-height: 64px;
+    border-top: 1px dashed var(--sig-bordure);
+    margin-top: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+// Signataires
+.sig-signataires {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &__ligne { display: flex; align-items: center; gap: 10px; }
+  &__pastille {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fbbf24;
+    flex: none;
+    .sig-signataires__ligne--signe & { background: #22c55e; }
+  }
+  &__textes { display: flex; flex-direction: column; }
+  &__nom { font-weight: 600; color: var(--sig-titre); font-size: 14.5px; }
+  &__detail { font-size: 12.5px; color: var(--sig-texte-3); }
+}

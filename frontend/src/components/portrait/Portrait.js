@@ -3,7 +3,8 @@ import { gsap } from 'gsap';
 import portraitImage from '../../images/portrait.jpg';
 import Age from '../age/Age';
 import PrioritySkills from './PrioritySkills';
-import gifPortfolio from '../../images/gif_portfolio_keep_smilling.gif';
+// WebP animé (7 images, ~0,3 Mo) à la place du GIF de 4,1 Mo
+import keepSmiling from '../../images/keep_smiling.webp';
 
 const Portrait = ({ openContactModal }) => {
   const portraitRef = useRef(null);
@@ -16,14 +17,16 @@ const Portrait = ({ openContactModal }) => {
     tl.fromTo(
       portraitRef.current,
       { x: -300, opacity: 0 }, // Départ : hors écran à gauche et invisible
-      { x: 0, opacity: 1, duration: 1.5, ease: "power2.out" }
+      { x: 0, opacity: 1, duration: 1.2, ease: "power2.out" }
     )
-    // Animation de la section "about-me" (descend de haut en bas)
+    // Animation de la section "about-me" (descend de haut en bas).
+    // Démarre presque en même temps : ce bloc de texte est le LCP de la page,
+    // tant qu'il est à opacity 0 le navigateur ne le compte pas comme peint.
     .fromTo(
       aboutMeRef.current,
       { y: -50, opacity: 0 }, // Départ : hors écran en haut et invisible
-      { y: 0, opacity: 1, duration: 1.3, ease: "power2.out" },
-      "-=0.5" // Commence légèrement avant la fin de l'animation précédente
+      { y: 0, opacity: 1, duration: 1.1, ease: "power2.out" },
+      "-=1.05"
     );
 
   }, []);
@@ -41,14 +44,16 @@ const Portrait = ({ openContactModal }) => {
 
       <div className="portrait-content">
         <section className="title-portrait">
-          <h2>À propos</h2>
+          {/* Libellé de section, pas un titre : le premier titre de la page doit être le H1 « Axel Grégoire » */}
+          <p>À propos</p>
         </section>
         <div className="info-portrait">
           <div className="info-portrait__row">
             <div>
               <h1>Axel Grégoire</h1>
               <h2>Développeur WEB</h2>
-              <h3><Age birthDate="1990-04-24" /></h3>
+              <p className="portrait-age"><Age birthDate="1990-04-24" /></p>
+              <p className="portrait-tagline">Freelance — Rougiers (Var) · à distance</p>
             </div>
             <PrioritySkills />
           </div>
@@ -72,7 +77,15 @@ const Portrait = ({ openContactModal }) => {
           </div>
         </section>
       </div>
-      <img src={gifPortfolio} alt="Keep Smiling_gif" title="Keep Smiling gif" className="portrait-gif" />
+      <img
+        src={keepSmiling}
+        alt="Illustration pop art : Keep Smiling"
+        title="Keep Smiling"
+        width="1100"
+        height="704"
+        decoding="async"
+        className="portrait-gif"
+      />
     </div>
   );
 };

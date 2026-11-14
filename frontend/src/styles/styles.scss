@@ -9,8 +9,12 @@
 @use './components/loading';
 @use './components/portrait';
 @use './components/projects';
+@use './components/galerie-projet';
+@use './components/vitrine-projet';
 @use './components/skills';
+@use './components/derniers-articles';
 @use './components/clients';
+@use './components/ssr';
 @use './pages/home';
 @use './pages/projectDetails';
 @use './pages/about';
@@ -20,6 +24,7 @@
 @use './pages/admin';
 @use './components/SkillProjects';
 @use './components/ReconversionVideo';
+@use './components/video-cv';
 @use './components/linkedinPosts';
 @use './components/chatbot';
 @use './components/rich-text-editor';
@@ -87,7 +92,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;

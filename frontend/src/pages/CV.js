@@ -1,5 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../components/Seo';
 import { Link } from 'react-router-dom';
 import { FaDownload, FaArrowLeft } from 'react-icons/fa';
 import cv from '../assets/Data/DataCvContent.json';
@@ -186,14 +186,17 @@ const CV = () => {
 
   return (
     <div className="cv-page">
-      <Helmet>
-        <title>CV — Axel Grégoire, Développeur Full Stack JavaScript</title>
-        <meta
-          name="description"
-          content="CV en ligne d'Axel Grégoire, développeur full stack JavaScript (React, Next.js, React Native, Node.js). Consultable en ligne et téléchargeable en PDF, toujours à jour."
+      <Seo
+        title="CV d'Axel Grégoire, développeur full stack JavaScript"
+        description="CV en ligne : React, Next.js, React Native et Node.js. Expériences, compétences et projets, avec version PDF à télécharger."
+        path="/cv"
+      >
+        {/* Polices du CV chargées ici seulement (pas dans index.html) : Spectral, Archivo, Fragment Mono */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=Archivo:wght@400;500;600;700&family=Fragment+Mono&display=swap"
         />
-        <link rel="canonical" href="https://axelgregoire.fr/cv" />
-      </Helmet>
+      </Seo>
 
       <div className="cv-page__chrome">
         <Link to="/" className="cv-page__back">

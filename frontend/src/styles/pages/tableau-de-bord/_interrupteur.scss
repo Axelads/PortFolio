@@ -1,0 +1,168 @@
+// Copié tel quel depuis le skill « interrupteur-glissant » (assets/interrupteur-glissant.css) : composant maison,
+// style validé par Axel, ne pas retoucher ici. Mise à l'échelle et libellé dans _ecrans.scss (.tdb-souvenir).
+/* interrupteur-glissant.css
+   Interrupteur a bascule neomorphique sombre, bouton en metal brosse creuse.
+   Variante CSS pure (aucune dependance Sass) : memes valeurs que le SCSS,
+   les appels lighten() sont resolus en litteraux (#ff8377, #a9f877).
+   Etat desactive : fente et diode gauche rouges. Etat actif : fente et diode droite vertes. */
+
+:root {
+  --interrupteur-fond-piste: #1a1c1e;
+  --interrupteur-vert-actif: #7ef23d;
+  --interrupteur-vert-clair: #a9f877;
+  --interrupteur-vert-lueur: rgba(126, 242, 61, 0.55);
+  --interrupteur-rouge-inactif: #ff4b3a;
+  --interrupteur-rouge-clair: #ff8377;
+  --interrupteur-rouge-lueur: rgba(255, 75, 58, 0.5);
+  --interrupteur-duree: 0.45s;
+  --interrupteur-courbe: cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+
+.interrupteur-glissant {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.interrupteur-glissant.est-desactive {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ---------- Piste creusee ---------- */
+.interrupteur-glissant__piste {
+  position: relative;
+  width: 260px;
+  height: 130px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 65px;
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1.5px),
+    linear-gradient(180deg, #141618 0%, var(--interrupteur-fond-piste) 60%);
+  background-size: 7px 7px, 100% 100%;
+  box-shadow:
+    inset 0 8px 18px rgba(0, 0, 0, 0.75),
+    inset 0 -4px 10px rgba(255, 255, 255, 0.04),
+    0 10px 28px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.interrupteur-glissant__piste:focus-visible {
+  outline: 2px solid var(--interrupteur-vert-actif);
+  outline-offset: 4px;
+}
+
+/* ---------- Bouton coulissant : metal brosse creuse ---------- */
+.interrupteur-glissant__bouton {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 150px;
+  height: 118px;
+  border-radius: 60px;
+  transform: translateY(-50%) translateX(0);
+  transition: transform var(--interrupteur-duree) var(--interrupteur-courbe);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045) 0px,
+      rgba(255, 255, 255, 0.045) 1px,
+      rgba(0, 0, 0, 0.06) 2px,
+      transparent 3px
+    ),
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.07) 45%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.07) 55%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, #2f3235 0%, #26292b 45%, #1e2123 100%);
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.55),
+    inset 0 -2px 3px rgba(255, 255, 255, 0.08),
+    inset 3px 0 5px rgba(0, 0, 0, 0.3),
+    inset -3px 0 5px rgba(0, 0, 0, 0.3),
+    0 10px 22px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Fente lumineuse au centre du bouton — rouge par defaut */
+.interrupteur-glissant__fente {
+  width: 7px;
+  height: 74%;
+  border-radius: 4px;
+  transition: background var(--interrupteur-duree) ease, box-shadow var(--interrupteur-duree) ease;
+  background: linear-gradient(180deg, var(--interrupteur-rouge-clair) 0%, var(--interrupteur-rouge-inactif) 100%);
+  box-shadow:
+    0 0 10px var(--interrupteur-rouge-lueur),
+    0 0 26px rgba(255, 75, 58, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* ---------- Etat actif ---------- */
+.interrupteur-glissant__piste.est-actif .interrupteur-glissant__bouton {
+  transform: translateY(-50%) translateX(94px);
+}
+
+.interrupteur-glissant__piste.est-actif .interrupteur-glissant__fente {
+  background: linear-gradient(180deg, var(--interrupteur-vert-clair) 0%, var(--interrupteur-vert-actif) 100%);
+  box-shadow:
+    0 0 12px var(--interrupteur-vert-lueur),
+    0 0 30px rgba(126, 242, 61, 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Diodes temoins ---------- */
+.interrupteur-glissant__diode {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 35% 30%, #2c2f31, #17191b 70%);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: background var(--interrupteur-duree) ease, box-shadow var(--interrupteur-duree) ease;
+}
+
+.interrupteur-glissant__diode.est-allumee-rouge {
+  background: radial-gradient(circle at 35% 30%, #ffc4bd, var(--interrupteur-rouge-inactif) 55%, #b52619 100%);
+  box-shadow:
+    0 0 14px var(--interrupteur-rouge-lueur),
+    0 0 36px rgba(255, 75, 58, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.interrupteur-glissant__diode.est-allumee-verte {
+  background: radial-gradient(circle at 35% 30%, #d6ffb0, var(--interrupteur-vert-actif) 55%, #4fae1f 100%);
+  box-shadow:
+    0 0 14px var(--interrupteur-vert-lueur),
+    0 0 36px rgba(126, 242, 61, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Respect des preferences de mouvement reduit */
+@media (prefers-reduced-motion: reduce) {
+  .interrupteur-glissant__bouton,
+  .interrupteur-glissant__fente,
+  .interrupteur-glissant__diode {
+    transition: none;
+  }
+}
+
+/* Mise a l'echelle sur petit ecran */
+@media (max-width: 480px) {
+  .interrupteur-glissant {
+    gap: 18px;
+    transform: scale(0.72);
+  }
+}

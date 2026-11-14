@@ -32,6 +32,8 @@
     }
   
     .cv-button {
+      display: inline-block; // lien <a href="/cv"> depuis le 14/11/2026 (visible des robots), même rendu qu'un bouton
+      text-decoration: none;
       background-color: #0056b3; // Couleur bleue du bouton
       color: white; // Texte en blanc
       border: 2px solid #0056b3; // Bordure bleue
@@ -63,7 +65,8 @@
       }
     }
     
-    .CardSkill {
+    .CardSkill,
+    .CardVideo {
       position: relative;
       z-index: 1;
       margin-top: 30px;

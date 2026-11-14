@@ -1,0 +1,37 @@
+{
+  "slug": "site-harmovita",
+  "name": "Harmovità",
+  "date": "2026-11-10 00:00:00.000Z",
+  "completed": true,
+  "category": "site-web",
+  "githubUrl": "https://github.com/Axelads/harmotiva",
+  "liveUrl": "https://harmovita.fr",
+  "skillsUsed": [
+    "Next.js 16",
+    "React 19",
+    "JavaScript",
+    "Tailwind CSS 4",
+    "Three.js",
+    "GSAP",
+    "Lenis",
+    "Blender",
+    "Zod",
+    "Cal.com",
+    "SEO / JSON-LD",
+    "o2switch / Node.js",
+    "Figma"
+  ],
+  "resume": "<h1>Harmovità — Site vitrine d'une sophrologue, entre souffle et son</h1><h2>Le contexte :</h2><p>Stéphanie Herrerias est sophrologue, formée à la sophrologie caycédienne et à la sonothérapie. Elle reçoit à Saint-Martin-de-Crau, à Arles, et anime des ateliers collectifs à Fontvieille. Jusque-là, tout passait par Instagram et Résalib. Il lui fallait un site qui apaise dès le premier écran, explique la sophrologie sans jargon et mène chaque visiteur <strong>au bon cabinet, puis au bon créneau</strong>.</p><h2>La réponse :</h2><p>Un site conçu puis fabriqué de bout en bout : direction artistique « nuit et or » (bleu profond, or doux, ivoire), symbole du logo redessiné en vectoriel, maquettes Figma avec leurs tokens de mouvement, puis Next.js. <strong>En ligne depuis le 10 novembre 2026</strong> sur harmovita.fr.</p><h3>Ce qui a été livré :</h3><ul><li><p><strong>Arbre de vie en particules</strong> (three.js, shaders maison) : il respire en cohérence cardiaque (5 s d'inspiration, 5 s d'expiration), la sève monte des racines aux feuilles, puis il éclate au défilement et se recompose en ondes sonores. Le bouton « Respirer avec moi » lance un exercice guidé. La scène se charge après le texte, et se fige en une seule image sous <code>prefers-reduced-motion</code>.</p></li><li><p><strong>Lotus de verre</strong> modélisé et rendu dans Blender, pour l'image de partage et la dernière section.</p></li><li><p><strong>Cinq pages</strong> : accueil, séances, à propos, FAQ, contact. Titres révélés mot à mot, défilement doux (Lenis), surtitres tirés des rayons du logo qui se tracent un à un à l'apparition.</p></li><li><p><strong>Prise de rendez-vous en deux temps</strong> : on choisit d'abord le lieu. Saint-Martin-de-Crau ouvre Résalib, que la praticienne utilisait déjà ; Arles affiche un calendrier Cal.com relié à son Google Agenda, avec rappel par e-mail la veille.</p></li><li><p><strong>Contenu en JSON validé par Zod</strong>, section par section, prêt pour un tableau de bord d'édition : une faute de saisie fait échouer le build, jamais la page en ligne.</p></li><li><p><strong>Référencement local et IA</strong> : données structurées JSON-LD (praticienne, lieux, séances, FAQ, fil d'Ariane), sitemap daté, fiche Google remise d'aplomb, Google Analytics chargé seulement après l'accord du visiteur (CNIL), mentions légales et politique de confidentialité.</p></li><li><p><strong>Protection anti-clone</strong> côté serveur et côté navigateur.</p></li></ul><h3>Côté technique :</h3><p>Next.js 16 (App Router) et React 19 en JavaScript, Tailwind CSS 4, three.js, GSAP et Lenis, Zod. Le site tourne chez o2switch (Node.js sous Passenger, build webpack sur le serveur, mise à jour par <code>git push</code>), avec un aperçu Vercel pour faire valider chaque étape à la cliente.</p>",
+  "images": [
+    "harmovita_00_accueil.webp",
+    "harmovita_01_lotus.webp",
+    "harmovita_02_sophrologie.webp",
+    "harmovita_03_sonotherapie.webp",
+    "harmovita_04_motifs.webp",
+    "harmovita_05_accompagnements.webp",
+    "harmovita_06_voyage_sonore.webp",
+    "harmovita_07_a_propos.webp",
+    "harmovita_08_reservation.webp",
+    "harmovita_09_mobile.webp"
+  ]
+}

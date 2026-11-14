@@ -1,6 +1,9 @@
 import React, { useMemo } from 'react';
 
-const DEFAULT_LOGO_SRC = 'https://i.ibb.co/3yDkgD4L/logo-Axel-Gregoire-Modifi-Modifi.png';
+import logoAxel from '../../images/logo-axel.webp';
+
+// Logo servi en local (WebP 128 px, ~5 Ko) au lieu d'un PNG distant de 35 Ko
+const DEFAULT_LOGO_SRC = logoAxel;
 
 export default function AxelLogo({
   logoSrc = DEFAULT_LOGO_SRC,
