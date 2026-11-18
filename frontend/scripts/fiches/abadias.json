@@ -1,0 +1,36 @@
+{
+  "slug": "site-abadias-artifices",
+  "name": "Abadias Artifices",
+  "date": "2026-11-17 00:00:00.000Z",
+  "completed": true,
+  "category": "site-web",
+  "liveUrl": "https://abadias-artifices.fr",
+  "skillsUsed": [
+    "Next.js 16",
+    "React 19",
+    "JavaScript",
+    "Sass",
+    "Three.js",
+    "WebGL / GLSL",
+    "GSAP",
+    "Lenis",
+    "Web Audio",
+    "Zod",
+    "Matomo",
+    "SEO / JSON-LD",
+    "o2switch / Node.js",
+    "Figma"
+  ],
+  "resume": "<h1>Abadias Artifices — Le site d'un artificier, en feu d'artifice 3D qu'on pilote à la molette</h1><h2>Le contexte :</h2><p>Ludovic Abadias est artificier certifié F4-T2 dans l'Eure. Il écrit ses spectacles à la seconde près dans un logiciel de tir, pour des mariages, des fêtes privées, des entreprises et des communes. Son ancien site, monté sur Odoo, ressemblait à n'importe quelle vitrine : quelques photos, un formulaire. Il lui fallait un site qui fasse <strong>voir ce qu'il vend avant même de le lire</strong>, et qui transforme la visite en demande de devis.</p><h2>La réponse :</h2><p>Un site conçu puis fabriqué de bout en bout : direction artistique « nuit d'or », logo redessiné en vectoriel puis animé, maquettes Figma, puis Next.js. L'accueil est un vrai spectacle : la molette fait avancer un feu d'artifice en 3D, tableau par tableau, et les phrases du site s'écrivent avec les étincelles. <strong>En ligne depuis le 17 novembre 2026</strong> sur <a href=\"https://abadias-artifices.fr\">abadias-artifices.fr</a>.</p><h3>Ce qui a été livré :</h3><ul><li><p><strong>Moteur de feu d'artifice maison</strong> : three.js et shaders GLSL, jusqu'à 125 000 étincelles calculées sur la carte graphique, bombes (pivoine, saule, palmier, anneau, crépitant), fusées et phrases échantillonnées dans la police des titres. Budget adapté à l'appareil, rendu suspendu quand l'onglet est caché.</p></li><li><p><strong>Spectacle piloté par le défilement</strong> : cinq tableaux, de l'ouverture au bouquet final, et une conduite de tir en bas de l'écran, comme dans le logiciel de Ludovic. Le logo s'écrit d'un trait de comète et un vrai feu éclate à la place de son éclat.</p></li><li><p><strong>Son synthétisé en direct</strong> (Web Audio, aucun fichier) : détonations, sifflements et crépitements calés sur le spectacle, coupés par défaut. Un second interrupteur met tout le mouvement en pause.</p></li><li><p><strong>Onze pages</strong> : une par type d'événement, trois formules, réalisations avec filtres et visionneuse, déroulé d'une prestation, l'artificier, questions fréquentes. Chaque titre de section est écrit par son propre feu quand il arrive à l'écran.</p></li><li><p><strong>Demande de devis détaillée</strong> : mêmes règles de validation dans le navigateur et sur le serveur (Zod), envoi possible sans JavaScript, alerte si la date est trop proche pour la déclaration en préfecture, courrier envoyé par le serveur.</p></li><li><p><strong>Référencement et confiance</strong> : données structurées, plan du site, anciennes adresses Odoo redirigées, IndexNow, mesure d'audience Matomo sans cookie réglée CNIL, protection contre les copies du site.</p></li><li><p><strong>Accessibilité</strong> : contrôlé avec les guides Modern Web Guidance (Chrome, Edge, Firefox, MDN) : menu modal, focus géré à chaque page, tailles de texte qui suivent le réglage du visiteur, version calme et lisible pour qui demande moins de mouvement.</p></li></ul><h3>Côté technique :</h3><p>Next.js 16 (App Router) et React 19 en JavaScript, modules Sass, three.js, GSAP et Lenis, animations CSS pilotées par le défilement et View Transitions entre les pages, Zod, Nodemailer. Hébergé chez o2switch (Node.js 24 sous Passenger), mis en ligne par Git. Domaine chez OVH, statistiques Matomo sur un sous-domaine du site.</p>",
+  "images": [
+    "abadias_00_partage.webp",
+    "abadias_01_le_ciel.webp",
+    "abadias_02_chaque_seconde.webp",
+    "abadias_03_mobile.webp",
+    "abadias_04_accueil_contenu.webp",
+    "abadias_05_mariages.webp",
+    "abadias_06_formules.webp",
+    "abadias_07_realisations.webp",
+    "abadias_08_devis.webp"
+  ]
+}
