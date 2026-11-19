@@ -1445,6 +1445,82 @@
   }
 }
 
+.note-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 14px 6px 12px;
+  border-radius: 999px;
+  background: rgba(139, 199, 177, 0.08);
+  border: 1px solid rgba(139, 199, 177, 0.25);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+[data-theme=dark] .note-google {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.note-google__symboles {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.note-google__valeur {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.note-google__etoiles {
+  position: relative;
+  display: inline-flex;
+}
+.note-google__fond, .note-google__plein {
+  display: inline-flex;
+  gap: 2px;
+}
+.note-google__fond {
+  color: var(--text-muted);
+  opacity: 0.35;
+}
+.note-google__plein {
+  position: absolute;
+  inset: 0;
+  color: #fbbc04;
+}
+.note-google__etoile {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.note-google__nombre {
+  color: var(--text-secondary);
+}
+.note-google:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .note-google:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 6px 16px rgba(139, 199, 177, 0.25);
+  }
+  .note-google:hover .note-google__nombre {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .note-google {
+    transition: none;
+  }
+}
+
 .projects-container {
   padding: 60px 20px 40px;
   max-width: 1400px;

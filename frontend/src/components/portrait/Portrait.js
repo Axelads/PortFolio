@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import portraitImage from '../../images/portrait.jpg';
 import Age from '../age/Age';
 import PrioritySkills from './PrioritySkills';
+import NoteGoogle from './NoteGoogle';
 // WebP animé (7 images, ~0,3 Mo) à la place du GIF de 4,1 Mo
 import keepSmiling from '../../images/keep_smiling.webp';
 
@@ -54,6 +55,7 @@ const Portrait = ({ openContactModal }) => {
               <h2>Développeur WEB</h2>
               <p className="portrait-age"><Age birthDate="1990-04-24" /></p>
               <p className="portrait-tagline">Freelance — Rougiers (Var) · à distance</p>
+              <NoteGoogle />
             </div>
             <PrioritySkills />
           </div>

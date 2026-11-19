@@ -8,6 +8,7 @@
     "watch-css": "sass --watch src/styles/:src/styles/",
     "generate-share-image": "node scripts/generate-share-image.js",
     "start": "cross-env HOST=localhost PORT=3000 react-app-rewired start",
+    "prebuild": "node scripts/note-google.mjs",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

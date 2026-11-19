@@ -1,0 +1,92 @@
+// Note de la fiche Google dans le portrait de l'accueil (components/portrait/NoteGoogle.js).
+// Même famille que la pastille des compétences (.priority-skills) : verre menthe en clair, verre blanc en sombre.
+
+.note-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 14px 6px 12px;
+  border-radius: 999px;
+  background: rgba(139, 199, 177, 0.08);
+  border: 1px solid rgba(139, 199, 177, 0.25);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease-out, box-shadow 0.25s ease-out;
+
+  [data-theme="dark"] & {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  // Le <symbol> de l'étoile : déclaré dans la page, jamais affiché lui-même.
+  &__symboles {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  &__valeur {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__etoiles {
+    position: relative;
+    display: inline-flex;
+  }
+
+  &__fond,
+  &__plein {
+    display: inline-flex;
+    gap: 2px;
+  }
+
+  &__fond {
+    color: var(--text-muted);
+    opacity: 0.35;
+  }
+
+  // Couche pleine rognée à droite (clip-path posé en ligne d'après la note) : 4,5 = quatre étoiles et demie.
+  &__plein {
+    position: absolute;
+    inset: 0;
+    color: #fbbc04; // le jaune des étoiles de Google
+  }
+
+  &__etoile {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  &__nombre {
+    color: var(--text-secondary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 6px 16px rgba(139, 199, 177, 0.25);
+
+      .note-google__nombre {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
