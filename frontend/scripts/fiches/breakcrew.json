@@ -1,0 +1,22 @@
+{
+  "slug": "application-breakcrew",
+  "name": "BreakCrew",
+  "date": "2026-08-18 00:00:00.000Z",
+  "completed": true,
+  "category": "application-mobile",
+  "skillsUsed": [
+    "React Native 0.86",
+    "Expo SDK 57",
+    "JavaScript",
+    "PocketBase (Koyeb)",
+    "API TMDB",
+    "Expo Notifications",
+    "React Navigation 7",
+    "EAS Build",
+    "TestFlight"
+  ],
+  "resume": "<h1>BreakCrew — Les recommandations de films et de séries entre collègues</h1><h2>Le problème :</h2><p>À la pause café, tout le monde a une série à conseiller. Le soir, plus personne ne se souvient du titre, et quand on finit par le retrouver, il n'est sur aucune des plateformes auxquelles on est abonné. Et devant le canapé, on passe plus de temps à choisir qu'à regarder.</p><h2>La réponse :</h2><p>BreakCrew garde les conseils de l'équipe au même endroit : on partage une fiche dans le groupe, les autres la reçoivent sur leur téléphone, et chacun la range dans sa bibliothèque.</p><h3>Ce que fait l'app :</h3><ul><li><p><strong>Des groupes</strong> : les collègues, la famille, les amis. Un partage dans un groupe envoie une notification aux autres membres ; l'appui ouvre directement le fil du groupe.</p></li><li><p><strong>Un vrai catalogue</strong> : films et séries viennent de TMDB, avec affiche, synopsis et un lien vers la fiche IMDb.</p></li><li><p><strong>Une bibliothèque personnelle</strong> : ce qu'on veut voir, ce qu'on a vu, ce qu'on a aimé.</p></li><li><p><strong>Le filtre anti-frustration</strong> : on coche ses plateformes de streaming une fois, et l'onglet Séance ne propose plus que ce qu'on peut regarder ce soir.</p></li><li><p><strong>La Ciné-Roulette</strong> : quand personne ne se décide, les affiches défilent, ralentissent, et la roulette élit le film de la soirée.</p></li></ul><h3>Côté technique :</h3><p>React Native 0.86 et Expo SDK 57, en JavaScript. Comptes, groupes, partages et cache des fiches dans PocketBase, hébergé sur Koyeb ; le schéma des collections se crée par un script idempotent. Les notifications partent du téléphone de celui qui partage, par l'API Expo Push : le serveur n'a besoin d'aucun code en plus. Builds EAS : un APK Android à envoyer directement, et TestFlight côté iOS. <strong>Terminée en août 2026.</strong></p>",
+  "images": [
+    "breakcrew_icone.webp"
+  ]
+}

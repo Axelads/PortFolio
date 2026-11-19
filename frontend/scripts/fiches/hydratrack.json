@@ -1,0 +1,22 @@
+{
+  "slug": "application-hydratrack",
+  "name": "HydraTrack",
+  "date": "2026-07-28 00:00:00.000Z",
+  "completed": false,
+  "category": "application-mobile",
+  "skillsUsed": [
+    "React Native 0.83",
+    "Expo SDK 55",
+    "JavaScript",
+    "Skia",
+    "SQLite (expo-sqlite)",
+    "Reanimated 4",
+    "Expo Notifications",
+    "Expo Sensors",
+    "EAS Build / OTA"
+  ],
+  "resume": "<h1>HydraTrack — Le suivi d'hydratation qui donne envie de boire</h1><h2>Le problème :</h2><p>On sait qu'il faut boire « environ deux litres », sans savoir si ce chiffre vaut pour soi, et on oublie de le faire dès que la journée s'accélère. Les applis d'hydratation existantes sont souvent austères, ou bloquent l'essentiel derrière un abonnement.</p><h2>La réponse :</h2><p>HydraTrack calcule un objectif adapté à chacun, rappelle de boire au bon moment, et rend le geste agréable : une bouteille se remplit à l'écran à chaque verre. L'app est gratuite, sans achat intégré ni publicité.</p><h3>Ce que fait l'app :</h3><ul><li><p><strong>Un objectif sur mesure</strong> : à la première ouverture, quelques questions (profil, poids, activité, climat) donnent la quantité à boire dans la journée.</p></li><li><p><strong>Une bouteille réaliste</strong> : dessinée avec Skia, elle se remplit verre après verre, et l'eau penche quand on incline le téléphone.</p></li><li><p><strong>Des rappels bienveillants</strong> : seulement entre l'heure du réveil et celle du coucher, à l'intervalle choisi, avec un message différent à chaque fois.</p></li><li><p><strong>L'historique et les statistiques</strong> : le détail du jour, les graphiques de la semaine et des séries de jours réussis.</p></li><li><p><strong>Des thèmes</strong> : clair, sombre « Bleu Nocturne », et plusieurs palettes de couleurs.</p></li></ul><h3>Côté technique :</h3><p>React Native 0.83 et Expo SDK 55, en JavaScript, styles par jetons de design et StyleSheet. Les données restent sur le téléphone, dans SQLite. Le rendu de la bouteille passe par React Native Skia et Reanimated 4, l'inclinaison par les capteurs du téléphone (Expo Sensors). Builds EAS, corrections en mise à jour OTA. <strong>En cours</strong> : la version 1 se prépare pour sa sortie sur l'App Store.</p>",
+  "images": [
+    "hydratrack_icone.webp"
+  ]
+}
