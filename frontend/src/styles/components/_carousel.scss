@@ -20,6 +20,11 @@
       padding: 20px 20px 40px; /* Espace en bas pour compenser l'image qui dépasse */
       transition: 0.5s;
       left: calc(50% - 150px); /* Centrage horizontal */
+
+      // Le glissement des cartes est un effet : coupé en mouvement réduit, la carte change sur place.
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
       top: 10px; /* Ajuste la position verticale si nécessaire */
       box-shadow: var(--shadow-medium);
       border: 2px solid var(--border-color);
