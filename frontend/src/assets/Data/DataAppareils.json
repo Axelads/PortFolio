@@ -1,0 +1,36 @@
+{
+  "site-abadias-artifices": { "ordinateur": "/images/appareils/site-abadias-artifices/ordinateur.webp" },
+  "site-harmovita": { "ordinateur": "/images/appareils/site-harmovita/ordinateur.webp" },
+  "site-honneure": { "ordinateur": "/images/appareils/site-honneure/ordinateur.webp" },
+  "boutique-FantasyMythos": { "ordinateur": "/images/appareils/boutique-FantasyMythos/ordinateur.webp" },
+  "site-vitrine-QHY-Construction": { "ordinateur": "/images/appareils/site-vitrine-QHY-Construction/ordinateur.webp" },
+  "site-vitrine-CleanProject": { "ordinateur": "/images/appareils/site-vitrine-CleanProject/ordinateur.webp" },
+  "Mon-paysagiste": { "ordinateur": "/images/appareils/Mon-paysagiste/ordinateur.webp" },
+  "CharcuterieNouvelle.fr": { "ordinateur": "/images/appareils/CharcuterieNouvelle.fr/ordinateur.webp" },
+  "RolistesUnis.fr": { "ordinateur": "/images/appareils/RolistesUnis.fr/ordinateur.webp" },
+  "site-ecommerce-epices": { "ordinateur": "/images/appareils/site-ecommerce-epices/ordinateur.webp" },
+  "mon-vieux-grimoire": { "ordinateur": "/images/appareils/mon-vieux-grimoire/ordinateur.webp" },
+  "sophie-bruel": { "ordinateur": "/images/appareils/sophie-bruel/ordinateur.webp" },
+  "booki": { "ordinateur": "/images/appareils/booki/ordinateur.webp" },
+
+  "jeu-arkhelyr": {
+    "telephone": "/images/appareils/jeu-arkhelyr/telephone.webp",
+    "telephonePaysage": true,
+    "tablette": "/images/appareils/jeu-arkhelyr/tablette.webp",
+    "tablettePaysage": true
+  },
+  "application-lunello": {
+    "telephone": "/images/appareils/application-lunello/telephone.webp",
+    "tablette": "/images/appareils/application-lunello/tablette.webp",
+    "tablettePaysage": true
+  },
+  "application-AnimDay": {
+    "telephone": "/images/appareils/application-AnimDay/telephone.webp",
+    "tablette": "/images/appareils/application-AnimDay/tablette.webp"
+  },
+  "application-coliperforma": {
+    "telephone": "/images/appareils/application-coliperforma/telephone.webp",
+    "tablette": "/images/appareils/application-coliperforma/tablette.webp",
+    "tablettePaysage": true
+  }
+}

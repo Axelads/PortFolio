@@ -17,6 +17,9 @@
     border-radius: 24px;
     position: relative;
     overflow: hidden;
+    // clip : coupe pareil, sans devenir un conteneur de défilement (qui figerait
+    // les animations liées au défilement des cartes projets, animation-timeline: view()).
+    overflow: clip;
 
     &::before {
       content: '';

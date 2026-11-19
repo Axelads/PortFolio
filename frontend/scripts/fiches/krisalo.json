@@ -1,0 +1,31 @@
+{
+  "slug": "Craftlog",
+  "name": "Krisalo",
+  "completed": false,
+  "category": "application-mobile",
+  "githubUrl": "https://github.com/Axelads/Craftlog",
+  "skillsUsed": [
+    "React Native 0.88",
+    "Expo SDK 58",
+    "JavaScript",
+    "SQLite (expo-sqlite)",
+    "Reanimated 4",
+    "React Navigation 7",
+    "i18n FR / EN",
+    "EAS Build / OTA",
+    "expo-print (PDF)",
+    "Figma",
+    "TestFlight",
+    "Google Play Console"
+  ],
+  "resume": "<h1>Krisalo — Le carnet de fabrication des cosplayeurs, sur iOS et Android</h1><h2>Le problème :</h2><p>Un costume de cosplay, c'est des dizaines de pièces (casque, plastron, cape…), des centaines d'euros de matériaux et des heures d'atelier que personne ne compte. Les cosplayeurs jonglent entre un carnet papier, un dossier photos en vrac et un tableur. Et quand un concours de craftsmanship demande un book de fabrication, il faut tout reconstituer après coup : les étapes, le temps passé, ce qu'a coûté chaque pièce.</p><h2>La réponse :</h2><p>Krisalo note tout pendant qu'on fabrique, pièce par pièce, d'une seule main à l'atelier. Pas de compte, pas de publicité, pas de traceur : les projets restent sur le téléphone. L'app parle français et anglais.</p><h3>Ce que fait l'app :</h3><ul><li><p><strong>Un projet par costume</strong> : personnage, série, échéance, budget et photo de couverture. La fiche montre les pièces finies, le temps total et la dépense face au budget.</p></li><li><p><strong>Un chrono par pièce</strong> : on le lance en attaquant le casque, on l'arrête en posant les outils. Les heures s'additionnent pièce par pièce, puis pour tout le costume.</p></li><li><p><strong>Des photos d'étape bien rangées</strong> : prise sur le moment ou choisie dans la galerie, chaque photo reste avec la bonne pièce, avec sa note et sa date.</p></li><li><p><strong>Matériaux et inventaire</strong> : prix, lien de la boutique, case « acheté ». L'inventaire rassemble la liste d'achats de tous les projets.</p></li><li><p><strong>Patrons, tutos et planche de référence</strong> : les patrons et les notes de technique vivent avec leur pièce, et la planche range les images de référence par partie du corps.</p></li><li><p><strong>Le book de fabrication en un tap</strong> : un PDF avec les photos, le temps et les matériaux, prêt pour le jury d'un concours ou pour les réseaux.</p></li><li><p><strong>Un guide « Comment ça marche »</strong> en cinq étapes à la première arrivée, rouvrable depuis le bouton d'aide.</p></li></ul><h2>De CraftLog à Krisalo :</h2><p>L'app s'appelait CraftLog. Avant la sortie, j'ai vérifié le nom : domaine déjà pris, homonyme sur l'App Store, identifiant réservé sur Google Play. Sur 71 noms étudiés, Krisalo était le seul libre partout au moment de la recherche : domaines en .com, .app, .fr et .de, les deux stores, les registres de marques. Il raconte aussi ce que vit un cosplayeur : la chrysalide, c'est le passage de la personne au personnage.</p><p>Le nouveau nom a amené une nouvelle identité, la direction « Monarque », validée dans Figma : une encre vert très sombre, l'or réservé à ce qui avance (barres de progression, points du guide), les polices Instrument Serif et Hanken Grotesk. Le logo est un mannequin de couture au buste de chrysalide. Au premier lancement, il se pose sur son pied et sa couture d'or se pique point par point. J'en ai profité pour retirer l'offre Pro : aucun achat n'existait derrière, et Apple refuse une fonction annoncée « à venir ».</p><h3>Côté technique :</h3><p>React Native 0.88 et Expo SDK 58 (New Architecture), en JavaScript. Données en local avec SQLite, animations avec Reanimated 4 et react-native-svg, navigation React Navigation 7, book PDF généré par expo-print. La traduction passe par un t() maison sans dépendance : l'app suit la langue du téléphone, se règle dans les Réglages, et les montants s'affichent dans la devise du pays. Les corrections partent en mise à jour OTA (EAS Update) sans repasser par les stores, avec une fenêtre « Quoi de neuf » à l'ouverture. <strong>En test depuis novembre 2026</strong> sur TestFlight et sur la piste de test interne de Google Play.</p>",
+  "images": [
+    "krisalo_01_accueil.webp",
+    "krisalo_02_projet.webp",
+    "krisalo_03_chrono.webp",
+    "krisalo_04_galerie.webp",
+    "krisalo_05_premiere_ouverture.webp",
+    "krisalo_tablette_projet.webp",
+    "krisalo_tablette_galerie.webp"
+  ]
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CategoryFilter, { CATEGORIES } from "./CategoryFilter";
+import CarteAppareil, { TYPES_APPAREIL, animerOrdinateur, preparerOrdinateur } from "./CarteAppareil";
 import { getProjects } from "../../services/pocketbase";
 import dataProjectsFallback from "../../assets/Data/DataProject.json";
 
@@ -72,20 +73,42 @@ const Projects = () => {
   }, []);
 
   useEffect(() => {
-    if (cardsRef.current.length > 0) {
-      gsap.fromTo(
-        cardsRef.current.filter(Boolean),
-        { y: 30, opacity: 0, scale: 0.95 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          ease: "power2.out",
-          stagger: 0.1,
-        }
-      );
+    const cartes = cardsRef.current.filter(Boolean);
+    if (!cartes.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
     }
+    // Sites web : entrée propre aux ordinateurs (CarteAppareil.animerOrdinateur), rangée par rangée à l'arrivée à
+    // l'écran. Les autres cartes gardent leur entrée en fondu, dès le rendu.
+    const ordinateurs = cartes.filter((c) => c.classList.contains("projet-appareil--ordinateur"));
+    const autres = cartes.filter((c) => !ordinateurs.includes(c));
+    const ctx = gsap.context(() => {
+      if (autres.length) {
+        gsap.fromTo(
+          autres,
+          { y: 30, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            stagger: 0.1,
+            // Rend la main au CSS : sans ça, le transform en ligne bloque l'élévation au survol.
+            clearProps: "transform,opacity",
+          }
+        );
+      }
+      if (ordinateurs.length) {
+        ordinateurs.forEach((carte) => preparerOrdinateur(gsap, carte));
+        ScrollTrigger.batch(ordinateurs, {
+          start: "top 88%",
+          once: true,
+          // ctx.add : les timelines créées plus tard, à l'arrivée à l'écran, sont aussi nettoyées par ctx.revert().
+          onEnter: (rangee) => ctx.add(() => rangee.forEach((carte, i) => animerOrdinateur(gsap, carte, i * 0.18))),
+        });
+      }
+    }, projectsRef);
+    return () => ctx.revert();
   }, [projects, activeCategory]);
 
   const handleCategoryChange = (categoryId) => {
@@ -138,67 +161,92 @@ const Projects = () => {
   // Compter le total des projets affichés
   const totalCount = filteredProjects.length;
 
+  // statutEnLigne : l'état « En cours » se lit à côté de la date (cartes à appareils,
+  // sans image de fond où poser le badge).
+  const renderCardContent = (project, { statutEnLigne = false } = {}) => (
+    <div className="card-content">
+      <h3 className="card-title">{project.name}</h3>
+      <div className="card-meta">
+        <span className="card-date">
+          {project.date && new Date(project.date).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "short",
+          })}
+        </span>
+        {project.category && (
+          <span className="card-category">
+            {getCategoryLabel(project.category)}
+          </span>
+        )}
+        {statutEnLigne && !project.completed && (
+          <span className="card-statut">En cours</span>
+        )}
+      </div>
+      <div className="card-skills">
+        {(project.skillsUsed || []).slice(0, 3).map((skill, i) => (
+          <span key={i} className="skill-tag">
+            {skill}
+          </span>
+        ))}
+        {(project.skillsUsed || []).length > 3 && (
+          <span className="skill-tag more">
+            +{project.skillsUsed.length - 3}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+
   // Un vrai lien (nouvel onglet) : accessible au clavier, lisible par les
   // crawlers et les agents, sans role="button" posé sur un <article>.
   // L'image est un <img loading="lazy"> : les visuels distants (souvent > 1 Mo)
   // ne sont téléchargés qu'à l'approche de la carte, pas au chargement.
-  const renderProjectCard = (project, index) => (
-    <a
-      key={project._id || project.id}
-      ref={(el) => (cardsRef.current[index] = el)}
-      className={`project-card ${project.completed ? "completed" : "in-progress"}`}
-      href={`/Projet/${project.slug}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Voir le projet ${project.name}`}
-    >
-      <div className="card-image-wrapper">
-        {project.imageUrls?.[0] && (
-          <img
-            className="card-image"
-            src={project.imageUrls[0]}
-            alt=""
-            loading="lazy"
-            decoding="async"
-          />
-        )}
-        <div className="card-overlay">
-          <span className="view-project">Voir le projet</span>
-        </div>
-        {!project.completed && (
-          <span className="status-badge">En cours</span>
-        )}
-      </div>
-      <div className="card-content">
-        <h3 className="card-title">{project.name}</h3>
-        <div className="card-meta">
-          <span className="card-date">
-            {project.date && new Date(project.date).toLocaleDateString("fr-FR", {
-              year: "numeric",
-              month: "short",
-            })}
-          </span>
-          {project.category && (
-            <span className="card-category">
-              {getCategoryLabel(project.category)}
-            </span>
+  // Sites et applications : présentés dans leurs appareils (CarteAppareil).
+  const renderProjectCard = (project, index) => {
+    const typeAppareil = TYPES_APPAREIL[project.category];
+    if (typeAppareil) {
+      return (
+        <CarteAppareil
+          key={project._id || project.id}
+          ref={(el) => (cardsRef.current[index] = el)}
+          project={project}
+          type={typeAppareil}
+        >
+          {renderCardContent(project, { statutEnLigne: true })}
+        </CarteAppareil>
+      );
+    }
+    return (
+      <a
+        key={project._id || project.id}
+        ref={(el) => (cardsRef.current[index] = el)}
+        className={`project-card ${project.completed ? "completed" : "in-progress"}`}
+        href={`/Projet/${project.slug}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Voir le projet ${project.name}`}
+      >
+        <div className="card-image-wrapper">
+          {project.imageUrls?.[0] && (
+            <img
+              className="card-image"
+              src={project.imageUrls[0]}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          <div className="card-overlay">
+            <span className="view-project">Voir le projet</span>
+          </div>
+          {!project.completed && (
+            <span className="status-badge">En cours</span>
           )}
         </div>
-        <div className="card-skills">
-          {(project.skillsUsed || []).slice(0, 3).map((skill, i) => (
-            <span key={i} className="skill-tag">
-              {skill}
-            </span>
-          ))}
-          {(project.skillsUsed || []).length > 3 && (
-            <span className="skill-tag more">
-              +{project.skillsUsed.length - 3}
-            </span>
-          )}
-        </div>
-      </div>
-    </a>
-  );
+        {renderCardContent(project)}
+      </a>
+    );
+  };
 
   if (loading) {
     return (

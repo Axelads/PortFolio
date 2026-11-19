@@ -1,0 +1,628 @@
+// Projets présentés dans leurs appareils (CarteAppareil.js) :
+// sites web sur un ordinateur portable, applications sur une tablette + un téléphone.
+//
+// Toutes les cotes sont en cqw (largeur de la scène) : l'appareil garde ses
+// proportions de 320 à 480 px de carte sans aucune media query.
+//
+// Motion : l'ordinateur arrive fermé en tournant, se pose de trois quarts et ouvre
+// son capot (GSAP, CarteAppareil.animerOrdinateur, lancé par Projects.js rangée
+// par rangée). La tablette puis le téléphone montent en décalé au défilement
+// (animation-timeline: view(), CSS natif). Sans JS, sans support ou sous
+// prefers-reduced-motion : appareils posés, ouverts, allumés. Au pointeur fin,
+// CarteAppareil.js écrit --px / --py (-1 à 1) : inclinaison de l'ordinateur,
+// profondeur entre les deux mobiles.
+
+$courbe-sortie: cubic-bezier(0.22, 1, 0.36, 1);
+$courbe-suivi: cubic-bezier(0.2, 0.8, 0.2, 1);
+// Lié au défilement : c'est la main qui donne le rythme, la courbe reste douce.
+$courbe-defilement: cubic-bezier(0.33, 0.1, 0.25, 1);
+
+.projects-container .projet-appareil {
+  --px: 0;
+  --py: 0;
+  // Matières : aluminium en clair, gris sidéral en sombre ; bordure d'écran toujours noire.
+  --app-bord: #0b0b0d;
+  --app-cadre: #c3c7ce;
+  --app-dessus: linear-gradient(180deg, #eceef1 0%, #d7dadf 100%);
+  --app-dos: linear-gradient(135deg, #eef0f3 0%, #d3d6dc 55%, #bfc3ca 100%);
+  --app-tranche: linear-gradient(180deg, #c9cdd4 0%, #9ea3ab 100%);
+  --app-charniere: #a9adb5;
+  --app-touches: #2a2c31;
+  --app-joint: #d6d9de;
+  --app-pave: #dfe2e6;
+
+  // Pas de fond : l'appareil est posé directement sur la page, seul le texte a sa carte.
+  // overflow visible (et non hidden) : un ancêtre en hidden devient un conteneur de
+  // défilement et fige les animations liées au défilement (view()).
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+
+  &:hover {
+    box-shadow: none;
+  }
+
+  // Au-dessus de la scène : à l'entrée, tablette et téléphone montent de derrière le texte.
+  .card-content {
+    position: relative;
+    z-index: 2;
+    background: var(--bg-card);
+    border-radius: 20px;
+    box-shadow: var(--shadow-medium);
+    transition: box-shadow 0.4s ease;
+  }
+
+  &:hover .card-content {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  &:focus-visible {
+    border-radius: 20px;
+  }
+
+  .card-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+
+    &::after {
+      content: "→";
+      font-weight: 600;
+      color: var(--accent-primary, #8BC7B1);
+      opacity: 0;
+      translate: -0.4em 0;
+      transition: opacity 0.3s ease, translate 0.4s $courbe-sortie;
+    }
+  }
+
+  &:hover .card-title::after,
+  &:focus-visible .card-title::after {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+[data-theme="dark"] .projects-container .projet-appareil {
+  --app-cadre: #4d5159;
+  --app-dessus: linear-gradient(180deg, #5d6169 0%, #474a51 100%);
+  --app-dos: linear-gradient(135deg, #5f636b 0%, #474a51 55%, #393c42 100%);
+  --app-tranche: linear-gradient(180deg, #44474e 0%, #2b2d32 100%);
+  --app-charniere: #2a2c31;
+  --app-touches: #17181b;
+  --app-joint: #52555c;
+  --app-pave: #53565d;
+}
+
+// ─── Scène (transparente) ────────────────────────────────────────────────────
+
+// clip : le capot presque fermé, grossi par la perspective, ne déborde pas sur la carte voisine.
+.projects-container .projet-appareil__scene {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  overflow: clip;
+  perspective: 1400px;
+}
+
+// « En cours » dans la ligne de date, même pastille que le badge des cartes classiques.
+.projects-container .projet-appareil .card-statut {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+// ─── Écran (commun aux trois appareils) ─────────────────────────────────────
+
+.appareil__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+// App sans capture : son icône, comme un écran de démarrage.
+.appareil__demarrage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 42%, #2a2d29 0%, #121412 70%);
+
+  img {
+    width: 36%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border-radius: 22%;
+  }
+}
+
+// Écran éteint : opaque avant l'animation d'éveil, transparent sinon.
+.appareil__veille {
+  position: absolute;
+  inset: 0;
+  background: #030304;
+  opacity: 0;
+  pointer-events: none;
+}
+
+// Reflet de la vitre : fixe au repos, il glisse avec le pointeur.
+.appareil__reflet {
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.13) 46%,
+    rgba(255, 255, 255, 0.03) 54%,
+    transparent 62%
+  );
+  translate: calc(var(--px) * 14%) calc(var(--py) * 9%);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: translate 0.7s $courbe-suivi, opacity 0.5s ease;
+}
+
+.projet-appareil:hover .appareil__reflet {
+  opacity: 1;
+}
+
+// ─── Ordinateur portable (vraie 3D, vu de trois quarts) ──────────────────────
+//
+// Chaîne 3D : .ordinateur (perspective, entrée en opacité : hors chaîne, une opacité < 1 aplatirait la 3D)
+//   > __inclinaison (pointeur) > __corps (trois quarts : --tour) > __capot (charnière : --capot) et __socle (à plat).
+// État de repos (sans JS, mouvement réduit, après l'entrée) : de trois quarts, capot ouvert, écran allumé.
+// À l'entrée, CarteAppareil.animerOrdinateur fait tourner --tour (fermé) puis ouvre --capot.
+//
+// Cotes : capot de 54cqw de large ; écran 16:10 de 51,4 × 32,1cqw ; capot de 35,5cqw de haut ; socle aussi profond
+// que le capot est haut (fermé, le capot le recouvre exactement). Marges mesurées tout autour à 390, 768, 1024,
+// 1440 et 1920 px (aucun morceau coupé par la scène).
+
+.ordinateur {
+  position: absolute;
+  inset: 0;
+  // En cqw et non en px : la déformation reste la même quelle que soit la taille de la carte (en px, une grande
+  // carte de tablette grossissait l'avant du socle au point de le couper).
+  perspective: 350cqw;
+  perspective-origin: 50% 25%;
+}
+
+.ordinateur__inclinaison {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--py) * -4deg)) rotateY(calc(var(--px) * 6deg));
+  transition: transform 0.7s $courbe-suivi;
+}
+
+.ordinateur__corps {
+  --tour: -32deg; // orientation de trois quarts
+  --capot: 8deg; // capot ouvert, légèrement renversé ; -90deg = fermé
+  position: absolute;
+  // Placé assez bas : de trois quarts, le coin haut gauche du capot (côté proche, grossi par la perspective) monte
+  // au-dessus du reste ; la scène est en overflow: clip.
+  left: 21cqw;
+  top: 12cqw;
+  width: 54cqw;
+  transform-style: preserve-3d;
+  // Pivot au centre du socle (sous l'ordinateur fermé) : il tourne sur lui-même, sans orbiter.
+  transform-origin: 50% 100% 17.75cqw;
+  transform: rotateX(-17deg) rotateY(var(--tour));
+}
+
+.ordinateur__capot {
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transform: rotateX(var(--capot));
+}
+
+// Face écran : bordure noire, caméra, dalle.
+.ordinateur__face {
+  position: relative;
+  padding: 1.5cqw 1.3cqw 1.9cqw;
+  background: var(--app-bord);
+  border-radius: 2.2cqw 2.2cqw 0.4cqw 0.4cqw;
+  box-shadow:
+    0 0 0 0.25cqw var(--app-cadre),
+    inset 0 0 0 0.12cqw rgba(255, 255, 255, 0.07);
+  backface-visibility: hidden;
+
+  // Caméra
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.55cqw;
+    left: 50%;
+    width: 0.5cqw;
+    aspect-ratio: 1;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: #1a1d24;
+    box-shadow: inset 0 0 0 0.12cqw #303644;
+  }
+}
+
+// Dos du capot (aluminium), légèrement en retrait : c'est lui qu'on voit quand l'ordinateur est fermé.
+.ordinateur__dos {
+  position: absolute;
+  inset: -0.25cqw;
+  border-radius: 2.4cqw 2.4cqw 0.5cqw 0.5cqw;
+  background: var(--app-dos);
+  box-shadow: inset 0 0 0 0.15cqw rgba(255, 255, 255, 0.18);
+  transform: rotateY(180deg) translateZ(0.5cqw);
+  backface-visibility: hidden;
+}
+
+.ordinateur__dalle {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 0.7cqw 0.7cqw 0.15cqw 0.15cqw;
+  background: #050507;
+}
+
+// Socle couché à plat, accroché à la charnière, vers l'avant.
+.ordinateur__socle {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 35.5cqw;
+  transform-style: preserve-3d;
+  transform-origin: 50% 0;
+  transform: rotateX(90deg);
+  background: var(--app-dessus);
+  border-radius: 0 0 1.8cqw 1.8cqw;
+
+  // Fente de la charnière
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 6%;
+    right: 6%;
+    height: 1.1cqw;
+    border-radius: 0 0 0.6cqw 0.6cqw;
+    background: var(--app-charniere);
+  }
+}
+
+// Clavier : touches sombres séparées par des joints couleur du socle.
+.ordinateur__clavier {
+  position: absolute;
+  top: 8%;
+  left: 7%;
+  right: 7%;
+  height: 44%;
+  border-radius: 0.8cqw;
+  background:
+    repeating-linear-gradient(90deg, var(--app-joint) 0 0.4cqw, transparent 0.4cqw 3.7cqw),
+    repeating-linear-gradient(0deg, var(--app-joint) 0 0.4cqw, transparent 0.4cqw 3.4cqw),
+    var(--app-touches);
+}
+
+.ordinateur__pave {
+  position: absolute;
+  bottom: 7%;
+  left: 31%;
+  width: 38%;
+  height: 34%;
+  border-radius: 1.2cqw;
+  background: var(--app-pave);
+  box-shadow: inset 0 0 0 0.15cqw rgba(0, 0, 0, 0.08);
+}
+
+// Tranches : chacune pend sous son bord du socle (le +Z local du socle pointe vers le haut une fois couché).
+.ordinateur__tranche {
+  position: absolute;
+  background: var(--app-tranche);
+}
+
+.ordinateur__tranche--avant {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: 1.6cqw;
+  transform-origin: 50% 0;
+  transform: rotateX(-90deg);
+  border-radius: 0 0 1.2cqw 1.2cqw;
+}
+
+.ordinateur__tranche--arriere {
+  left: 0;
+  bottom: 100%;
+  width: 100%;
+  height: 1.6cqw;
+  transform-origin: 50% 100%;
+  transform: rotateX(90deg);
+}
+
+.ordinateur__tranche--gauche,
+.ordinateur__tranche--droite {
+  top: 0;
+  width: 1.6cqw;
+  height: 100%;
+}
+
+.ordinateur__tranche--gauche {
+  left: 0;
+  transform-origin: 0 50%;
+  transform: rotateY(90deg);
+}
+
+.ordinateur__tranche--droite {
+  right: 0;
+  transform-origin: 100% 50%;
+  transform: rotateY(-90deg);
+}
+
+// ─── Tablette + téléphone ────────────────────────────────────────────────────
+
+.duo {
+  position: absolute;
+  inset: 0;
+}
+
+.duo__tablette,
+.duo__telephone {
+  position: absolute;
+  transition: transform 0.7s $courbe-suivi, translate 0.5s $courbe-sortie;
+}
+
+// Profondeur : la tablette recule, le téléphone avance.
+.duo__tablette {
+  // Amplitudes en variables : le minifieur de CRA (postcss-calc) ne lit pas les cqw dans un calc().
+  --dx: -1.2cqw;
+  --dy: -0.9cqw;
+  transform: translate3d(calc(var(--px) * var(--dx)), calc(var(--py) * var(--dy)), 0);
+}
+
+.duo__telephone {
+  z-index: 1;
+  --dx: 2cqw;
+  --dy: 1.5cqw;
+  transform: translate3d(calc(var(--px) * var(--dx)), calc(var(--py) * var(--dy)), 0)
+    rotate(calc(var(--px) * 1.5deg));
+}
+
+// Disposition selon le format de chaque écran
+.duo[data-tablette="portrait"] .duo__tablette {
+  left: 23.5cqw;
+  top: 6cqw;
+  width: 41cqw;
+}
+
+.duo[data-tablette="portrait"] .duo__telephone {
+  left: 57.5cqw;
+  bottom: 6cqw;
+  width: 19cqw;
+}
+
+.duo[data-tablette="paysage"] .duo__tablette {
+  left: 13.5cqw;
+  top: 7cqw;
+  width: 62cqw;
+}
+
+.duo[data-tablette="paysage"] .duo__telephone {
+  left: 68.5cqw;
+  bottom: 5cqw;
+  width: 18cqw;
+}
+
+.duo[data-telephone="paysage"] .duo__tablette {
+  left: 9cqw;
+  top: 5.5cqw;
+}
+
+.duo[data-telephone="paysage"] .duo__telephone {
+  left: auto;
+  right: 7cqw;
+  bottom: 5.5cqw;
+  width: 40cqw;
+}
+
+.tablette {
+  position: relative;
+  padding: 1.3cqw;
+  background: var(--app-bord);
+  border-radius: 2.6cqw;
+  box-shadow:
+    0 0 0 0.28cqw var(--app-cadre),
+    inset 0 0 0 0.12cqw rgba(255, 255, 255, 0.07),
+    0 3cqw 5cqw -1.5cqw rgba(0, 0, 0, 0.4);
+
+  // Caméra
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.45cqw;
+    left: 50%;
+    width: 0.45cqw;
+    aspect-ratio: 1;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: #1a1d24;
+  }
+}
+
+.tablette__ecran {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 1.4cqw;
+  background: #050507;
+
+  [data-tablette="paysage"] & {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.telephone {
+  position: relative;
+  padding: 0.9cqw;
+  background: var(--app-bord);
+  border-radius: 3.4cqw;
+  box-shadow:
+    0 0 0 0.3cqw var(--app-cadre),
+    inset 0 0 0 0.12cqw rgba(255, 255, 255, 0.08),
+    0 2.5cqw 4cqw -1cqw rgba(0, 0, 0, 0.5);
+
+  // Boutons latéraux : marche à droite, volume à gauche (sur la tranche haute en paysage)
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 0.3cqw;
+    background: var(--app-cadre);
+  }
+
+  &::before {
+    right: -0.55cqw;
+    top: 26%;
+    width: 0.3cqw;
+    height: 13%;
+  }
+
+  &::after {
+    left: -0.55cqw;
+    top: 21%;
+    width: 0.3cqw;
+    height: 9%;
+  }
+
+  [data-telephone="paysage"] & {
+    &::before {
+      right: auto;
+      left: 26%;
+      top: -0.55cqw;
+      width: 13%;
+      height: 0.3cqw;
+    }
+
+    &::after {
+      left: auto;
+      right: 21%;
+      top: -0.55cqw;
+      width: 9%;
+      height: 0.3cqw;
+    }
+  }
+}
+
+.telephone__ecran {
+  position: relative;
+  aspect-ratio: 9 / 19.5;
+  overflow: hidden;
+  border-radius: 2.6cqw;
+  background: #050507;
+
+  [data-telephone="paysage"] & {
+    aspect-ratio: 19.5 / 9;
+  }
+}
+
+// Îlot de la caméra frontale
+.telephone__ilot {
+  position: absolute;
+  top: 0.75cqw;
+  left: 50%;
+  width: 5cqw;
+  height: 1.45cqw;
+  translate: -50% 0;
+  border-radius: 99px;
+  background: #000;
+
+  [data-telephone="paysage"] & {
+    top: 50%;
+    left: 0.75cqw;
+    width: 1.45cqw;
+    height: 5cqw;
+    translate: 0 -50%;
+  }
+}
+
+// ─── Survol (pointeur fin) ───────────────────────────────────────────────────
+
+@media (hover: hover) and (pointer: fine) {
+  .projet-appareil:hover .duo__telephone {
+    translate: 0 -1.4cqw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ordinateur__inclinaison,
+  .duo__tablette,
+  .duo__telephone,
+  .appareil__reflet {
+    transition: none;
+  }
+}
+
+// ─── Entrée liée au défilement ───────────────────────────────────────────────
+
+// L'ordinateur n'est plus lié au défilement : son entrée (tour, ouverture du capot, éveil de l'écran) est jouée par
+// GSAP (CarteAppareil.animerOrdinateur). Ci-dessous, seulement la tablette et le téléphone.
+
+@keyframes appareil-eveil {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes appareil-tablette {
+  from {
+    opacity: 0;
+    translate: 0 14cqw;
+    rotate: -5deg;
+    animation-timing-function: $courbe-defilement;
+  }
+}
+
+@keyframes appareil-telephone {
+  from {
+    opacity: 0;
+    translate: 0 22cqw;
+    rotate: 9deg;
+    animation-timing-function: $courbe-defilement;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .projects-container .projet-appareil__scene {
+      view-timeline: --scene-appareil block;
+    }
+
+    .duo .appareil__veille {
+      animation: appareil-eveil linear both;
+      animation-timeline: --scene-appareil;
+      animation-range: cover 22% cover 40%;
+    }
+
+    // La tablette monte, le téléphone la rejoint avec un temps de retard.
+    .tablette {
+      animation: appareil-tablette linear both;
+      animation-timeline: --scene-appareil;
+      animation-range: entry 10% cover 30%;
+    }
+
+    .telephone {
+      animation: appareil-telephone linear both;
+      animation-timeline: --scene-appareil;
+      animation-range: entry 55% cover 38%;
+    }
+  }
+}
