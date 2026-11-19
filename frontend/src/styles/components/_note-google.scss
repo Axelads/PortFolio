@@ -1,43 +1,14 @@
-// Note de la fiche Google dans le portrait de l'accueil (components/portrait/NoteGoogle.js).
-// Même famille que la pastille des compétences (.priority-skills) : verre menthe en clair, verre blanc en sombre.
+// Avis Google : étoiles partagées (portrait et carrousel), puis la carte de note du portrait de l'accueil
+// (components/portrait/NoteGoogle.js). Les avis du carrousel sont stylés dans _carousel.scss.
 
-.note-google {
+$jaune-etoile-google: #fbbc04; // le jaune des étoiles de Google
+
+// ───────────────────────────── Étoiles ─────────────────────────────
+.etoiles-google {
+  position: relative;
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 6px 14px 6px 12px;
-  border-radius: 999px;
-  background: rgba(139, 199, 177, 0.08);
-  border: 1px solid rgba(139, 199, 177, 0.25);
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  line-height: 1;
-  text-decoration: none;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease-out, box-shadow 0.25s ease-out;
-
-  [data-theme="dark"] & {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.12);
-  }
-
-  // Le <symbol> de l'étoile : déclaré dans la page, jamais affiché lui-même.
-  &__symboles {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-  }
-
-  &__valeur {
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-  }
-
-  &__etoiles {
-    position: relative;
-    display: inline-flex;
-  }
+  flex: none;
+  --etoile-taille: 15px;
 
   &__fond,
   &__plein {
@@ -47,25 +18,95 @@
 
   &__fond {
     color: var(--text-muted);
-    opacity: 0.35;
+    opacity: 0.3;
   }
 
-  // Couche pleine rognée à droite (clip-path posé en ligne d'après la note) : 4,5 = quatre étoiles et demie.
+  // Couche pleine rognée à droite (clip-path posé en ligne d'après la note).
   &__plein {
     position: absolute;
     inset: 0;
-    color: #fbbc04; // le jaune des étoiles de Google
+    color: $jaune-etoile-google;
   }
 
   &__etoile {
     flex: none;
-    width: 16px;
-    height: 16px;
+    width: var(--etoile-taille);
+    height: var(--etoile-taille);
     fill: currentColor;
+  }
+}
+
+// ───────────────────────────── Carte de note du portrait ─────────────────────────────
+.note-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 51, 77, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 51, 77, 0.06), 0 8px 24px -10px rgba(0, 51, 77, 0.18);
+  color: var(--text-primary);
+  line-height: 1.15;
+  text-align: left;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+
+  [data-theme="dark"] & {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  // Le « G » garde toujours son fond blanc : ses quatre couleurs sont dessinées pour lui.
+  &__logo {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__corps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__ligne {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__valeur {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
   }
 
   &__nombre {
+    font-size: 0.8rem;
     color: var(--text-secondary);
+  }
+
+  &__fleche {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+    color: var(--text-secondary);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s ease-out;
   }
 
   &:focus-visible {
@@ -76,17 +117,24 @@
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       transform: translateY(-2px);
-      border-color: var(--accent-primary);
-      box-shadow: 0 6px 16px rgba(139, 199, 177, 0.25);
+      border-color: rgba(139, 199, 177, 0.6);
+      box-shadow: 0 1px 2px rgba(0, 51, 77, 0.06), 0 14px 30px -12px rgba(0, 51, 77, 0.28);
 
-      .note-google__nombre {
-        text-decoration: underline;
-        text-underline-offset: 3px;
+      [data-theme="dark"] & {
+        box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.75);
+      }
+
+      .note-google__fleche {
+        transform: translate(2px, -2px);
+        color: var(--accent-primary);
       }
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    transition: none;
+    &,
+    &__fleche {
+      transition: none;
+    }
   }
 }
