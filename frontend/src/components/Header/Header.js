@@ -5,6 +5,9 @@ import Contact from '../contact/Contact';
 import AxelLogo from './AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
 
+// Signature animée de l'en-tête (ordinateur).
+const SIGNATURE = 'Développeur web & mobile';
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 750);
@@ -82,22 +85,14 @@ const Header = () => {
             className="header-logo"
           />
          {/* Signature animée de l'en-tête, pas un titre : le H1 de la page est dans le contenu */}
+         {/* Lettres masquées aux lecteurs d'écran (lues une à une sinon), texte entier lu à leur place */}
          <p className="header-title">
-            <span>D</span>
-            <span>é</span>
-            <span>v</span>
-            <span>e</span>
-            <span>l</span>
-            <span>o</span>
-            <span>p</span>
-            <span>p</span>
-            <span>e</span>
-            <span>u</span>
-            <span>r</span>
-            <span>&nbsp;</span>
-            <span>W</span>
-            <span>E</span>
-            <span>B</span>
+            <span className="header-title__texte">{SIGNATURE}</span>
+            {[...SIGNATURE].map((lettre, i) => (
+              <span key={i} className="header-title__lettre" style={{ '--i': i }} aria-hidden="true">
+                {lettre === ' ' ? ' ' : lettre}
+              </span>
+            ))}
           </p>
         </div>
         <ul className="nav">

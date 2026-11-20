@@ -10,6 +10,7 @@ import { ROUTE_TABLEAU_DE_BORD } from './pages/TableauDeBord/constantes';
 const About = lazy(() => import('./pages/About'));
 const CV = lazy(() => import('./pages/CV'));
 const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
+const TousProjets = lazy(() => import('./pages/TousProjets'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Avis = lazy(() => import('./pages/Avis'));
 const Carte = lazy(() => import('./pages/Carte'));
@@ -28,6 +29,7 @@ const AppRouter = () => (
         <Route path="/About" element={<About />} />
         <Route path="/cv" element={<CV />} />
         <Route path="/Avis" element={<Avis />} />
+        <Route path="/projets" element={<TousProjets />} />
         <Route path="/Projet/:id" element={<ProjectDetails />} />
         <Route path="/carte" element={<Carte />} />
         <Route path="/blog" element={<Blog />} />

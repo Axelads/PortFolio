@@ -11,8 +11,7 @@ const prefersReducedMotion = () =>
 
 const TITRE = [
   { mot: 'Ils' },
-  { mot: 'nous' },
-  { mot: 'ont' },
+  { mot: "m'ont" },
   { mot: 'fait' },
   { mot: 'confiance', accent: true },
 ];

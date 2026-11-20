@@ -1,52 +1,15 @@
 {
-  "categories": [
-    {
-      "id": "languages",
-      "name": "Langages",
-      "short": "Langages"
-    },
-    {
-      "id": "frameworks",
-      "name": "Frameworks",
-      "short": "Frameworks"
-    },
-    {
-      "id": "mobile",
-      "name": "Mobile",
-      "short": "Mobile"
-    },
-    {
-      "id": "styles",
-      "name": "Styles & UI",
-      "short": "Styles & UI"
-    },
-    {
-      "id": "animation",
-      "name": "Animation",
-      "short": "Animation"
-    },
-    {
-      "id": "database",
-      "name": "Base de données",
-      "short": "Data"
-    },
-    {
-      "id": "tools",
-      "name": "Outils & DevOps",
-      "short": "DevOps"
-    },
-    {
-      "id": "ia",
-      "name": "IA & Automatisation",
-      "short": "IA"
-    },
-    {
-      "id": "api",
-      "name": "API & Services",
-      "short": "API"
-    }
-  ],
+  "_note": "Accueil : les six cartes « hero » (cœur de stack) puis les domaines en étiquettes. javascript reste pour les logos du portrait (PrioritySkills), hors cartes : tout est en JavaScript (lede).",
   "skills": [
+    {
+      "id": "nextjs",
+      "name": "Next.js",
+      "icon": "SiNextdotjs",
+      "category": "frameworks",
+      "tier": 3,
+      "hero": true,
+      "why": "Mes sites clients : Honn’Eure, Harmovità, Abadias Artifices, Saveurs du Marché, FantasyMythos."
+    },
     {
       "id": "react",
       "name": "React",
@@ -54,18 +17,8 @@
       "tier": 3,
       "icon": "SiReact",
       "hero": true,
-      "why": "Le cœur de tous mes fronts, de ce portfolio à RolistesUnis.",
+      "why": "Sous Next.js, et seul pour ce portfolio et RolistesUnis.",
       "urlImage": "https://www.image-heberg.fr/files/17358994651671185887.webp"
-    },
-    {
-      "id": "javascript",
-      "name": "JavaScript",
-      "category": "languages",
-      "tier": 3,
-      "icon": "SiJavascript",
-      "hero": true,
-      "why": "La langue commune du front, du back, du mobile et des bots.",
-      "urlImage": "https://www.image-heberg.fr/files/17358994393456948425.webp"
     },
     {
       "id": "nodejs",
@@ -104,285 +57,61 @@
       "why": "Agents Claude planifiés : blog auto-alimenté, veille, notifications, audit Vigie."
     },
     {
-      "id": "html",
-      "name": "HTML5",
-      "category": "languages",
-      "tier": 3,
-      "icon": "SiHtml5"
-    },
-    {
-      "id": "css",
-      "name": "CSS3",
-      "category": "languages",
-      "tier": 3,
-      "icon": "SiCss3"
-    },
-    {
-      "id": "nextjs",
-      "name": "Next.js",
-      "category": "frameworks",
-      "tier": 2,
-      "icon": "SiNextdotjs",
-      "urlImage": "https://i.ibb.co/tshL4Tn/nextjs-logo.png"
-    },
-    {
-      "id": "express",
-      "name": "Express",
-      "category": "frameworks",
-      "tier": 2,
-      "icon": "SiExpress"
-    },
-    {
-      "id": "expo",
-      "name": "Expo · EAS",
-      "category": "mobile",
-      "tier": 3,
-      "icon": "SiExpo"
-    },
-    {
-      "id": "reanimated",
-      "name": "Reanimated",
-      "category": "mobile",
-      "tier": 2,
-      "icon": "motion"
-    },
-    {
-      "id": "skia",
-      "name": "Skia",
-      "category": "mobile",
-      "tier": 2,
-      "icon": "brush"
-    },
-    {
-      "id": "mlkit",
-      "name": "ML Kit",
-      "category": "mobile",
-      "tier": 2,
-      "icon": "scan"
-    },
-    {
-      "id": "android",
-      "name": "Android Studio",
-      "category": "mobile",
-      "tier": 3,
-      "icon": "SiAndroidstudio"
-    },
-    {
-      "id": "sass",
-      "name": "SASS / SCSS",
-      "category": "styles",
-      "tier": 3,
-      "icon": "SiSass"
-    },
-    {
-      "id": "tiptap",
-      "name": "TipTap",
-      "category": "styles",
-      "tier": 2,
-      "icon": "pen"
-    },
-    {
-      "id": "three",
-      "name": "Three.js · R3F",
-      "category": "styles",
-      "tier": 2,
-      "icon": "SiThreedotjs"
-    },
-    {
-      "id": "gsap",
-      "name": "GSAP",
-      "category": "animation",
-      "tier": 3,
-      "icon": "SiGreensock"
-    },
-    {
-      "id": "lottie",
-      "name": "Lottie",
-      "category": "animation",
-      "tier": 2,
-      "icon": "wave"
-    },
-    {
-      "id": "lenis",
-      "name": "Lenis",
-      "category": "animation",
-      "tier": 2,
-      "icon": "motion"
-    },
-    {
-      "id": "mongodb",
-      "name": "MongoDB",
-      "category": "database",
-      "tier": 3,
-      "icon": "SiMongodb"
-    },
-    {
-      "id": "mongoose",
-      "name": "Mongoose",
-      "category": "database",
-      "tier": 2,
-      "icon": "SiMongoose"
-    },
-    {
-      "id": "sqlite",
-      "name": "SQLite",
-      "category": "database",
-      "tier": 2,
-      "icon": "SiSqlite"
-    },
-    {
-      "id": "git",
-      "name": "Git / GitHub",
-      "category": "tools",
-      "tier": 3,
-      "icon": "SiGit"
-    },
-    {
-      "id": "vscode",
-      "name": "VS Code",
-      "category": "tools",
-      "tier": 3,
-      "icon": "SiVisualstudiocode"
-    },
-    {
-      "id": "vercel",
-      "name": "Vercel · Koyeb",
-      "category": "tools",
-      "tier": 2,
-      "icon": "SiVercel"
-    },
-    {
-      "id": "playwright",
-      "name": "Puppeteer · Playwright",
-      "category": "tools",
-      "tier": 2,
-      "icon": "SiPuppeteer",
-      "wide": true
-    },
-    {
-      "id": "seo",
-      "name": "SEO technique",
-      "category": "tools",
-      "tier": 2,
-      "icon": "SiGooglesearchconsole"
-    },
-    {
-      "id": "dns",
-      "name": "DNS & SSL",
-      "category": "tools",
-      "tier": 2,
-      "icon": "SiLetsencrypt"
-    },
-    {
-      "id": "docker",
-      "name": "Docker",
-      "category": "tools",
-      "tier": 1,
-      "icon": "SiDocker"
-    },
-    {
-      "id": "bots",
-      "name": "Bots Telegram · Discord",
-      "category": "ia",
-      "tier": 2,
-      "icon": "SiDiscord",
-      "wide": true
-    },
-    {
-      "id": "scraping",
-      "name": "Scraping",
-      "category": "ia",
-      "tier": 2,
-      "icon": "scan"
-    },
-    {
-      "id": "rest",
-      "name": "REST API",
-      "category": "api",
-      "tier": 2,
-      "icon": "rest"
-    },
-    {
-      "id": "auth",
-      "name": "Auth JWT · OAuth",
-      "category": "api",
-      "tier": 2,
-      "icon": "SiJsonwebtokens",
-      "wide": true
-    },
-    {
-      "id": "payment",
-      "name": "Stripe · PayPal · Stancer",
-      "category": "api",
-      "tier": 2,
-      "icon": "SiStripe",
-      "wide": true
-    },
-    {
-      "id": "mail",
-      "name": "E-mails transactionnels",
-      "category": "api",
-      "tier": 2,
-      "icon": "mail",
-      "wide": true
+      "id": "javascript",
+      "name": "JavaScript",
+      "icon": "SiJavascript"
     }
   ],
-  "tools": [
+  "domaines": [
     {
-      "name": "npm",
-      "icon": "SiNpm"
+      "nom": "Mobile",
+      "technos": [
+        "Expo · EAS",
+        "Reanimated",
+        "Skia",
+        "ML Kit"
+      ]
     },
     {
-      "name": "dotenv",
-      "icon": "SiDotenv"
+      "nom": "Animation & 3D",
+      "technos": [
+        "GSAP",
+        "Three.js · R3F",
+        "Lenis",
+        "Lottie"
+      ]
     },
     {
-      "name": "Nodemon",
-      "icon": "SiNodemon"
+      "nom": "Back & données",
+      "technos": [
+        "Express",
+        "MongoDB",
+        "SQLite",
+        "Docker"
+      ]
     },
     {
-      "name": "Axios",
-      "icon": "SiAxios"
+      "nom": "Paiement & API",
+      "technos": [
+        "Stripe · PayPal · Stancer",
+        "Auth JWT · OAuth",
+        "E-mails transactionnels"
+      ]
     },
     {
-      "name": "React Router",
-      "icon": "SiReactrouter"
+      "nom": "Automatisation & IA",
+      "technos": [
+        "Bots Telegram · Discord",
+        "Scraping",
+        "Puppeteer · Playwright"
+      ]
     },
     {
-      "name": "React Icons",
-      "icon": "SiReact"
-    },
-    {
-      "name": "Slick Carousel",
-      "icon": "dot"
-    },
-    {
-      "name": "Multer · Sharp",
-      "icon": "SiSharp"
-    },
-    {
-      "name": "ESLint · Prettier · Jest",
-      "icon": "SiJest"
-    },
-    {
-      "name": "Swagger",
-      "icon": "SiSwagger"
-    },
-    {
-      "name": "Nodemailer",
-      "icon": "mail"
-    },
-    {
-      "name": "EmailJS",
-      "icon": "mail"
-    },
-    {
-      "name": "SendGrid",
-      "icon": "SiTwilio"
-    },
-    {
-      "name": "TMDB API",
-      "icon": "film"
+      "nom": "Visibilité",
+      "technos": [
+        "SEO technique",
+        "GEO : être cité par les IA"
+      ]
     }
   ]
 }

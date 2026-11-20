@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CategoryFilter, { CATEGORIES } from "./CategoryFilter";
@@ -16,7 +17,21 @@ const sanitizeUrl = (url) => {
   return url;
 };
 
-const Projects = () => {
+// Sites web montrés sur l'accueil (choix d'Axel, 20/11/2026). Les autres sites restent sur la page /projets, qui
+// regroupe tous les projets. Applications et outils : tous affichés sur l'accueil, comme avant.
+const SITES_ACCUEIL = [
+  "site-abadias-artifices",
+  "site-harmovita",
+  "site-honneure",
+  "boutique-FantasyMythos",
+  "site-vitrine-CleanProject",
+  "RolistesUnis.fr",
+  "site-ecommerce-epices",
+];
+
+// `selection` : version de l'accueil (sites choisis + lien vers la page de tous les projets).
+// `pageEntiere` : la page /projets, dont le titre est le H1 de la page.
+const Projects = ({ selection = false, pageEntiere = false }) => {
   const projectsRef = useRef(null);
   const cardsRef = useRef([]);
   const [activeCategory, setActiveCategory] = useState("all");
@@ -126,20 +141,25 @@ const Projects = () => {
     return category ? category.icon : "";
   };
 
+  // Accueil : seuls les sites choisis restent dans « Site Web » ; ailleurs, tous les projets.
+  const visibles = selection
+    ? projects.filter((p) => p.category !== "site-web" || SITES_ACCUEIL.includes(p.slug))
+    : projects;
+
   // Grouper les projets par catégorie
   const getProjectsByCategory = () => {
     const categoryOrder = ["site-web", "application-mobile", "outils-scripts"];
     const grouped = {};
 
     categoryOrder.forEach((cat) => {
-      const categoryProjects = projects.filter((p) => p.category === cat);
+      const categoryProjects = visibles.filter((p) => p.category === cat);
       if (categoryProjects.length > 0) {
         grouped[cat] = categoryProjects;
       }
     });
 
     // Ajouter les projets sans catégorie
-    const uncategorized = projects.filter((p) => !p.category || !categoryOrder.includes(p.category));
+    const uncategorized = visibles.filter((p) => !p.category || !categoryOrder.includes(p.category));
     if (uncategorized.length > 0) {
       grouped["other"] = uncategorized;
     }
@@ -150,9 +170,9 @@ const Projects = () => {
   // Filtrer les projets selon la catégorie active
   const getFilteredProjects = () => {
     if (activeCategory === "all") {
-      return projects;
+      return visibles;
     }
-    return projects.filter((project) => project.category === activeCategory);
+    return visibles.filter((project) => project.category === activeCategory);
   };
 
   const filteredProjects = getFilteredProjects();
@@ -248,11 +268,15 @@ const Projects = () => {
     );
   };
 
+  // Sur la page /projets, le titre de la section est le titre de la page.
+  const Titre = pageEntiere ? "h1" : "h2";
+  const titre = pageEntiere ? "Tous mes projets" : "Mes Projets";
+
   if (loading) {
     return (
       <section className="projects-container" ref={projectsRef}>
         <div className="projects-header">
-          <h2>Mes Projets</h2>
+          <Titre>{titre}</Titre>
           <p className="projects-subtitle">Chargement...</p>
         </div>
       </section>
@@ -264,9 +288,11 @@ const Projects = () => {
   return (
     <section className="projects-container" ref={projectsRef}>
       <div className="projects-header">
-        <h2>Mes Projets</h2>
+        <Titre>{titre}</Titre>
         <p className="projects-subtitle">
-          Découvrez mes réalisations classées par catégorie
+          {pageEntiere
+            ? "Sites, applications, outils et scripts : tous mes projets, classés par catégorie"
+            : "Découvrez mes réalisations classées par catégorie"}
         </p>
       </div>
 
@@ -316,6 +342,15 @@ const Projects = () => {
         <div className="no-projects">
           <p>Aucun projet dans cette catégorie pour le moment.</p>
         </div>
+      )}
+
+      {selection && projects.length > visibles.length && (
+        <p className="projects-tous">
+          <Link to="/projets">
+            Voir tous les projets ({projects.length})
+            <span aria-hidden="true">→</span>
+          </Link>
+        </p>
       )}
 
       <div className="divider"></div>

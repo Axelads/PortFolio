@@ -52,7 +52,7 @@ const Portrait = ({ openContactModal }) => {
           <div className="info-portrait__row">
             <div>
               <h1>Axel Grégoire</h1>
-              <h2>Développeur WEB</h2>
+              <h2>Développeur web & mobile</h2>
               <p className="portrait-age"><Age birthDate="1990-04-24" /></p>
               <p className="portrait-tagline">Freelance — Rougiers (Var) · à distance</p>
               <NoteGoogle />

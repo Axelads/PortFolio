@@ -4,10 +4,10 @@ import Portrait from '../components/portrait/Portrait';
 import Contact from '../components/contact/Contact';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
-import LinkedInPosts from '../components/LinkedInPosts/LinkedInPosts';
 import VideoCv from '../components/video/VideoCv';
 import DerniersArticles from '../components/Blog/DerniersArticles';
 import ClientsConfiance from '../components/Clients/ClientsConfiance';
+import SavoirFaire from '../components/SavoirFaire/SavoirFaire';
 
 // Données structurées de la vidéo de présentation (résultats vidéo Google)
 const VIDEO_LD = {
@@ -38,6 +38,7 @@ const Home = () => {
       />
       <Portrait openContactModal={openContactModal} />
       <ClientsConfiance />
+      <SavoirFaire />
       <div className="informations">
         <div className="CardVideo">
           <VideoCv />
@@ -46,10 +47,7 @@ const Home = () => {
           <Skills />
         </div>
         <div id="projects">
-          <Projects />
-        </div>
-        <div id="linkedin">
-          <LinkedInPosts />
+          <Projects selection />
         </div>
         <div id="articles">
           <DerniersArticles />

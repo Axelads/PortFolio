@@ -1,4 +1,4 @@
-// Clients du bandeau « Ils nous ont fait confiance » (accueil). Bandeau d'affichage seul : aucune plaque n'est un lien.
+// Clients du bandeau « Ils m'ont fait confiance » (accueil). Bandeau d'affichage seul : aucune plaque n'est un lien.
 // Logos tirés des dossiers de chaque projet (Intermarché : Wikimedia Commons), préparés en WebP 120 px ou SVG.
 // `logotype` : le logo contient déjà le nom (Intermarché) ; il prend alors la place du nom écrit.
 import harmovita from '../../images/clients/harmovita.webp';

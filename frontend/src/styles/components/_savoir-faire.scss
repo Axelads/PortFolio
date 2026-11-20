@@ -1,0 +1,653 @@
+// Section « Un site pensé pour chaque client » (accueil, sous le bandeau des clients).
+// Chaque bloc : une démo vivante reprise d'un projet livré, et le texte (l'idée pour ce client, comment, technos,
+// lien vers le projet). Les scènes restent sombres dans les deux thèmes : les démos mélangent leurs couleurs par
+// addition, qui ne se voit que sur un fond de nuit. Palette du site gardée telle quelle.
+.savoir-faire {
+  --sf-encre: var(--text-heading);
+  --sf-texte: var(--text-primary);
+  --sf-texte-2: var(--text-secondary);
+  --sf-trait: rgba(0, 51, 77, 0.16);
+  --sf-champ: var(--bg-card);
+  --sf-action: #8BC7B1;
+  --sf-action-survol: #9fd3c0;
+  --sf-action-encre: #00334d;
+  --sf-focus: #4a90e2;
+  --sf-nuit: #1a1a2e;
+  --sf-nuit-2: #16213e;
+  --sf-ombre-scene: 0 34px 60px -34px rgba(0, 25, 45, 0.55);
+  --sf-courbe: cubic-bezier(0.16, 1, 0.3, 1);
+  --sf-micro: 160ms;
+
+  // En sombre, la scène est de la couleur du fond : un liseré menthe très léger la détache.
+  [data-theme="dark"] & {
+    --sf-trait: rgba(139, 199, 177, 0.22);
+    --sf-ombre-scene: 0 0 0 1px rgba(139, 199, 177, 0.16), 0 34px 60px -34px rgba(0, 0, 0, 0.8);
+  }
+
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(80px, 11vw, 152px) clamp(16px, 4vw, 40px) clamp(64px, 8vw, 112px);
+  color: var(--sf-texte);
+  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+.savoir-faire__tete {
+  max-width: 780px;
+  margin-bottom: clamp(56px, 8vw, 104px);
+
+  h2 {
+    margin: 0 0 20px;
+    color: var(--sf-encre);
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+    font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: 60ch;
+    margin: 0;
+    color: var(--sf-texte-2);
+    font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+    line-height: 1.6;
+  }
+}
+
+.savoir-faire__blocs {
+  display: grid;
+  gap: clamp(80px, 11vw, 144px);
+}
+
+// ── Un bloc : démo + texte, côte à côte, en alternance ──
+.savoir-bloc {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(28px, 4.5vw, 72px);
+  align-items: center;
+
+  &:nth-child(even) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+
+    .savoir-bloc__demo {
+      order: 2;
+    }
+  }
+
+  // Le point & click prend toute la largeur : un panorama se lit en grand.
+  &--large {
+    grid-template-columns: minmax(0, 1fr);
+
+    .savoir-bloc__texte {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: clamp(28px, 4.5vw, 72px);
+      align-items: start;
+
+      h3 {
+        grid-row: span 4;
+      }
+    }
+  }
+
+  @media (max-width: 860px) {
+    &,
+    &:nth-child(even),
+    &--large {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &:nth-child(even) .savoir-bloc__demo {
+      order: 0;
+    }
+
+    &--large .savoir-bloc__texte {
+      display: block;
+    }
+  }
+}
+
+.savoir-bloc__texte {
+  h3 {
+    margin: 0 0 16px;
+    color: var(--sf-encre);
+    font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+    font-size: clamp(1.45rem, 2.3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: 62ch;
+    margin: 0 0 14px;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  .savoir-bloc__comment {
+    color: var(--sf-texte-2);
+    font-size: 0.98rem;
+  }
+}
+
+.savoir-bloc__technos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 20px;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 5px 12px;
+    border: 1px solid var(--sf-trait);
+    border-radius: 999px;
+    color: var(--sf-texte-2);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+}
+
+.savoir-bloc__projet {
+  margin: 0;
+
+  a {
+    color: var(--sf-encre);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--sf-action);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+
+    span {
+      display: inline-block;
+      margin-left: 0.4em;
+      transition: transform var(--sf-micro) var(--sf-courbe);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sf-focus);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+  }
+}
+
+// ── Commandes sous une démo (le feu : sa phrase, rejouer) ──
+.savoir-bloc__commandes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.savoir-bloc__champ {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+
+  span {
+    color: var(--sf-texte-2);
+    font-size: 0.8rem;
+  }
+
+  input {
+    min-width: 0;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--sf-trait);
+    border-radius: 12px;
+    background: var(--sf-champ);
+    color: var(--sf-texte);
+    font: inherit;
+    font-size: 0.95rem;
+
+    &::placeholder {
+      color: var(--sf-texte-2);
+      opacity: 0.7;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sf-focus);
+      outline-offset: 1px;
+    }
+  }
+}
+
+.savoir-bloc__bouton {
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--sf-action);
+  color: var(--sf-action-encre);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--sf-micro) var(--sf-courbe), transform var(--sf-micro) var(--sf-courbe);
+
+  &--discret {
+    border-color: var(--sf-trait);
+    background: transparent;
+    color: var(--sf-encre);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sf-focus);
+    outline-offset: 2px;
+  }
+}
+
+// ── Scène d'une démo WebGL ──
+.scene-demo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  background: var(--sf-nuit);
+  box-shadow: var(--sf-ombre-scene);
+  isolation: isolate;
+  overflow: hidden;
+  overflow: clip;
+
+  &__affiche {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 700ms var(--sf-courbe);
+  }
+
+  &[data-etat="pret"] &__affiche {
+    opacity: 0;
+  }
+
+  &__hote {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  &__consigne {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    z-index: 2;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.82rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 700ms var(--sf-courbe) 400ms;
+  }
+
+  &[data-etat="pret"] &__consigne {
+    opacity: 1;
+  }
+
+  // Le feu : un ciel de nuit, plus clair vers l'horizon.
+  &--feu {
+    background: linear-gradient(180deg, #0f0f1f 0%, var(--sf-nuit) 55%, var(--sf-nuit-2) 100%);
+
+    @media (hover: hover) and (pointer: fine) {
+      .scene-demo__hote {
+        cursor: crosshair;
+      }
+    }
+  }
+
+  // Le dé : double halo or et cyan derrière lui, comme sur la boutique.
+  &--de {
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 6% 2%;
+      z-index: 0;
+      background:
+        radial-gradient(45% 45% at 62% 34%, rgba(199, 162, 75, 0.3), rgba(199, 162, 75, 0) 72%),
+        radial-gradient(40% 40% at 36% 70%, rgba(23, 153, 200, 0.22), rgba(23, 153, 200, 0) 70%);
+      filter: blur(6px);
+    }
+
+    .scene-demo__hote {
+      touch-action: pan-y;
+
+      @media (hover: hover) and (pointer: fine) {
+        cursor: grab;
+
+        &[data-glisse] {
+          cursor: grabbing;
+        }
+      }
+    }
+  }
+
+  // L'arbre : nuit bleutée, halo qui suit l'apparition des particules, et la consigne de respiration.
+  &--arbre {
+    background: radial-gradient(ellipse at 50% 45%, var(--sf-nuit-2) 0%, var(--sf-nuit) 70%);
+  }
+
+  &__lueur {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, rgba(47, 93, 140, 0.42), transparent 65%);
+    opacity: 0;
+  }
+
+  &__souffle {
+    position: absolute;
+    right: 0;
+    bottom: 16px;
+    left: 0;
+    z-index: 2;
+    margin: 0;
+    color: rgba(255, 246, 228, 0.88);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 900ms var(--sf-courbe);
+
+    &[data-phase=""] {
+      opacity: 0;
+    }
+  }
+}
+
+// ── Point & click (RolistesUnis) ──
+.point-clic {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  background: var(--sf-nuit);
+  box-shadow: var(--sf-ombre-scene);
+  overflow: hidden;
+  overflow: clip;
+
+  &__scene {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 700ms var(--sf-courbe), visibility 0s linear 700ms;
+
+    &[data-active="true"] {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 700ms var(--sf-courbe);
+    }
+  }
+
+  &__monde {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+
+    img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__zones {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    polygon {
+      fill: transparent;
+      stroke: transparent;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+      cursor: pointer;
+      transition: fill 220ms ease, stroke 220ms ease;
+
+      &[data-survol="true"] {
+        fill: rgba(255, 236, 190, 0.16);
+        stroke: rgba(255, 230, 170, 0.9);
+      }
+    }
+  }
+
+  &__repere {
+    position: absolute;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+
+    &:focus-visible {
+      outline: 2px solid var(--sf-action);
+      outline-offset: 2px;
+    }
+  }
+
+  &__point {
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: #f4d58d;
+    box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.55);
+
+    // Une onde qui s'élargit : le repère se signale sans clignoter.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border: 2px solid rgba(244, 213, 141, 0.7);
+      border-radius: 50%;
+      animation: point-clic-onde 2.6s var(--sf-courbe) infinite;
+    }
+  }
+
+  &__etiquette {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    display: grid;
+    gap: 2px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: rgba(15, 15, 31, 0.9);
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    text-align: left;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, 4px);
+    transition: opacity var(--sf-micro) var(--sf-courbe), transform var(--sf-micro) var(--sf-courbe);
+
+    b {
+      font-weight: 600;
+    }
+
+    small {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.74rem;
+    }
+  }
+
+  &__repere[data-survol="true"] &__etiquette {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  &__lieu {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    z-index: 2;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  &__bulle {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+    z-index: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(15, 15, 31, 0.92);
+    color: #fff;
+    font-size: 0.92rem;
+    line-height: 1.45;
+
+    p {
+      flex: 1 1 280px;
+      margin: 0;
+    }
+
+    a {
+      color: var(--sf-action);
+      font-weight: 600;
+      text-underline-offset: 4px;
+    }
+
+    button {
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--sf-action);
+      outline-offset: 2px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__jet {
+    color: #f4d58d;
+    font-size: 1.3em;
+  }
+}
+
+@keyframes point-clic-onde {
+  from {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+// ── Survol : même grammaire partout (pointeur fin seulement) ──
+@media (hover: hover) and (pointer: fine) {
+  .savoir-bloc__bouton:not(:disabled):hover {
+    background-color: var(--sf-action-survol);
+    transform: translateY(-1px);
+  }
+
+  .savoir-bloc__bouton--discret:not(:disabled):hover {
+    background-color: rgba(139, 199, 177, 0.14);
+  }
+
+  .savoir-bloc__projet a:hover span {
+    transform: translateX(4px);
+  }
+}
+
+// ── Entrée au défilement : amélioration progressive, sans repli (décoratif) ──
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .savoir-faire__tete,
+    .savoir-bloc__demo,
+    .savoir-bloc__texte {
+      animation: savoir-entree linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 75%;
+    }
+
+    .savoir-bloc__texte {
+      animation-range: entry 10% entry 90%;
+    }
+  }
+}
+
+@keyframes savoir-entree {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-demo__affiche,
+  .scene-demo__consigne,
+  .scene-demo__souffle,
+  .point-clic__scene,
+  .point-clic__scene[data-active="true"],
+  .point-clic__etiquette,
+  .savoir-bloc__bouton,
+  .savoir-bloc__projet a span {
+    transition: none;
+  }
+
+  .point-clic__point::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  // Le feu est figé sur une image : le clic n'y tire rien, la consigne n'a plus lieu d'être.
+  .scene-demo--feu .scene-demo__consigne {
+    display: none;
+  }
+}

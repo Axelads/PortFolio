@@ -9,7 +9,10 @@
     text-align: center;
     margin-bottom: 40px;
 
+    // h1 sur la page /projets, h2 sur l'accueil : même rendu.
+    h1,
     h2 {
+      margin-top: 0;
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 800;
       background: var(--accent-gradient);
@@ -398,6 +401,53 @@
     }
   }
 
+  // Lien de l'accueil vers la page de tous les projets
+  .projects-tous {
+    margin: 48px 0 0;
+    text-align: center;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 26px;
+      border-radius: 999px;
+      background: #00334d;
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      span {
+        transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #4a90e2;
+        outline-offset: 3px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background: #00476b;
+          transform: translateY(-1px);
+
+          span {
+            transform: translateX(4px);
+          }
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        &,
+        span {
+          transition: none;
+        }
+      }
+    }
+  }
+
   // Divider
   .divider {
     width: min(500px, 80%);
@@ -410,5 +460,13 @@
       display: none;
     }
   }
+}
+
+// Page /projets : le fond vert de l'accueil (.informations), sous l'en-tête fixe. Double classe : la règle
+// .informations de _home.scss, chargée après, ne doit pas reprendre la main sur le haut de page.
+.page-projets.informations {
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 100px;
 }
 

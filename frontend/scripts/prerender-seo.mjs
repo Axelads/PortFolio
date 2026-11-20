@@ -53,6 +53,12 @@ const PAGES = {
     h1: 'Ce que disent mes collègues et mentors',
     chapo: "Avis et recommandations sur le travail d'Axel Grégoire, développeur web full stack.",
   },
+  '/projets': {
+    title: "Tous les projets d'Axel Grégoire : sites, applications et outils",
+    description: "Les sites web, applications mobiles, outils et scripts réalisés par Axel Grégoire, développeur web et mobile : Next.js, React, React Native, Node.js et PocketBase.",
+    h1: 'Tous mes projets',
+    chapo: 'Sites, applications, outils et scripts : tous mes projets, classés par catégorie.',
+  },
   '/carte': {
     title: 'Carte de visite - Axel Grégoire, développeur web',
     description: "Carte de visite numérique d'Axel Grégoire, développeur web : e-mail, portfolio, LinkedIn et GitHub.",
