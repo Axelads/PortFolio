@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import emailjs from "emailjs-com";
-import { FaTimes, FaUser, FaEnvelope, FaPaperPlane, FaCheck, FaLinkedin, FaGithub } from "react-icons/fa";
+import { URL_API_TABLEAU_DE_BORD } from "../../pages/TableauDeBord/constantes";
+import { FaTimes, FaUser, FaEnvelope, FaPaperPlane, FaCheck, FaLinkedin, FaGithub, FaBriefcase } from "react-icons/fa";
 
-const Contact = ({ isOpen, onClose }) => {
+// Types proposés dans la version « demande de devis » (porte « J'ai un projet » du haut de l'accueil).
+const TYPES_PROJET = ["Site vitrine", "Boutique en ligne", "Application mobile", "Outil sur mesure", "Autre"];
+
+// Formulaire de contact en fenêtre. Le message part par l'API d'Axel (POST /contact, SMTP o2switch) et arrive dans sa
+// boîte contact@axelgregoire.fr ; EmailJS n'est plus utilisé (20/11/2026).
+// `devis` : version demande de devis, avec le type de projet, ouverte par « J'ai un projet ».
+const Contact = ({ isOpen, onClose, devis = false }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [erreur, setErreur] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    type: "",
     message: "",
+    site: "", // champ piège : invisible pour un humain, rempli par les robots (l'API ignore alors le message)
   });
   const [charCount, setCharCount] = useState(0);
   const minChars = 50;
@@ -34,7 +43,7 @@ const Contact = ({ isOpen, onClose }) => {
     }
   };
 
-  const isValid = charCount >= minChars && formData.name && formData.email;
+  const isValid = charCount >= minChars && formData.name && formData.email && (!devis || formData.type);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,27 +53,36 @@ const Contact = ({ isOpen, onClose }) => {
     }
 
     setIsLoading(true);
+    setErreur("");
 
-    emailjs
-      .send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-        },
-        process.env.REACT_APP_EMAILJS_USER_ID
-      )
-      .then(() => {
+    const MESSAGE_ECHEC = "L'envoi n'a pas abouti. Réessayez, ou écrivez-moi directement à Professionnel.agregoire@gmail.com.";
+    fetch(`${URL_API_TABLEAU_DE_BORD}/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "omit",
+      body: JSON.stringify({
+        devis,
+        type: devis ? formData.type : undefined,
+        nom: formData.name,
+        email: formData.email,
+        message: formData.message,
+        site: formData.site,
+      }),
+    })
+      .then(async (reponse) => {
+        if (!reponse.ok) {
+          const corps = await reponse.json().catch(() => null);
+          throw new Error(corps?.erreur || MESSAGE_ECHEC);
+        }
         setIsLoading(false);
         setIsConfirmed(true);
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", type: "", message: "", site: "" });
         setCharCount(0);
       })
       .catch((error) => {
         setIsLoading(false);
-        console.error("Erreur lors de l'envoi:", error);
+        // Erreur expliquée par l'API (formulaire incomplet, trop d'envois) ou réseau : un message lisible, jamais muet.
+        setErreur(error.message && !/fetch|network/i.test(error.message) ? error.message : MESSAGE_ECHEC);
       });
   };
 
@@ -94,9 +112,11 @@ const Contact = ({ isOpen, onClose }) => {
             <div className="contact-success__icon">
               <FaCheck />
             </div>
-            <h2 className="contact-success__title">Message envoye</h2>
+            <h2 className="contact-success__title">Message envoyé</h2>
             <p className="contact-success__text">
-              Merci pour votre message. Je vous recontacterai dans les plus brefs delais.
+              {devis
+                ? "Merci, j'ai bien reçu votre projet. Je reviens vers vous avec mes questions, puis un devis."
+                : "Merci pour votre message. Je vous réponds au plus vite."}
             </p>
             <button onClick={handleClose} className="contact-success__btn">
               Fermer
@@ -105,9 +125,11 @@ const Contact = ({ isOpen, onClose }) => {
         ) : (
           <>
             <div className="contact-header">
-              <h2 className="contact-header__title">Contactez-moi</h2>
+              <h2 className="contact-header__title">{devis ? "Parlons de votre projet" : "Contactez-moi"}</h2>
               <p className="contact-header__subtitle">
-                Une question, un projet ? N'hesitez pas a me contacter.
+                {devis
+                  ? "Quelques lignes suffisent : je reviens vers vous avec mes questions, puis un devis."
+                  : "Une question, un projet ? N'hésitez pas à m'écrire."}
               </p>
             </div>
 
@@ -163,20 +185,54 @@ const Contact = ({ isOpen, onClose }) => {
                 />
               </div>
 
+              {devis && (
+                <div className="contact-form__group">
+                  <div className="contact-form__icon">
+                    <FaBriefcase />
+                  </div>
+                  <select
+                    id="type"
+                    name="type"
+                    value={formData.type}
+                    onChange={handleChange}
+                    required
+                    aria-label="Type de projet"
+                    className="contact-form__input contact-form__select"
+                  >
+                    <option value="" disabled>Type de projet</option>
+                    {TYPES_PROJET.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Champ piège : hors de l'écran, sauté au clavier, ignoré des lecteurs d'écran. */}
+              <div className="contact-form__piege" aria-hidden="true">
+                <label htmlFor="site">Ne pas remplir</label>
+                <input type="text" id="site" name="site" value={formData.site} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+              </div>
+
               <div className="contact-form__group contact-form__group--textarea">
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Votre message..."
+                  placeholder={devis ? "Votre activité, ce que le site ou l'app doit faire, une échéance si vous en avez une…" : "Votre message…"}
                   required
                   className="contact-form__textarea"
                 ></textarea>
                 <div className={`contact-form__counter ${charCount >= minChars ? "contact-form__counter--valid" : ""}`}>
-                  {charCount}/{minChars} caracteres minimum
+                  {charCount}/{minChars} caractères minimum
                 </div>
               </div>
+
+              {erreur && (
+                <p className="contact-form__erreur" role="alert">
+                  {erreur}
+                </p>
+              )}
 
               <button
                 type="submit"
@@ -188,7 +244,7 @@ const Contact = ({ isOpen, onClose }) => {
                 ) : (
                   <>
                     <FaPaperPlane />
-                    <span>Envoyer</span>
+                    <span>{devis ? "Envoyer ma demande" : "Envoyer"}</span>
                   </>
                 )}
               </button>

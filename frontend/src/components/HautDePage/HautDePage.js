@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { LoadingContext } from '../../contexts/LoadingContext';
 import NoteGoogle from '../portrait/NoteGoogle';
+import Contact from '../contact/Contact';
 import portrait from '../../images/portrait.jpg';
 // WebP animé (7 images, ~0,3 Mo), chargé sur ordinateur seulement.
 import keepSmiling from '../../images/keep_smiling.webp';
@@ -25,6 +26,8 @@ const Fleche = () => (
 
 const HautDePage = () => {
   const racineRef = useRef(null);
+  // « J'ai un projet » ouvre le formulaire de demande de devis (envoyé par e-mail à Axel).
+  const [devisOuvert, setDevisOuvert] = useState(false);
   const { isFirstLoad, splashFading } = useContext(LoadingContext);
   // L'entrée se joue quand le haut de page devient visible : dès le montage, ou à la fin de l'intro vidéo.
   const visible = !isFirstLoad || splashFading;
@@ -64,10 +67,10 @@ const HautDePage = () => {
         </p>
 
         <div className="haut-de-page__portes">
-          <a className="porte porte--projet" href="#savoir-faire">
+          <button type="button" className="porte porte--projet" onClick={() => setDevisOuvert(true)}>
             <span className="porte__titre">J'ai un projet <Fleche /></span>
-            <span className="porte__texte">Des sites pensés pour chaque client, une méthode, une demande de devis.</span>
-          </a>
+            <span className="porte__texte">Décrivez-le en quelques lignes : je reviens vers vous avec mes questions, puis un devis.</span>
+          </button>
           <Link className="porte porte--recrute" to="/cv">
             <span className="porte__titre">Je recrute <Fleche /></span>
             <span className="porte__texte">Mon CV, ma stack, ma vidéo de 86&nbsp;secondes, ma disponibilité.</span>
@@ -111,6 +114,7 @@ const HautDePage = () => {
           decoding="async"
         />
       </div>
+      <Contact isOpen={devisOuvert} onClose={() => setDevisOuvert(false)} devis />
     </section>
   );
 };

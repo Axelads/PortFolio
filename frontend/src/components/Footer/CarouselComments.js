@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dataComments from '../../assets/Data/DataComments.json'; // Chemin vers le fichier JSON
 import { assezDAvis, ilYa, useAvisGoogle } from '../AvisGoogle/avisGoogle';
-import { Etoiles, LogoGoogle } from '../AvisGoogle/Visuels';
+import { AvatarGoogle, Etoiles, LogoGoogle } from '../AvisGoogle/Visuels';
 
 // Carrousel au-dessus du pied de page : les avis Google des clients d'abord (à partir de 5 avis sur la fiche, ceux qui
 // ont un texte), puis les recommandations de collègues et mentors (DataComments.json).
@@ -47,35 +47,9 @@ const AvatarAvis = ({ comment }) => {
   );
 };
 
-// Photo du compte Google de l'auteur (sans référent : Google refuse parfois l'image sinon), initiales en repli.
-// Google la sert en 128 px (« =s128 ») : demandée en 192 px pour rester nette dans la bulle de 80 px sur écran dense.
-const photoNette = (url) => url.replace(/=s\d+(?=-|$)/, '=s192');
-
-const AvatarGoogle = ({ avis }) => {
-  const [enEchec, setEnEchec] = useState(false);
-  if (!avis.photo || enEchec) {
-    return (
-      <div className="carousel-image carousel-image--initiales" role="img" aria-label={avis.auteur}>
-        {initiales(avis.auteur)}
-      </div>
-    );
-  }
-  return (
-    <img
-      src={photoNette(avis.photo)}
-      alt={avis.auteur}
-      loading="lazy"
-      decoding="async"
-      referrerPolicy="no-referrer"
-      className="carousel-image"
-      onError={() => setEnEchec(true)}
-    />
-  );
-};
-
 const CarteGoogle = ({ avis, lienFiche }) => (
   <>
-    <AvatarGoogle avis={avis} />
+    <AvatarGoogle avis={avis} className="carousel-image" />
     <a className="item-google__source" href={lienFiche} target="_blank" rel="noopener noreferrer" aria-label="Voir tous les avis sur Google (nouvel onglet)">
       <LogoGoogle />
     </a>

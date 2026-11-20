@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 // Logo « G » de Google (quatre couleurs officielles) et rangée d'étoiles, partagés par le portrait et le carrousel.
 // Décoratifs : l'information (note, nombre, source) est toujours donnée en texte à côté ou dans l'aria-label du lien.
@@ -36,3 +36,39 @@ export const Etoiles = forwardRef(({ note, className = '' }, refPlein) => {
   );
 });
 Etoiles.displayName = 'Etoiles';
+
+// Initiales (deux lettres) quand l'auteur n'a pas de photo ou qu'elle ne charge pas.
+export const initiales = (nom) =>
+  String(nom)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((mot) => mot[0].toUpperCase())
+    .join('');
+
+// Photo du compte Google de l'auteur (sans référent : Google refuse parfois l'image sinon), initiales en repli.
+// Google la sert en 128 px (« =s128 ») : demandée en 192 px pour rester nette sur écran dense.
+const photoNette = (url) => url.replace(/=s\d+(?=-|$)/, '=s192');
+
+/** Photo de l'auteur d'un avis Google (carrousel du pied de page, page /Avis). */
+export const AvatarGoogle = ({ avis, className }) => {
+  const [enEchec, setEnEchec] = useState(false);
+  if (!avis.photo || enEchec) {
+    return (
+      <div className={`${className} ${className}--initiales`} role="img" aria-label={avis.auteur}>
+        {initiales(avis.auteur)}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={photoNette(avis.photo)}
+      alt={avis.auteur}
+      loading="lazy"
+      decoding="async"
+      referrerPolicy="no-referrer"
+      className={className}
+      onError={() => setEnEchec(true)}
+    />
+  );
+};

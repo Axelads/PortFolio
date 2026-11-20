@@ -258,6 +258,45 @@
     }
   }
 
+  // Liste « Type de projet » (version demande de devis) : même champ, flèche maison à droite.
+  &__select {
+    appearance: none;
+    padding-right: 44px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238BC7B1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 18px;
+    cursor: pointer;
+
+    &:invalid {
+      color: var(--text-muted);
+    }
+  }
+
+  // Champ piège pour les robots : hors de l'écran (pas display:none, que certains robots repèrent).
+  &__piege {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  // Message si l'envoi échoue (le visiteur ne voyait rien avant).
+  &__erreur {
+    margin: 0 0 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(220, 53, 69, 0.1);
+    color: #b02a37;
+    font-size: 0.92rem;
+    line-height: 1.45;
+
+    [data-theme="dark"] & {
+      color: #ff8a95;
+    }
+  }
+
   &__textarea {
     width: 100%;
     box-sizing: border-box;

@@ -48,10 +48,10 @@ const PAGES = {
     chapo: 'Développeur full stack JavaScript : expériences, compétences et projets, version PDF à télécharger.',
   },
   '/Avis': {
-    title: 'Avis et recommandations - Axel Grégoire',
-    description: "Découvrez les avis et recommandations de collègues et mentors sur le travail d'Axel Grégoire, développeur web full stack.",
-    h1: 'Ce que disent mes collègues et mentors',
-    chapo: "Avis et recommandations sur le travail d'Axel Grégoire, développeur web full stack.",
+    title: 'Avis clients et recommandations - Axel Grégoire',
+    description: "Les avis Google des clients d'Axel Grégoire, développeur web et mobile, et les recommandations de ses collègues et mentors.",
+    h1: 'Avis clients et recommandations',
+    chapo: "Les avis Google de mes clients, puis les recommandations de mes collègues et mentors.",
   },
   '/projets': {
     title: "Tous les projets d'Axel Grégoire : sites, applications et outils",

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SceneDemo from './SceneDemo';
 import PointClic from './PointClic';
+import Contact from '../contact/Contact';
 
 // « Un site pensé pour chaque client » : chaque bloc part du métier d'un client et montre ce que son site fait
 // qu'aucun modèle ne ferait, avec le vrai code repris du projet livré.
@@ -52,7 +53,17 @@ const Projet = ({ slug, nom }) => (
   </p>
 );
 
-const BlocFeu = () => {
+// Appel au devis répété après chaque exemple (demande d'Axel : le bouton doit revenir souvent).
+const AppelDevis = ({ onDevis }) => (
+  <div className="savoir-bloc__devis">
+    <span>Un projet dans cet esprit&nbsp;?</span>
+    <button type="button" className="savoir-bloc__bouton" onClick={onDevis}>
+      Demander un devis
+    </button>
+  </div>
+);
+
+const BlocFeu = ({ onDevis }) => {
   const [feu, setFeu] = useState(null);
   const [saisie, setSaisie] = useState('');
 
@@ -106,12 +117,13 @@ const BlocFeu = () => {
         </p>
         <Technos liste={['three.js', 'Shaders GLSL', 'Canvas 2D']} />
         <Projet slug="site-abadias-artifices" nom="Abadias Artifices" />
+        <AppelDevis onDevis={onDevis} />
       </div>
     </article>
   );
 };
 
-const BlocArbre = () => {
+const BlocArbre = ({ onDevis }) => {
   const lueurRef = useRef(null);
   const [phase, setPhase] = useState(null);
 
@@ -151,12 +163,13 @@ const BlocArbre = () => {
         </p>
         <Technos liste={['three.js', 'Shaders GLSL', 'Bruit procédural']} />
         <Projet slug="site-harmovita" nom="Harmovità" />
+        <AppelDevis onDevis={onDevis} />
       </div>
     </article>
   );
 };
 
-const BlocRolistes = () => (
+const BlocRolistes = ({ onDevis }) => (
   <article className="savoir-bloc savoir-bloc--large" aria-labelledby="savoir-rolistes">
     <div className="savoir-bloc__demo">
       <PointClic />
@@ -173,11 +186,12 @@ const BlocRolistes = () => (
       </p>
       <Technos liste={['React', 'SVG', 'Pointer Events']} />
       <Projet slug="RolistesUnis.fr" nom="RolistesUnis" />
+        <AppelDevis onDevis={onDevis} />
     </div>
   </article>
 );
 
-const BlocDe = () => (
+const BlocDe = ({ onDevis }) => (
   <article className="savoir-bloc" aria-labelledby="savoir-de">
     <div className="savoir-bloc__demo">
       <SceneDemo
@@ -202,26 +216,44 @@ const BlocDe = () => (
       </p>
       <Technos liste={['three.js', 'Matériaux physiques', "Éclairage d'environnement"]} />
       <Projet slug="boutique-FantasyMythos" nom="FantasyMythos" />
+        <AppelDevis onDevis={onDevis} />
     </div>
   </article>
 );
 
-const SavoirFaire = () => (
-  <section className="savoir-faire" id="savoir-faire" aria-labelledby="savoir-faire-titre">
-    <header className="savoir-faire__tete">
-      <h2 id="savoir-faire-titre">Un site pensé pour chaque client</h2>
-      <p>
-        Je ne pars pas d'un modèle. Je pars du métier du client et je cherche ce que son site peut faire qu'aucun
-        autre ne fait. Quatre exemples, avec leur vrai code&nbsp;: essayez-les.
-      </p>
-    </header>
-    <div className="savoir-faire__blocs">
-      <BlocFeu />
-      <BlocArbre />
-      <BlocRolistes />
-      <BlocDe />
-    </div>
-  </section>
-);
+const SavoirFaire = () => {
+  // Un seul formulaire de demande de devis pour toute la section (EmailJS, envoyé à Axel).
+  const [devisOuvert, setDevisOuvert] = useState(false);
+  const ouvrirDevis = () => setDevisOuvert(true);
+
+  return (
+    <section className="savoir-faire" id="savoir-faire" aria-labelledby="savoir-faire-titre">
+      <header className="savoir-faire__tete">
+        <h2 id="savoir-faire-titre">Un site pensé pour chaque client</h2>
+        <p>
+          Je ne pars pas d'un modèle. Je pars du métier du client et je cherche ce que son site peut faire qu'aucun
+          autre ne fait. Quatre exemples, avec leur vrai code&nbsp;: essayez-les.
+        </p>
+      </header>
+      <div className="savoir-faire__blocs">
+        <BlocFeu onDevis={ouvrirDevis} />
+        <BlocArbre onDevis={ouvrirDevis} />
+        <BlocRolistes onDevis={ouvrirDevis} />
+        <BlocDe onDevis={ouvrirDevis} />
+      </div>
+      <div className="savoir-faire__fin">
+        <div>
+          <h3>Votre métier mérite son propre site.</h3>
+          <p>Décrivez votre projet en quelques lignes&nbsp;: je reviens vers vous avec mes questions, puis un devis.</p>
+        </div>
+        <button type="button" className="savoir-faire__fin-bouton" onClick={ouvrirDevis}>
+          Demander un devis
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <Contact isOpen={devisOuvert} onClose={() => setDevisOuvert(false)} devis />
+    </section>
+  );
+};
 
 export default SavoirFaire;

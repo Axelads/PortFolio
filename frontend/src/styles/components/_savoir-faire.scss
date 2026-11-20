@@ -1,3 +1,5 @@
+@use '../utils/mixins' as *;
+
 // Section « Un site pensé pour chaque client » (accueil, sous le bandeau des clients).
 // Chaque bloc : une démo vivante reprise d'un projet livré, et le texte (l'idée pour ce client, comment, technos,
 // lien vers le projet). Les scènes restent sombres dans les deux thèmes : les démos mélangent leurs couleurs par
@@ -179,6 +181,99 @@
       outline: 2px solid var(--sf-focus);
       outline-offset: 3px;
       border-radius: 4px;
+    }
+  }
+}
+
+// ── Appel au devis après chaque exemple ──
+.savoir-bloc__devis {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--sf-trait);
+
+  span {
+    color: var(--sf-encre);
+    font-family: var(--police-titre);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+}
+
+// ── Fin de section : grande carte menthe tramée ──
+.savoir-faire__fin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: clamp(80px, 11vw, 144px);
+  padding: clamp(28px, 4vw, 48px);
+  border-radius: 28px;
+  background-color: #8BC7B1;
+  color: #00334d;
+  @include trame(menthe);
+
+  h3 {
+    margin: 0 0 10px;
+    font-family: var(--police-titre);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    max-width: 46ch;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+}
+
+.savoir-faire__fin-bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 30px;
+  border: 0;
+  border-radius: 999px;
+  background: #00334d;
+  color: #ffffff;
+  font-family: var(--police-titre);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--sf-micro) var(--sf-courbe), background-color var(--sf-micro) var(--sf-courbe);
+
+  span {
+    transition: transform var(--sf-micro) var(--sf-courbe);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #4a90e2;
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background: #00476b;
+      transform: translateY(-1px);
+
+      span {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    span {
+      transition: none;
     }
   }
 }
