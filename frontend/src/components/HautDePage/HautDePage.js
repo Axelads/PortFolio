@@ -4,7 +4,8 @@ import { gsap } from 'gsap';
 import { LoadingContext } from '../../contexts/LoadingContext';
 import NoteGoogle from '../portrait/NoteGoogle';
 import Contact from '../contact/Contact';
-import portrait from '../../images/portrait.jpg';
+// Portrait détouré sur fond bleu nuit qui tourne au menthe (même photo que le profil Malt, choisie le 20/11/2026).
+import portrait from '../../images/portrait-axel.webp';
 // WebP animé (7 images, ~0,3 Mo), chargé sur ordinateur seulement.
 import keepSmiling from '../../images/keep_smiling.webp';
 
@@ -82,8 +83,8 @@ const HautDePage = () => {
             className="haut-de-page__portrait-mobile"
             src={portrait}
             alt=""
-            width="200"
-            height="200"
+            width="480"
+            height="480"
             decoding="async"
           />
           <NoteGoogle />
@@ -109,8 +110,8 @@ const HautDePage = () => {
           className="haut-de-page__portrait"
           src={portrait}
           alt="Portrait d'Axel Grégoire"
-          width="200"
-          height="200"
+          width="480"
+          height="480"
           decoding="async"
         />
       </div>
