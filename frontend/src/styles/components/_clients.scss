@@ -36,7 +36,7 @@
   position: relative;
   padding: 64px 0 8px;
   color: var(--cl-ink);
-  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+  font-family: var(--police-texte);
 
   @media (max-width: 720px) {
     padding-top: 44px;
@@ -62,7 +62,7 @@
   }
 
   .clients__titre {
-    font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.02 'Archivo', 'Poppins', sans-serif;
+    font: 700 clamp(2rem, 4.6vw, 3.4rem)/1.02 var(--police-titre);
     letter-spacing: -0.035em;
     margin: 0;
     text-wrap: balance;

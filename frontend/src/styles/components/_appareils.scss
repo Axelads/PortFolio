@@ -1,3 +1,4 @@
+@use '../utils/mixins' as *;
 // Projets présentés dans leurs appareils (CarteAppareil.js) :
 // sites web sur un ordinateur portable, applications sur une tablette + un téléphone.
 //
@@ -48,6 +49,7 @@ $courbe-defilement: cubic-bezier(0.33, 0.1, 0.25, 1);
     position: relative;
     z-index: 2;
     background: var(--bg-card);
+    @include trame;
     border-radius: 20px;
     box-shadow: var(--shadow-medium);
     transition: box-shadow 0.4s ease;

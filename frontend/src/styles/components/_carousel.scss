@@ -1,3 +1,4 @@
+@use '../utils/mixins' as *;
 .carousel {
     position: relative;
     width: 100%;
@@ -16,6 +17,7 @@
       height: 250px;
       text-align: center; /* Centre le contenu horizontalement */
       background-color: var(--bg-card);
+      @include trame;
       border-radius: 10px;
       padding: 20px 20px 40px; /* Espace en bas pour compenser l'image qui dépasse */
       transition: 0.5s;

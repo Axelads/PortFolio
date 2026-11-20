@@ -1,0 +1,241 @@
+@use '../utils/mixins' as *;
+
+// Haut de l'accueil (components/HautDePage/HautDePage.js), refonte du 20/11/2026.
+// Palette du site gardée ; titres en Bricolage Grotesque, texte en Geist ; trame de points dans les deux portes.
+.haut-de-page {
+  --hp-titre: var(--text-heading);
+  --hp-texte: var(--text-primary);
+  --hp-texte-2: var(--text-secondary);
+  --hp-recrute: #00334d;
+  --hp-recrute-bord: #00334d;
+  --hp-courbe: cubic-bezier(0.16, 1, 0.3, 1);
+
+  [data-theme="dark"] & {
+    --hp-recrute: #16213e;
+    --hp-recrute-bord: rgba(139, 199, 177, 0.4);
+  }
+
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px 48px;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 124px 20px 88px;
+  color: var(--hp-texte);
+  font-family: var(--police-texte);
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 104px 16px 64px;
+  }
+}
+
+// ── La promesse ──
+.haut-de-page__titre {
+  margin: 0;
+  color: var(--hp-titre);
+  font-family: var(--police-titre);
+  font-size: clamp(2.5rem, 4.7vw, 4.25rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+  font-size-adjust: from-font;
+  text-wrap: balance;
+
+  // Chaque mot remonte de son masque à l'entrée (HautDePage.js).
+  .mot {
+    display: inline-block;
+    overflow: hidden;
+    overflow: clip;
+    margin-bottom: -0.1em;
+    padding-bottom: 0.1em;
+    vertical-align: bottom;
+
+    > span {
+      display: inline-block;
+    }
+  }
+}
+
+.haut-de-page__chapo {
+  max-width: 33em;
+  margin: 24px 0 0;
+  color: var(--hp-texte-2);
+  font-size: clamp(1.05rem, 1.45vw, 1.3rem);
+  line-height: 1.55;
+}
+
+// ── Les deux portes : même poids, l'une menthe, l'autre bleu nuit, tramées ──
+.haut-de-page__portes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.porte {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 136px;
+  padding: 24px 26px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: transform 160ms var(--hp-courbe), box-shadow 160ms var(--hp-courbe);
+
+  &--projet {
+    background-color: #8BC7B1;
+    color: #00334d;
+    @include trame(menthe);
+  }
+
+  &--recrute {
+    border-color: var(--hp-recrute-bord);
+    background-color: var(--hp-recrute);
+    color: #ffffff;
+    @include trame(nuit);
+
+    .porte__texte {
+      color: rgba(255, 255, 255, 0.82);
+    }
+  }
+
+  &__titre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--police-titre);
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  &__fleche {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    transition: transform 160ms var(--hp-courbe);
+  }
+
+  &__texte {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #4a90e2;
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      box-shadow: 0 18px 34px -18px rgba(0, 25, 45, 0.5);
+      transform: translateY(-2px);
+
+      .porte__fleche {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// ── Preuves : la note Google (sa propre carte) et les projets ──
+.haut-de-page__preuves {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 28px;
+
+  .note-google {
+    margin-top: 0;
+  }
+}
+
+.haut-de-page__projets {
+  color: var(--hp-texte-2);
+  font-size: 1rem;
+  text-decoration: underline;
+  text-decoration-color: #8BC7B1;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+
+  b {
+    color: var(--hp-titre);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #4a90e2;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+// Portrait du téléphone, à côté de la note Google (le pop art n'y est pas chargé).
+.haut-de-page__portrait-mobile {
+  display: none;
+
+  @media (max-width: 900px) {
+    display: block;
+    flex: none;
+    width: 84px;
+    height: 84px;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 8px 20px -10px rgba(0, 51, 77, 0.45);
+  }
+}
+
+// ── Le visuel : pop art entier (jamais recadré), portrait posé dans son coin blanc vide ──
+.haut-de-page__visuel {
+  position: relative;
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+}
+
+.haut-de-page__popart {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1100 / 704;
+  border-radius: 28px;
+  background: #ffffff;
+}
+
+.haut-de-page__portrait {
+  position: absolute;
+  bottom: 6%;
+  left: 5%;
+  width: clamp(96px, 11vw, 140px);
+  height: auto;
+  aspect-ratio: 1;
+  border: 6px solid #ffffff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 10px 24px -12px rgba(0, 51, 77, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .porte,
+  .porte__fleche {
+    transition: none;
+  }
+}

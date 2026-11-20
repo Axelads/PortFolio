@@ -42,16 +42,29 @@
     .header-title {
       display: inline-block;
       margin: 0.83em 0; // marges de l'ancien <h2>, rendu inchangé
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-family: var(--police-titre);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.005em;
       color: var(--text-secondary);
       overflow: hidden;
       white-space: nowrap;
 
-      // Sous 1 180 px, logo + signature + menu ne tiennent plus sur une ligne : seul le logo reste
-      // (le portrait de l'accueil dit déjà « Développeur web & mobile »).
-      @media (max-width: 1180px) {
+      // Sous 900 px, le menu prend toute la place : seul le logo reste.
+      @media (max-width: 900px) {
         display: none;
+      }
+
+      // Le nom en couleur de titre, le métier en gris ; le métier se masque sous 1 320 px.
+      .header-title__lettre--nom {
+        color: var(--text-heading);
+      }
+
+      // Double classe : la règle .header-title__lettre (display: inline-block), plus bas, ne doit pas la reprendre.
+      @media (max-width: 1320px) {
+        .header-title__lettre.header-title__lettre--metier {
+          display: none;
+        }
       }
     
       // Texte entier pour les lecteurs d'écran, invisible à l'écran.
@@ -69,7 +82,7 @@
       .header-title__lettre {
         display: inline-block;
         animation: wave-letter 1.5s ease-in-out infinite;
-        animation-delay: calc(var(--i) * 1.5s / 24);
+        animation-delay: calc(var(--i) * 1.5s / var(--n, 24));
       }
 
       @media (prefers-reduced-motion: reduce) {

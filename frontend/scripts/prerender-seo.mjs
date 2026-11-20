@@ -30,10 +30,10 @@ const CATEGORIES = { ia: 'IA', javascript: 'JavaScript', react: 'React', css: 'C
 const PAGES = {
   '/': {
     fichier: 'accueil',
-    title: 'Axel Grégoire, développeur web full stack React et Node.js',
-    description: "Sites web, applications mobiles et outils sur mesure en React, Node.js et PocketBase. Parcourez les projets d'Axel et contactez-le.",
-    h1: 'Axel Grégoire',
-    chapo: 'Développeur web full stack, freelance à Rougiers (Var) et à distance : sites web, applications mobiles et outils sur mesure.',
+    title: 'Axel Grégoire, développeur web & mobile : sites et apps sur-mesure',
+    description: "Sites et applications sur-mesure, du design au déploiement : Next.js, React, React Native et Node.js. Freelance à Rougiers (Var), ouvert à un CDI.",
+    h1: 'Je conçois des sites et des apps sur-mesure, du design au déploiement.',
+    chapo: "Je suis Axel Grégoire, développeur web & mobile à Rougiers (Var), en freelance et ouvert à un CDI. Quinze ans de commerce avant le code : je pars de votre métier, jamais d'un modèle.",
   },
   '/About': {
     title: 'À propos - Axel Grégoire | Mon parcours',

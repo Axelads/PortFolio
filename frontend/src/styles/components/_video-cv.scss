@@ -18,7 +18,7 @@
   max-width: 1200px;
   margin: 0 auto;
   color: var(--vc-ink);
-  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+  font-family: var(--police-texte);
   text-align: left; // le conteneur .informations centre tout
 
   // sur mobile, la carte et le fond vert ont déjà leurs marges : la vidéo prend la largeur
@@ -40,26 +40,8 @@
     }
   }
 
-  .video-cv-eyebrow {
-    font: 12px/1 'Fragment Mono', ui-monospace, monospace;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--vc-brand);
-    margin: 0 0 18px;
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 22px;
-      height: 1px;
-      background: var(--vc-brand);
-      vertical-align: middle;
-      margin-right: 12px;
-    }
-  }
-
   .video-cv-title {
-    font: 700 clamp(2.1rem, 5vw, 3.6rem)/1.02 'Archivo', 'Poppins', sans-serif;
+    font: 700 clamp(2.1rem, 5vw, 3.6rem)/1.02 var(--police-titre);
     letter-spacing: -0.035em;
     margin: 0;
     text-wrap: balance;
@@ -185,7 +167,7 @@
   }
 
   .video-cv-meta__titre {
-    font: 600 clamp(0.95rem, 1.6vw, 1.2rem)/1.1 'Poppins', 'Poppins Fallback', sans-serif;
+    font: 600 clamp(0.95rem, 1.6vw, 1.2rem)/1.1 var(--police-texte);
     color: #f3eee3;
   }
 
@@ -232,7 +214,7 @@
     border-radius: 12px;
     background: transparent;
     color: var(--vc-brand);
-    font: 700 18px/1.2 'Poppins', 'Poppins Fallback', sans-serif;
+    font: 700 18px/1.2 var(--police-texte);
     cursor: pointer;
     transition: background-color 0.25s ease, color 0.25s ease, transform 0.3s ease;
 

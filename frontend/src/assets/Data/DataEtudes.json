@@ -1,0 +1,21 @@
+{
+  "_note": "Études de cas affichées en tête des pages projet (/Projet/:slug), clé = slug PocketBase. Choix d'Axel du 20/11/2026 : pas de chiffres dans les résultats.",
+  "site-honneure": {
+    "besoin": "Le club partait de zéro : un blason, deux fondateurs et une page Facebook. Il fallait raconter le club, recruter des adhérents et laisser le bureau gérer le site sans développeur.",
+    "choix": "Une direction noir, chrome et rouge, un moteur V-twin en 3D pour l'accueil, et un tableau d'administration pensé comme un WordPress.",
+    "livraison": "Site complet, espace membres (adhésion en trois étapes, carte d'adhérent, forum), éditeur de pages par blocs, agenda, partenaires.",
+    "resultat": "En ligne depuis le 2 octobre 2026 sur honneure.fr."
+  },
+  "site-ecommerce-epices": {
+    "besoin": "Mes parents vendent leurs épices sur les marchés. Leurs clients voulaient pouvoir commander entre deux marchés, où qu'ils soient.",
+    "choix": "Une boutique conçue pour eux plutôt qu'un modèle : paiement Stancer et PayPal, connexion avec Google, design aux couleurs des marchés.",
+    "livraison": "Catalogue, panier, paiement sécurisé, comptes clients et suivi des commandes, sur ordinateur et téléphone.",
+    "resultat": "En ligne sur saveurs-du-marche.fr."
+  },
+  "application-lunello": {
+    "besoin": "Les matins et les soirs avec de jeunes enfants : les mêmes consignes répétées, et des applis pour enfants pleines de publicités et d'abonnements.",
+    "choix": "Achat unique, sans pub ni traqueur. Grosses tuiles, quatre personnages, tout lu à voix haute : un enfant de 4 ans s'en sert seul.",
+    "livraison": "Routines, 45 histoires du soir, boîte à jeux, album de souvenirs, espace parent protégé, fonctionnement hors ligne.",
+    "resultat": "Publiée sur l'App Store, mise à jour sans repasser par la validation du store."
+  }
+}

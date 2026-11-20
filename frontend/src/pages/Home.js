@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Seo from '../components/Seo';
-import Portrait from '../components/portrait/Portrait';
-import Contact from '../components/contact/Contact';
+import HautDePage from '../components/HautDePage/HautDePage';
 import Skills from '../components/Skills/Skills';
 import Projects from '../components/Projects/Projects';
 import VideoCv from '../components/video/VideoCv';
@@ -24,19 +23,15 @@ const VIDEO_LD = {
 };
 
 const Home = () => {
-  const [isContactOpen, setIsContactOpen] = useState(false);
-  const openContactModal = () => setIsContactOpen(true);
-  const closeContactModal = () => setIsContactOpen(false);
-
   return (
     <div>
       <Seo
-        title="Axel Grégoire, développeur web full stack React et Node.js"
-        description="Sites web, applications mobiles et outils sur mesure en React, Node.js et PocketBase. Parcourez les projets d'Axel et contactez-le."
+        title="Axel Grégoire, développeur web & mobile : sites et apps sur-mesure"
+        description="Sites et applications sur-mesure, du design au déploiement : Next.js, React, React Native et Node.js. Freelance à Rougiers (Var), ouvert à un CDI."
         path="/"
         jsonLd={VIDEO_LD}
       />
-      <Portrait openContactModal={openContactModal} />
+      <HautDePage />
       <ClientsConfiance />
       <SavoirFaire />
       <div className="informations">
@@ -53,7 +48,6 @@ const Home = () => {
           <DerniersArticles />
         </div>
       </div>
-      <Contact isOpen={isContactOpen} onClose={closeContactModal} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 {
-  "_note": "Accueil : les six cartes « hero » (cœur de stack) puis les domaines en étiquettes. javascript reste pour les logos du portrait (PrioritySkills), hors cartes : tout est en JavaScript (lede).",
+  "_note": "Accueil : les six cartes « hero » (cœur de stack) puis les domaines en étiquettes. Tout est en JavaScript (dit dans le chapô de la section).",
   "skills": [
     {
       "id": "nextjs",
@@ -55,11 +55,6 @@
       "icon": "SiAnthropic",
       "hero": true,
       "why": "Agents Claude planifiés : blog auto-alimenté, veille, notifications, audit Vigie."
-    },
-    {
-      "id": "javascript",
-      "name": "JavaScript",
-      "icon": "SiJavascript"
     }
   ],
   "domaines": [

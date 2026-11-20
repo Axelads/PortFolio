@@ -60,6 +60,7 @@ les projets qui le démontre.
   actions), la typographie, l'espace et la hiérarchie, sans changer les couleurs.
 - Voix : « je », phrases courtes, des faits plutôt que des qualificatifs, chiffrés dès que possible.
 - À ne jamais produire : le look « template IA générique » que tout le monde reconnaît.
+- Pas de chiffres dans les résultats des études de cas (Axel, 20/11/2026).
 - Les clients se montrent par le bandeau de logos, jamais résumés en accroche (« 8 clients, d'une association à
   Intermarché » refusé par Axel le 20/11/2026).
 

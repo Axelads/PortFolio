@@ -1,0 +1,66 @@
+@use '../utils/mixins' as *;
+
+// Étude de cas en tête d'une page projet (components/Projects/EtudeDeCas.js), sur le fond menthe de la page.
+// Trois cartes claires tramées, puis le résultat en carte bleu nuit tramée.
+.etude-de-cas {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1100px;
+  margin: 8px auto 40px;
+  font-family: var(--police-texte);
+  text-align: left;
+
+  h2 {
+    margin: 0 0 18px;
+    color: #00334d;
+    font-family: var(--police-titre);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  &__grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+
+    @media (max-width: 720px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  // Classe complète sous .etude-de-cas : la règle « .project-details p » (1,5 rem) ne doit pas l'emporter.
+  .etude-de-cas__partie {
+    box-sizing: border-box;
+    padding: 22px 24px;
+    border-radius: 18px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: 0 12px 26px -18px rgba(0, 25, 45, 0.45);
+    @include trame;
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--text-heading);
+      font-family: var(--police-titre);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    &--resultat {
+      background-color: #00334d;
+      color: #ffffff;
+      @include trame(nuit);
+
+      h3 {
+        color: #8BC7B1;
+      }
+    }
+  }
+}

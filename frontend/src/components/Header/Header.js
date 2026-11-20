@@ -5,8 +5,10 @@ import Contact from '../contact/Contact';
 import AxelLogo from './AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
 
-// Signature animée de l'en-tête (ordinateur).
-const SIGNATURE = 'Développeur web & mobile';
+// Signature animée de l'en-tête (ordinateur), en vague lettre par lettre (gardée à la demande d'Axel, 20/11/2026).
+// Le nom est en couleur de titre ; le métier se masque quand la place manque (_header.scss).
+const NOM = 'Axel Grégoire';
+const SIGNATURE = `${NOM} — Développeur web & mobile`;
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -86,10 +88,15 @@ const Header = () => {
           />
          {/* Signature animée de l'en-tête, pas un titre : le H1 de la page est dans le contenu */}
          {/* Lettres masquées aux lecteurs d'écran (lues une à une sinon), texte entier lu à leur place */}
-         <p className="header-title">
+         <p className="header-title" style={{ '--n': SIGNATURE.length }}>
             <span className="header-title__texte">{SIGNATURE}</span>
             {[...SIGNATURE].map((lettre, i) => (
-              <span key={i} className="header-title__lettre" style={{ '--i': i }} aria-hidden="true">
+              <span
+                key={i}
+                className={`header-title__lettre ${i < NOM.length ? 'header-title__lettre--nom' : 'header-title__lettre--metier'}`}
+                style={{ '--i': i }}
+                aria-hidden="true"
+              >
                 {lettre === ' ' ? ' ' : lettre}
               </span>
             ))}

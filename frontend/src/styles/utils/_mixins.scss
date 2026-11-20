@@ -48,3 +48,23 @@
   }
 }
   
+// Trame de points « pop art » (le fond de l'illustration Keep smiling) : des points qui grossissent vers le coin bas
+// droit d'une carte, sous son contenu. Dot fixe (520 px de large) quelle que soit la carte. Choix d'Axel, 20/11/2026.
+// $sur : clair (carte claire, menthe en thème sombre), menthe (carte menthe), nuit (carte bleu nuit).
+@mixin trame($sur: clair) {
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: 520px auto;
+
+  @if $sur == menthe {
+    background-image: url('../images/trame/trame-sur-menthe.svg');
+  } @else if $sur == nuit {
+    background-image: url('../images/trame/trame-sur-nuit.svg');
+  } @else {
+    background-image: url('../images/trame/trame-nuit-douce.svg');
+
+    [data-theme="dark"] & {
+      background-image: url('../images/trame/trame-menthe-douce.svg');
+    }
+  }
+}

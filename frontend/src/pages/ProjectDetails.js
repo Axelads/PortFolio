@@ -5,6 +5,7 @@ import DOMPurify from "dompurify";
 import SkillProjects from "../components/Skills/skillProjects";
 import GalerieProjet from "../components/Projects/GalerieProjet";
 import VitrineProjet from "../components/Projects/VitrineProjet";
+import EtudeDeCas from "../components/Projects/EtudeDeCas";
 import VITRINES from "../assets/Data/DataVitrines.json";
 import { getProjectBySlug } from "../services/pocketbase";
 
@@ -117,6 +118,9 @@ const ProjectDetails = () => {
         <p className="project-status">
           Statut: {project.completed ? "Terminé" : "En cours"}
         </p>
+
+        {/* Étude de cas (besoin, choix, livraison, résultat) pour les projets qui en ont une */}
+        <EtudeDeCas slug={project.slug} />
 
         {/* Résumé du projet */}
         {project.resume && (

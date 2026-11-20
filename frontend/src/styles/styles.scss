@@ -7,14 +7,15 @@
 @use './components/carousel';
 @use './components/contact';
 @use './components/loading';
-@use './components/portrait';
 @use './components/note-google';
 @use './components/projects';
 @use './components/appareils';
 @use './components/galerie-projet';
 @use './components/vitrine-projet';
+@use './components/etude-de-cas';
 @use './components/skills';
 @use './components/derniers-articles';
+@use './components/haut-de-page';
 @use './components/clients';
 @use './components/savoir-faire';
 @use './components/ssr';
@@ -38,6 +39,10 @@
 
 // CSS Variables for theming
 :root {
+  // Polices de la refonte (20/11/2026) : titres en Bricolage Grotesque, texte en Geist.
+  --police-titre: 'Bricolage Grotesque', system-ui, sans-serif;
+  --police-texte: 'Geist', system-ui, sans-serif;
+
   // Light mode (default)
   --bg-primary: #ffffff;
   --bg-secondary: #f9f9f9;
@@ -95,7 +100,9 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+  font-family: var(--police-texte);
+  // Le texte de repli prend la hauteur d'x de Geist pendant le chargement : pas de saut au changement de police.
+  font-size-adjust: from-font;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;

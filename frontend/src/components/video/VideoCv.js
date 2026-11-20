@@ -30,7 +30,7 @@ const VideoCv = () => {
   const sourceRef = useRef(SOURCES.hd);
   const [enLecture, setEnLecture] = useState(false);
 
-  // Entrée au défilement : sur-titre, titre mot à mot, chapô, puis le cadre se découvre
+  // Entrée au défilement : titre mot à mot, chapô, puis le cadre se découvre
   useEffect(() => {
     if (prefersReducedMotion()) return undefined;
     const ctx = gsap.context(() => {
@@ -38,7 +38,6 @@ const VideoCv = () => {
         defaults: { ease: 'power3.out' },
         scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', toggleActions: 'play none none none' },
       })
-        .fromTo('.video-cv-eyebrow', { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.5 })
         .fromTo('.video-cv-title .word > span', { yPercent: 115 }, { yPercent: 0, duration: 0.8, stagger: 0.07, ease: 'expo.out' }, '-=0.3')
         .fromTo('.video-cv-lede', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
         .fromTo(
@@ -99,7 +98,6 @@ const VideoCv = () => {
     <section className="video-cv" ref={sectionRef} aria-labelledby="video-cv-title">
       <header className="video-cv-header">
         <div>
-          <p className="video-cv-eyebrow">Présentation vidéo</p>
           <h2 className="video-cv-title" id="video-cv-title">
             {TITLE_WORDS.map((word) => (
               <span className="word" key={word}><span>{word}</span></span>
