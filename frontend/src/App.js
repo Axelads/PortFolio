@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import AmbientBackground from './components/Ambient/AmbientBackground';
 import MesureAudience from './components/MesureAudience/MesureAudience';
+import MaltFlottant from './components/MaltFlottant/MaltFlottant';
 import { LoadingProvider, LoadingContext } from './contexts/LoadingContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { estRouteTableauDeBord } from './pages/TableauDeBord/constantes';
@@ -46,6 +47,7 @@ const App = ({ underSplash }) => {
         <AppRouter />
       </main>
       <Footer />
+      <MaltFlottant />
       <Suspense fallback={null}>
         <Chatbot />
       </Suspense>

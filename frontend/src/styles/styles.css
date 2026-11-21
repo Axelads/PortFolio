@@ -493,6 +493,8 @@
   overflow: visible;
   transition: background-color 0.3s ease, color 0.3s ease;
   /* Logo animé à bulles tournantes — affiché uniquement sur mobile */
+  /* « Retrouvez-moi sur » : Malt, LinkedIn, GitHub. Pilules au contour accent (même famille que le bouton
+     Google plus bas) ; au survol, chacune prend la couleur de sa marque. */
   /* Bouton Google « Sources préférées » — bouton maison, thèmes dark/light via var(--*) */
 }
 @media (max-width: 750px) {
@@ -585,33 +587,94 @@
   color: var(--text-primary);
   margin: 0;
 }
-.footer .footer-icons {
-  margin-top: 10px;
+.footer .footer-retrouver {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 0 16px;
 }
 @media (max-width: 585px) {
-  .footer .footer-icons {
-    margin-top: 25px;
-    margin-bottom: 15px;
+  .footer .footer-retrouver {
+    margin-top: 24px;
+    margin-bottom: 6px;
   }
 }
-.footer .footer-icons a {
+.footer .footer-retrouver .footer-retrouver__titre {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.footer .footer-retrouver .footer-retrouver__liens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.footer .footer-retrouver .footer-retrouver__lien {
+  --marque: var(--accent-primary);
+  --sur-marque: #1a1a2e;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-  margin: 0 2px;
-}
-.footer .footer-icons .footer-icon {
-  font-size: 1.5rem;
+  gap: 8px;
+  min-block-size: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-primary);
   color: var(--text-primary);
-  transition: color 0.3s;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
-.footer .footer-icons .footer-icon:hover {
-  color: #0077b5;
+.footer .footer-retrouver .footer-retrouver__lien svg {
+  flex-shrink: 0;
+  font-size: 1.05rem;
+  color: var(--accent-primary);
+  transition: color 0.25s ease;
 }
-.footer .footer-icons .footer-icon:first-child:hover {
-  color: var(--text-primary);
+.footer .footer-retrouver .footer-retrouver__lien--malt {
+  --marque: #fc5757;
+}
+.footer .footer-retrouver .footer-retrouver__lien--linkedin {
+  --marque: #0a66c2;
+  --sur-marque: #fff;
+}
+.footer .footer-retrouver .footer-retrouver__lien--github {
+  --marque: var(--text-primary);
+  --sur-marque: var(--footer-bg);
+}
+.footer .footer-retrouver .footer-retrouver__lien:focus-visible {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 3px;
+}
+.footer .footer-retrouver .footer-retrouver__lien:focus-visible, .footer .footer-retrouver .footer-retrouver__lien:active {
+  background-color: var(--marque);
+  border-color: var(--marque);
+  color: var(--sur-marque);
+}
+.footer .footer-retrouver .footer-retrouver__lien:focus-visible svg, .footer .footer-retrouver .footer-retrouver__lien:active svg {
+  color: var(--sur-marque);
+}
+@media (hover: hover) and (pointer: fine) {
+  .footer .footer-retrouver .footer-retrouver__lien:hover {
+    background-color: var(--marque);
+    border-color: var(--marque);
+    color: var(--sur-marque);
+    transform: translateY(-2px);
+  }
+  .footer .footer-retrouver .footer-retrouver__lien:hover svg {
+    color: var(--sur-marque);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer .footer-retrouver .footer-retrouver__lien {
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .footer .footer-retrouver .footer-retrouver__lien:hover {
+    transform: none;
+  }
 }
 .footer .footer-preferred {
   display: flex;
@@ -1020,6 +1083,10 @@
 .contact-info__social a:last-child:hover {
   background: #333;
   color: #fff;
+}
+.contact-info__social a.contact-info__malt:hover {
+  background: #fc5757;
+  color: #1a1a2e;
 }
 
 .contact-divider {
@@ -7007,6 +7074,75 @@
     padding: 0;
     justify-content: center;
     border-radius: 50%;
+  }
+}
+
+.malt-flottant {
+  position: fixed;
+  bottom: max(28px, env(safe-area-inset-bottom, 0px));
+  left: max(28px, env(safe-area-inset-left, 0px));
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-block-size: 56px;
+  padding: 0 20px 0 18px;
+  border-radius: 28px;
+  background: #fc5757;
+  color: #1a1a2e;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(252, 87, 87, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.malt-flottant__icone {
+  flex-shrink: 0;
+  font-size: 1.35rem;
+}
+.malt-flottant:focus-visible {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 3px;
+}
+.malt-flottant:active {
+  transform: translateY(0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .malt-flottant:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(252, 87, 87, 0.45);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .malt-flottant {
+    transition: box-shadow 0.25s ease;
+  }
+  .malt-flottant:hover {
+    transform: none;
+  }
+}
+@media (max-width: 480px) {
+  .malt-flottant {
+    bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    left: max(12px, env(safe-area-inset-left, 0px));
+    inline-size: 56px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .malt-flottant__icone {
+    font-size: 1.6rem;
+  }
+  .malt-flottant__texte {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 

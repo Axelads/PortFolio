@@ -182,6 +182,12 @@
         background: #333;
         color: #fff;
       }
+
+      // Corail Malt : texte foncé, le blanc n'y atteint pas le contraste voulu.
+      &.contact-info__malt:hover {
+        background: #fc5757;
+        color: #1a1a2e;
+      }
     }
   }
 }

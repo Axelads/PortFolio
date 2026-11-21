@@ -100,35 +100,98 @@
     margin: 0;
   }
 
-  .footer-icons {
-    margin-top: 10px;
+  /* « Retrouvez-moi sur » : Malt, LinkedIn, GitHub. Pilules au contour accent (même famille que le bouton
+     Google plus bas) ; au survol, chacune prend la couleur de sa marque. */
+  .footer-retrouver {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 0 16px;
 
     @media (max-width: 585px) {
-      margin-top: 25px;
-      margin-bottom: 15px;
+      margin-top: 24px;
+      margin-bottom: 6px;
     }
 
-    // Zone tactile de 44 px autour de chaque icône de 24 px (cibles trop petites au doigt)
-    a {
+    .footer-retrouver__titre {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-retrouver__liens {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .footer-retrouver__lien {
+      // Couleurs de marque, surchargées par lien ; texte foncé sur le corail Malt (le blanc n'y fait que 3:1).
+      --marque: var(--accent-primary);
+      --sur-marque: #1a1a2e;
+
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      min-height: 44px;
-      margin: 0 2px;
-    }
-
-    .footer-icon {
-      font-size: 1.5rem;
+      gap: 8px;
+      min-block-size: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-primary);
       color: var(--text-primary);
-      transition: color 0.3s;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 
-      &:hover {
-        color: #0077b5;
+      svg {
+        flex-shrink: 0;
+        font-size: 1.05rem;
+        color: var(--accent-primary);
+        transition: color 0.25s ease;
       }
 
-      &:first-child:hover {
-        color: var(--text-primary);
+      &--malt { --marque: #fc5757; }
+      &--linkedin { --marque: #0a66c2; --sur-marque: #fff; }
+      &--github { --marque: var(--text-primary); --sur-marque: var(--footer-bg); }
+
+      &:focus-visible {
+        outline: 2px solid var(--accent-secondary);
+        outline-offset: 3px;
+      }
+
+      &:focus-visible,
+      &:active {
+        background-color: var(--marque);
+        border-color: var(--marque);
+        color: var(--sur-marque);
+
+        svg {
+          color: var(--sur-marque);
+        }
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background-color: var(--marque);
+          border-color: var(--marque);
+          color: var(--sur-marque);
+          transform: translateY(-2px);
+
+          svg {
+            color: var(--sur-marque);
+          }
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+
+        &:hover {
+          transform: none;
+        }
       }
     }
   }

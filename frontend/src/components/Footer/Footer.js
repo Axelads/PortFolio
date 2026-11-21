@@ -1,10 +1,17 @@
 import React from 'react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import MaltIcone from './MaltIcone';
 import { useLocation } from 'react-router-dom';
 import CarouselComments from './CarouselComments';
 import AxelLogo from '../Header/AxelLogo';
 import { useTheme } from '../../contexts/ThemeContext';
 import PreferredSourceButton from './PreferredSourceButton';
+
+const PROFILS = [
+  { cle: 'malt', nom: 'Malt', url: 'https://www.malt.fr/profile/axelgregoire', Icone: MaltIcone },
+  { cle: 'linkedin', nom: 'LinkedIn', url: 'https://www.linkedin.com/in/axel-gregoire/', Icone: FaLinkedin },
+  { cle: 'github', nom: 'GitHub', url: 'https://github.com/Axelads', Icone: FaGithub },
+];
 
 const WaveSVG = ({ isDark }) => (
   <svg
@@ -47,15 +54,23 @@ const Footer = () => {
           />
         </div>
         <p>Réalisé par Axel Grégoire</p>
-        <div className="footer-icons">
-          <a href="https://github.com/Axelads" target="_blank" rel="noopener noreferrer">
-            <FaGithub className="footer-icon" />
-            <span className="sr-only">Visiter mon profil GitHub</span>
-          </a>
-          <a href="https://www.linkedin.com/in/axel-gregoire" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin className="footer-icon" />
-            <span className="sr-only">Visiter mon profil LinkedIn</span>
-          </a>
+        {/* Profils publics (21/11/2026) : Malt en premier pour les clients, LinkedIn, puis GitHub pour les recruteurs. */}
+        <div className="footer-retrouver">
+          <p className="footer-retrouver__titre">Retrouvez-moi sur</p>
+          <div className="footer-retrouver__liens">
+            {PROFILS.map(({ nom, url, Icone, cle }) => (
+              <a
+                key={cle}
+                className={`footer-retrouver__lien footer-retrouver__lien--${cle}`}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icone aria-hidden="true" focusable="false" />
+                <span>{nom}</span>
+              </a>
+            ))}
+          </div>
         </div>
         <PreferredSourceButton />
       </div>

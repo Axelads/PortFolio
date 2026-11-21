@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { URL_API_TABLEAU_DE_BORD } from "../../pages/TableauDeBord/constantes";
 import { FaTimes, FaUser, FaEnvelope, FaPaperPlane, FaCheck, FaLinkedin, FaGithub, FaBriefcase } from "react-icons/fa";
+import MaltIcone from "../Footer/MaltIcone";
 
 // Types proposés dans la version « demande de devis » (porte « J'ai un projet » du haut de l'accueil).
 const TYPES_PROJET = ["Site vitrine", "Boutique en ligne", "Application mobile", "Outil sur mesure", "Autre"];
@@ -141,6 +142,9 @@ const Contact = ({ isOpen, onClose, devis = false }) => {
               <div className="contact-info__social">
                 <a href="https://www.linkedin.com/in/axel-gregoire/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <FaLinkedin />
+                </a>
+                <a href="https://www.malt.fr/profile/axelgregoire" target="_blank" rel="noopener noreferrer" aria-label="Malt" className="contact-info__malt">
+                  <MaltIcone />
                 </a>
                 <a href="https://github.com/Axelads" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <FaGithub />
