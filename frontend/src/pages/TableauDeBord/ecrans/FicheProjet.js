@@ -578,7 +578,7 @@ const FicheProjet = ({ projet, couts, disponibilite, domaines, activite, builds,
             <Panneau titre="Trafic" i={1}>
               {/* Mesure maison détaillée (collection visites, dans le PocketBase du projet ou dans celui qui l'héberge) :
                   fréquentation complète ; sinon le trafic résumé du module. */}
-              {(mesureHebergee || (moduleLu && donneesPb.trafic?.detaille)) && <Frequentation slug={projet.slug} appeler={appeler} onSessionExpiree={onSessionExpiree} />}
+              {(mesureHebergee || (moduleLu && donneesPb.trafic?.detaille)) && <Frequentation slug={projet.slug} appeler={appeler} onSessionExpiree={onSessionExpiree} rendezVous={projet.identifiants?.mesure?.rendezVous} />}
               {moduleLu && donneesPb.trafic && !donneesPb.trafic.detaille && <TraficSite trafic={donneesPb.trafic} verifieLe={pb.verifieLe} />}
               {moduleLu && !donneesPb.trafic && <p className="tdb-vide">Ce PocketBase ne mesure pas le trafic du site.</p>}
               {donneesPb?.erreur && <p className="tdb-vide tdb-vide--erreur">{donneesPb.erreur}</p>}

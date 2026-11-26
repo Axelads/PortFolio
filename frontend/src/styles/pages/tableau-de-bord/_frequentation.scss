@@ -348,7 +348,8 @@ html[data-tdb-theme='clair'] .tdb {
     }
   }
 
-  // ── Côté serveur
+  // ── Prise de rendez-vous (site de praticien) et côté serveur : deux sections à part, même découpe
+  &__rdv,
   &__serveur {
     display: flex;
     flex-direction: column;

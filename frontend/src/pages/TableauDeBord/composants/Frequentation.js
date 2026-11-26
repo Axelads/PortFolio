@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import Barres from './Barres';
 import { Badge, Bouton, Compteur, Onglets, Pastille, SourceNonBranchee } from './elements';
 import InterrupteurGlissant from './InterrupteurGlissant';
+import RendezVous from './RendezVous';
 import { formaterDateHeure, formaterHeure, formaterIlYa, formaterJourMois, formaterNombre, LIBELLES_APPAREIL, LIBELLES_CANAL, nomPays } from '../outils';
 
 // Trois origines possibles, même affichage : mesures reçues par l'API (portfolio, sites hébergés : compteurs de
@@ -21,11 +23,10 @@ const PERIODES = [
 const CLE_EXCLUSION = 'mesure-exclue';
 const FRAICHEUR_MS = 2 * 60_000;
 const DIRECT_MS = 60_000;
-const LIBELLES_ACTION = { sortant: 'Lien sortant', email: 'E-mail', telephone: 'Téléphone', fichier: 'Téléchargement', formulaire: 'Formulaire', autre: 'Autre' };
+const LIBELLES_ACTION = { sortant: 'Lien sortant', email: 'E-mail', telephone: 'Téléphone', fichier: 'Téléchargement', formulaire: 'Formulaire', 'rendez-vous': 'Prendre rendez-vous', reservation: 'Rendez-vous confirmé', 'agenda-externe': 'Agenda externe', autre: 'Autre' };
 const LIBELLES_ORIGINE = { direct: 'Accès direct ou favori', moteurs: 'Moteurs de recherche', sites: 'Autres sites', forums: 'Forums et actualités', interne: 'Pages internes', inconnue: 'Origine inconnue' };
 const JOURS_COURTS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
-const pourcent = (part, total) => `${total ? Math.round((part / total) * 100) : 0} %`;
 const formaterDuree = (s) => {
   const n = Math.round(s || 0);
   if (!n) return '—';
@@ -114,35 +115,6 @@ const Evolution = ({ evo, inverse = false }) => {
   if (!evo) return null;
   const ton = evo.sens === 'stable' ? 'neutre' : (evo.sens === 'hausse') !== inverse ? 'en-ligne' : 'alerte';
   return <Badge ton={ton}>{evo.texte}</Badge>;
-};
-
-/** Répartition en barres (mêmes classes que les modules : cascade dessinée une fois). */
-const Barres = ({ titre, elements, total, code = false, vide = 'Rien sur la période.' }) => {
-  const max = Math.max(1, ...elements.map((e) => e.valeur));
-  return (
-    <section className="tdb-repartition">
-      <h3 className="tdb-repartition__titre">{titre}</h3>
-      {elements.length ? (
-        <ol className="tdb-repartition__liste">
-          {elements.map((e, i) => (
-            <li key={e.cle} className="tdb-repartition__ligne" style={{ '--part': e.valeur / max, '--i': i }}>
-              <span className={`tdb-repartition__libelle${code ? ' tdb-repartition__libelle--code' : ''}`} title={e.titre || e.libelle}>
-                {e.libelle}
-              </span>
-              <span className="tdb-repartition__valeur">
-                {formaterNombre(e.valeur)}
-                {total ? <span className="tdb-freq__part"> · {pourcent(e.valeur, total)}</span> : null}
-              </span>
-              {e.detail && <span className="tdb-freq__detail">{e.detail}</span>}
-              <span className="tdb-repartition__barre" aria-hidden="true" />
-            </li>
-          ))}
-        </ol>
-      ) : (
-        <p className="tdb-vide">{vide}</p>
-      )}
-    </section>
-  );
 };
 
 /** Au-delà de 45 jours, par semaine (du lundi) : 90 colonnes ne se lisent pas. */
@@ -392,7 +364,8 @@ const Serveur = ({ serveur }) => {
   );
 };
 
-export default function Frequentation({ slug, appeler, onSessionExpiree }) {
+/** `rendezVous` : { depuis } quand le site compte sa prise de rendez-vous (praticien), sinon absent. */
+export default function Frequentation({ slug, appeler, onSessionExpiree, rendezVous = null }) {
   const [periode, setPeriode] = useState('30');
   const [avecEquipe, setAvecEquipe] = useState(false);
   const [exclu, setExclu] = useState(lireExclusion);
@@ -476,6 +449,8 @@ export default function Frequentation({ slug, appeler, onSessionExpiree }) {
       </div>
 
       <GraphiqueJours parJour={m.parJour} />
+
+      {rendezVous && m.rendezVous && <RendezVous r={m.rendezVous} depuis={rendezVous.depuis} />}
 
       <div className="tdb-freq__grille">
         <Barres titre="D’où viennent les visites" total={t.visites} elements={m.sources.map((s) => ({ cle: s.type, libelle: s.libelle, valeur: s.nombre, detail: s.noms.slice(0, 3).map((n) => `${n.nom} ${formaterNombre(n.nombre)}`).join(', ') }))} />
